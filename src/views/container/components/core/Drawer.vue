@@ -45,8 +45,9 @@
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
-
+    <!--  -->
       <template v-for="(item, i) in computedItems">
+        <!-- grupo de item, ejemplo: users, pages, roles -->
         <base-item-group
           v-if="item.children"
           :key="`group-${i}`"
@@ -54,7 +55,7 @@
         >
           <!--  -->
         </base-item-group>
-
+        <!-- item solos, ejemplo blog -->
         <base-item
           v-else
           :key="`item-${i}`"
@@ -85,17 +86,18 @@
 
     data: () => ({
       items: [
-        {
+      // item solos  
+      {
           icon: 'mdi-view-dashboard',
-          title: 'dashboard',
-          to: '/dashboard',
+          title: 'Blog',
+          to: 'roles',
         },
+        // item con grupo, se le coloca children
         {
           group: '/pages',
           icon: 'mdi-image',
           title: 'pages',
           children: [
-
             {
               title: 'login',
               to: 'login',
