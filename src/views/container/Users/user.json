@@ -1,0 +1,71 @@
+{
+    "title":"Users",
+    "SubTitle":"",
+    "inputs":{
+        
+        "user_email": {
+            "name": "Email",
+            "type": "email",
+            "required": "true",
+            "foreninKey": "false",
+            "isTitle":"true"
+        },
+       
+        "user_lastname": {
+            "name": "Lastname",
+            "type": "text",
+            "required": "false",
+            "foreninKey": "false",
+            "isTitle":"false"
+        },
+        "user_fullname": {
+            "name": "Fullname",
+            "type": "text",
+            "required": "false",
+            "foreninKey": "false",
+            "isTitle":"true"
+        },
+        "user_phone": {
+            "name": "phone",
+            "type": "phone",
+            "required": "false",
+            "foreninKey": "false",
+            "isTitle":"true"
+        },
+
+        "id_role":{
+            "name": "Role",
+            "type": "number",
+            "maxLength": "999",
+            "required": "true",
+            "foreninKey": "true",
+            "isTitle":"false",
+            "getEndpoint":"/role"
+        },
+        "id_gropus":{
+            "name": "User Groups",
+            "type": "select",
+            "required": "true",
+            "foreninKey": "false",
+            "isTitle":"false",
+            "getEndpoint":"/role"
+        },
+        "user_address": {
+            "name": "Direccion",
+            "type": "select",
+            "required": "true",
+            "foreninKey": "false",
+            "isTitle":"false"
+        }
+    },
+    "options":{
+        "edit":"true",
+        "show":"true",
+        "create":"true",
+        "delete":"true"
+    },
+    "endPoint":{
+
+    }
+   
+}

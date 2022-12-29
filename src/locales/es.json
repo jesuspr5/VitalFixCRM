@@ -1,0 +1,102 @@
+{
+  "avatar": "Tania Andrew",
+  "buttons": "Botones",
+  "calendar": "Calendario",
+  "charts": "Graficas",
+  "components": "Componentes",
+  "ct": "CT",
+  "dashboard": "Dashboard",
+  "dtables": "Tablas de datos",
+  "eforms": "formularios extendidos",
+  "error": "Pagina de error",
+  "etables": "Tablas extendidas",
+  "example": "Ejemplo",
+  "forms": "Formularios",
+  "fullscreen": "Pantalla completa",
+  "google": "Google Maps",
+  "grid": "Systema de grillas",
+  "icons": "Iconos",
+  "lock": "Pagina de Bloqueo",
+  "login": "Pagina de login",
+  "maps": "Mapas",
+  "multi": "colapse de multiple nivel",
+  "notifications": "Notificaciones",
+  "pages": "Paginas",
+  "plan": "Ver plan",
+  "pricing": "Precios",
+  "my-profile": "Mi perfil",
+  "edit-profile": "Editar Perfil",
+  "register": "Pagina de registro",
+  "rforms": "Formularios Regulares",
+  "rtables": "Tablas Regulares",
+  "rtl": "RTL",
+  "search": "Buscar",
+  "settings": "Opciones",
+  "tables": "Tablas",
+  "tabs": "Pestañas",
+  "tim": "Creative Tim",
+  "timeline": "Linea de Tiempo",
+  "typography": "Tipografia",
+  "user": "Perfil de usuario",
+  "vforms": "Formularios de validación",
+  "widgets": "Widgets",
+  "wizard": "Wizard",
+  "alert": {
+    "confirm": "Confirma esta acción",
+    "errors": "Error"
+
+  },
+  "users":{
+    "title":"Usuarios",
+    "dni": "DNI",
+    "type":"tipo de Usuario",
+    "create":"Crear Usuario",
+    "edit": "Editar Usuario",
+    "show": "Ver Usuario",    
+    "username":"Nombre de Usuario",
+     "name":"Nombre",
+     "id":"ID Usuario",
+     "lastname":"Segundo Nombre",
+     "fullname":"Nombre Completo",
+     "email":"Correo",
+     "phone":"teléfono",  
+     "role":"Rol" ,
+     "address":"dirección",
+    "pharmacist":"Farmaceuta",
+    "doctor":"Médico"
+ },
+ "roles":{
+  "create":"Crear Rol",
+  "edit": "Editar Rol",
+  "show": "Ver Rol",
+  "title":"Roles",
+  "name":"Rol Name",
+  "status":"Status",
+  "functions":"Funciones"
+},
+ "crud":{
+  "create":"Crear",
+  "edit":"Editar",
+  "delete":"Borrar",
+  "show":"Ver"
+},
+  "message": {
+    "apiError401": "Credenciales Incorrectas",
+    "apiError404": "Servicio No disponible",
+    "apiError405_406": "Solicitud Invalida",
+    "apiError500": "Error de Conexión",
+    "apiErrorUndefined": "Error general de la aplicación",
+    "invalidKey": "Clave Invalida"
+  },
+  "kitchens":{
+    "kitchen":"Cocina",
+    "kitchens":"Cocinas",
+    "kitchen-edit":"Editar Cocina",
+    "kitchen-show":"Cocina"
+
+  },
+  "vendors":{
+    "vendor":"Vendedor",
+    "vendors":"Vendedores"
+  }
+}
