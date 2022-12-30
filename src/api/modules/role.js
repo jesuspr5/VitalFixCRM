@@ -11,5 +11,5 @@ export const createRoles = (body) =>
 export const editRoles = (roleId, body) =>
   apiHttp('PUT', `${roleSave}/${roleId}`, body)
 
-export const getRoles = () =>
-  apiHttp('GET', `${rolePath}`)
+export const getRoles = (page,rows) =>
+  apiHttp('GET', `${rolePath}`,+page+"&Rows="+rows)

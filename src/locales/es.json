@@ -74,6 +74,20 @@
   "status":"Status",
   "functions":"Funciones"
 },
+"blogs":{
+  "head":"Blogs",
+    "title": "titulo",
+    "subtitle": "subtitulo",
+    "description": "descripcion",
+    "datePublication": "2022-12-30T15:28:13.569Z",
+    "idCatType": "idcat",
+    "mainPhoto": "fotoprincipal",
+    "bannerPhoto": "bannerfoto",
+    "create":"Crear Blog",
+    "edit": "Editar Blog",
+    "show": "Mostrar Blog"
+
+ },
  "crud":{
   "create":"Crear",
   "edit":"Editar",

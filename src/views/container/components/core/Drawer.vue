@@ -143,6 +143,17 @@
             },
           ],
         },
+        {
+          group: '/home/blogs',
+          icon: 'mdi-account-key',
+          title: 'blogs.head',
+          children: [
+            {
+              title: 'blogs.head',
+              to: 'blogs',
+            },
+          ],
+        },
         // {
         //   group: '/kitchens',
         //   icon: 'mdi-coffee-maker',
