@@ -105,12 +105,14 @@
   import { getUsers } from '@/api/modules'
   import i18n from '@/i18n'
   import userjson from './user.json'
+  import { usersGetList } from '../../../api/modules/user'
   export default {
     name: 'DashboardDataTables',
 
     data: () => ({
       hidden: false,
       title: userjson.title,
+      users: [],
       headers: [
         {
           text: i18n.t('users.id'),
@@ -156,54 +158,80 @@
       searchLabel: 'undefined',
     }),
     async mounted () {
+      console.log('cczxcsdc')
+      // this.getUsersList()
+    //  this.loadUsersData
       // window.getApp.$emit("SHOW_ERROR", "34534535")
+
+      this.data()
     },
     methods: {
-      async loadUsersData () {
-        console.log('mounted')
-        let serviceResponse = await getUsers()
-        if (serviceResponse.ok === 1) {
-          console.log(serviceResponse)
-          this.items = serviceResponse.data
-        } else {
-          console.log(serviceResponse)
-          const params = { text: serviceResponse.message.text }
-          window.getApp.$emit('SHOW_ERROR', params)
-        }
-      },
-      createUser () {
-        console.log('create')
-        this.$router.push({
-          name: 'UsersFrom',
-          params: {
-            option: 1, // option 1 to create
-          },
-        })
-      },
-      showUser (item) {
-        console.log(item)
-        this.$router.push({
-          name: 'UsersFrom',
-          params: {
-            option: 2, // option 2 to show
-            userData: item,
-          },
-        })
-      },
-      editUser (item) {
-        console.log(item)
-        this.$router.push({
-          name: 'UsersFrom',
-          params: {
-            option: 3, // option 3 to edit
-            userData: item,
-          },
-        })
-      },
-      deleteUser (item) {
-        console.log(item)
-        console.log('Delete')
-      },
+      data: async function(){
+      let result;
+      result = await usersGetList()
+      //this.$store.commit('blogData/setArticles', result)
+      // this.blogsData=this.$store.state.blogData.articles
+      console.log('EL STOREE: ', result)
+      // this.loaded=true
+    },
+    //   async loadUsersData () {
+    //     console.log('mounted')
+    //     let serviceResponse = await getUsers(Page=1,Rows=12333)
+    //     console.log(serviceResponse)
+    //     if (serviceResponse.ok === 1) {
+    //       console.log(serviceResponse)
+    //       this.items = serviceResponse.data
+    //     } else {
+    //       console.log(serviceResponse)
+    //       const params = { text: serviceResponse.message.text }
+    //       window.getApp.$emit('SHOW_ERROR', params)
+    //     }
+    //   },
+    //   getUsersList() {
+    //   console.log("cargando usuarios")
+    //   axios
+    //     .get("https://as-humedal-api.azurewebsites.net/Users/GetList?Page=1&Rows=123123")
+    //     .then((data) => {
+    //       this.users = data.data;
+    //       console.log(this.users);
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // }, 
+    //   createUser () {
+    //     console.log('create')
+    //     this.$router.push({
+    //       name: 'UsersFrom',
+    //       params: {
+    //         option: 1, // option 1 to create
+    //       },
+    //     })
+    //   },
+    //   showUser (item) {
+    //     console.log(item)
+    //     this.$router.push({
+    //       name: 'UsersFrom',
+    //       params: {
+    //         option: 2, // option 2 to show
+    //         userData: item,
+    //       },
+    //     })
+    //   },
+    //   editUser (item) {
+    //     console.log(item)
+    //     this.$router.push({
+    //       name: 'UsersFrom',
+    //       params: {
+    //         option: 3, // option 3 to edit
+    //         userData: item,
+    //       },
+    //     })
+    //   },
+    //   deleteUser (item) {
+    //     console.log(item)
+    //     console.log('Delete')
+    //   },
     },
   }
 </script>

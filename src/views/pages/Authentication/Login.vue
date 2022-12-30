@@ -85,10 +85,11 @@
 
     }),
     methods: {
-      ...mapActions(['loginAction']),
+      ...mapActions(['']),
       submit () {
         console.log()
-        this.loginAction({ email: this.form.email, password: this.form.password })
+        this.loginAction({ email: this.form.email, password: this.form.password , rememberMe: true})
+        this
       },
     },
 

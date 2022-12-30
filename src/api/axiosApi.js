@@ -1,14 +1,14 @@
 import axios from 'axios'
 import i18n from '@/i18n'
 
-export const API_URL_BACKEND = process.env.VUE_APP_API_URL_BACKEND
+export const API_URL_BACKEND = "https://as-humedal-api.azurewebsites.net"
 
 export const apiHttp = async (method, endpoint, data, options = {}, loading = true) => {
   // const { email, password } = localStorage
   const defaultHeaders = {
     Accept: 'application/json',
-    'Content-Type': 'application/json',
-    Authorization: 'Basic ' + btoa(`${'joanrosendo@najoconsultores.com'}:${'12345'}`),
+    'Content-Type': 'application/json'
+ //   Authorization: 'Basic ' + btoa(`${'joanrosendo@najoconsultores.com'}:${'12345'}`),
   }
 
   if (!options.hasOwnProperty('headers')) options.headers = defaultHeaders
