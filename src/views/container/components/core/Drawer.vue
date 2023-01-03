@@ -5,12 +5,14 @@
     :dark="barColor !== 'rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7)'"
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
-    :src="barImage"
+
     mobile-break-point="960"
     app
     width="260"
     v-bind="$attrs"
   >
+  <!-- img dentro del v-navigation-drawer
+     :src="barImage" -->
     <template v-slot:img="props">
       <v-img
         :gradient="`to bottom, ${barColor}`"
@@ -86,13 +88,13 @@
 
     data: () => ({
       items: [
-      // item solos  
-      {
+        // item-solos
+        {
           icon: 'mdi-view-dashboard',
-          title: 'Blog',
-          to: 'roles',
+          title: 'dashboard',
+          to: '/',
         },
-        // item con grupo, se le coloca children
+        // item-con-grupo,se-le-coloca-children
         {
           group: '/pages',
           icon: 'mdi-image',
