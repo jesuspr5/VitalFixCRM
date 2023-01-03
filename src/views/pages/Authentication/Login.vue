@@ -7,7 +7,7 @@
     <v-row justify="center">
       <v-slide-y-transition appear>
         <base-material-card
-          color="success"
+          color="primary"
           light
           max-width="100%"
           width="400"
@@ -25,7 +25,7 @@
             <v-text-field
               v-model="form.email"
               color="secondary"
-              label="Email..."
+              label="Correo Electronico"
               prepend-icon="mdi-email"
             />
 
@@ -35,7 +35,7 @@
               :rules="[rules.required, rules.min]"
               :type="show1 ? 'text' : 'password'"
               name="input-10-1"
-              label="Password"
+              label="Contraseña"
               prepend-icon="mdi-lock-outline"
               hint="At least 8 characters"
               counter
@@ -48,8 +48,9 @@
               depressed
               class="v-btn--text success--text"
               @click="submit"
+              style="text-transform: capitalize;"
             >
-              Let's Go
+              Iniciar sesion
             </pages-btn>
           </v-card-text>
         </base-material-card>
