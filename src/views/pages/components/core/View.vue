@@ -11,7 +11,7 @@
       :src="require(`@/assets/${src || 'home.png'}`)"
       gradient="to top, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)"
 
-      style="object-fit: cover; min-width: 100vw; min-height: 100vh;"
+      style="object-fit: contain; min-width: 100vw; min-height: 100vh;"
     >
       <router-view />
     </v-img>

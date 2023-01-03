@@ -15,7 +15,7 @@
         >
           <template v-slot:heading>
             <div class="text-center">
-              <h1 class="display-2 font-weight-bold mb-2">
+              <h1 class="display-4 font-weight-bold mb-1">
                 Login
               </h1>
             </div>

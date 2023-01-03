@@ -11,16 +11,17 @@
         <h1 class="title font-weight-black">
           404
         </h1>
+        <img src="" alt="">
 
         <div class="display-3 mb-5 mt-10">
-          Page not found :(
+          No se encontro la pagina :(
         </div>
 
         <v-btn
           depressed
           to="/"
         >
-          Get me out of here!
+          Salir de aqui!
         </v-btn>
       </v-col>
     </v-row>
