@@ -2,10 +2,10 @@
   <v-navigation-drawer
     id="core-navigation-drawer"
     v-model="drawer"
-    :dark="barColor !== 'rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7)'"
+    :dark="barColor !== 'rgba(117, 183, 104, 1), rgba(20, 126, 72, 0.7)'"
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
-
+    :src="barImage"
     mobile-break-point="960"
     app
     width="260"
