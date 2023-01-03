@@ -29,13 +29,15 @@
   
         <v-data-table
           :headers="headers"
-          :items="items"
+         :items="items"
           :search.sync="search"
           :sort-by="['id', 'titulo']"
           :sort-desc="[false, true]"
           multi-sort
           class="elevation-1"
+        
         >
+       
           <template v-slot:[`item.actions`]="{ item }">
             <v-btn
   
@@ -44,7 +46,7 @@
               fab
               class="px-1 ml-1"
               x-small
-              @click="showRole(item)"
+              @click="showBlogs(item)"
             >
               <v-icon
                 small
@@ -58,7 +60,7 @@
               fab
               class="px-1 ml-1"
               x-small
-              @click="editRole(item)"
+              @click="editBlogs(item)"
             >
               <v-icon
                 small
@@ -72,7 +74,7 @@
               fab
               class="px-1 ml-1"
               x-small
-              @click="deleteRole(item)"
+              @click="deleteBlogs(item)"
             >
               <v-icon
                 small
@@ -91,7 +93,7 @@
               fixed
               right
               bottom
-              @click="createRole"
+              @click="createBlogs"
             >
               <v-icon>mdi-plus</v-icon>
             </v-btn>
@@ -104,30 +106,25 @@
   <script>
   
     import i18n from '@/i18n'
-  
+  import { blogsGetList} from '../../../api/modules/blogs'
     export default {
       name: 'DashboardDataTables',
   
       data: () => ({
         hidden: false,
         headers: [
-          {
-            text: i18n.t('Id'),
-            value: 'blog.idBlogLanding',
-          },
-          {
+        {
             text: i18n.t('blogs.title'),
-            value: 'role.title',
+            value: 'title',
           },
   
           {
             text: i18n.t('blogs.subtitle'),
-            value: 'role.subtitle',
+            value: 'subTitle',
           },
-          
           {
-            text: i18n.t('blogs.description'),
-            value: 'role.description',
+            text: 'Fecha',
+            value: 'datePublication',
           },
           {
             sortable: false,
@@ -135,24 +132,25 @@
             value: 'actions',
           },
         ],
-        items: [
-          {
-            role: {
-              id: 1,
-              name: 'admin',
-              status: 'Activo',
-            },
-          },
-        ],
-        items2:[],
+        items: [],
         search: undefined,
       }),
       async mounted () {
         // window.getApp.$emit("SHOW_ERROR", "34534535")
-        
+       this.data();
+      
       },
       methods: {
   
+        data: async function(){
+      let result;
+      result = await blogsGetList (1,34)
+      this.items = result
+      // console.log('EL STOREE: ', result)
+      // console.log('array',this.items)
+    
+    },
+
         // async loadRolesData () {
         //   console.log('mounted')
         //   let serviceResponse = await getRoles(1,5)

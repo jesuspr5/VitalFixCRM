@@ -68,28 +68,41 @@
                         :disabled="option===2?true:false"
                       />
                     </v-col>
+                   
+                  
                     <v-col
                       cols="12"
                       sm="4"
                     >
                       <v-text-field
+                        v-model="blogData.datePublication"
+                        class="purple-input"
+                        :label="$t('blogs.datePublication')"
+                        :disabled="option===2?true:false"
+                      />
+                  </v-col>
+                  <v-col
+                      cols="12"
+                      sm="4"
+                    >
+                      <v-textarea
                         v-model="blogData.description"
                         :label="$t('blogs.description')"
                         class="purple-input"
                         :disabled="option===2?true:false"
-                      />
+                      ></v-textarea>
                     </v-col>
-                    <!-- <v-col
+                  <v-col
                       cols="12"
                       sm="4"
                     >
                       <v-select
-                        v-model="roleData.functions"
+                        v-model="blogData.idCatType"
                         color="secondary"
                         item-color="secondary"
-                        :label="$t('roles.functions')"
+                        :label="$t('blogs.Catalogs')"
                         multiple
-                        :items="functions"
+                        :items=" selcatalog"
                         :disabled="option===2?true:false"
                       >
                         <template v-slot:item="{ attrs, item, on }">
@@ -115,7 +128,9 @@
                           </v-list-item>
                         </template>
                       </v-select>
-                    </v-col> -->
+                    </v-col> 
+
+                    
                     <v-col
                       cols="12"
                       class="text-right"
@@ -149,12 +164,12 @@
             title: "",
             subTitle: "",
             description: "",
-            datePublication: "2022-12-30T15:28:13.569Z",
-            idCatType: 0,
+            datePublication: "",
+            idCatType: "",
             mainPhoto: "",
             bannerPhoto: ""
                     },
-    //   functions: ['demo', 'demo2  '],
+        selcatalog: ['demo', 'demo2  '],
       }),
       computed: {
         getTitle () {
