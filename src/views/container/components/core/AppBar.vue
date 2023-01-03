@@ -21,14 +21,14 @@
       </v-icon>
     </v-btn>
 
-    <v-toolbar-title
+    <!-- <v-toolbar-title
       class="hidden-sm-and-down"
       v-text="$route.name"
-    />
+    /> -->
 
     <v-spacer />
 
-    <v-text-field
+    <!-- <v-text-field
       :label="$t('search')"
       color="secondary"
       hide-details
@@ -47,7 +47,7 @@
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
       </template>
-    </v-text-field>
+    </v-text-field> -->
 
     <div class="mx-3" />
 
@@ -58,7 +58,7 @@
       <v-icon>mdi-view-dashboard</v-icon>
     </v-btn>
 
-    <v-menu
+    <!-- <v-menu
       bottom
       left
       offset-y
@@ -98,7 +98,7 @@
           </app-bar-item>
         </div>
       </v-list>
-    </v-menu>
+    </v-menu> -->
 
     <v-menu
       bottom
