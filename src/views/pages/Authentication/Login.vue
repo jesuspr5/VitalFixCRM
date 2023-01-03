@@ -50,7 +50,7 @@
               @click="submit"
               style="text-transform: capitalize;"
             >
-              Iniciar sesion
+              Iniciar sesión
             </pages-btn>
           </v-card-text>
         </base-material-card>
@@ -79,9 +79,9 @@
       show4: false,
       form: Object.assign({}, defaultForm),
       rules: {
-        required: value => !!value || 'Required.',
-        min: v => v.length >= 5 || 'Min  characters',
-        emailMatch: () => ('The email and password you entered don\'t match'),
+        required: value => !!value || 'Debe ingresar su contraseña.',
+        min: v => v.length >= 5 || 'Mínimo 8 caracteres',
+        emailMatch: () => ('El correo y la contraseña no coinciden'),
       },
 
     }),

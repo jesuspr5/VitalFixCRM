@@ -14,14 +14,14 @@
         <img src="" alt="">
 
         <div class="display-3 mb-5 mt-10">
-          No se encontro la pagina :(
+          No se encontro la página :(
         </div>
 
         <v-btn
           depressed
           to="/"
         >
-          Salir de aqui!
+          Salir de aquí!
         </v-btn>
       </v-col>
     </v-row>
