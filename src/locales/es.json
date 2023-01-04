@@ -84,6 +84,7 @@
     "Catalogs":"Catalogos",
     "mainPhoto": "fotoprincipal",
     "bannerPhoto": "bannerfoto",
+    "reference": "referencia",
     "create":"Crear Blog",
     "edit": "Editar Blog",
     "show": "Mostrar Blog"

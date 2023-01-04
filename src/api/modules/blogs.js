@@ -52,6 +52,12 @@ async function uploadimg(img){
  result=await axios.post("https://as-humedal-api.azurewebsites.net/Blogs/Upload",img) 
 }
 
+// export const createCharityOrg = (body) =>
+//   apiHttp('POST', `${charityOrgPathRoot}`, body, {
+//     'Content-Type': 'multipart/form-data',
+//     Authorization: 'Bearer ' + `${token}`,
+// })
+
 
 export { 
   blogsGetList,
