@@ -29,7 +29,7 @@
   
         <v-data-table
           :headers="headers"
-          :items="items"
+          :items="blogs"
           :search.sync="search"
           :sort-by="['id', 'titulo']"
           :sort-desc="[false, true]"
@@ -91,7 +91,7 @@
               fixed
               right
               bottom
-              @click="createRole"
+          
             >
               <v-icon>mdi-plus</v-icon>
             </v-btn>
@@ -104,7 +104,7 @@
   <script>
   
     import i18n from '@/i18n'
-  
+    import { blogsGetList } from '../../../api/modules/blogs'
     export default {
       name: 'DashboardDataTables',
   
@@ -113,21 +113,21 @@
         headers: [
           {
             text: i18n.t('Id'),
-            value: 'blog.idBlogLanding',
+            value: 'blogs.idBlogLanding',
           },
           {
             text: i18n.t('blogs.title'),
-            value: 'role.title',
+            value: 'blogs.title',
           },
   
           {
             text: i18n.t('blogs.subtitle'),
-            value: 'role.subtitle',
+            value: 'blogs.subtitle',
           },
           
           {
             text: i18n.t('blogs.description'),
-            value: 'role.description',
+            value: 'blogs.description',
           },
           {
             sortable: false,
@@ -135,24 +135,28 @@
             value: 'actions',
           },
         ],
-        items: [
-          {
-            role: {
-              id: 1,
-              name: 'admin',
-              status: 'Activo',
-            },
-          },
-        ],
+        items: [],
         items2:[],
+        blogs:[
+          {}
+        ],
         search: undefined,
       }),
       async mounted () {
         // window.getApp.$emit("SHOW_ERROR", "34534535")
-        
+        this.data()
       },
       methods: {
-  
+        data: async function(){
+      let result;
+      result = await blogsGetList(1,200)
+      //this.$store.commit('blogData/setArticles', result)
+      // this.blogsData=this.$store.state.blogData.articles
+      console.log('EL STOREE: ', result)
+      this.blogs = result;
+      console.log('blogd ', this.blogs)
+      // this.loaded=true
+    },
         // async loadRolesData () {
         //   console.log('mounted')
         //   let serviceResponse = await getRoles(1,5)
