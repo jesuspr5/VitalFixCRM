@@ -36,7 +36,7 @@
         multi-sort
         class="elevation-1"
       >
-        <template v-slot:item.actions="{ item }">
+      <template v-slot:[`item.actions`]="{ item }">
           <v-btn
 
             :key="1"

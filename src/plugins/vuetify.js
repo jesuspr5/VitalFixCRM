@@ -11,6 +11,7 @@ const theme = {
   secondary: '#9C27b0',
   accent: '#9C27b0',
   info: '#00CAE3',
+  greenligth: '#75B768'
 }
 
 export default new Vuetify({

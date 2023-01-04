@@ -47,6 +47,11 @@ async function updateblog( blogToUpdate ){
     return result
 
 }
+async function uploadimg(img){
+  let result ;
+ result=await axios.post("https://as-humedal-api.azurewebsites.net/Blogs/Upload",img) 
+}
+
 
 export { 
   blogsGetList,
@@ -55,5 +60,6 @@ export {
   updateblog,
   deleteblog,
   createblog,
-  blogsGet
+  blogsGet,
+  uploadimg
 }
