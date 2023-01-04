@@ -170,6 +170,7 @@
             name: 'BlogsForm',
             params: {
               option: 1, // option 1 to create
+            
             },
           })
         },
@@ -179,7 +180,7 @@
             name: 'BlogsForm',
             params: {
               option: 2, // option 2 to show
-              roleData: item,
+              blogData: item,
             },
           })
         },
@@ -189,7 +190,8 @@
             name: 'BlogsForm',
             params: {
               option: 3, // option 3 to edit
-              roleData: item,
+              blogData: item,
+             
             },
           })
         },

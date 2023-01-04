@@ -81,31 +81,26 @@
                         :disabled="option===2?true:false"
                       />
                   </v-col>
+                 
                   <v-col
                       cols="12"
                       sm="4"
                     >
-                      <v-textarea
-                        v-model="blogData.description"
-                        :label="$t('blogs.description')"
-                        class="purple-input"
-                        :disabled="option===2?true:false"
-                      ></v-textarea>
-                    </v-col>
-                  <v-col
-                      cols="12"
-                      sm="4"
-                    >
+                    
                       <v-select
                         v-model="blogData.idCatType"
                         color="secondary"
                         item-color="secondary"
                         :label="$t('blogs.Catalogs')"
-                        multiple
-                        :items=" selcatalog"
+                        :items="selcatalog"
+                        item-text="name"
+                        item-value="id"
                         :disabled="option===2?true:false"
+                        return-object
+                       single-line
+                        
                       >
-                        <template v-slot:item="{ attrs, item, on }">
+                        <!-- <template v-slot:item="{ attrs, item, on }">
                           <v-list-item
                             v-bind="attrs"
                             active-class="secondary elevation-4 white--text"
@@ -126,11 +121,101 @@
                               </v-list-item-icon>
                             </v-scale-transition>
                           </v-list-item>
-                        </template>
+                        </template> -->
                       </v-select>
-                    </v-col> 
-
                     
+                     
+                    </v-col> 
+                    <v-col
+                      cols="12"
+                      sm="4"
+                    >
+                   
+                      <v-file-input
+                    
+                     
+                        accept="image/png, image/jpeg,"
+                        placeholder="Seleccione foto"
+                        prepend-icon="mdi-camera"
+                        label="Foto principal"
+                        :disabled="option===2?true:false"
+                      >
+                      <template v-slot:selection="{ text }">
+                        <v-chip
+                          small
+                          label
+                          color="primary"
+                        >
+                          {{ text }}
+                        </v-chip>
+                       </template></v-file-input>
+                   
+                    </v-col>
+                   
+                    <v-col
+                      cols="12"
+                      sm="4"
+                    >
+                   
+                      <v-file-input
+                    
+                        
+                        accept="image/png, image/jpeg,"
+                        placeholder="Seleccione foto "
+                        prepend-icon="mdi-camera"
+                        label="Banner foto"
+                        :disabled="option===2?true:false"
+                        
+                      ><template v-slot:selection="{ text }">
+                          <v-chip
+                            small
+                            label
+                            color="secondary"
+                          >
+                            {{ text }}
+                          </v-chip>
+                        </template></v-file-input>
+                   
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="4"
+                    >
+                   
+                      <v-file-input
+                     
+                        :rules="rules"
+                        accept="image/png, image/jpeg,"
+                        placeholder="Seleccione las imagenes"
+                        multiple
+                        prepend-icon="mdi-camera"
+                        label="Galeria"
+                        counter
+                        :disabled="option===2?true:false"
+                      > <template v-slot:selection="{ text }">
+                          <v-chip
+                            small
+                            label
+                            color="#75B768"
+                          >
+                            {{ text }}
+                          </v-chip>
+                        </template></v-file-input>
+                   
+                    </v-col>
+                    <v-col
+                      cols="12"
+                      sm="4"
+                    >
+                      <v-textarea
+                        v-model="blogData.description"
+                        :label="$t('blogs.description')"
+                        class="purple-input"
+                       
+                        :disabled="option===2?true:false"
+                      ></v-textarea>
+                    </v-col>
+
                     <v-col
                       cols="12"
                       class="text-right"
@@ -155,21 +240,26 @@
   
   <script>
     import i18n from '@/i18n'
+    import { catalogsGetList} from '../../../api/modules/catalogs'
     export default {
       data: () => ({
         tabs: 0,
         option: 0,
         title: '',
+      //   rules: [
+      //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+      // ],
         blogData: {
-            title: "",
-            subTitle: "",
-            description: "",
-            datePublication: "",
-            idCatType: "",
-            mainPhoto: "",
-            bannerPhoto: ""
+            title: '',
+            subTitle: '',
+            description: '',
+            datePublication: '',
+            idCatType: '',
+            mainPhoto: '',
+            bannerPhoto: ''
                     },
-        selcatalog: ['demo', 'demo2  '],
+        selcatalog: [],
+       
       }),
       computed: {
         getTitle () {
@@ -187,13 +277,24 @@
       },
       mounted () {
         // console.log($t('roles.title'))
-        this.initialize()
+         this.cata();
+        this.initialize();
+        
       },
       methods: {
-        initialize () {
+        
+        cata: async function(){
+      let result;
+      result = await catalogsGetList (1,44)
+      this.selcatalog = result
+      console.log('API: ', result)
+       console.log('catalogos',this.selcatalog)
+    
+    },
+    initialize () {
           this.option = this.$route.params.option
           if (this.option === 3 || this.option === 2) {
-            this.blogData = this.$route.params.blogData .blog
+            this.blogData = this.$route.params.blogData
             console.log(this.blogData )
           }
         },
