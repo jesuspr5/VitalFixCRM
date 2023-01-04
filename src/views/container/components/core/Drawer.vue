@@ -156,6 +156,17 @@
             },
           ],
         },
+        {
+          group: '/home/publications',
+          icon: 'mdi-account-key',
+          title: 'publications.head',
+          children: [
+            {
+              title: 'publications.head',
+              to: 'publications',
+            },
+          ],
+        },
         // {
         //   group: '/kitchens',
         //   icon: 'mdi-coffee-maker',

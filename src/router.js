@@ -72,6 +72,17 @@ export default new Router({
           path: 'blogs/form',
           component: () => import('@/views/container/Blogs/BlogsForm'),
         },
+        {
+          name: 'Publications',
+          path: 'publications/publications',
+          component: () => import('@/views/container/Publications/Publications'),
+        },
+        {
+          name: 'PublicationsForm',
+          path: 'publications/form',
+          component: () => import('@/views/container/Publications/PublicationsForm'),
+        },
+
         // Kitchen
         {
           name: 'Kitchens',
