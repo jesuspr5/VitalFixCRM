@@ -95,56 +95,56 @@
           to: '/',
         },
         // item-con-grupo,se-le-coloca-children
-        {
-          group: '/pages',
-          icon: 'mdi-image',
-          title: 'pages',
-          children: [
-            {
-              title: 'login',
-              to: 'login',
-            },
-            {
-              title: 'register',
-              to: 'pricing',
-            },
-            {
-              title: 'lock',
-              to: 'lock',
-            },
-            {
-              title: 'user',
-              to: 'user',
-            },
-            {
-              title: 'error',
-              to: '404',
-            },
-          ],
-        },
+        // {
+        //   group: '/pages',
+        //   icon: 'mdi-image',
+        //   title: 'pages',
+        //   children: [
+        //     {
+        //       title: 'login',
+        //       to: 'login',
+        //     },
+        //     {
+        //       title: 'register',
+        //       to: 'pricing',
+        //     },
+        //     {
+        //       title: 'lock',
+        //       to: 'lock',
+        //     },
+        //     {
+        //       title: 'user',
+        //       to: 'user',
+        //     },
+        //     {
+        //       title: 'error',
+        //       to: '404',
+        //     },
+        //   ],
+        // },
 
-        {
-          group: '/home/users',
-          icon: 'mdi-account-tie',
-          title: 'users.title',
-          children: [
-            {
-              title: 'users.title',
-              to: 'users',
-            },
-          ],
-        },
-        {
-          group: '/home/roles',
-          icon: 'mdi-account-key',
-          title: 'roles.title',
-          children: [
-            {
-              title: 'roles.title',
-              to: 'roles',
-            },
-          ],
-        },
+        // {
+        //   group: '/home/users',
+        //   icon: 'mdi-account-tie',
+        //   title: 'users.title',
+        //   children: [
+        //     {
+        //       title: 'users.title',
+        //       to: 'users',
+        //     },
+        //   ],
+        // },
+        // {
+        //   group: '/home/roles',
+        //   icon: 'mdi-account-key',
+        //   title: 'roles.title',
+        //   children: [
+        //     {
+        //       title: 'roles.title',
+        //       to: 'roles',
+        //     },
+        //   ],
+        // },
         {
           group: '/home/blogs',
           icon: 'mdi-account-key',
@@ -158,7 +158,7 @@
         },
         {
           group: '/home/publications',
-          icon: 'mdi-account-key',
+          icon: 'mdi-image',
           title: 'publications.head',
           children: [
             {
