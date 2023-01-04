@@ -47,7 +47,9 @@
 
                   <v-col cols="12" sm="4">
                     <v-file-input
-                      accept="image/png, image/jpeg,"
+                      v-model='file' 
+                      accept="image/*" 
+                      @change="upload"   
                       placeholder="Seleccione PDF"
                       prepend-icon="mdi-file"
                       label="Foto principal"
@@ -214,6 +216,8 @@ export default {
     tabs: 0,
     option: 0,
     title: "",
+    file: null,
+    pdfUrl: null,
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
@@ -244,6 +248,7 @@ export default {
     this.initialize();
   },
   methods: {
+    
     // data: async function() {
     //   // let result;
     //   // result = await publicationsGetList(1, 44);
@@ -258,6 +263,24 @@ export default {
         this.publiData = this.$route.params.publiData;
         console.log(this.publiData);
       }
+    },
+
+
+    upload() {
+      // the file object is not empty
+      console.log(this.file);
+      
+      // post file to server
+      const formData = new FormData();
+      formData.append('file', this.file);
+
+      const options = {
+        method: 'POST',
+        body: formData,
+      };
+
+      fetch('https://httpbin.org/post', options).then(response => response.json())
+        .then(data => console.log(data));
     },
     // async submit() {
     //   if (this.option === 1) {

@@ -15,11 +15,16 @@ async function publicationsGet(idPublications){
 }
 async function createpublications( publicationsToCreate ){
   let result;
-    result = await axios.post("https://as-humedal-api.azurewebsites.net/Publications/Create",publicationsToCreate)
-    console.log('Publicacion creada con exito: ', result)
-    return result
-
+  result = await axios.post("https://as-humedal-api.azurewebsites.net/Publications/Create",publicationsToCreate)
+  console.log('Publicacion creada con exito: ', result)
+  return result
 }
+
+  // export const createpublications = (body) =>
+  // apiHttp('POST', `https://as-humedal-api.azurewebsites.net/Publications/Create`, body, {
+  //   'Content-Type': 'multipart/form-data',
+  //   Authorization: 'Bearer ' + `${token}`,
+  // })
 
 async function deletepublications(IdPublications){
   let result;
