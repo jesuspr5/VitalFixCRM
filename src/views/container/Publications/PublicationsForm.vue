@@ -38,7 +38,7 @@
                 <v-row>
                   <v-col cols="12" sm="4">
                     <v-text-field
-                      v-model="publicationsData.title"
+                      v-model="publiData.title"
                       class="purple-input"
                       :label="$t('publications.title')"
                       :disabled="option === 2 ? true : false"
@@ -61,14 +61,7 @@
                     </v-file-input>
                   </v-col>
 
-                  <v-col cols="12" sm="4">
-                    <v-textarea
-                      v-model="publicationsData.description"
-                      :label="$t('publications.description')"
-                      class="purple-input"
-                      :disabled="option === 2 ? true : false"
-                    ></v-textarea>
-                  </v-col>
+
                   <!-- <v-col
                       cols="12"
                       sm="4"
@@ -83,13 +76,21 @@
 
                   <v-col cols="12" sm="4">
                     <v-text-field
-                      v-model="publicationsData.datePublication"
+                      v-model="publiData.datePublication"
                       class="purple-input"
                       :label="$t('publications.datePublication')"
                       :disabled="option === 2 ? true : false"
                     />
                   </v-col>
 
+                  <v-col cols="12">
+                    <v-textarea
+                      v-model="publiData.description"
+                      :label="$t('publications.description')"
+                      class="purple-input"
+                      :disabled="option === 2 ? true : false"
+                    ></v-textarea>
+                  </v-col>
                   <!-- <v-col
                       cols="12"
                       sm="4"
@@ -206,16 +207,17 @@
 
 <script>
 import i18n from "@/i18n";
-import { publicationsGetList } from "../../../api/modules/publications";
+// import { publicationsGetList } from "../../../api/modules/publications";
+
 export default {
   data: () => ({
     tabs: 0,
     option: 0,
-    // title: "",
+    title: "",
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
-    publicationsData: {
+    publiData: {
       title: "",
       description: "",
       filePdf: "",
@@ -238,49 +240,66 @@ export default {
   },
   mounted() {
     // console.log($t('roles.title'))
-    this.data();
+    // this.data();
     this.initialize();
   },
   methods: {
-    data: async function() {
-      let result;
-      result = await publicationsGetList(1, 44);
+    // data: async function() {
+    //   // let result;
+    //   // result = await publicationsGetList(1, 44);
       
-        this.publicationsData = result
-      console.log("API: ", result);
-      // console.log("catalogos", this.selcatalog);
-    },
+    //     // this.publicationsData = result
+    //   // console.log("API: ", result);
+    //   // console.log("catalogos", this.selcatalog);
+    // },
     initialize() {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
-        this.publicationsData = this.$route.params.publicationsData;
-        console.log(this.publicationsData);
+        this.publiData = this.$route.params.publiData;
+        console.log(this.publiData);
       }
     },
-    async submit() {
-      if (this.option === 1) {
-        let serviceResponse = await createPublications(this.publicationsData);
-        if (serviceResponse.ok === 1) {
-          console.log(serviceResponse);
-        } else {
-          console.log(serviceResponse);
-          const params = { text: serviceResponse.message.text };
-          window.getApp.$emit("SHOW_ERROR", params);
-        }
-      } else if (this.option === 3) {
-        let serviceResponse = await editPublications(
-          this.publicationsData.idPublications,
-          this.publicationsData
-        );
-        if (serviceResponse.ok === 1) {
-          console.log(serviceResponse);
-        } else {
-          console.log(serviceResponse);
-          const params = { text: serviceResponse.message.text };
-          window.getApp.$emit("SHOW_ERROR", params);
-        }
-      }
-    }
+    // async submit() {
+    //   if (this.option === 1) {
+    //     let serviceResponse = await createPublications(this.publiData);
+    //     if (serviceResponse.ok === 1) {
+    //       console.log(serviceResponse);
+    //     } else {
+    //       console.log(serviceResponse);
+    //       const params = { text: serviceResponse.message.text };
+    //       window.getApp.$emit("SHOW_ERROR", params);
+    //     }
+    //   } else if (this.option === 3) {
+    //     let serviceResponse = await editPublications(
+    //       this.publiData.id,
+    //       this.publiData
+    //     );
+    //     if (serviceResponse.ok === 1) {
+    //       console.log(serviceResponse);
+    //     } else {
+    //       console.log(serviceResponse);
+    //       const params = { text: serviceResponse.message.text };
+    //       window.getApp.$emit("SHOW_ERROR", params);
+    //     }
+    //   }
+    // }
+    async submit(){
+          if(this.option ===1){
+            let publication ={
+              title: this.publiData.title,
+            description: this.publiData.description,
+              filePdf: this.publiData.filePdf,
+            datePublication:  new Date().toISOString(),
+            }  ;
+            this.new = publication
+            // blog= await createblog(blog)
+            
+          }
+          console.log(this.new)
+        },
+        chooseFiles() {
+        document.getElementById("fileUpload").click()
+    },
   } //
 };
 </script>

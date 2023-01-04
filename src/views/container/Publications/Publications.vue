@@ -175,7 +175,7 @@
             name: 'PublicationsForm',
             params: {
               option: 2, // option 2 to show
-              publicatoinsData: item,
+              publiData: item,
             },
           })
         },
@@ -185,7 +185,7 @@
             name: 'PublicationsForm',
             params: {
               option: 3, // option 3 to edit
-              publications: item,
+              publiData: item,
              
             },
           })
