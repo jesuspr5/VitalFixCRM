@@ -190,11 +190,11 @@
                     </v-col> -->
 
 
-                  <!-- <v-col cols="12" class="text-right">
+                  <v-col cols="12" class="text-right">
                     <v-btn v-if="option !== 2" color="success" class="mr-0">
                       {{ getTitleButton }}
                     </v-btn>
-                  </v-col> -->
+                  </v-col>
                 </v-row>
               </v-container>
             </v-form>
