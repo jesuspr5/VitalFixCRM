@@ -68,20 +68,7 @@
                         :disabled="option===2?true:false"
                       />
                     </v-col>
-                   
-                  
-                    <v-col
-                      cols="12"
-                      sm="4"
-                    >
-                      <v-text-field
-                        v-model="blogData.datePublication"
-                        class="purple-input"
-                        :label="$t('blogs.datePublication')"
-                        :disabled="option===2?true:false"
-                      />
-                  </v-col>
-                 
+
                   <v-col
                       cols="12"
                       sm="4"
@@ -96,7 +83,6 @@
                         item-text="name"
                         item-value="id"
                         :disabled="option===2?true:false"
-                        return-object
                        single-line
                         
                       >
@@ -132,8 +118,9 @@
                     >
                    
                       <v-file-input
-                    
-                     
+                      id="fileUpload" 
+                      type="file" 
+                      hidden
                         accept="image/png, image/jpeg,"
                         placeholder="Seleccione foto"
                         prepend-icon="mdi-camera"
@@ -215,6 +202,17 @@
                         :disabled="option===2?true:false"
                       ></v-textarea>
                     </v-col>
+                    <v-col
+                      cols="12"
+                      sm="4"
+                    >
+                      <v-textarea
+                        v-model="blogData.reference"
+                        class="purple-input"
+                        :label="$t('blogs.reference')"
+                        :disabled="option===2?true:false"
+                      ></v-textarea>
+                  </v-col>
 
                     <v-col
                       cols="12"
@@ -224,6 +222,7 @@
                         v-if="option!==2"
                         color="success"
                         class="mr-0"
+                        @click="submit"
                       >
                         {{ getTitleButton }}
                       </v-btn>
@@ -241,6 +240,7 @@
   <script>
     import i18n from '@/i18n'
     import { catalogsGetList} from '../../../api/modules/catalogs'
+    import { createblog} from '../../../api/modules/blogs'
     export default {
       data: () => ({
         tabs: 0,
@@ -253,13 +253,13 @@
             title: '',
             subTitle: '',
             description: '',
-            datePublication: '',
+            reference:'',
             idCatType: '',
             mainPhoto: '',
             bannerPhoto: ''
                     },
         selcatalog: [],
-       
+       new:{}
       }),
       computed: {
         getTitle () {
@@ -298,27 +298,50 @@
             console.log(this.blogData )
           }
         },
-        async submit () {
-          if (this.option === 1) {
-            let serviceResponse = await createBlogs(this.blogData )
-            if (serviceResponse.ok === 1) {
-              console.log(serviceResponse)
-            } else {
-              console.log(serviceResponse)
-              const params = { text: serviceResponse.message.text }
-              window.getApp.$emit('SHOW_ERROR', params)
-            }
-          } else if (this.option === 3) {
-            let serviceResponse = await editBlogs(this.blogData.id, this.blogData)
-            if (serviceResponse.ok === 1) {
-              console.log(serviceResponse)
-            } else {
-              console.log(serviceResponse)
-              const params = { text: serviceResponse.message.text }
-              window.getApp.$emit('SHOW_ERROR', params)
-            }
+
+        async submit(){
+          if(this.option ===1){
+            let blog ={
+              title: this.blogData.title,
+            subTitle: this.blogData.subTitle,
+            description: this.blogData.description,
+            reference:this.reference,
+            datePublication:  new Date().toISOString(),
+            idCatType: this.blogData.idCatType,
+            mainPhoto:  document.getElementById("fileUpload"),
+            bannerPhoto: 'foto2'
+ 
+            }  ;
+            this.new = blog
+            // blog= await createblog(blog)
+            
           }
+          console.log(this.new)
         },
+        chooseFiles() {
+        document.getElementById("fileUpload").click()
+    },
+        // async submit () {
+        //   if (this.option === 1) {
+        //     let serviceResponse = await createBlogs(this.blogData )
+        //     if (serviceResponse.ok === 1) {
+        //       console.log(serviceResponse)
+        //     } else {
+        //       console.log(serviceResponse)
+        //       const params = { text: serviceResponse.message.text }
+        //       window.getApp.$emit('SHOW_ERROR', params)
+        //     }
+        //   } else if (this.option === 3) {
+        //     let serviceResponse = await editBlogs(this.blogData.id, this.blogData)
+        //     if (serviceResponse.ok === 1) {
+        //       console.log(serviceResponse)
+        //     } else {
+        //       console.log(serviceResponse)
+        //       const params = { text: serviceResponse.message.text }
+        //       window.getApp.$emit('SHOW_ERROR', params)
+        //     }
+        //   }
+        // },
       }, //
     }
   </script>
