@@ -42,7 +42,7 @@
             class="transparent"
           >
             <v-tab-item :kei="0">
-              <v-form>
+              <v-form enctype="multipart/form-data" >
                 <v-container class="py-0">
                   <v-row>
                     <v-col
@@ -116,16 +116,17 @@
                       cols="12"
                       sm="4"
                     >
-                   
-                      <v-file-input
-                      id="fileUpload" 
+                 
+                       <v-file-input
+                      
                       type="file" 
-                      hidden
-                        accept="image/png, image/jpeg,"
+                        accept="image/*"
                         placeholder="Seleccione foto"
                         prepend-icon="mdi-camera"
                         label="Foto principal"
                         :disabled="option===2?true:false"
+                        name="imagen"
+                        @change="obtenerimg"
                       >
                       <template v-slot:selection="{ text }">
                         <v-chip
@@ -135,7 +136,7 @@
                         >
                           {{ text }}
                         </v-chip>
-                       </template></v-file-input>
+                       </template></v-file-input> 
                    
                     </v-col>
                    
@@ -145,9 +146,7 @@
                     >
                    
                       <v-file-input
-                    
-                        
-                        accept="image/png, image/jpeg,"
+                        accept="image/*"
                         placeholder="Seleccione foto "
                         prepend-icon="mdi-camera"
                         label="Banner foto"
@@ -170,14 +169,13 @@
                     >
                    
                       <v-file-input
-                     
-                        :rules="rules"
-                        accept="image/png, image/jpeg,"
+                        accept="image/*"
                         placeholder="Seleccione las imagenes"
                         multiple
                         prepend-icon="mdi-camera"
                         label="Galeria"
                         counter
+                        
                         :disabled="option===2?true:false"
                       > <template v-slot:selection="{ text }">
                           <v-chip
@@ -222,7 +220,7 @@
                         v-if="option!==2"
                         color="success"
                         class="mr-0"
-                        @click="submit"
+                      @click="submit"
                       >
                         {{ getTitleButton }}
                       </v-btn>
@@ -241,6 +239,7 @@
     import i18n from '@/i18n'
     import { catalogsGetList} from '../../../api/modules/catalogs'
     import { createblog} from '../../../api/modules/blogs'
+    import { uploadimg} from '../../../api/modules/blogs'
     export default {
       data: () => ({
         tabs: 0,
@@ -259,7 +258,8 @@
             bannerPhoto: ''
                     },
         selcatalog: [],
-       new:{}
+       new:{},
+       fot:{}
       }),
       computed: {
         getTitle () {
@@ -308,7 +308,7 @@
             reference:this.reference,
             datePublication:  new Date().toISOString(),
             idCatType: this.blogData.idCatType,
-            mainPhoto:  document.getElementById("fileUpload"),
+            mainPhoto:  '',
             bannerPhoto: 'foto2'
  
             }  ;
@@ -318,9 +318,19 @@
           }
           console.log(this.new)
         },
-        chooseFiles() {
-        document.getElementById("fileUpload").click()
-    },
+      
+     
+        
+        
+        //  await uploadimg(file)
+        //  .then(response =>{
+        //          this.fot=response
+        //       console.log(response)
+        //      });
+        //      console.log(fot)
+             
+        
+       
         // async submit () {
         //   if (this.option === 1) {
         //     let serviceResponse = await createBlogs(this.blogData )
