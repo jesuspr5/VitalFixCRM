@@ -7,7 +7,7 @@
     <v-row justify="center">
       <v-slide-y-transition appear>
         <base-material-card
-          color="primary"
+          color="greenligth"
           light
           max-width="100%"
           width="400"
@@ -15,7 +15,7 @@
         >
           <template v-slot:heading>
             <div class="text-center">
-              <h1 class="display-4 font-weight-bold mb-1">
+              <h1 class="display-3 font-weight-bold mb-1">
                 Login
               </h1>
             </div>
@@ -44,6 +44,7 @@
 
             <pages-btn
               large
+              dark
               color=""
               depressed
               class="v-btn--text success--text"

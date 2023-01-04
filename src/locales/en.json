@@ -90,6 +90,9 @@
     "show": "Mostrar Blog"
 
  },
+ "publications":{
+    "head": "Publicaciones"
+ },
   "crud":{
      "create":"Crear",
      "edit":"Editar",
