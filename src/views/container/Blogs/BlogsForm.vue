@@ -195,7 +195,7 @@ export default {
     filep: null,
     fileb: null,
     galery: [],
-    urlMainPhoto: 'hhh',
+    urlMainPhoto: "hhh",
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
@@ -248,11 +248,9 @@ export default {
       }
     },
 
-   async submit() {
+    async submit() {
       if (this.option === 1) {
-     await  this.upload(); 
-        console.log("Aqui comienza a cargar el json");
-       // this.upload();
+        await this.upload();
         let blog = {
           title: this.blogData.title,
           subTitle: this.blogData.subTitle,
@@ -268,29 +266,16 @@ export default {
       }
       console.log(this.new);
     },
-
     async upload() {
       const formData = new FormData();
       formData.append("file", this.filep);
 
       let result;
       result = await uploadimg(formData);
-      //this.items = result;
-      console.log("EL STOREE: ", result);
-      console.log('array',this.items)
 
-      console.log("url foto ", this.urlMainPhoto);
-       this.urlMainPhoto = result;
-      
-      console.log("hola soy bata", this.urlMainPhoto);
+      this.urlMainPhoto = result;
       return result;
-    },
-    uploadphotos (){
-      console.log("estos es para cargar las fotos fotos");
-      this.urlMainPhoto = this.upload();
     }
-
-
   }
 };
 </script>
