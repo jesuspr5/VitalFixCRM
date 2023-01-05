@@ -73,13 +73,17 @@ async function updateblog(blogToUpdate) {
   console.log("Usuario Actualizado: ", result);
   return result;
 }
-// async function uploadimg(img){
-//   let result ;
-//  result=await axios.post("https://as-humedal-api.azurewebsites.net/Blogs/Upload",img)
-// }
- function uploadimg() {
-  return "https://as-humedal-api.azurewebsites.net/Blogs/Upload";
+async function uploadimg(img){
+  let result ;
+ result=await axios.post("https://as-humedal-api.azurewebsites.net/Blogs/Upload",img)
+ .then(data => {return data.data.data}).catch(error => {return error.response.data})
+ console.log('url: ', result)
+ return result
 }
+
+//  function uploadimg() {
+//   return "https://as-humedal-api.azurewebsites.net/Blogs/Upload";
+// }
 
 // export const createCharityOrg = (body) =>
 //   apiHttp('POST', `${charityOrgPathRoot}`, body, {
