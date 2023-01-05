@@ -209,7 +209,7 @@
 
 <script>
 import i18n from "@/i18n";
-// import { publicationsGetList } from "../../../api/modules/publications";
+import { createpdf, createpublications } from "../../../api/modules/publications";
 
 export default {
   data: () => ({
@@ -246,6 +246,7 @@ export default {
     // console.log($t('roles.title'))
     // this.data();
     this.initialize();
+    this.createPublications();
   },
   methods: {
     
@@ -264,7 +265,11 @@ export default {
         console.log(this.publiData);
       }
     },
-
+    action() {
+      if (this.option === 1) {
+        this.createPublications();
+      }
+    },
 
     upload() {
       // the file object is not empty
@@ -278,9 +283,17 @@ export default {
         method: 'POST',
         body: formData,
       };
-
-      fetch('https://httpbin.org/post', options).then(response => response.json())
+      fetch(createpdf(), options).then(response => response.json())
         .then(data => console.log(data));
+    },
+    async createPublications(){
+      let newPub = {
+        title: this.publiData.title,
+        description: this.publiData.description,
+        filePdf: this.publiData.filePdf,
+        datePublication:  new Date().toISOString(),
+      }
+      newPub = await createpublications()
     },
     // async submit() {
     //   if (this.option === 1) {
