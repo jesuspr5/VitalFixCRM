@@ -166,7 +166,7 @@
                       v-if="option !== 2"
                       color="success"
                       class="mr-0"
-                      @click="submit"
+                      @click="loadGallery"
                     >
                       {{ getTitleButton }}
                     </v-btn>
@@ -196,6 +196,8 @@ export default {
     fileb: null,
     galery: [],
     urlMainPhoto: "hhh",
+    urlBannerPhoto: "hhh",
+    urlgalery: [],
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
@@ -250,7 +252,10 @@ export default {
 
     async submit() {
       if (this.option === 1) {
-        await this.upload();
+        //  this.urlMainPhoto =   await this.upload(this.filep);
+        //  this.urlBannerPhoto =   await this.upload(this.fileb);
+    await this.loadGallery();
+               console.log("arrgleo de fotos= "+ this.urlgalery);
         let blog = {
           title: this.blogData.title,
           subTitle: this.blogData.subTitle,
@@ -259,22 +264,46 @@ export default {
           datePublication: new Date().toISOString(),
           idCatType: this.blogData.idCatType,
           mainPhoto: this.urlMainPhoto,
-          bannerPhoto: "foto2"
+          bannerPhoto: this.urlBannerPhoto,
+          photosGalery: this.urlgalery
         };
         this.new = blog;
         // blog= await createblog(blog)
       }
       console.log(this.new);
     },
-    async upload() {
+    async upload(img) {
       const formData = new FormData();
-      formData.append("file", this.filep);
-
+      formData.append("file", img);
+    //  console.log("archivos = "+ formData);
       let result;
       result = await uploadimg(formData);
 
-      this.urlMainPhoto = result;
+      //  this.urlMainPhoto = result;
       return result;
+    },
+    async loadGallery() {
+      console.log("tamaños de la galeria elegida= "+ this.galery.length);
+      if ((this.galery.length = !0)) {
+        console.log("galeriaaaaa ");
+        console.log(this.galery);
+        for (let i = 0; i <= this.galery.length; i++) {
+          console.log("photo= " + i);
+          console.log( this.galery[i]);
+        //  var urlPhoto = await this.upload(this.galery[i]);
+          //    var urlPhoto = "hhhoooo";
+          // console.log("URLphoto= "+ urlPhoto);
+
+          // this.urlgalery.push({
+          //   photo: urlPhoto
+          // });
+
+          console.log("Arrglo cargandose= ");
+          console.log(this.urlgalery);
+        }
+      } else {
+        alert("arreglo vacio");
+      }
     }
   }
 };
