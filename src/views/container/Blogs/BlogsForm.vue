@@ -118,7 +118,7 @@
                     >
                  
                        <v-file-input
-                      
+                      v-model="filep"
                       type="file" 
                         accept="image/*"
                         placeholder="Seleccione foto"
@@ -126,7 +126,7 @@
                         label="Foto principal"
                         :disabled="option===2?true:false"
                         name="imagen"
-                        @change="obtenerimg"
+                      
                       >
                       <template v-slot:selection="{ text }">
                         <v-chip
@@ -146,6 +146,7 @@
                     >
                    
                       <v-file-input
+                      v-model="fileb"
                         accept="image/*"
                         placeholder="Seleccione foto "
                         prepend-icon="mdi-camera"
@@ -169,6 +170,7 @@
                     >
                    
                       <v-file-input
+                      v-model="galery"
                         accept="image/*"
                         placeholder="Seleccione las imagenes"
                         multiple
@@ -240,11 +242,15 @@
     import { catalogsGetList} from '../../../api/modules/catalogs'
     import { createblog} from '../../../api/modules/blogs'
     import { uploadimg} from '../../../api/modules/blogs'
+
     export default {
       data: () => ({
         tabs: 0,
         option: 0,
         title: '',
+        filep:null,
+        fileb:null,
+        galery:[],
       //   rules: [
       //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       // ],
@@ -301,16 +307,16 @@
 
         async submit(){
           if(this.option ===1){
+            this.upload();
             let blog ={
               title: this.blogData.title,
-            subTitle: this.blogData.subTitle,
-            description: this.blogData.description,
-            reference:this.reference,
-            datePublication:  new Date().toISOString(),
-            idCatType: this.blogData.idCatType,
-            mainPhoto:  '',
-            bannerPhoto: 'foto2'
- 
+              subTitle: this.blogData.subTitle,
+              description: this.blogData.description,
+              reference:this.blogData.reference,
+              datePublication:  new Date().toISOString(),
+              idCatType: this.blogData.idCatType,
+              mainPhoto: 'foto1',
+              bannerPhoto:'foto2'
             }  ;
             this.new = blog
             // blog= await createblog(blog)
@@ -319,7 +325,25 @@
           console.log(this.new)
         },
       
+        upload() {
+      // the file object is not empty
+      console.log(this.filep);
+      
+      // post file to server
+      const formData = new FormData();
+      formData.append('file', this.filep);
      
+
+      const options = {
+        method: 'POST',
+        body: formData,
+      };
+   
+      fetch(uploadimg(), options).then(response => response.json())
+        .then(data => console.log(data));
+          
+    }
+  
         
         
         //  await uploadimg(file)
@@ -352,7 +376,7 @@
         //     }
         //   }
         // },
-      }, //
+      }, 
     }
   </script>
   

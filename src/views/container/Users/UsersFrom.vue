@@ -173,7 +173,7 @@
 
 <script>
 import i18n from "@/i18n";
-import { editUsers, createUsers } from "@/api/modules";
+
 import userjson from "./user.json";
 export default {
   data: () => ({
