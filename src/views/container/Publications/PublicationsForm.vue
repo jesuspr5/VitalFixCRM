@@ -47,9 +47,9 @@
 
                   <v-col cols="12" sm="4">
                     <v-file-input
-                      v-model='file' 
-                      accept="image/*" 
-                      @change="upload"   
+                      v-model="file"
+                      accept=" "
+                      @change="upload"
                       placeholder="Seleccione PDF"
                       prepend-icon="mdi-file"
                       label="Foto principal"
@@ -62,7 +62,6 @@
                       </template>
                     </v-file-input>
                   </v-col>
-
 
                   <!-- <v-col
                       cols="12"
@@ -138,7 +137,6 @@
                      
                     </v-col>  -->
 
-
                   <!-- <v-col
                       cols="12"
                       sm="4"
@@ -191,7 +189,6 @@
                    
                     </v-col> -->
 
-
                   <v-col cols="12" class="text-right">
                     <v-btn v-if="option !== 2" color="success" class="mr-0">
                       {{ getTitleButton }}
@@ -209,7 +206,10 @@
 
 <script>
 import i18n from "@/i18n";
-import { createpdf, createpublications } from "../../../api/modules/publications";
+import {
+  createpdf,
+  createpublications,
+} from "../../../api/modules/publications";
 
 export default {
   data: () => ({
@@ -226,7 +226,7 @@ export default {
       description: "",
       filePdf: "",
       datePublication: "",
-    }
+    },
   }),
   computed: {
     getTitle() {
@@ -240,20 +240,19 @@ export default {
       else if (this.option === 2) return i18n.t("crud.show");
       else if (this.option === 3) return i18n.t("crud.edit");
       else return i18n.t("publications.head");
-    }
+    },
   },
   mounted() {
     // console.log($t('roles.title'))
     // this.data();
     this.initialize();
-    this.createPublications();
+    // this.createPublications();
   },
   methods: {
-    
     // data: async function() {
     //   // let result;
     //   // result = await publicationsGetList(1, 44);
-      
+
     //     // this.publicationsData = result
     //   // console.log("API: ", result);
     //   // console.log("catalogos", this.selcatalog);
@@ -265,36 +264,48 @@ export default {
         console.log(this.publiData);
       }
     },
-    action() {
-      if (this.option === 1) {
-        this.createPublications();
-      }
-    },
-
+    
     upload() {
       // the file object is not empty
       console.log(this.file);
-      
+
       // post file to server
       const formData = new FormData();
-      formData.append('file', this.file);
+      formData.append("file", this.file);
 
       const options = {
-        method: 'POST',
+        method: "POST",
         body: formData,
       };
-      fetch(createpdf(), options).then(response => response.json())
-        .then(data => console.log(data));
+      fetch(createpdf(), options)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
     },
-    async createPublications(){
-      let newPub = {
-        title: this.publiData.title,
-        description: this.publiData.description,
-        filePdf: this.publiData.filePdf,
-        datePublication:  new Date().toISOString(),
+
+    async submit() {
+      if (this.option === 1) {
+        this.upload();
+        let newPub = {
+          title: this.publiData.title,
+          description: this.publiData.description,
+          filePdf: 'pdfUrl',
+          datePublication: new Date().toISOString(),
+        };
+        this.new = newPub;
+        // newPub = await createpublications();
+
       }
-      newPub = await createpublications()
+      console.log(this.new);
     },
+    // async createPublications() {
+    //   let newPub = {
+    //     title: this.publiData.title,
+    //     description: this.publiData.description,
+    //     filePdf: this.publiData.filePdf,
+    //     datePublication: new Date().toISOString(),
+    //   };
+    //   newPub = await createpublications();
+    // },
     // async submit() {
     //   if (this.option === 1) {
     //     let serviceResponse = await createPublications(this.publiData);
@@ -319,23 +330,10 @@ export default {
     //     }
     //   }
     // }
-    async submit(){
-          if(this.option ===1){
-            let publication ={
-              title: this.publiData.title,
-            description: this.publiData.description,
-              filePdf: this.publiData.filePdf,
-            datePublication:  new Date().toISOString(),
-            }  ;
-            this.new = publication
-            // blog= await createblog(blog)
-            
-          }
-          console.log(this.new)
-        },
-        chooseFiles() {
-        document.getElementById("fileUpload").click()
+
+    chooseFiles() {
+      document.getElementById("fileUpload").click();
     },
-  } //
+  }, //
 };
 </script>
