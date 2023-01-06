@@ -19,9 +19,7 @@ async function createpublications( publicationsToCreate ){
   console.log('Publicacion creada con exito: ', result)
   return result
 }
-async function createpdf( ){
-  return ("https://as-humedal-api.azurewebsites.net/Publications/Create")
-}
+
 
 
   // export const createpublications = (body) =>
@@ -46,16 +44,18 @@ async function updatepublications( publicationsToUpdate ){
 
 }
 
-async function updatepdf( ){
-  return ("https://as-humedal-api.azurewebsites.net/Publications/Create")
+async function uploadpdf(pdf){
+  let result ;
+  result=await axios.post("https://as-humedal-api.azurewebsites.net/Publications/Upload",pdf)
+  .then(data => {return data.data.data}).catch(error => {return error.response.data})
+  console.log('url: ', result)
+  return result
 }
 
 export { 
     publicationsGetList,
     publicationsGet,
     createpublications,
-    createpdf,
     deletepublications,
     updatepublications,
-    updatepdf
-}
+    uploadpdf}

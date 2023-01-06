@@ -167,6 +167,17 @@
             },
           ],
         },
+        {
+          group: '/home/investigation',
+          icon: 'mdi-image',
+          title: 'investigation.head',
+          children: [
+            {
+              title: 'investigation.head',
+              to: 'investigation',
+            },
+          ],
+        },
         // {
         //   group: '/kitchens',
         //   icon: 'mdi-coffee-maker',

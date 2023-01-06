@@ -47,9 +47,8 @@
 
                   <v-col cols="12" sm="4">
                     <v-file-input
-                      v-model="file"
+                      v-model="filpdf"
                       accept=" "
-                      @change="upload"
                       placeholder="Seleccione PDF"
                       prepend-icon="mdi-file"
                       label="Foto principal"
@@ -74,7 +73,7 @@
                         :disabled="option===2?true:false"
                       />
                     </v-col> -->
-
+<!-- 
                   <v-col cols="12" sm="4">
                     <v-text-field
                       v-model="publiData.datePublication"
@@ -82,7 +81,7 @@
                       :label="$t('publications.datePublication')"
                       :disabled="option === 2 ? true : false"
                     />
-                  </v-col>
+                  </v-col> -->
 
                   <v-col cols="12">
                     <v-textarea
@@ -206,25 +205,24 @@
 
 <script>
 import i18n from "@/i18n";
-import {
-  createpdf,
-  createpublications,
-} from "../../../api/modules/publications";
+import {createpublications} from "../../../api/modules/publications";
+import {uploadpdf} from "../../../api/modules/publications";
 
 export default {
   data: () => ({
     tabs: 0,
     option: 0,
     title: "",
-    file: null,
+    filpdf: null,
     pdfUrl: null,
+    urlPdf: '',
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
     publiData: {
       title: "",
       description: "",
-      filePdf: "",
+      pdf: null,
       datePublication: "",
     },
   }),
@@ -264,76 +262,46 @@ export default {
         console.log(this.publiData);
       }
     },
-    
-    upload() {
-      // the file object is not empty
-      console.log(this.file);
-
-      // post file to server
-      const formData = new FormData();
-      formData.append("file", this.file);
-
-      const options = {
-        method: "POST",
-        body: formData,
-      };
-      fetch(createpdf(), options)
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-    },
 
     async submit() {
       if (this.option === 1) {
-        this.upload();
+       await this.upload();
         let newPub = {
           title: this.publiData.title,
           description: this.publiData.description,
-          filePdf: 'pdfUrl',
-          datePublication: new Date().toISOString(),
+          filePdf: this.urlMainPdf,
+          // datePublication: new Date().toISOString(),
         };
-        this.new = newPub;
-        // newPub = await createpublications();
 
+        newPub = await createpublications();
+        console.log(newPub)
       }
-      console.log(this.new);
+      console.log(this.newPub);
     },
-    // async createPublications() {
-    //   let newPub = {
-    //     title: this.publiData.title,
-    //     description: this.publiData.description,
-    //     filePdf: this.publiData.filePdf,
-    //     datePublication: new Date().toISOString(),
-    //   };
-    //   newPub = await createpublications();
-    // },
-    // async submit() {
-    //   if (this.option === 1) {
-    //     let serviceResponse = await createPublications(this.publiData);
-    //     if (serviceResponse.ok === 1) {
-    //       console.log(serviceResponse);
-    //     } else {
-    //       console.log(serviceResponse);
-    //       const params = { text: serviceResponse.message.text };
-    //       window.getApp.$emit("SHOW_ERROR", params);
-    //     }
-    //   } else if (this.option === 3) {
-    //     let serviceResponse = await editPublications(
-    //       this.publiData.id,
-    //       this.publiData
-    //     );
-    //     if (serviceResponse.ok === 1) {
-    //       console.log(serviceResponse);
-    //     } else {
-    //       console.log(serviceResponse);
-    //       const params = { text: serviceResponse.message.text };
-    //       window.getApp.$emit("SHOW_ERROR", params);
-    //     }
-    //   }
-    // }
+    
+    async upload() {
+      // console.log(this.file);
+      const formData = new FormData();
+      formData.append("file", this.filpdf);
 
-    chooseFiles() {
-      document.getElementById("fileUpload").click();
+      let result;
+      result = await uploadpdf(formData);
+
+      this.urlPdf = result;
+      return result;
+      // const options = {
+      //   method: "POST",
+      //   body: formData,
+      // };
+      // fetch(createpdf(), options)
+      //   .then((response) => response.json())
+      //   .then((data) => console.log(data));
     },
+
+
+    // chooseFiles() {
+    //   document.getElementById("fileUpload").click();
+    // },
   }, //
 };
 </script>
