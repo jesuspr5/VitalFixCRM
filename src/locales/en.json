@@ -93,9 +93,15 @@
  },
  "publications":{
     "head": "Publicaciones",
-    "title": "titulo",
-    "description": "descripcion",
-    "datePublication": "Fecha_de_publicacion"
+    "title": "Título",
+    "description": "Descripción",
+    "datePublication": "Fecha_de_publicación"
+ },
+ "investigation":{
+    "head": "Investigaciones",
+    "title": "Título",
+    "description": "Descripción",
+    "datePublication": "Fecha_de_publicación"
  },
   "crud":{
      "create":"Crear",
