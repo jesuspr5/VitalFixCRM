@@ -216,6 +216,7 @@ export default {
     filpdf: null,
     pdfUrl: null,
     urlPdf: '',
+    urlfilePdf: "",
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
@@ -247,14 +248,6 @@ export default {
     // this.createPublications();
   },
   methods: {
-    // data: async function() {
-    //   // let result;
-    //   // result = await publicationsGetList(1, 44);
-
-    //     // this.publicationsData = result
-    //   // console.log("API: ", result);
-    //   // console.log("catalogos", this.selcatalog);
-    // },
     initialize() {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
@@ -265,37 +258,27 @@ export default {
 
     async submit() {
       if (this.option === 1) {
-       await this.upload();
+        this.urlfilePdf = await this.upload(this.filpdf);
+      //  await this.upload();
         let newPub = {
           title: this.publiData.title,
           description: this.publiData.description,
-          filePdf: this.urlMainPdf,
-          // datePublication: new Date().toISOString(),
+          filePdf: this.urlfilePdf,
+          datePublication: new Date().toISOString(),
         };
 
-        newPub = await createpublications();
-        console.log(newPub)
+        newPub = await createpublications(newPub);
+        // console.log(newPub)
+        console.log(this.newPub);
       }
-      console.log(this.newPub);
     },
     
-    async upload() {
-      // console.log(this.file);
+    async upload(pdf) {
       const formData = new FormData();
-      formData.append("file", this.filpdf);
-
+      formData.append("file", pdf);
       let result;
       result = await uploadpdf(formData);
-
-      this.urlPdf = result;
       return result;
-      // const options = {
-      //   method: "POST",
-      //   body: formData,
-      // };
-      // fetch(createpdf(), options)
-      //   .then((response) => response.json())
-      //   .then((data) => console.log(data));
     },
 
 

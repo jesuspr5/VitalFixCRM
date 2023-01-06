@@ -8,7 +8,7 @@
             background-color="transparent"
             slider-color="white"
           >
-            <v-tab class="mr-3">
+            <v-tab class="mr-3" color="primary">
               <v-icon class="mr-2">
                 mdi-account-key
               </v-icon>
@@ -23,7 +23,7 @@
               fab
               dark
               small
-              color="secondary"
+              color="gray"
               absolute
               right
               top

@@ -1,7 +1,7 @@
 <template>
   <v-container id="data-tables" tag="section">
     <base-material-card
-      color="indigo"
+      color="greenligth"
       icon="mdi-vuetify"
       inline
       class="px-5 py-3"
@@ -36,7 +36,7 @@
         <template v-slot:[`item.actions`]="{ item }">
           <v-btn
             :key="1"
-            color="blue"
+            color="gray"
             fab
             class="px-1 ml-1"
             x-small
@@ -46,7 +46,7 @@
           </v-btn>
           <v-btn
             :key="2"
-            color="primary"
+            color="four"
             fab
             class="px-1 ml-1"
             x-small
@@ -56,7 +56,7 @@
           </v-btn>
           <v-btn
             :key="3"
-            color="secondary"
+            color="primary"
             fab
             class="px-1 ml-1"
             x-small
@@ -71,8 +71,8 @@
           <v-btn
             fab
             dark
-            large
-            color="primary"
+            small
+            color="grenndark"
             fixed
             right
             bottom

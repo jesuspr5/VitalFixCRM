@@ -1,7 +1,7 @@
 <template>
     <v-container id="data-tables" tag="section">
       <base-material-card
-        color="indigo"
+        color="greenligth"
         icon="mdi-vuetify"
         inline
         class="px-5 py-3"
@@ -36,7 +36,7 @@
           <template v-slot:[`item.actions`]="{ item }">
             <v-btn
               :key="1"
-              color="blue"
+              color="gray"
               fab
               class="px-1 ml-1"
               x-small
@@ -46,7 +46,7 @@
             </v-btn>
             <v-btn
               :key="2"
-              color="primary"
+              color="four"
               fab
               class="px-1 ml-1"
               x-small
@@ -56,7 +56,7 @@
             </v-btn>
             <v-btn
               :key="3"
-              color="secondary"
+              color="primary"
               fab
               class="px-1 ml-1"
               x-small
@@ -89,11 +89,11 @@
               fab
               dark
               small
-              color="primary"
+              color="grenndark"
               fixed
               right
               bottom
-              @click="createPublications"
+              @click="createInvestigation"
             >
               <v-icon>mdi-plus</v-icon>
             </v-btn>
@@ -105,7 +105,7 @@
     
     <script>
   import i18n from "@/i18n";
-  import { investigationGetList } from "../../../api/modules/publications";
+  import { investigationGetList } from "../../../api/modules/investigation";
 //   import { deletepublications } from "../../../api/modules/publications";
   export default {
     name: "DashboardDataTables",
@@ -133,7 +133,6 @@
       search: undefined,
     }),
     async mounted() {
-      // window.getApp.$emit("SHOW_ERROR", "34534535")
       this.data();
       this.deletedata
     },
@@ -142,27 +141,13 @@
         let result;
         result = await investigationGetList(1, 34);
         this.items = result;
-        // console.log('EL STOREE: ', result)
-        // console.log('array',this.items)
       },
       deletedata: async function () {
         let result;
         result = await deleteinvestigation(item);
         this.items = result;
       },
-      // async loadRolesData () {
-      //   console.log('mounted')
-      //   let serviceResponse = await getRoles(1,5)
-      //   if (serviceResponse.ok === 1) {
-      //     console.log(serviceResponse)
-      //     this.items = serviceResponse.data.data
-      //     console.log(this.items)
-      //   } else {
-      //     console.log(serviceResponse)
-      //     const params = { text: serviceResponse.message.text }
-      //     window.getApp.$emit('SHOW_ERROR', params)
-      //   }
-      // },
+
       createInvestigation() {
         console.log("create I");
         this.$router.push({
