@@ -43,7 +43,6 @@ async function updatepublications( publicationsToUpdate ){
     return result
 
 }
-
 async function uploadpdf(pdf){
   let result ;
   result=await axios.post("https://as-humedal-api.azurewebsites.net/Publications/Upload",pdf)

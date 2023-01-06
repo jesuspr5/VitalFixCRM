@@ -47,7 +47,7 @@
 
                   <v-col cols="12" sm="4">
                     <v-file-input
-                      v-model="filpdf"
+                      v-model="filePdf"
                       accept=" "
                       placeholder="Seleccione PDF"
                       prepend-icon="mdi-file"
@@ -189,7 +189,7 @@
                     </v-col> -->
 
                   <v-col cols="12" class="text-right">
-                    <v-btn v-if="option !== 2" color="success" class="mr-0">
+                    <v-btn v-if="option !== 2" color="success" class="mr-0" @click="submit">
                       {{ getTitleButton }}
                     </v-btn>
                   </v-col>
@@ -213,9 +213,7 @@ export default {
     tabs: 0,
     option: 0,
     title: "",
-    filpdf: null,
-    pdfUrl: null,
-    urlPdf: '',
+    filePdf: null,
     urlfilePdf: "",
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
@@ -258,7 +256,8 @@ export default {
 
     async submit() {
       if (this.option === 1) {
-        this.urlfilePdf = await this.upload(this.filpdf);
+        console.log("Entra al metodo")
+        await this.upload();
       //  await this.upload();
         let newPub = {
           title: this.publiData.title,
@@ -267,18 +266,25 @@ export default {
           datePublication: new Date().toISOString(),
         };
 
-        newPub = await createpublications(newPub);
+       // newPub = await createpublications(newPub);
         // console.log(newPub)
-        console.log(this.newPub);
+        console.log("esta es la publicacion",newPub);
+       var publications = await createpublications(newPub);
+         if(publications != null){
+          console.log("Tituulo de la publicacion", publications);
+          alert("Publicación creada con exito")
+        }
       }
     },
     
-    async upload(pdf) {
+    async upload() {
       const formData = new FormData();
-      formData.append("file", pdf);
+      formData.append("file", this.filePdf);
       let result;
       result = await uploadpdf(formData);
-      return result;
+
+      console.log("ulrPDF ", result)
+      this.urlfilePdf = result;
     },
 
 
