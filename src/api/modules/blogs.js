@@ -50,7 +50,7 @@ async function createblog(blogToCreate) {
     "https://as-humedal-api.azurewebsites.net/Blogs/Create",
     blogToCreate
   );
-  console.log("Usuario creado: ", result);
+  console.log("Blog creado: ", result);
   return result;
 }
 
@@ -80,6 +80,9 @@ async function uploadimg(img){
  console.log('url: ', result)
  return result
 }
+
+
+
 
 //  function uploadimg() {
 //   return "https://as-humedal-api.azurewebsites.net/Blogs/Upload";

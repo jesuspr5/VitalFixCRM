@@ -135,6 +135,7 @@
                       prepend-icon="mdi-camera"
                       label="Galeria"
                       counter
+                      @change="filechange"
                       :disabled="option === 2 ? true : false"
                     >
                       <template v-slot:selection="{ text }">
@@ -166,7 +167,7 @@
                       v-if="option !== 2"
                       color="success"
                       class="mr-0"
-                      @click="loadGallery"
+                      @click="submit()"
                     >
                       {{ getTitleButton }}
                     </v-btn>
@@ -186,6 +187,7 @@ import i18n from "@/i18n";
 import { catalogsGetList } from "../../../api/modules/catalogs";
 import { createblog } from "../../../api/modules/blogs";
 import { uploadimg } from "../../../api/modules/blogs";
+import axios from "axios";
 
 export default {
   data: () => ({
@@ -211,8 +213,7 @@ export default {
       bannerPhoto: ""
     },
     selcatalog: [],
-    new: {},
-    fot: {}
+    new: {}
   }),
   computed: {
     getTitle() {
@@ -236,7 +237,7 @@ export default {
   methods: {
     cata: async function() {
       let result;
-      result = await catalogsGetList(1, 44);
+      result = await catalogsGetList(1, 100);
       this.selcatalog = result;
       console.log("API: ", result);
       console.log("catalogos", this.selcatalog);
@@ -252,10 +253,10 @@ export default {
 
     async submit() {
       if (this.option === 1) {
-        //  this.urlMainPhoto =   await this.upload(this.filep);
-        //  this.urlBannerPhoto =   await this.upload(this.fileb);
-    await this.loadGallery();
-               console.log("arrgleo de fotos= "+ this.urlgalery);
+         this.urlMainPhoto =   await this.upload(this.filep);
+         this.urlBannerPhoto =   await this.upload(this.fileb);
+        
+        console.log("arrgleo de fotos= ", this.urlgalery);
         let blog = {
           title: this.blogData.title,
           subTitle: this.blogData.subTitle,
@@ -267,44 +268,92 @@ export default {
           bannerPhoto: this.urlBannerPhoto,
           photosGalery: this.urlgalery
         };
-        this.new = blog;
-        // blog= await createblog(blog)
+       
+       blog= await createblog(blog)
+       console.log("creado");
+      }else{
+        console.log(" blog no creado");
       }
-      console.log(this.new);
+      
     },
     async upload(img) {
       const formData = new FormData();
       formData.append("file", img);
-    //  console.log("archivos = "+ formData);
+      //  console.log("archivos = "+ formData);
       let result;
       result = await uploadimg(formData);
 
       //  this.urlMainPhoto = result;
       return result;
+
+     
     },
-    async loadGallery() {
-      console.log("tamaños de la galeria elegida= "+ this.galery.length);
-      if ((this.galery.length = !0)) {
-        console.log("galeriaaaaa ");
-        console.log(this.galery);
-        for (let i = 0; i <= this.galery.length; i++) {
-          console.log("photo= " + i);
-          console.log( this.galery[i]);
-        //  var urlPhoto = await this.upload(this.galery[i]);
-          //    var urlPhoto = "hhhoooo";
-          // console.log("URLphoto= "+ urlPhoto);
 
-          // this.urlgalery.push({
-          //   photo: urlPhoto
-          // });
+   
 
-          console.log("Arrglo cargandose= ");
-          console.log(this.urlgalery);
-        }
-      } else {
-        alert("arreglo vacio");
-      }
+  
+    filechange() {
+      console.log("galeria:", this.galery);
+   
+    this.galery.map(item => {
+      var formData = new FormData();
+      formData.append("file", item)
+      
+
+     axios.post("https://as-humedal-api.azurewebsites.net/Blogs/Upload",formData)
+      .then(data => {
+
+        this.urlgalery.push({
+               photo: data.data.data
+            });
+      
+      
+      }).catch(error => {return error.response.data})
+       
+    });
+    console.log("que trae",this.urlgalery)
     }
-  }
+  
+   
+
+    
+    
+    // filechange() {
+    //   console.log("galeria:", this.galery);
+
+    //   this.urlgalery = this.galery.map(async (item) => {
+    //     return await this.upload(item);
+    //     console.log("ulrFot", url);
+    //     // this.urlgalery.push({
+    //     //   photo: url
+    //     // });
+    //   });
+
+    //   //  this.urlgalery.push({
+    //   //  });
+    //   console.log("array :", this.urlgalery);
+    // },
+    
+    //  fileChangeEvent(index) {
+    // this.modelData.urlImage=[]
+    // this.form.value.urlImage.map(item=>{
+    // console.log("index", item)
+    // this.spinner.show();
+    // var form_data = new FormData();
+    // form_data.append('file', item)
+    // })
+    // this.technicalSheets.uploadPhotoTecnicalSheet(form_data).then(response => {
+    //   this.spinner.hide();
+    //   console.log(response);
+    //   if (response.err == false) {
+    //         this.modelData.urlImage.push({
+    //           "urlPhoto": response.data
+    //         });
+
+    //       }
+    //     })
+    //   }
+  
+}
 };
 </script>
