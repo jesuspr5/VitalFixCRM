@@ -136,8 +136,9 @@
                       label="Galeria"
                       counter
                       :disabled="option === 2 ? true : false"
+                      @change="this.galery"
                     >
-                      <template v-slot:selection="{ text }">
+                      <template v-slot:selection="{ text }" >
                         <v-chip small label color="#75B768">
                           {{ text }}
                         </v-chip>
@@ -160,7 +161,7 @@
                       :disabled="option === 2 ? true : false"
                     ></v-textarea>
                   </v-col>
-
+                  
                   <v-col cols="12" class="text-right">
                     <v-btn
                       v-if="option !== 2"
@@ -252,7 +253,7 @@ export default {
 
     async submit() {
       if (this.option === 1) {
-        //  this.urlMainPhoto =   await this.upload(this.filep);
+         this.urlMainPhoto =   await this.upload(this.filep);
         //  this.urlBannerPhoto =   await this.upload(this.fileb);
     await this.loadGallery();
                console.log("arrgleo de fotos= "+ this.urlgalery);
@@ -287,13 +288,14 @@ export default {
       if ((this.galery.length = !0)) {
         console.log("galeriaaaaa ");
         console.log(this.galery);
+     
         for (let i = 0; i <= this.galery.length; i++) {
           console.log("photo= " + i);
           console.log( this.galery[i]);
         //  var urlPhoto = await this.upload(this.galery[i]);
           //    var urlPhoto = "hhhoooo";
           // console.log("URLphoto= "+ urlPhoto);
-
+         
           // this.urlgalery.push({
           //   photo: urlPhoto
           // });
