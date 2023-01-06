@@ -8,7 +8,7 @@
             background-color="transparent"
             slider-color="white"
           >
-            <v-tab class="mr-3">
+            <v-tab class="mr-3" color="primary">
               <v-icon class="mr-2">
                 mdi-account-key
               </v-icon>
@@ -23,7 +23,7 @@
               fab
               dark
               small
-              color="secondary"
+              color="gray"
               absolute
               right
               top
@@ -137,8 +137,9 @@
                       counter
                       @change="filechange"
                       :disabled="option === 2 ? true : false"
+                     
                     >
-                      <template v-slot:selection="{ text }">
+                      <template v-slot:selection="{ text }" >
                         <v-chip small label color="#75B768">
                           {{ text }}
                         </v-chip>
@@ -161,7 +162,7 @@
                       :disabled="option === 2 ? true : false"
                     ></v-textarea>
                   </v-col>
-
+                  
                   <v-col cols="12" class="text-right">
                     <v-btn
                       v-if="option !== 2"
@@ -197,8 +198,8 @@ export default {
     filep: null,
     fileb: null,
     galery: [],
-    urlMainPhoto: "hhh",
-    urlBannerPhoto: "hhh",
+    urlMainPhoto: "",
+    urlBannerPhoto: "",
     urlgalery: [],
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
@@ -213,7 +214,7 @@ export default {
       bannerPhoto: ""
     },
     selcatalog: [],
-    new: {}
+   
   }),
   computed: {
     getTitle() {
@@ -239,8 +240,6 @@ export default {
       let result;
       result = await catalogsGetList(1, 100);
       this.selcatalog = result;
-      console.log("API: ", result);
-      console.log("catalogos", this.selcatalog);
     },
 
     initialize() {
@@ -255,8 +254,6 @@ export default {
       if (this.option === 1) {
          this.urlMainPhoto =   await this.upload(this.filep);
          this.urlBannerPhoto =   await this.upload(this.fileb);
-        
-        console.log("arrgleo de fotos= ", this.urlgalery);
         let blog = {
           title: this.blogData.title,
           subTitle: this.blogData.subTitle,
@@ -311,7 +308,6 @@ export default {
       }).catch(error => {return error.response.data})
        
     });
-    console.log("que trae",this.urlgalery)
     }
   
    

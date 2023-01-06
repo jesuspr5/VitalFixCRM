@@ -11,7 +11,11 @@ const theme = {
   secondary: '#9C27b0',
   accent: '#9C27b0',
   info: '#00CAE3',
-  greenligth: '#75B768'
+  greenligth: '#75B768',
+  grenndark: '#147E48',
+  four: '#97A575',
+  five: '#CCD8F3',
+  gray: '#4B524A'
 }
 
 export default new Vuetify({

@@ -47,7 +47,8 @@
 
                   <v-col cols="12" sm="4">
                     <v-file-input
-                      accept="image/png, image/jpeg,"
+                      v-model="filePdf"
+                      accept=" "
                       placeholder="Seleccione PDF"
                       prepend-icon="mdi-file"
                       label="Foto principal"
@@ -61,7 +62,6 @@
                     </v-file-input>
                   </v-col>
 
-
                   <!-- <v-col
                       cols="12"
                       sm="4"
@@ -73,7 +73,7 @@
                         :disabled="option===2?true:false"
                       />
                     </v-col> -->
-
+<!-- 
                   <v-col cols="12" sm="4">
                     <v-text-field
                       v-model="publiData.datePublication"
@@ -81,7 +81,7 @@
                       :label="$t('publications.datePublication')"
                       :disabled="option === 2 ? true : false"
                     />
-                  </v-col>
+                  </v-col> -->
 
                   <v-col cols="12">
                     <v-textarea
@@ -136,7 +136,6 @@
                      
                     </v-col>  -->
 
-
                   <!-- <v-col
                       cols="12"
                       sm="4"
@@ -189,9 +188,8 @@
                    
                     </v-col> -->
 
-
                   <v-col cols="12" class="text-right">
-                    <v-btn v-if="option !== 2" color="success" class="mr-0">
+                    <v-btn v-if="option !== 2" color="success" class="mr-0" @click="submit">
                       {{ getTitleButton }}
                     </v-btn>
                   </v-col>
@@ -207,22 +205,25 @@
 
 <script>
 import i18n from "@/i18n";
-// import { publicationsGetList } from "../../../api/modules/publications";
+import {createpublications} from "../../../api/modules/publications";
+import {uploadpdf} from "../../../api/modules/publications";
 
 export default {
   data: () => ({
     tabs: 0,
     option: 0,
     title: "",
+    filePdf: null,
+    urlfilePdf: "",
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
     publiData: {
       title: "",
       description: "",
-      filePdf: "",
+      pdf: null,
       datePublication: "",
-    }
+    },
   }),
   computed: {
     getTitle() {
@@ -236,22 +237,15 @@ export default {
       else if (this.option === 2) return i18n.t("crud.show");
       else if (this.option === 3) return i18n.t("crud.edit");
       else return i18n.t("publications.head");
-    }
+    },
   },
   mounted() {
     // console.log($t('roles.title'))
     // this.data();
     this.initialize();
+    // this.createPublications();
   },
   methods: {
-    // data: async function() {
-    //   // let result;
-    //   // result = await publicationsGetList(1, 44);
-      
-    //     // this.publicationsData = result
-    //   // console.log("API: ", result);
-    //   // console.log("catalogos", this.selcatalog);
-    // },
     initialize() {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
@@ -259,47 +253,44 @@ export default {
         console.log(this.publiData);
       }
     },
-    // async submit() {
-    //   if (this.option === 1) {
-    //     let serviceResponse = await createPublications(this.publiData);
-    //     if (serviceResponse.ok === 1) {
-    //       console.log(serviceResponse);
-    //     } else {
-    //       console.log(serviceResponse);
-    //       const params = { text: serviceResponse.message.text };
-    //       window.getApp.$emit("SHOW_ERROR", params);
-    //     }
-    //   } else if (this.option === 3) {
-    //     let serviceResponse = await editPublications(
-    //       this.publiData.id,
-    //       this.publiData
-    //     );
-    //     if (serviceResponse.ok === 1) {
-    //       console.log(serviceResponse);
-    //     } else {
-    //       console.log(serviceResponse);
-    //       const params = { text: serviceResponse.message.text };
-    //       window.getApp.$emit("SHOW_ERROR", params);
-    //     }
-    //   }
-    // }
-    async submit(){
-          if(this.option ===1){
-            let publication ={
-              title: this.publiData.title,
-            description: this.publiData.description,
-              filePdf: this.publiData.filePdf,
-            datePublication:  new Date().toISOString(),
-            }  ;
-            this.new = publication
-            // blog= await createblog(blog)
-            
-          }
-          console.log(this.new)
-        },
-        chooseFiles() {
-        document.getElementById("fileUpload").click()
+
+    async submit() {
+      if (this.option === 1) {
+        console.log("Entra al metodo")
+        await this.upload();
+      //  await this.upload();
+        let newPub = {
+          title: this.publiData.title,
+          description: this.publiData.description,
+          filePdf: this.urlfilePdf,
+          datePublication: new Date().toISOString(),
+        };
+
+       // newPub = await createpublications(newPub);
+        // console.log(newPub)
+        console.log("esta es la publicacion",newPub);
+       var publications = await createpublications(newPub);
+         if(publications != null){
+          console.log("Tituulo de la publicacion", publications);
+          alert("Publicación creada con exito")
+        }
+      }
     },
-  } //
+    
+    async upload() {
+      const formData = new FormData();
+      formData.append("file", this.filePdf);
+      let result;
+      result = await uploadpdf(formData);
+
+      console.log("ulrPDF ", result)
+      this.urlfilePdf = result;
+    },
+
+
+    // chooseFiles() {
+    //   document.getElementById("fileUpload").click();
+    // },
+  }, //
 };
 </script>
