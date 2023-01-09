@@ -71,7 +71,7 @@
           <v-btn
             fab
             dark
-            small
+            large
             color="grenndark"
             fixed
             right
