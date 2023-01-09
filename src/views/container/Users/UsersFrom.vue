@@ -21,7 +21,7 @@
               fab
               dark
               small
-              color="secondary"
+              color="gray"
               absolute
               right
               top
@@ -36,7 +36,7 @@
             <v-form>
               <v-container class="py-0">
                 <v-row>
-                  <v-col cols="12" sm="4">
+                  <v-col cols="12" sm="6">
                     <v-text-field
                       v-model="publiData.title"
                       class="purple-input"
@@ -44,7 +44,7 @@
                       :disabled="option === 2 ? true : false"
                     />
                   </v-col>
-                  <v-col cols="12" sm="4">
+                  <v-col cols="12" sm="6">
                     <v-text-field
                       v-model="publiData.title"
                       class="purple-input"
@@ -52,7 +52,7 @@
                       :disabled="option === 2 ? true : false"
                     />
                   </v-col>
-                  <v-col cols="12" sm="4">
+                  <v-col cols="12" sm="6">
                     <v-text-field
                       v-model="publiData.title"
                       class="users.email"
@@ -60,7 +60,7 @@
                       :disabled="option === 2 ? true : false"
                     />
                   </v-col>
-                  <v-col cols="12" sm="4">
+                  <v-col cols="12" sm="6">
                     <v-text-field
                       v-model="publiData.title"
                       class="purple-input"
