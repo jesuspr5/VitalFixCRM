@@ -51,7 +51,7 @@
                       accept=" "
                       placeholder="Seleccione PDF"
                       prepend-icon="mdi-file"
-                      label="Foto principal"
+                      label="Archivo"
                       :disabled="option === 2 ? true : false"
                     >
                       <template v-slot:selection="{ text }">
@@ -60,6 +60,7 @@
                         </v-chip>
                       </template>
                     </v-file-input>
+                    
                   </v-col>
 
                   <!-- <v-col
@@ -194,6 +195,12 @@
                     </v-btn>
                   </v-col>
                 </v-row>
+                 <!-- <label for="">hola  soy bata</label>
+                 <template>
+                  <pdf src="https://docs.bvsalud.org/biblioref/2018/08/909258/diseno-de-un-proyecto-de-aula-para-fortalecer-el-conocimiento-s_DKpF7Yo.pdf"
+                 ></pdf>
+</template>
+                 -->
               </v-container>
             </v-form>
           </v-tab-item>
@@ -205,20 +212,26 @@
 
 <script>
 import i18n from "@/i18n";
-import {createpublications} from "../../../api/modules/publications";
-import {uploadpdf} from "../../../api/modules/publications";
+import {createpublications, updatepublications , uploadpdf} from "../../../api/modules/publications";
+import pdf from 'vue-pdf';
 
 export default {
+  components :{
+  pdf,
+ },
   data: () => ({
     tabs: 0,
     option: 0,
     title: "",
     filePdf: null,
     urlfilePdf: "",
+    currentPage: 0,
+			pageCount: 0,
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
     publiData: {
+      idPublicationsLanding : null,
       title: "",
       description: "",
       pdf: null,
@@ -250,7 +263,9 @@ export default {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
         this.publiData = this.$route.params.publiData;
+        console.log("hola soy bata")
         console.log(this.publiData);
+        console.log(this.option)
       }
     },
 
@@ -273,6 +288,23 @@ export default {
          if(publications != null){
           console.log("Tituulo de la publicacion", publications);
           alert("Publicación creada con exito")
+        }
+      }
+      if(this.option === 3){
+        console.log("Actualizar")
+        let pub = {
+          idPublicationsLanding : this.publiData.idPublicationsLanding,
+          title: this.publiData.title,
+          description: this.publiData.description
+        };
+
+       // newPub = await createpublications(newPub);
+        // console.log(newPub)
+        console.log("estos son los datos",pub);
+       var publicationsUpdate = await updatepublications(pub);
+         if(publicationsUpdate  != null){
+          console.log("Tituulo de la publicacion", publicationsUpdate );
+          alert("Publicación Actualizada con exito")
         }
       }
     },

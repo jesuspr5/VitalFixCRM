@@ -105,14 +105,14 @@
   
   <script>
 import i18n from "@/i18n";
-import { publicationsGetList } from "../../../api/modules/publications";
-import { deletepublications } from "../../../api/modules/publications";
+import { publicationsGetList , deletepublications } from "../../../api/modules/publications";
 export default {
   name: "DashboardDataTables",
 
   data: () => ({
     hidden: false,
     dialogDelete: false,
+    idBlog : null,
     headers: [
       {
         text: i18n.t("publications.title"),
@@ -135,7 +135,7 @@ export default {
   async mounted() {
     // window.getApp.$emit("SHOW_ERROR", "34534535")
     this.data();
-    this.deletedata
+   // this.deletedata
   },
   methods: {
     data: async function () {
@@ -150,21 +150,9 @@ export default {
       result = await deletepublications(item);
       this.items = result;
     },
-    // async loadRolesData () {
-    //   console.log('mounted')
-    //   let serviceResponse = await getRoles(1,5)
-    //   if (serviceResponse.ok === 1) {
-    //     console.log(serviceResponse)
-    //     this.items = serviceResponse.data.data
-    //     console.log(this.items)
-    //   } else {
-    //     console.log(serviceResponse)
-    //     const params = { text: serviceResponse.message.text }
-    //     window.getApp.$emit('SHOW_ERROR', params)
-    //   }
-    // },
+  
     createPublications() {
-      console.log("create P");
+      // console.log("create P");
       this.$router.push({
         name: "PublicationsForm",
         params: {
@@ -192,22 +180,31 @@ export default {
         },
       });
     },
-    deletepublications(item) {
-
-      console.log(item);
-
-      this.dialogDelete = true;
+   deletepublications(item) {
+    console.log("hola soy bataaaaaaaa",item);
+    this.idBlog =item.idPublicationsLanding
+  this.dialogDelete = true;
     },
     closeDelete() {
       this.dialogDelete = false;
     },
-    deleteItemConfirm(item) {
-      // this.desserts.splice(this.editedIndex, 1);
-      this.deletepublications();
-      console.log("Delete p");
-      console.log(item);
-      console.log("Delete");
-      this.closeDelete();
+    async   deleteItemConfirm(item) {
+      let result;
+    // var id =  item.idPublicationsLanding;
+    console.log("id borrar", this.idBlog)
+      result = await deletepublications(this.idBlog);
+      console.log("respuesta", result)
+      if(result === "Transacción exitosa.")
+      {
+        alert("Publicación Eliminada  con exito")
+        this.data();
+      }
+      else{
+        alert("Chernobil")
+      }
+
+      // this.data();
+     
     },
   },
 };

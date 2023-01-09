@@ -28,11 +28,11 @@ async function createpublications( publicationsToCreate ){
   //   Authorization: 'Bearer ' + `${token}`,
   // })
 
-async function deletepublications(IdPublications){
+async function deletepublications(IdPublicationsLanding){
   let result;
     result = await axios.delete("https://as-humedal-api.azurewebsites.net/Publications/Delete?IdPublicationsLanding="+ IdPublicationsLanding)
     console.log('publicacion Eliminada con exito: ', result)
-    return result
+    return result.data.data
 
 }
 
