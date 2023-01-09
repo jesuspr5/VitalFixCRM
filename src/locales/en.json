@@ -47,7 +47,7 @@
     "errors": "Errors"
   },
   "users":{
-     "title":"Users",
+     "title":"Usuarios",
      "dni": "DNI",
      "type":"User Type",
      "create":"Create User",
@@ -55,11 +55,12 @@
      "show": "Show User",
      "id":"ID User",
      "username":"Username",
-     "name":"Name",
-     "lastname":"Lastname",
+     "name":"Nombre",
+     "lastname":"Apellido",
      "fullname":"fullname",
+     "datebird":"Fecha_de_nacimiento",
      "email":"Email",
-     "phone":"Phone",
+     "phone":"Teléfono",
      "role":"Role",
      "address":"address",
     "pharmacist":"pharmacist",
@@ -89,8 +90,12 @@
     "create":"Crear Blog",
     "edit": "Editar Blog",
     "show": "Mostrar Blog"
-
  },
+ "texts":{
+  "createtext": "Blog creado con exito",
+  "deletetext": " Blog eliminado ",
+  "updatetext": "Blog actualizado con exito"
+},
  "publications":{
     "head": "Publicaciones",
     "title": "Título",

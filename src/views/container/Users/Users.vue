@@ -4,14 +4,14 @@
     tag="section"
   >
     <base-material-card
-      color="indigo"
+      color="greenligth"
       icon="mdi-vuetify"
       inline
       class="px-5 py-3"
     >
       <template v-slot:after-heading>
         <div class="display-2 font-weight-light">
-          {{ title }}
+          {{$t("users.title")}}
         </div>
       </template>
 
@@ -40,7 +40,7 @@
           <v-btn
 
             :key="1"
-            color="blue"
+            color="gray"
             fab
             class="px-1 ml-1"
             x-small
@@ -54,7 +54,7 @@
           <v-btn
 
             :key="2"
-            color="primary"
+            color="four"
             fab
             class="px-1 ml-1"
             x-small
@@ -68,7 +68,7 @@
           <v-btn
 
             :key="3"
-            color="secondary"
+            color="primary"
             fab
             class="px-1 ml-1"
             x-small
@@ -87,7 +87,7 @@
             fab
             dark
             large
-            color="primary"
+            color="grenndark"
             fixed
             right
             bottom
@@ -114,21 +114,25 @@
       title: userjson.title,
       users: [],
       headers: [
-        {
-          text: i18n.t('users.id'),
-          value: 'person.id',
-        },
+        // {
+        //   text: i18n.t('users.id'),
+        //   value: 'person.id',
+        // },
         {
           text: i18n.t('users.name'),
-          value: 'person.fullname',
+          value: 'names',
+        },
+        {
+          text: ('apellidos'),
+          value: 'lastNames',
         },
         {
           text: i18n.t('users.email'),
-          value: 'person.email',
+          value: 'email',
         },
         {
           text: i18n.t('users.phone'),
-          value: 'person.phone_number',
+          value: 'phone',
         },
         {
           sortable: false,
@@ -136,29 +140,12 @@
           value: 'actions',
         },
       ],
-      items: [
-        {
-          person: {
-            id: 1,
-            fullname: 'algo',
-            email: 'este@gmail.com',
-            phone_number: '2323232323',
-          },
-        },
-        {
-          person: {
-            id: 1,
-            fullname: 'algo',
-            email: 'este@gmail.com',
-            phone_number: '2323232323',
-          },
-        },
-      ],
+      items: [],
       search: undefined,
       searchLabel: 'undefined',
     }),
     async mounted () {
-      console.log('cczxcsdc')
+      // console.log('cczxcsdc')
       // this.getUsersList()
     //  this.loadUsersData
       // window.getApp.$emit("SHOW_ERROR", "34534535")
@@ -168,70 +155,43 @@
     methods: {
       data: async function(){
       let result;
-      result = await usersGetList()
-      //this.$store.commit('blogData/setArticles', result)
-      // this.blogsData=this.$store.state.blogData.articles
-      console.log('EL STOREE: ', result)
-      // this.loaded=true
+      result = await usersGetList();
+      this.items = result;
     },
-    //   async loadUsersData () {
-    //     console.log('mounted')
-    //     let serviceResponse = await getUsers(Page=1,Rows=12333)
-    //     console.log(serviceResponse)
-    //     if (serviceResponse.ok === 1) {
-    //       console.log(serviceResponse)
-    //       this.items = serviceResponse.data
-    //     } else {
-    //       console.log(serviceResponse)
-    //       const params = { text: serviceResponse.message.text }
-    //       window.getApp.$emit('SHOW_ERROR', params)
-    //     }
-    //   },
-    //   getUsersList() {
-    //   console.log("cargando usuarios")
-    //   axios
-    //     .get("https://as-humedal-api.azurewebsites.net/Users/GetList?Page=1&Rows=123123")
-    //     .then((data) => {
-    //       this.users = data.data;
-    //       console.log(this.users);
-    //     })
-    //     .catch((e) => {
-    //       console.log(e);
-    //     });
-    // }, 
-    //   createUser () {
-    //     console.log('create')
-    //     this.$router.push({
-    //       name: 'UsersFrom',
-    //       params: {
-    //         option: 1, // option 1 to create
-    //       },
-    //     })
-    //   },
-    //   showUser (item) {
-    //     console.log(item)
-    //     this.$router.push({
-    //       name: 'UsersFrom',
-    //       params: {
-    //         option: 2, // option 2 to show
-    //         userData: item,
-    //       },
-    //     })
-    //   },
-    //   editUser (item) {
-    //     console.log(item)
-    //     this.$router.push({
-    //       name: 'UsersFrom',
-    //       params: {
-    //         option: 3, // option 3 to edit
-    //         userData: item,
-    //       },
-    //     })
-    //   },
-    //   deleteUser (item) {
-    //     console.log(item)
-    //     console.log('Delete')
-    //   },
+     
+      createUser () {
+        console.log('create')
+        this.$router.push({
+          name: 'UsersFrom',
+          params: {
+            option: 1, // option 1 to create
+          },
+        })
+      },
+      showUser (item) {
+        console.log(item)
+        this.$router.push({
+          name: 'UsersFrom',
+          params: {
+            option: 2, // option 2 to show
+            userData: item,
+          },
+        })
+      },
+      editUser (item) {
+        console.log(item)
+        this.$router.push({
+          name: 'UsersFrom',
+          params: {
+            option: 3, // option 3 to edit
+            userData: item,
+          },
+        })
+      },
+      deleteUser (item) {
+        console.log(item)
+        console.log('Delete')
+      },
     },
   }
 </script>

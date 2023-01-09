@@ -11,7 +11,7 @@ async function blogsGetList(Page, Rows) {
   return result.data.data.items;
 }
 
-async function blogsGetListCatType(Page, Rows, IdCatType) {
+async function blogsGetListCatType(Page, Rows, IdCatTyp) {
   let result;
   result = await axios.get(
     "https://as-humedal-api.azurewebsites.net/Blogs/GetListCat?Page=" +
@@ -19,7 +19,7 @@ async function blogsGetListCatType(Page, Rows, IdCatType) {
       "&Rows=" +
       Rows +
       "&IdCatTyp=" +
-      IdCatType
+      IdCatTyp
   );
   return result.data.data.items;
 }
@@ -30,17 +30,21 @@ async function blogsGetListText(Page, Rows, Text) {
       Page +
       "&Rows=" +
       Rows +
-      "&IdCatTyp=" +
+      "&IdCatType=" +
       Text
   );
   return result.data.data.items;
 }
 
-async function blogsGet(Idblog) {
+async function blogsGet(Page, Rows,Id) {
   let result;
   result = await axios.get(
-    "https://as-humedal-api.azurewebsites.net/Blogs/Get?idBLogLanding=" + blog
-  );
+    "https://as-humedal-api.azurewebsites.net/Blogs/Get?Page="+
+    Page +
+    "&Rows=" +
+    Rows +
+    "&idBLogLanding=" +
+    Id);
   console.log("GETRESULT: ", result.data.data);
   return result.data.data;
 }
@@ -83,6 +87,9 @@ async function uploadimg(img){
 
 
 
+function urlgalery() {
+  return "https://as-humedal-api.azurewebsites.net/Blogs/Upload";
+}
 
 //  function uploadimg() {
 //   return "https://as-humedal-api.azurewebsites.net/Blogs/Upload";
@@ -102,5 +109,6 @@ export {
   deleteblog,
   createblog,
   blogsGet,
-  uploadimg
+  uploadimg,
+  urlgalery
 };

@@ -21,7 +21,7 @@
               fab
               dark
               small
-              color="secondary"
+              color="gray"
               absolute
               right
               top

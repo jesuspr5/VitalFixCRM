@@ -122,18 +122,6 @@
         //     },
         //   ],
         // },
-
-        // {
-        //   group: '/home/users',
-        //   icon: 'mdi-account-tie',
-        //   title: 'users.title',
-        //   children: [
-        //     {
-        //       title: 'users.title',
-        //       to: 'users',
-        //     },
-        //   ],
-        // },
         // {
         //   group: '/home/roles',
         //   icon: 'mdi-account-key',
@@ -145,6 +133,17 @@
         //     },
         //   ],
         // },
+        {
+          group: '/home/users',
+          icon: 'mdi-account-tie',
+          title: 'users.title',
+          children: [
+            {
+              title: 'users.title',
+              to: 'users',
+            },
+          ],
+        },
         {
           group: '/home/blogs',
           icon: 'mdi-account-key',
