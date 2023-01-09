@@ -90,6 +90,11 @@
     "show": "Mostrar Blog"
 
  },
+ "texts":{
+  "createtext": "Blog creado con exito",
+  "deletetext": " Blog eliminado ",
+  "updatetext": "Blog actualizado con exito"
+},
  "crud":{
   "create":"Crear",
   "edit":"Editar",

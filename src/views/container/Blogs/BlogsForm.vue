@@ -180,20 +180,63 @@
         </v-tabs-items>
       </base-material-card>
     </v-row>
+
+    <div class="text-center">
+    <v-snackbar   
+      v-model="snackbar"
+      :timeout="timeout"
+      color="#75B768"
+    >
+    {{ $t("texts.createtext") }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
+
+  <div class="text-center">
+    <v-snackbar   
+      v-model="snackk"
+      :timeout="timeout"
+      color="#75B768"
+    >
+    {{ $t("texts.updatetext") }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackk = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
   </v-container>
 </template>
 
 <script>
 import i18n from "@/i18n";
 import { catalogsGetList } from "../../../api/modules/catalogs";
-import { createblog } from "../../../api/modules/blogs";
-import { uploadimg } from "../../../api/modules/blogs";
-import axios from "axios";
+import { createblog ,uploadimg,urlgalery,updateblog,blogsGet  } from "../../../api/modules/blogs";
 
 export default {
   data: () => ({
     tabs: 0,
     option: 0,
+    snackbar: false,
+    snackk:false,
+  timeout: 3000,
     title: "",
     filep: null,
     fileb: null,
@@ -205,14 +248,17 @@ export default {
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
     blogData: {
+      idBlogLanding:"",
       title: "",
       subTitle: "",
       description: "",
       reference: "",
       idCatType: "",
       mainPhoto: "",
-      bannerPhoto: ""
+      bannerPhoto: "",
+      listPhotosGalery:[]
     },
+    now:{},
     selcatalog: [],
    
   }),
@@ -242,34 +288,58 @@ export default {
       this.selcatalog = result;
     },
 
-    initialize() {
+   async initialize() {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
-        this.blogData = this.$route.params.blogData;
-        console.log(this.blogData);
+       var id = this.$route.params.blogData.idBlogLanding
+       this.blogData =  await blogsGet(1,100,id);
+       console.log("json",this.blogData)
       }
     },
 
     async submit() {
       if (this.option === 1) {
-         this.urlMainPhoto =   await this.upload(this.filep);
-         this.urlBannerPhoto =   await this.upload(this.fileb);
+        //  this.urlMainPhoto =   await this.upload(this.filep);
+        //  this.urlBannerPhoto =   await this.upload(this.fileb);
+        // let blog = {
+        //   title: this.blogData.title,
+        //   subTitle: this.blogData.subTitle,
+        //   description: this.blogData.description,
+        //   reference: this.blogData.reference,
+        //   datePublication: new Date().toISOString(),
+        //   idCatType: this.blogData.idCatType,
+        //   mainPhoto: this.urlMainPhoto,
+        //   bannerPhoto: this.urlBannerPhoto,
+        //   photosGalery: this.urlgalery
+        // };
+       
+        // blog= await createblog(blog)
+       this.snackbar=true; 
+     setTimeout(()=>{this.$router.push({ name: "Blogs" })},3000);
+
+      }else 
+       if (this.option === 3){
+
         let blog = {
+          
+         idBlogLanding:this.blogData.idBlogLanding,
           title: this.blogData.title,
           subTitle: this.blogData.subTitle,
           description: this.blogData.description,
+          mainPhoto: this.blogData.mainPhoto,
+          bannerPhoto: this.blogData.bannerPhoto,
           reference: this.blogData.reference,
-          datePublication: new Date().toISOString(),
-          idCatType: this.blogData.idCatType,
-          mainPhoto: this.urlMainPhoto,
-          bannerPhoto: this.urlBannerPhoto,
-          photosGalery: this.urlgalery
+          photosGalery: this.blogData.listPhotosGalery
         };
+          this.now =blog;
+        console.log("now",this.now)
+      //   blog= await updateblog(blog);
+      //  this.snackk=true;
+      //   setTimeout(()=>{this.$router.push({ name: "Blogs" })},3000);
+
        
-       blog= await createblog(blog)
-       console.log("creado");
       }else{
-        console.log(" blog no creado");
+          alert("blog no creado")
       }
       
     },
@@ -297,7 +367,7 @@ export default {
       formData.append("file", item)
       
 
-     axios.post("https://as-humedal-api.azurewebsites.net/Blogs/Upload",formData)
+     axios.post(urlgalery(),formData)
       .then(data => {
 
         this.urlgalery.push({

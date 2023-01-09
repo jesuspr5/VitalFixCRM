@@ -90,8 +90,12 @@
     "create":"Crear Blog",
     "edit": "Editar Blog",
     "show": "Mostrar Blog"
-
  },
+ "texts":{
+  "createtext": "Blog creado con exito",
+  "deletetext": " Blog eliminado ",
+  "updatetext": "Blog actualizado con exito"
+},
  "publications":{
     "head": "Publicaciones",
     "title": "Título",

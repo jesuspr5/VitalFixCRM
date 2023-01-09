@@ -105,7 +105,7 @@ export default {
         value: "subTitle"
       },
       {
-        text: "Fecha",
+        text: "Fecha_de_publicacion",
         value: "datePublication"
       },
       {
@@ -124,27 +124,14 @@ export default {
   methods: {
     data: async function() {
       let result;
-      result = await blogsGetList(1, 34);
+      result = await blogsGetList(1, 100);
       this.items = result;
-      // console.log('EL STOREE: ', result)
+  // console.log('EL STOREE: ', result)
       // console.log('array',this.items)
     },
 
-    // async loadRolesData () {
-    //   console.log('mounted')
-    //   let serviceResponse = await getRoles(1,5)
-    //   if (serviceResponse.ok === 1) {
-    //     console.log(serviceResponse)
-    //     this.items = serviceResponse.data.data
-    //     console.log(this.items)
-    //   } else {
-    //     console.log(serviceResponse)
-    //     const params = { text: serviceResponse.message.text }
-    //     window.getApp.$emit('SHOW_ERROR', params)
-    //   }
-    // },
     createBlogs() {
-      console.log("create");
+      
       this.$router.push({
         name: "BlogsForm",
         params: {
@@ -163,7 +150,6 @@ export default {
       });
     },
     editBlogs(item) {
-      console.log(item);
       this.$router.push({
         name: "BlogsForm",
         params: {
