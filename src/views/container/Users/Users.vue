@@ -120,15 +120,19 @@
         // },
         {
           text: i18n.t('users.name'),
-          value: 'person.fullname',
+          value: 'names',
+        },
+        {
+          text: ('apellidos'),
+          value: 'lastNames',
         },
         {
           text: i18n.t('users.email'),
-          value: 'person.email',
+          value: 'email',
         },
         {
           text: i18n.t('users.phone'),
-          value: 'person.phone_number',
+          value: 'phone',
         },
         {
           sortable: false,
