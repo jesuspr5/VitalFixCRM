@@ -54,7 +54,7 @@
                       prepend-icon="mdi-file"
                       label="Archivo"
                       :disabled="option === 2 ? true : false"
-                      :rules="[rules.required]"
+                      
                     >
                       <template v-slot:selection="{ text }">
                         <v-chip small label color="primary">
