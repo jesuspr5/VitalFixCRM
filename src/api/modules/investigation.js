@@ -15,8 +15,8 @@ async function investigationGet(idinvestigation){
 }
 async function createinvestigation( investigationToCreate ){
   let result;
-  result = await axios.post("https://as-humedal-api.azurewebsites.net/Researchs/Create",publicationsToCreate)
-  console.log('Publicacion creada con exito: ', result)
+  result = await axios.post("https://as-humedal-api.azurewebsites.net/Researchs/Create",investigationToCreate)
+  console.log('investigacion creada con exito: ', result)
   return result
 }
 
@@ -28,10 +28,10 @@ async function createinvestigation( investigationToCreate ){
   //   Authorization: 'Bearer ' + `${token}`,
   // })
 
-async function deleteinvestigation(IdInvestigation){
+async function deleteinvestigation(idResearchLanding){
   let result;
-    result = await axios.delete("https://as-humedal-api.azurewebsites.net/Researchs/Delete?IdResearchLanding="+ IdPublicationsLanding)
-    console.log('publicacion Eliminada con exito: ', result)
+    result = await axios.delete("https://as-humedal-api.azurewebsites.net/Researchs/Delete?IdResearchLanding="+ idResearchLanding)
+    console.log('investigacion Eliminada con exito: ', result)
     return result
 
 }
@@ -39,7 +39,7 @@ async function deleteinvestigation(IdInvestigation){
 async function updateinvestigation( publicationsToUpdate ){
   let result;
     result = await axios.put("https://as-humedal-api.azurewebsites.net/Researchs/Upload", publicationsToUpdate)
-    console.log('publicacion Actualizada con exito: ', result)
+    console.log('investigacion Actualizada con exito: ', result)
     return result
 
 }

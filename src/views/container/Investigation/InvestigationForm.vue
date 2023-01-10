@@ -1,5 +1,5 @@
 <template>
-    <v-container id="publications-profile" fluid tag="section">
+    <v-container id="investigation-profile" fluid tag="section">
       <v-row justify="center">
         <base-material-card icon="mdi-account-outline">
           <template v-slot:heading>
@@ -40,18 +40,18 @@
                       <v-text-field
                         v-model="publiData.title"
                         class="purple-input"
-                        :label="$t('publications.title')"
+                        :label="$t('investigation.title')"
                         :disabled="option === 2 ? true : false"
                       />
                     </v-col>
   
                     <v-col cols="12" sm="4">
                       <v-file-input
-                        v-model="filpdf"
+                        v-model="filePdf"
                         accept=" "
                         placeholder="Seleccione PDF"
                         prepend-icon="mdi-file"
-                        label="Foto principal"
+                        label="Archivo"
                         :disabled="option === 2 ? true : false"
                       >
                         <template v-slot:selection="{ text }">
@@ -74,14 +74,14 @@
                         />
                       </v-col> -->
   
-                    <v-col cols="12" sm="4">
+                    <!-- <v-col cols="12" sm="4">
                       <v-text-field
                         v-model="publiData.datePublication"
                         class="purple-input"
                         :label="$t('publications.datePublication')"
                         :disabled="option === 2 ? true : false"
                       />
-                    </v-col>
+                    </v-col> -->
   
                     <v-col cols="12">
                       <v-textarea
@@ -189,7 +189,7 @@
                       </v-col> -->
   
                     <v-col cols="12" class="text-right">
-                      <v-btn v-if="option !== 2" color="success" class="mr-0">
+                      <v-btn v-if="option !== 2" color="success" class="mr-0" @click="submit">
                         {{ getTitleButton }}
                       </v-btn>
                     </v-col>
@@ -206,20 +206,22 @@
   <script>
   import i18n from "@/i18n";
   import {createpublications} from "../../../api/modules/publications";
-  import {uploadpdf} from "../../../api/modules/publications";
+  import {createinvestigation, updateinvestigation, uploadpdf} from "../../../api/modules/publications";
   
   export default {
     data: () => ({
       tabs: 0,
       option: 0,
       title: "",
-      filpdf: null,
-      pdfUrl: null,
-      urlPdf: 'hhh',
+      filePdf: null,
+      urlfilePdf: "",
+      currentPage: 0,
+			pageCount: 0,
       //   rules: [
       //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       // ],
       publiData: {
+        idResearchLanding: null,
         title: "",
         description: "",
         pdf: null,
@@ -228,16 +230,16 @@
     }),
     computed: {
       getTitle() {
-        if (this.option === 1) return i18n.t("publications.create");
-        else if (this.option === 2) return i18n.t("publications.show");
-        else if (this.option === 3) return i18n.t("publications.edit");
-        else return i18n.t("publications.head");
+        if (this.option === 1) return i18n.t("investigation.create");
+        else if (this.option === 2) return i18n.t("investigation.show");
+        else if (this.option === 3) return i18n.t("investigation.edit");
+        else return i18n.t("investigation.head");
       },
       getTitleButton() {
         if (this.option === 1) return i18n.t("crud.create");
         else if (this.option === 2) return i18n.t("crud.show");
         else if (this.option === 3) return i18n.t("crud.edit");
-        else return i18n.t("publications.head");
+        else return i18n.t("investigation.head");
       },
     },
     mounted() {
@@ -247,61 +249,56 @@
       // this.createPublications();
     },
     methods: {
-      // data: async function() {
-      //   // let result;
-      //   // result = await publicationsGetList(1, 44);
-  
-      //     // this.publicationsData = result
-      //   // console.log("API: ", result);
-      //   // console.log("catalogos", this.selcatalog);
-      // },
       initialize() {
         this.option = this.$route.params.option;
         if (this.option === 3 || this.option === 2) {
           this.publiData = this.$route.params.publiData;
-          console.log(this.publiData);
+          // console.log(this.publiData);
         }
       },
   
       async submit() {
         if (this.option === 1) {
-          this.upload();
-          let newPub = {
+          // this.upload();
+          await this.upload();
+          let newInv = {
             title: this.publiData.title,
             description: this.publiData.description,
-            filePdf: this.urlMainPdf,
+            filePdf: this.urlfilePdf,
             datePublication: new Date().toISOString(),
           };
-          this.new = newPub;
-          // newPub = await createpublications();
-  
-        }
-        console.log(this.new);
+          console.log("esta es la investigacion",newInv);
+          var investigations = await createinvestigation(newInv);
+            if(publications != null){
+            console.log("Tituulo de la investigacion", investigations);
+            alert("Investigación creada con exito")
+            }
+          }
+          if(this.option === 3){
+            console.log("Actualizar")
+            let inv = {
+              idResearchLanding : this.publiData.idResearchLanding,
+              title: this.publiData.title,
+              description: this.publiData.description
+            };
+            console.log("estos son los datos",inv);
+            var investigationUpdate = await updateinvestigation(pub);
+            if(investigationUpdate  != null){
+              console.log("Tituulo de la investigación", investigationUpdate );
+              alert("Investigación Actualizada con exito")
+            }
+          }
       },
       
       async upload() {
-        // console.log(this.file);
         const formData = new FormData();
-        formData.append("file", this.filpdf);
+        formData.append("file", this.filePdf);
   
         let result;
         result = await uploadpdf(formData);
   
-        this.urlPdf = result;
-        return result;
-        // const options = {
-        //   method: "POST",
-        //   body: formData,
-        // };
-        // fetch(createpdf(), options)
-        //   .then((response) => response.json())
-        //   .then((data) => console.log(data));
+        this.urlfilePdf = result;
       },
-  
-  
-      // chooseFiles() {
-      //   document.getElementById("fileUpload").click();
-      // },
     }, //
   };
   </script>
