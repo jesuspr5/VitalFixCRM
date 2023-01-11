@@ -113,7 +113,7 @@
     data: () => ({
       hidden: false,
       dialogDelete: false,
-      idBlog : null,
+      id : null,
       headers: [
         {
           text: i18n.t("investigation.title"),
@@ -180,7 +180,7 @@
       },
       deleteinvestigation(item) {
         console.log(item);
-        this.idBlog= item.idResearchLanding
+        this.id= item.idResearchLanding
         this.dialogDelete = true;
       },
       closeDelete() {
@@ -188,7 +188,7 @@
       },
       async deleteItemConfirm(item) {
         console.log(this.idBlog)
-        result = await deleteinvestigation(this.idBlog);
+        result = await deleteinvestigation(this.id);
         console.log("respuesta", result)
         if(result === "Transacción exitosa.")
       {

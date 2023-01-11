@@ -35,7 +35,7 @@
         </v-card-text>
         <v-tabs-items v-model="tabs" class="transparent">
           <v-tab-item :kei="0">
-            <v-form enctype="multipart/form-data">
+            <v-form enctype="multipart/form-data" ref="form" v-model="valid" lazy-validation>
               <v-container class="py-0">
                 <v-row>
                   <v-col cols="12" sm="4">
@@ -44,6 +44,7 @@
                       class="purple-input"
                       :label="$t('blogs.title')"
                       :disabled="option === 2 ? true : false"
+                      :rules="[rules.required, rules.min]"
                     />
                   </v-col>
 
@@ -53,6 +54,7 @@
                       :label="$t('blogs.subtitle')"
                       class="purple-input"
                       :disabled="option === 2 ? true : false"
+                      :rules="[rules.required, rules.min]"
                     />
                   </v-col>
 
@@ -67,6 +69,7 @@
                       item-value="id"
                       :disabled="option === 2 ? true : false"
                       single-line
+                      :rules="[rules.required]"
                     >
                       <!-- <template v-slot:item="{ attrs, item, on }">
                           <v-list-item
@@ -101,6 +104,7 @@
                       prepend-icon="mdi-camera"
                       label="Foto principal"
                       @change="upload"
+                      
                       :disabled="option === 2 ? true : false"
                       name="imagen"
                     >
@@ -115,6 +119,7 @@
                   <v-col cols="12" sm="4">
                     <v-file-input
                       v-model="fileb"
+                      type="file"
                       accept="image/*"
                       placeholder="Seleccione foto "
                       prepend-icon="mdi-camera"
@@ -131,6 +136,7 @@
                   <v-col cols="12" sm="4">
                     <v-file-input
                       v-model="galery"
+                      type="file"
                       accept="image/*"
                       placeholder="Seleccione las imagenes"
                       multiple
@@ -154,6 +160,7 @@
                       :label="$t('blogs.description')"
                       class="purple-input"
                       :disabled="option === 2 ? true : false"
+                      :rules="[rules.required, rules.min]"
                     ></v-textarea>
                   </v-col>
                   <v-col cols="12" sm="4">
@@ -162,6 +169,7 @@
                       class="purple-input"
                       :label="$t('blogs.reference')"
                       :disabled="option === 2 ? true : false"
+                      :rules="[rules.required, rules.min]"
                     ></v-textarea>
                   </v-col>
                   
@@ -189,7 +197,7 @@
       :timeout="timeout"
       color="#75B768"
     >
-    {{ $t("texts.createtext") }}
+    {{ message }}
 
       <template v-slot:action="{ attrs }">
         <v-btn
@@ -197,27 +205,6 @@
           text
           v-bind="attrs"
           @click="snackbar = false"
-        >
-          Close
-        </v-btn>
-      </template>
-    </v-snackbar>
-  </div>
-
-  <div class="text-center">
-    <v-snackbar   
-      v-model="snackk"
-      :timeout="timeout"
-      color="#75B768"
-    >
-    {{ $t("texts.updatetext") }}
-
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          color="white"
-          text
-          v-bind="attrs"
-          @click="snackk = false"
         >
           Close
         </v-btn>
@@ -237,20 +224,23 @@ export default {
   data: () => ({
     tabs: 0,
     option: 0,
-    snackbar: false,
-    snackk:false,
+    snackbar: false,  
+    message: "",
   timeout: 3000,
     title: "",
     filep: null,
     fileb: null,
     galery: [],
+    valid: true,
     id: 0,
     urlMainPhoto: "",
     urlBannerPhoto: "",
     urlgalery: [],
-    //   rules: [
-    //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
-    // ],
+      rules: {
+        sise: value=> !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+      required: value => !!value || "Debe ingresar Texto.",
+      min: v => v.length >= 5 || "Mínimo 8 caracteres",
+    },
     blogData: {
       idBlogLanding:"",
       title: "",
@@ -262,7 +252,6 @@ export default {
       bannerPhoto: "",
       listPhotosGalery:[]
     },
-    now:{},
     selcatalog: [],
    
   }),
@@ -302,38 +291,47 @@ export default {
 
     async submit() {
       if (this.option === 1) {
-        //  this.urlMainPhoto =   await this.upload(this.filep);
-        //  this.urlBannerPhoto =   await this.upload(this.fileb);
-        // let blog = {
-        //   title: this.blogData.title,
-        //   subTitle: this.blogData.subTitle,
-        //   description: this.blogData.description,
-        //   reference: this.blogData.reference,
-        //   datePublication: new Date().toISOString(),
-        //   idCatType: this.blogData.idCatType,
-        //   mainPhoto: this.urlMainPhoto,
-        //   bannerPhoto: this.urlBannerPhoto,
-        //   photosGalery: this.urlgalery
-        // };
+        if (this.$refs.form.validate()) {
+
+          this.urlMainPhoto =   await this.upload(this.filep);
+         this.urlBannerPhoto =   await this.upload(this.fileb);
+        let blog = {
+          title: this.blogData.title,
+          subTitle: this.blogData.subTitle,
+          description: this.blogData.description,
+          reference: this.blogData.reference,
+          datePublication: new Date().toISOString(),
+          idCatType: this.blogData.idCatType,
+          mainPhoto: this.urlMainPhoto,
+          bannerPhoto: this.urlBannerPhoto,
+          photosGalery: this.urlgalery
+        };
        
-        // blog= await createblog(blog)
-       this.snackbar=true; 
+        blog= await createblog(blog)
+
+        if (blog != null) {
+            console.log("Tituulo del blog", blog);
+            this.snackbar = true;
+        this.message = "Registro exitoso";
      setTimeout(()=>{this.$router.push({ name: "Blogs" })},3000);
-
-      }else 
-       if (this.option === 3){
-        this.blogData.listPhotosGalery =this.urlgalery
-        // var urlP = await this.upload(this.filep);
-        // var urlB = await this.upload(this.fileb);
-        // if(urlP!="" || urlB!="")
-        // {
-        //   this.blogData.mainPhoto = urlP;
-        //   this.blogData.bannerPhoto= urlB
-        // }
-        console.log(this.blogData)
-
-       
+          } else {
+            this.snackbar = true;
+            this.message = "Hubo un error durante el registro";
+            setTimeout(() => {
+              this.snackbar = false;
+            }, 3000);
+          }
+        }else{ 
+          this.snackbar = true;
+          this.message = "Debe llenar todos los campos";
+          setTimeout(() => { this.snackbar = false;}, 3000);
+        }
         
+      }
+       if (this.option === 3){
+        if (this.$refs.form.validate()) {
+          this.blogData.listPhotosGalery =this.urlgalery
+        console.log(this.blogData)
         if(this.filep !=null){
          
           this.urlMainPhoto =  await this.upload(this.filep);
@@ -361,17 +359,29 @@ export default {
           reference: this.blogData.reference
           // photosGalery: this.blogData.listPhotosGalery
         };
-        //   this.now =blog;
-        // console.log("now",this.now)
         blog= await updateblog(blog);
-        console.log("json update", blog)
-       this.snackk=true;
-        setTimeout(()=>{this.$router.push({ name: "Blogs" })},4000);
+        if (blog != null) {
+            console.log("Titulooo del blog", blog);
+            this.snackbar = true;
+        this.message = "Actualizacion exitosa";
+        setTimeout(()=>{this.$router.push({ name: "Blogs" })},3000);
+          } else {
+            this.snackbar = true;
+            this.message = "Hubo un error durante el registro";
+            setTimeout(() => {
+              this.snackbar = false;
+            }, 3000);
+          }
 
+        }else{
+          this.snackbar = true;
+          this.message = "Debe llenar todos los campos";
+          setTimeout(() => {this.snackbar = false;}, 3000);
+        }
        
-      }else{
-          alert("blog no creado")
+       
       }
+       
       
     },
     // async upload(img) {
@@ -394,8 +404,6 @@ export default {
       //  console.log("archivos = "+ formData);
       let result;
       result = await uploadimg(formData);
-
-        // this.urlMainPhoto = result;
       return result;
     },
 
@@ -423,7 +431,6 @@ export default {
        
     });
 
-    console.log("urlgalery",this.urlgalery) 
     }
   
   

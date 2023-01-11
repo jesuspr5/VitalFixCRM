@@ -42,17 +42,20 @@
                         class="purple-input"
                         :label="$t('investigation.title')"
                         :disabled="option === 2 ? true : false"
+                        :rules="[rules.required, rules.min]"
                       />
                     </v-col>
   
                     <v-col cols="12" sm="4">
                       <v-file-input
                         v-model="filePdf"
+                        type="file"
                         accept=" "
                         placeholder="Seleccione PDF"
                         prepend-icon="mdi-file"
                         label="Archivo"
                         :disabled="option === 2 ? true : false"
+                        @change="upload"
                       >
                         <template v-slot:selection="{ text }">
                           <v-chip small label color="primary">
@@ -61,139 +64,42 @@
                         </template>
                       </v-file-input>
                     </v-col>
-  
-                    <!-- <v-col
-                        cols="12"
-                        sm="4"
-                      >
-                        <v-text-field
-                          v-model="publicationsData.subTitle"
-                          :label="$t('publications.subtitle')"
-                          class="purple-input"
-                          :disabled="option===2?true:false"
-                        />
-                      </v-col> -->
-  
-                    <!-- <v-col cols="12" sm="4">
-                      <v-text-field
-                        v-model="publiData.datePublication"
-                        class="purple-input"
-                        :label="$t('publications.datePublication')"
-                        :disabled="option === 2 ? true : false"
-                      />
-                    </v-col> -->
-  
-                    <v-col cols="12">
+                     <v-col cols="12">
                       <v-textarea
                         v-model="publiData.description"
                         :label="$t('publications.description')"
                         class="purple-input"
                         :disabled="option === 2 ? true : false"
+                        :rules="[rules.required, rules.min]"
                       ></v-textarea>
-                    </v-col>
-                    <!-- <v-col
-                        cols="12"
-                        sm="4"
-                      >
-                      
-                        <v-select
-                          v-model="blogData.idCatType"
-                          color="secondary"
-                          item-color="secondary"
-                          :label="$t('blogs.Catalogs')"
-                          :items="selcatalog"
-                          item-text="name"
-                          item-value="id"
-                          :disabled="option===2?true:false"
-                          return-object
-                         single-line
-                          
-                        >
-                          <template v-slot:item="{ attrs, item, on }">
-                            <v-list-item
-                              v-bind="attrs"
-                              active-class="secondary elevation-4 white--text"
-                              class="mx-3 mb-2 v-sheet"
-                              elevation="0"
-                              v-on="on"
-                            >
-                              <v-list-item-content>
-                                <v-list-item-title v-text="item" />
-                              </v-list-item-content>
-    
-                              <v-scale-transition>
-                                <v-list-item-icon
-                                  v-if="attrs.inputValue"
-                                  class="my-3"
-                                >
-                                  <v-icon>mdi-check</v-icon>
-                                </v-list-item-icon>
-                              </v-scale-transition>
-                            </v-list-item>
-                          </template>
-                        </v-select>
-                      
-                       
-                      </v-col>  -->
-  
-                    <!-- <v-col
-                        cols="12"
-                        sm="4"
-                      >
-                     
-                        <v-file-input
-                      
-                          
-                          accept="image/png, image/jpeg,"
-                          placeholder="Seleccione foto "
-                          prepend-icon="mdi-camera"
-                          label="Banner foto"
-                          :disabled="option===2?true:false"
-                          
-                        ><template v-slot:selection="{ text }">
-                            <v-chip
-                              small
-                              label
-                              color="secondary"
-                            >
-                              {{ text }}
-                            </v-chip>
-                          </template></v-file-input>
-                     
-                      </v-col> -->
-                    <!-- <v-col
-                        cols="12"
-                        sm="4"
-                      >
-                     
-                        <v-file-input
-                       
-                          :rules="rules"
-                          accept="image/png, image/jpeg,"
-                          placeholder="Seleccione las imagenes"
-                          multiple
-                          prepend-icon="mdi-camera"
-                          label="Galeria"
-                          counter
-                          :disabled="option===2?true:false"
-                        > <template v-slot:selection="{ text }">
-                            <v-chip
-                              small
-                              label
-                              color="#75B768"
-                            >
-                              {{ text }}
-                            </v-chip>
-                          </template></v-file-input>
-                     
-                      </v-col> -->
-  
+                    </v-col>  
                     <v-col cols="12" class="text-right">
                       <v-btn v-if="option !== 2" color="success" class="mr-0" @click="submit">
                         {{ getTitleButton }}
                       </v-btn>
                     </v-col>
                   </v-row>
+
+                  <div class="text-center">
+                  <v-snackbar
+                    v-model="snackbar"
+                    :timeout="timeout"
+                    color="#75B768"
+                  >
+                    {{ message }}
+
+                    <template v-slot:action="{ attrs }">
+                      <v-btn
+                        color="white"
+                        text
+                        v-bind="attrs"
+                        @click="snackbar = false"
+                      >
+                        Cerrar
+                      </v-btn>
+                    </template>
+                  </v-snackbar>
+                </div>
                 </v-container>
               </v-form>
             </v-tab-item>
@@ -205,8 +111,7 @@
   
   <script>
   import i18n from "@/i18n";
-  import {createpublications} from "../../../api/modules/publications";
-  import {createinvestigation, updateinvestigation, uploadpdf} from "../../../api/modules/publications";
+  import {createinvestigation, updateinvestigation, uploadpdf} from "../../../api/modules/investigation";
   
   export default {
     data: () => ({
@@ -217,6 +122,11 @@
       urlfilePdf: "",
       currentPage: 0,
 			pageCount: 0,
+      message:'',
+      rules: {
+      required: value => !!value || "Debe ingresar Texto.",
+      min: v => v.length >= 8 || "Mínimo 8 caracteres"
+    },
       //   rules: [
       //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       // ],
@@ -243,10 +153,7 @@
       },
     },
     mounted() {
-      // console.log($t('roles.title'))
-      // this.data();
       this.initialize();
-      // this.createPublications();
     },
     methods: {
       initialize() {
@@ -259,9 +166,8 @@
   
       async submit() {
         if (this.option === 1) {
-          // this.upload();
-          await this.upload();
-          let newInv = {
+          if (this.$refs.form.validate()) {
+            let newInv = {
             title: this.publiData.title,
             description: this.publiData.description,
             filePdf: this.urlfilePdf,
@@ -269,30 +175,65 @@
           };
           console.log("esta es la investigacion",newInv);
           var investigations = await createinvestigation(newInv);
-            if(publications != null){
-            console.log("Tituulo de la investigacion", investigations);
-            alert("Investigación creada con exito")
-            }
+          if (investigations != null) {
+            console.log("Tituulo de la publicacion", investigations);
+            this.snackbar = true;
+            this.message = "Registro exitoso";
+            setTimeout(() => { this.$router.push({ name: "Investigation" });}, 3000);
+          }else{
+            this.snackbar = true;
+            this.message = "Hubo un error durante el registro";
+            setTimeout(() => {this.snackbar = false; }, 3000);
+
           }
-          if(this.option === 3){
-            console.log("Actualizar")
+        }else{
+          this.snackbar = true;
+          this.message = "Debe llenar todos los campos";
+          setTimeout(() => { this.snackbar = false; }, 3000);
+        }
+      }
+      
+     
+      if(this.option === 3){
+        if (this.$refs.form.validate()) {
+          console.log("Actualizar")
+          if(this.filePdf!=null)
+          {
+              this.publiData.pdf = this.urlfilePdf
+          }else{
+            this.publiData.pdf= this.publiData.pdf
+          }
             let inv = {
               idResearchLanding : this.publiData.idResearchLanding,
               title: this.publiData.title,
-              description: this.publiData.description
+              description: this.publiData.description,
+              filePdf: this.publiData.pdf
             };
             console.log("estos son los datos",inv);
-            var investigationUpdate = await updateinvestigation(pub);
+            var investigationUpdate = await updateinvestigation(inv);
             if(investigationUpdate  != null){
-              console.log("Tituulo de la investigación", investigationUpdate );
-              alert("Investigación Actualizada con exito")
+              this.snackbar = true;
+            this.message = "Registro exitoso";
+            setTimeout(() => { this.$router.push({ name: "Investigation" });}, 3000);
+            }else{
+              this.snackbar = true;
+            this.message = "Hubo un error durante el registro";
+            setTimeout(() => {this.snackbar = false; }, 3000);
             }
+
+        }else{ 
+          this.snackbar = true;
+          this.message = "Debe llenar todos los campos";
+          setTimeout(() => { this.snackbar = false; }, 3000);
+        }
+
+
+            
           }
-      },
-      
-      async upload() {
+        },
+      async upload(event) {
         const formData = new FormData();
-        formData.append("file", this.filePdf);
+        formData.append("file",event);
   
         let result;
         result = await uploadpdf(formData);

@@ -66,6 +66,23 @@
           </v-btn>
         </template>
       </v-data-table>
+      <v-dialog v-model="dialogDelete" persistent max-width="500px">
+        <v-card>
+          <v-card-title class="text-h5"
+            >Estas seguro que deseas eliminar este Blog?</v-card-title
+          >
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="closeDelete"
+              >Cancelar</v-btn
+            >
+            <v-btn color="blue darken-1" text @click="deleteItemConfirm"
+              >OK</v-btn
+            >
+            <v-spacer></v-spacer>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-card-text style="height: 100px; position: relative">
         <v-fab-transition>
           <v-btn
@@ -88,12 +105,14 @@
 
 <script>
 import i18n from "@/i18n";
-import { blogsGetList } from "../../../api/modules/blogs";
+import { blogsGetList ,deleteblog} from "../../../api/modules/blogs";
 export default {
   name: "DashboardDataTables",
 
   data: () => ({
     hidden: false,
+    idblog:'',
+    dialogDelete:false,
     headers: [
       {
         text: i18n.t("blogs.title"),
@@ -129,6 +148,12 @@ export default {
   // console.log('EL STOREE: ', result)
       // console.log('array',this.items)
     },
+    deletedata: async function () {
+      let result;
+      result = await deleteblog(item);
+      this.items = result;
+    },
+  
 
     createBlogs() {
       
@@ -161,7 +186,32 @@ export default {
     deleteBlogs(item) {
       console.log(item);
       console.log("Delete");
-    }
+  this.idblog =item.ididBLogLanding
+  this.dialogDelete = true;
+    },
+    closeDelete() {
+      this.dialogDelete = false;
+    },
+    async   deleteItemConfirm(item) {
+      let result;
+    // var id =  item.idPublicationsLanding;
+    console.log("id borrar", this.idblog)
+      result = await deleteblog(this.idblog);
+      console.log("respuesta", result)
+      if(result === "Transacción exitosa.")
+      {
+       
+        this.data();
+        this.dialogDelete = false;
+      }
+      else{
+        alert("Chernobil")
+      }
+
+      // this.data();
+     
+    },
+
   }
 };
 </script>

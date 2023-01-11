@@ -112,7 +112,7 @@ export default {
   data: () => ({
     hidden: false,
     dialogDelete: false,
-    idBlog : null,
+    id : null,
     headers: [
       {
         text: i18n.t("publications.title"),
@@ -140,7 +140,7 @@ export default {
   methods: {
     data: async function () {
       let result;
-      result = await publicationsGetList(1, 34);
+      result = await publicationsGetList(1, 100);
       this.items = result;
       // console.log('EL STOREE: ', result)
       // console.log('array',this.items)
@@ -182,7 +182,7 @@ export default {
     },
    deletepublications(item) {
     console.log("hola soy bataaaaaaaa",item);
-    this.idBlog =item.idPublicationsLanding
+    this.id =item.idPublicationsLanding
   this.dialogDelete = true;
     },
     closeDelete() {
@@ -191,8 +191,8 @@ export default {
     async   deleteItemConfirm(item) {
       let result;
     // var id =  item.idPublicationsLanding;
-    console.log("id borrar", this.idBlog)
-      result = await deletepublications(this.idBlog);
+    console.log("id borrar", this.id)
+      result = await deletepublications(this.id);
       console.log("respuesta", result)
       if(result === "Transacción exitosa.")
       {

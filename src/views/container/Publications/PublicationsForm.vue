@@ -136,6 +136,7 @@ export default {
     urlfilePdf: "",
     currentPage: 0,
     message: "",
+    timeout: 3000,
     snackbar: false,
     pageCount: 0,
     valid: true,
@@ -151,7 +152,7 @@ export default {
     },
     rules: {
       required: value => !!value || "Debe ingresar Texto.",
-      min: v => v.length >= 5 || "Mínimo 8 caracteres"
+      min: v => v.length >= 8 || "Mínimo 8 caracteres"
     }
   }),
   computed: {
