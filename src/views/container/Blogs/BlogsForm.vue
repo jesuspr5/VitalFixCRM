@@ -100,6 +100,7 @@
                       placeholder="Seleccione foto"
                       prepend-icon="mdi-camera"
                       label="Foto principal"
+                      @change="upload"
                       :disabled="option === 2 ? true : false"
                       name="imagen"
                     >
@@ -118,6 +119,7 @@
                       placeholder="Seleccione foto "
                       prepend-icon="mdi-camera"
                       label="Banner foto"
+                      @change="upload"
                       :disabled="option === 2 ? true : false"
                       ><template v-slot:selection="{ text }">
                         <v-chip small label color="secondary">
@@ -226,10 +228,11 @@
 </template>
 
 <script>
+/* eslint-disable */
 import i18n from "@/i18n";
 import { catalogsGetList } from "../../../api/modules/catalogs";
-import { createblog ,uploadimg,urlgalery,updateblog,blogsGet  } from "../../../api/modules/blogs";
-
+import { createblog ,uploadimg,url,updateblog,blogsGet  } from "../../../api/modules/blogs";
+import axios from "axios";
 export default {
   data: () => ({
     tabs: 0,
@@ -241,6 +244,7 @@ export default {
     filep: null,
     fileb: null,
     galery: [],
+    id: 0,
     urlMainPhoto: "",
     urlBannerPhoto: "",
     urlgalery: [],
@@ -277,7 +281,6 @@ export default {
     }
   },
   mounted() {
-    // console.log($t('roles.title'))
     this.cata();
     this.initialize();
   },
@@ -292,8 +295,8 @@ export default {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
        var id = this.$route.params.blogData.idBlogLanding
+       this.id = id;
        this.blogData =  await blogsGet(1,100,id);
-       console.log("json",this.blogData)
       }
     },
 
@@ -319,23 +322,51 @@ export default {
 
       }else 
        if (this.option === 3){
+        this.blogData.listPhotosGalery =this.urlgalery
+        // var urlP = await this.upload(this.filep);
+        // var urlB = await this.upload(this.fileb);
+        // if(urlP!="" || urlB!="")
+        // {
+        //   this.blogData.mainPhoto = urlP;
+        //   this.blogData.bannerPhoto= urlB
+        // }
+        console.log(this.blogData)
 
-        let blog = {
+       
+        
+        if(this.filep !=null){
+         
+          this.urlMainPhoto =  await this.upload(this.filep);
+          this.blogData.mainPhoto = this.urlMainPhoto
+        }else{
+          this.blogData.mainPhoto =this.blogData.mainPhoto
+        }
+        if(this.fileb!=null){
+          this.urlBannerPhoto =  await this.upload(this.fileb);
+          this.blogData.bannerPhoto = this.urlBannerPhoto
+
+        }else{
           
-         idBlogLanding:this.blogData.idBlogLanding,
+          this.blogData.bannerPhoto =this.urlBannerPhoto
+        }
+        let blog = {
+         
+         idBlogLanding:this.id,
           title: this.blogData.title,
           subTitle: this.blogData.subTitle,
           description: this.blogData.description,
-          mainPhoto: this.blogData.mainPhoto,
+          mainPhoto: this.blogData.mainPhoto ,
           bannerPhoto: this.blogData.bannerPhoto,
-          reference: this.blogData.reference,
-          photosGalery: this.blogData.listPhotosGalery
+          idCatType: this.blogData.idCatType,
+          reference: this.blogData.reference
+          // photosGalery: this.blogData.listPhotosGalery
         };
-          this.now =blog;
-        console.log("now",this.now)
-      //   blog= await updateblog(blog);
-      //  this.snackk=true;
-      //   setTimeout(()=>{this.$router.push({ name: "Blogs" })},3000);
+        //   this.now =blog;
+        // console.log("now",this.now)
+        blog= await updateblog(blog);
+        console.log("json update", blog)
+       this.snackk=true;
+        setTimeout(()=>{this.$router.push({ name: "Blogs" })},4000);
 
        
       }else{
@@ -343,17 +374,29 @@ export default {
       }
       
     },
-    async upload(img) {
-      const formData = new FormData();
-      formData.append("file", img);
+    // async upload(img) {
+    //   const formData = new FormData();
+    //   formData.append("file", img);
+    //   //  console.log("archivos = "+ formData);
+    //   let result;
+    //   result = await uploadimg(formData);
+
+    //   //  this.urlMainPhoto = result;
+    //   return result;
+
+     
+    // },
+
+ async  upload(event) {
+      console.log(event);
+        const formData = new FormData();
+      formData.append("file", event);
       //  console.log("archivos = "+ formData);
       let result;
       result = await uploadimg(formData);
 
-      //  this.urlMainPhoto = result;
+        // this.urlMainPhoto = result;
       return result;
-
-     
     },
 
    
@@ -367,58 +410,22 @@ export default {
       formData.append("file", item)
       
 
-     axios.post(urlgalery(),formData)
+     axios.post(url(),formData)
       .then(data => {
 
         this.urlgalery.push({
                photo: data.data.data
+             
             });
-      
+        
       
       }).catch(error => {return error.response.data})
        
     });
+
+    console.log("urlgalery",this.urlgalery) 
     }
   
-   
-
-    
-    
-    // filechange() {
-    //   console.log("galeria:", this.galery);
-
-    //   this.urlgalery = this.galery.map(async (item) => {
-    //     return await this.upload(item);
-    //     console.log("ulrFot", url);
-    //     // this.urlgalery.push({
-    //     //   photo: url
-    //     // });
-    //   });
-
-    //   //  this.urlgalery.push({
-    //   //  });
-    //   console.log("array :", this.urlgalery);
-    // },
-    
-    //  fileChangeEvent(index) {
-    // this.modelData.urlImage=[]
-    // this.form.value.urlImage.map(item=>{
-    // console.log("index", item)
-    // this.spinner.show();
-    // var form_data = new FormData();
-    // form_data.append('file', item)
-    // })
-    // this.technicalSheets.uploadPhotoTecnicalSheet(form_data).then(response => {
-    //   this.spinner.hide();
-    //   console.log(response);
-    //   if (response.err == false) {
-    //         this.modelData.urlImage.push({
-    //           "urlPhoto": response.data
-    //         });
-
-    //       }
-    //     })
-    //   }
   
 }
 };
