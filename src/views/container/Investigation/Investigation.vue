@@ -60,7 +60,7 @@
               fab
               class="px-1 ml-1"
               x-small
-              @click="deleteInvestigation(item)"
+              @click="deleteinvestigation(item)"
             >
               <v-icon small v-text="'mdi-delete'" />
             </v-btn>
@@ -105,7 +105,7 @@
     
     <script>
   import i18n from "@/i18n";
-  import { investigationGetList } from "../../../api/modules/investigation";
+  import { investigationGetList, deleteinvestigation } from "../../../api/modules/investigation";
 //   import { deletepublications } from "../../../api/modules/publications";
   export default {
     name: "DashboardDataTables",
@@ -113,6 +113,7 @@
     data: () => ({
       hidden: false,
       dialogDelete: false,
+      idBlog : null,
       headers: [
         {
           text: i18n.t("investigation.title"),
@@ -134,7 +135,7 @@
     }),
     async mounted() {
       this.data();
-      this.deletedata
+      // this.deletedata
     },
     methods: {
       data: async function () {
@@ -146,7 +147,7 @@
         let result;
         result = await deleteinvestigation(item);
         this.items = result;
-      },
+      },     
 
       createInvestigation() {
         console.log("create I");
@@ -178,21 +179,25 @@
         });
       },
       deleteinvestigation(item) {
-  
         console.log(item);
-  
+        this.idBlog= item.idResearchLanding
         this.dialogDelete = true;
       },
       closeDelete() {
         this.dialogDelete = false;
       },
-      deleteItemConfirm(item) {
-        // this.desserts.splice(this.editedIndex, 1);
-        this.deletepublications();
-        console.log("Delete p");
-        console.log(item);
-        console.log("Delete");
-        this.closeDelete();
+      async deleteItemConfirm(item) {
+        console.log(this.idBlog)
+        result = await deleteinvestigation(this.idBlog);
+        console.log("respuesta", result)
+        if(result === "Transacción exitosa.")
+      {
+        alert("Investigación Eliminada  con exito")
+        this.data();
+      }
+      else{
+        alert("Chernobil")
+      }
       },
     },
   };

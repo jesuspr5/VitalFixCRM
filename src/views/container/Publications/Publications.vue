@@ -198,6 +198,7 @@ export default {
       {
         alert("Publicación Eliminada  con exito")
         this.data();
+        this.dialogDelete = false;
       }
       else{
         alert("Chernobil")
