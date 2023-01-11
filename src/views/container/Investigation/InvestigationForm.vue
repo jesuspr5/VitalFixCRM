@@ -33,7 +33,7 @@
           </v-card-text>
           <v-tabs-items v-model="tabs" class="transparent">
             <v-tab-item :kei="0">
-              <v-form>
+              <v-form ref="form" v-model="valid" lazy-validation>
                 <v-container class="py-0">
                   <v-row>
                     <v-col cols="12" sm="4">
@@ -160,12 +160,14 @@
         this.option = this.$route.params.option;
         if (this.option === 3 || this.option === 2) {
           this.publiData = this.$route.params.publiData;
-          // console.log(this.publiData);
+        console.log(this.publiData);
         }
       },
   
       async submit() {
+        console.log("opcion", this.option)
         if (this.option === 1) {
+          console.log("crear")
           if (this.$refs.form.validate()) {
             let newInv = {
             title: this.publiData.title,
@@ -197,27 +199,27 @@
       if(this.option === 3){
         if (this.$refs.form.validate()) {
           console.log("Actualizar")
+          console.log("cvsdvsd",this.publiData.pdf)
           if(this.filePdf!=null)
           {
-              this.publiData.pdf = this.urlfilePdf
-          }else{
-            this.publiData.pdf= this.publiData.pdf
+            console.log("Addddddr",this.urlfilePdf)
+              this.publiData.filePdf = this.urlfilePdf
           }
             let inv = {
               idResearchLanding : this.publiData.idResearchLanding,
               title: this.publiData.title,
               description: this.publiData.description,
-              filePdf: this.publiData.pdf
+              filePdf: this.publiData.filePdf
             };
             console.log("estos son los datos",inv);
             var investigationUpdate = await updateinvestigation(inv);
             if(investigationUpdate  != null){
               this.snackbar = true;
-            this.message = "Registro exitoso";
+            this.message = "Actualización exitosa";
             setTimeout(() => { this.$router.push({ name: "Investigation" });}, 3000);
             }else{
               this.snackbar = true;
-            this.message = "Hubo un error durante el registro";
+            this.message = "Hubo un error durante la actualización";
             setTimeout(() => {this.snackbar = false; }, 3000);
             }
 

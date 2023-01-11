@@ -32,13 +32,13 @@ async function deleteinvestigation(idResearchLanding){
   let result;
     result = await axios.delete("https://as-humedal-api.azurewebsites.net/Researchs/Delete?IdResearchLanding="+ idResearchLanding)
     console.log('investigacion Eliminada con exito: ', result)
-    return result
+    return result.data.data
 
 }
 
 async function updateinvestigation( publicationsToUpdate ){
   let result;
-    result = await axios.put("https://as-humedal-api.azurewebsites.net/Researchs/Upload", publicationsToUpdate)
+    result = await axios.put("https://as-humedal-api.azurewebsites.net/Researchs/Update", publicationsToUpdate)
     console.log('investigacion Actualizada con exito: ', result)
     return result
 

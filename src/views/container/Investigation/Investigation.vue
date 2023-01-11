@@ -142,12 +142,7 @@
         let result;
         result = await investigationGetList(1, 34);
         this.items = result;
-      },
-      deletedata: async function () {
-        let result;
-        result = await deleteinvestigation(item);
-        this.items = result;
-      },     
+      },    
 
       createInvestigation() {
         console.log("create I");
@@ -179,26 +174,33 @@
         });
       },
       deleteinvestigation(item) {
-        console.log(item);
-        this.id= item.idResearchLanding
-        this.dialogDelete = true;
-      },
-      closeDelete() {
-        this.dialogDelete = false;
-      },
-      async deleteItemConfirm(item) {
-        console.log(this.idBlog)
-        result = await deleteinvestigation(this.id);
-        console.log("respuesta", result)
-        if(result === "Transacción exitosa.")
-      {
-        alert("Investigación Eliminada  con exito")
-        this.data();
-      }
-      else{
-        alert("Chernobil")
-      }
-      },
+  
+  this.id =item.idResearchLanding
+this.dialogDelete = true;
+  },
+  closeDelete() {
+    this.dialogDelete = false;
+  },
+  async   deleteItemConfirm() {
+    let result;
+    result = await deleteinvestigation(this.id); if(result === "Transacción exitosa.") {
+       
+          this.snackbar = true;
+          this.message = "Eliminación exitosa";
+          this.data();
+          this.dialogDelete = false;
+          setTimeout(() => {
+            this.$router.push({ name: "Investigation" });
+          }, 3000);
+        } else {
+          this.snackbar = true;
+          this.message = "Hubo un error durante la eliminación";
+          setTimeout(() => {
+            this.snackbar = false;
+          }, 3000);
+        }
+  
+  },
     },
   };
   </script>

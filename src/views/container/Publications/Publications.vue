@@ -142,17 +142,11 @@ export default {
       let result;
       result = await publicationsGetList(1, 100);
       this.items = result;
-      // console.log('EL STOREE: ', result)
-      // console.log('array',this.items)
+   
     },
-    deletedata: async function () {
-      let result;
-      result = await deletepublications(item);
-      this.items = result;
-    },
-  
+   
     createPublications() {
-      // console.log("create P");
+  
       this.$router.push({
         name: "PublicationsForm",
         params: {
@@ -161,7 +155,7 @@ export default {
       });
     },
     showPublications(item) {
-      console.log(item);
+   
       this.$router.push({
         name: "PublicationsForm",
         params: {
@@ -171,7 +165,7 @@ export default {
       });
     },
     editPublications(item) {
-      console.log(item);
+     
       this.$router.push({
         name: "PublicationsForm",
         params: {
@@ -181,31 +175,32 @@ export default {
       });
     },
    deletepublications(item) {
-    console.log("hola soy bataaaaaaaa",item);
+  
     this.id =item.idPublicationsLanding
   this.dialogDelete = true;
     },
     closeDelete() {
       this.dialogDelete = false;
     },
-    async   deleteItemConfirm(item) {
+    async   deleteItemConfirm() {
       let result;
-    // var id =  item.idPublicationsLanding;
-    console.log("id borrar", this.id)
-      result = await deletepublications(this.id);
-      console.log("respuesta", result)
-      if(result === "Transacción exitosa.")
-      {
-        alert("Publicación Eliminada  con exito")
-        this.data();
-        this.dialogDelete = false;
-      }
-      else{
-        alert("Chernobil")
-      }
-
-      // this.data();
-     
+      result = await deletepublications(this.id); if(result === "Transacción exitosa.") {
+         
+            this.snackbar = true;
+            this.message = "Eliminación exitosa";
+            this.data();
+            this.dialogDelete = false;
+            setTimeout(() => {
+              this.$router.push({ name: "Publications" });
+            }, 3000);
+          } else {
+            this.snackbar = true;
+            this.message = "Hubo un error durante la eliminación";
+            setTimeout(() => {
+              this.snackbar = false;
+            }, 3000);
+          }
+    
     },
   },
 };
