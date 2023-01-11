@@ -54,7 +54,6 @@
                       prepend-icon="mdi-file"
                       label="Archivo"
                       :disabled="option === 2 ? true : false"
-                      
                     >
                       <template v-slot:selection="{ text }">
                         <v-chip small label color="primary">
@@ -63,7 +62,9 @@
                       </template>
                     </v-file-input>
                   </v-col>
-
+                  <!-- <embed :src="publiData.filePdf" type="application/pdf" /> -->
+                  <iframe src="https://www3.gobiernodecanarias.org/medusa/proyecto/38011546-0002/wp-content/uploads/sites/299/2017/11/cuadernillo-sobre-plantas.pdf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="width: 100%; height: 100%;" />
+          
                   <v-col cols="12">
                     <v-textarea
                       v-model="publiData.description"
@@ -123,11 +124,8 @@ import {
   uploadpdf
 } from "../../../api/modules/publications";
 
-
 export default {
-  components: {
-
-  },
+  components: {},
   data: () => ({
     tabs: 0,
     option: 0,
@@ -146,7 +144,7 @@ export default {
       idPublicationsLanding: null,
       title: "",
       description: "",
-      pdf: null,
+      filePdf: null,
       datePublication: ""
     },
     rules: {
@@ -226,11 +224,16 @@ export default {
       }
       if (this.option === 3) {
         if (this.$refs.form.validate()) {
+          if(this.filePdf!=null){
+            await this.upload();
+            this.publiData.filePdf = this.urlfilePdf;
+          }
           console.log("Actualizar");
           let pub = {
             idPublicationsLanding: this.publiData.idPublicationsLanding,
             title: this.publiData.title,
-            description: this.publiData.description
+            description: this.publiData.description,
+            filePdf: this.publiData.filePdf
           };
 
           // newPub = await createpublications(newPub);

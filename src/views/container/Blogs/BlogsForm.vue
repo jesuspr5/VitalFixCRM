@@ -229,7 +229,7 @@
 import i18n from "@/i18n";
 import { catalogsGetList } from "../../../api/modules/catalogs";
 import { createblog ,uploadimg,urlgalery,updateblog,blogsGet  } from "../../../api/modules/blogs";
-
+import axios from "axios";
 export default {
   data: () => ({
     tabs: 0,
