@@ -58,7 +58,7 @@ async function createblog(blogToCreate) {
   return result;
 }
 
-async function deleteblog(Idblog) {
+async function deleteblog( IdblogLanding) {
   let result;
   result = await axios.delete(
     "https://as-humedal-api.azurewebsites.net/Blogs/Delete?IdBlogLanding=" +
@@ -70,7 +70,7 @@ async function deleteblog(Idblog) {
 
 async function updateblog(blogToUpdate) {
   let result;
-  result = await axios.post(
+  result = await axios.put(
     "https://as-humedal-api.azurewebsites.net/Blogs/Update",
     blogToUpdate
   );
@@ -87,7 +87,7 @@ async function uploadimg(img){
 
 
 
-function urlgalery() {
+function url() {
   return "https://as-humedal-api.azurewebsites.net/Blogs/Upload";
 }
 
@@ -110,5 +110,5 @@ export {
   createblog,
   blogsGet,
   uploadimg,
-  urlgalery
+  url
 };

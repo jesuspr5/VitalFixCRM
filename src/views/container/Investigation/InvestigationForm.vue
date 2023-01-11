@@ -1,5 +1,5 @@
 <template>
-    <v-container id="publications-profile" fluid tag="section">
+    <v-container id="investigation-profile" fluid tag="section">
       <v-row justify="center">
         <base-material-card icon="mdi-account-outline">
           <template v-slot:heading>
@@ -33,26 +33,29 @@
           </v-card-text>
           <v-tabs-items v-model="tabs" class="transparent">
             <v-tab-item :kei="0">
-              <v-form>
+              <v-form ref="form" v-model="valid" lazy-validation>
                 <v-container class="py-0">
                   <v-row>
                     <v-col cols="12" sm="4">
                       <v-text-field
                         v-model="publiData.title"
                         class="purple-input"
-                        :label="$t('publications.title')"
+                        :label="$t('investigation.title')"
                         :disabled="option === 2 ? true : false"
+                        :rules="[rules.required, rules.min]"
                       />
                     </v-col>
   
                     <v-col cols="12" sm="4">
                       <v-file-input
-                        v-model="filpdf"
+                        v-model="filePdf"
+                        type="file"
                         accept=" "
                         placeholder="Seleccione PDF"
                         prepend-icon="mdi-file"
-                        label="Foto principal"
+                        label="Archivo"
                         :disabled="option === 2 ? true : false"
+                        @change="upload"
                       >
                         <template v-slot:selection="{ text }">
                           <v-chip small label color="primary">
@@ -61,139 +64,42 @@
                         </template>
                       </v-file-input>
                     </v-col>
-  
-                    <!-- <v-col
-                        cols="12"
-                        sm="4"
-                      >
-                        <v-text-field
-                          v-model="publicationsData.subTitle"
-                          :label="$t('publications.subtitle')"
-                          class="purple-input"
-                          :disabled="option===2?true:false"
-                        />
-                      </v-col> -->
-  
-                    <v-col cols="12" sm="4">
-                      <v-text-field
-                        v-model="publiData.datePublication"
-                        class="purple-input"
-                        :label="$t('publications.datePublication')"
-                        :disabled="option === 2 ? true : false"
-                      />
-                    </v-col>
-  
-                    <v-col cols="12">
+                     <v-col cols="12">
                       <v-textarea
                         v-model="publiData.description"
                         :label="$t('publications.description')"
                         class="purple-input"
                         :disabled="option === 2 ? true : false"
+                        :rules="[rules.required, rules.min]"
                       ></v-textarea>
-                    </v-col>
-                    <!-- <v-col
-                        cols="12"
-                        sm="4"
-                      >
-                      
-                        <v-select
-                          v-model="blogData.idCatType"
-                          color="secondary"
-                          item-color="secondary"
-                          :label="$t('blogs.Catalogs')"
-                          :items="selcatalog"
-                          item-text="name"
-                          item-value="id"
-                          :disabled="option===2?true:false"
-                          return-object
-                         single-line
-                          
-                        >
-                          <template v-slot:item="{ attrs, item, on }">
-                            <v-list-item
-                              v-bind="attrs"
-                              active-class="secondary elevation-4 white--text"
-                              class="mx-3 mb-2 v-sheet"
-                              elevation="0"
-                              v-on="on"
-                            >
-                              <v-list-item-content>
-                                <v-list-item-title v-text="item" />
-                              </v-list-item-content>
-    
-                              <v-scale-transition>
-                                <v-list-item-icon
-                                  v-if="attrs.inputValue"
-                                  class="my-3"
-                                >
-                                  <v-icon>mdi-check</v-icon>
-                                </v-list-item-icon>
-                              </v-scale-transition>
-                            </v-list-item>
-                          </template>
-                        </v-select>
-                      
-                       
-                      </v-col>  -->
-  
-                    <!-- <v-col
-                        cols="12"
-                        sm="4"
-                      >
-                     
-                        <v-file-input
-                      
-                          
-                          accept="image/png, image/jpeg,"
-                          placeholder="Seleccione foto "
-                          prepend-icon="mdi-camera"
-                          label="Banner foto"
-                          :disabled="option===2?true:false"
-                          
-                        ><template v-slot:selection="{ text }">
-                            <v-chip
-                              small
-                              label
-                              color="secondary"
-                            >
-                              {{ text }}
-                            </v-chip>
-                          </template></v-file-input>
-                     
-                      </v-col> -->
-                    <!-- <v-col
-                        cols="12"
-                        sm="4"
-                      >
-                     
-                        <v-file-input
-                       
-                          :rules="rules"
-                          accept="image/png, image/jpeg,"
-                          placeholder="Seleccione las imagenes"
-                          multiple
-                          prepend-icon="mdi-camera"
-                          label="Galeria"
-                          counter
-                          :disabled="option===2?true:false"
-                        > <template v-slot:selection="{ text }">
-                            <v-chip
-                              small
-                              label
-                              color="#75B768"
-                            >
-                              {{ text }}
-                            </v-chip>
-                          </template></v-file-input>
-                     
-                      </v-col> -->
-  
+                    </v-col>  
                     <v-col cols="12" class="text-right">
-                      <v-btn v-if="option !== 2" color="success" class="mr-0">
+                      <v-btn v-if="option !== 2" color="success" class="mr-0" @click="submit">
                         {{ getTitleButton }}
                       </v-btn>
                     </v-col>
                   </v-row>
+
+                  <div class="text-center">
+                  <v-snackbar
+                    v-model="snackbar"
+                    :timeout="timeout"
+                    color="#75B768"
+                  >
+                    {{ message }}
+
+                    <template v-slot:action="{ attrs }">
+                      <v-btn
+                        color="white"
+                        text
+                        v-bind="attrs"
+                        @click="snackbar = false"
+                      >
+                        Cerrar
+                      </v-btn>
+                    </template>
+                  </v-snackbar>
+                </div>
                 </v-container>
               </v-form>
             </v-tab-item>
@@ -205,21 +111,27 @@
   
   <script>
   import i18n from "@/i18n";
-  import {createpublications} from "../../../api/modules/publications";
-  import {uploadpdf} from "../../../api/modules/publications";
+  import {createinvestigation, updateinvestigation, uploadpdf} from "../../../api/modules/investigation";
   
   export default {
     data: () => ({
       tabs: 0,
       option: 0,
       title: "",
-      filpdf: null,
-      pdfUrl: null,
-      urlPdf: 'hhh',
+      filePdf: null,
+      urlfilePdf: "",
+      currentPage: 0,
+			pageCount: 0,
+      message:'',
+      rules: {
+      required: value => !!value || "Debe ingresar Texto.",
+      min: v => v.length >= 8 || "Mínimo 8 caracteres"
+    },
       //   rules: [
       //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       // ],
       publiData: {
+        idResearchLanding: null,
         title: "",
         description: "",
         pdf: null,
@@ -228,80 +140,108 @@
     }),
     computed: {
       getTitle() {
-        if (this.option === 1) return i18n.t("publications.create");
-        else if (this.option === 2) return i18n.t("publications.show");
-        else if (this.option === 3) return i18n.t("publications.edit");
-        else return i18n.t("publications.head");
+        if (this.option === 1) return i18n.t("investigation.create");
+        else if (this.option === 2) return i18n.t("investigation.show");
+        else if (this.option === 3) return i18n.t("investigation.edit");
+        else return i18n.t("investigation.head");
       },
       getTitleButton() {
         if (this.option === 1) return i18n.t("crud.create");
         else if (this.option === 2) return i18n.t("crud.show");
         else if (this.option === 3) return i18n.t("crud.edit");
-        else return i18n.t("publications.head");
+        else return i18n.t("investigation.head");
       },
     },
     mounted() {
-      // console.log($t('roles.title'))
-      // this.data();
       this.initialize();
-      // this.createPublications();
     },
     methods: {
-      // data: async function() {
-      //   // let result;
-      //   // result = await publicationsGetList(1, 44);
-  
-      //     // this.publicationsData = result
-      //   // console.log("API: ", result);
-      //   // console.log("catalogos", this.selcatalog);
-      // },
       initialize() {
         this.option = this.$route.params.option;
         if (this.option === 3 || this.option === 2) {
           this.publiData = this.$route.params.publiData;
-          console.log(this.publiData);
+        console.log(this.publiData);
         }
       },
   
       async submit() {
+        console.log("opcion", this.option)
         if (this.option === 1) {
-          this.upload();
-          let newPub = {
+          console.log("crear")
+          if (this.$refs.form.validate()) {
+            let newInv = {
             title: this.publiData.title,
             description: this.publiData.description,
-            filePdf: this.urlMainPdf,
+            filePdf: this.urlfilePdf,
             datePublication: new Date().toISOString(),
           };
-          this.new = newPub;
-          // newPub = await createpublications();
-  
+          console.log("esta es la investigacion",newInv);
+          var investigations = await createinvestigation(newInv);
+          if (investigations != null) {
+            console.log("Tituulo de la publicacion", investigations);
+            this.snackbar = true;
+            this.message = "Registro exitoso";
+            setTimeout(() => { this.$router.push({ name: "Investigation" });}, 3000);
+          }else{
+            this.snackbar = true;
+            this.message = "Hubo un error durante el registro";
+            setTimeout(() => {this.snackbar = false; }, 3000);
+
+          }
+        }else{
+          this.snackbar = true;
+          this.message = "Debe llenar todos los campos";
+          setTimeout(() => { this.snackbar = false; }, 3000);
         }
-        console.log(this.new);
-      },
+      }
       
-      async upload() {
-        // console.log(this.file);
+     
+      if(this.option === 3){
+        if (this.$refs.form.validate()) {
+          console.log("Actualizar")
+          console.log("cvsdvsd",this.publiData.pdf)
+          if(this.filePdf!=null)
+          {
+            console.log("Addddddr",this.urlfilePdf)
+              this.publiData.filePdf = this.urlfilePdf
+          }
+            let inv = {
+              idResearchLanding : this.publiData.idResearchLanding,
+              title: this.publiData.title,
+              description: this.publiData.description,
+              filePdf: this.publiData.filePdf
+            };
+            console.log("estos son los datos",inv);
+            var investigationUpdate = await updateinvestigation(inv);
+            if(investigationUpdate  != null){
+              this.snackbar = true;
+            this.message = "Actualización exitosa";
+            setTimeout(() => { this.$router.push({ name: "Investigation" });}, 3000);
+            }else{
+              this.snackbar = true;
+            this.message = "Hubo un error durante la actualización";
+            setTimeout(() => {this.snackbar = false; }, 3000);
+            }
+
+        }else{ 
+          this.snackbar = true;
+          this.message = "Debe llenar todos los campos";
+          setTimeout(() => { this.snackbar = false; }, 3000);
+        }
+
+
+            
+          }
+        },
+      async upload(event) {
         const formData = new FormData();
-        formData.append("file", this.filpdf);
+        formData.append("file",event);
   
         let result;
         result = await uploadpdf(formData);
   
-        this.urlPdf = result;
-        return result;
-        // const options = {
-        //   method: "POST",
-        //   body: formData,
-        // };
-        // fetch(createpdf(), options)
-        //   .then((response) => response.json())
-        //   .then((data) => console.log(data));
+        this.urlfilePdf = result;
       },
-  
-  
-      // chooseFiles() {
-      //   document.getElementById("fileUpload").click();
-      // },
     }, //
   };
   </script>

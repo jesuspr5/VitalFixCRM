@@ -63,7 +63,7 @@
                     </v-file-input>
                   </v-col>
                   <!-- <embed :src="publiData.filePdf" type="application/pdf" /> -->
-                  <iframe src="https://www3.gobiernodecanarias.org/medusa/proyecto/38011546-0002/wp-content/uploads/sites/299/2017/11/cuadernillo-sobre-plantas.pdf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="width: 100%; height: 100%;" />
+                  <!-- <iframe src="https://www3.gobiernodecanarias.org/medusa/proyecto/38011546-0002/wp-content/uploads/sites/299/2017/11/cuadernillo-sobre-plantas.pdf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="width: 100%; height: 100%;" /> -->
           
                   <v-col cols="12">
                     <v-textarea
@@ -134,6 +134,7 @@ export default {
     urlfilePdf: "",
     currentPage: 0,
     message: "",
+    timeout: 3000,
     snackbar: false,
     pageCount: 0,
     valid: true,
@@ -149,7 +150,7 @@ export default {
     },
     rules: {
       required: value => !!value || "Debe ingresar Texto.",
-      min: v => v.length >= 5 || "Mínimo 8 caracteres"
+      min: v => v.length >= 8 || "Mínimo 8 caracteres"
     }
   }),
   computed: {

@@ -60,7 +60,7 @@
               fab
               class="px-1 ml-1"
               x-small
-              @click="deleteInvestigation(item)"
+              @click="deleteinvestigation(item)"
             >
               <v-icon small v-text="'mdi-delete'" />
             </v-btn>
@@ -105,7 +105,7 @@
     
     <script>
   import i18n from "@/i18n";
-  import { investigationGetList } from "../../../api/modules/investigation";
+  import { investigationGetList, deleteinvestigation } from "../../../api/modules/investigation";
 //   import { deletepublications } from "../../../api/modules/publications";
   export default {
     name: "DashboardDataTables",
@@ -113,6 +113,7 @@
     data: () => ({
       hidden: false,
       dialogDelete: false,
+      id : null,
       headers: [
         {
           text: i18n.t("investigation.title"),
@@ -134,19 +135,14 @@
     }),
     async mounted() {
       this.data();
-      this.deletedata
+      // this.deletedata
     },
     methods: {
       data: async function () {
         let result;
         result = await investigationGetList(1, 34);
         this.items = result;
-      },
-      deletedata: async function () {
-        let result;
-        result = await deleteinvestigation(item);
-        this.items = result;
-      },
+      },    
 
       createInvestigation() {
         console.log("create I");
@@ -179,21 +175,32 @@
       },
       deleteinvestigation(item) {
   
-        console.log(item);
+  this.id =item.idResearchLanding
+this.dialogDelete = true;
+  },
+  closeDelete() {
+    this.dialogDelete = false;
+  },
+  async   deleteItemConfirm() {
+    let result;
+    result = await deleteinvestigation(this.id); if(result === "Transacción exitosa.") {
+       
+          this.snackbar = true;
+          this.message = "Eliminación exitosa";
+          this.data();
+          this.dialogDelete = false;
+          setTimeout(() => {
+            this.$router.push({ name: "Investigation" });
+          }, 3000);
+        } else {
+          this.snackbar = true;
+          this.message = "Hubo un error durante la eliminación";
+          setTimeout(() => {
+            this.snackbar = false;
+          }, 3000);
+        }
   
-        this.dialogDelete = true;
-      },
-      closeDelete() {
-        this.dialogDelete = false;
-      },
-      deleteItemConfirm(item) {
-        // this.desserts.splice(this.editedIndex, 1);
-        this.deletepublications();
-        console.log("Delete p");
-        console.log(item);
-        console.log("Delete");
-        this.closeDelete();
-      },
+  },
     },
   };
   </script>
