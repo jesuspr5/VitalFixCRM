@@ -58,11 +58,11 @@ async function createblog(blogToCreate) {
   return result;
 }
 
-async function deleteblog( IdblogLanding) {
+async function deleteblog( IdBlogLanding) {
   let result;
   result = await axios.delete(
     "https://as-humedal-api.azurewebsites.net/Blogs/Delete?IdBlogLanding=" +
-      IdblogLanding
+      IdBlogLanding
   );
   console.log("Usuario Eliminado: ", result);
   return result;

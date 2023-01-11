@@ -66,6 +66,27 @@
           </v-btn>
         </template>
       </v-data-table>
+
+      <div class="text-center">
+    <v-snackbar   
+      v-model="snackbar"
+      :timeout="timeout"
+      color="#75B768"
+    >
+    {{ message }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="white"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          Close
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
       <v-dialog v-model="dialogDelete" persistent max-width="500px">
         <v-card>
           <v-card-title class="text-h5"
@@ -113,6 +134,8 @@ export default {
     hidden: false,
     idblog:'',
     dialogDelete:false,
+    snackbar:false,
+    message:'',
     headers: [
       {
         text: i18n.t("blogs.title"),
@@ -184,9 +207,7 @@ export default {
       });
     },
     deleteBlogs(item) {
-      console.log(item);
-      console.log("Delete");
-  this.idblog =item.ididBLogLanding
+  this.idblog =item.idBLogLanding
   this.dialogDelete = true;
     },
     closeDelete() {
@@ -194,8 +215,6 @@ export default {
     },
     async   deleteItemConfirm(item) {
       let result;
-    // var id =  item.idPublicationsLanding;
-    console.log("id borrar", this.idblog)
       result = await deleteblog(this.idblog);
       console.log("respuesta", result)
       if(result === "Transacción exitosa.")
@@ -205,7 +224,10 @@ export default {
         this.dialogDelete = false;
       }
       else{
-        alert("Chernobil")
+      
+       this.snackbar = true;
+        this.message = "ocurrio un error al eliminar el Blog";
+          setTimeout(() => { this.snackbar = false;}, 2000);
       }
 
       // this.data();

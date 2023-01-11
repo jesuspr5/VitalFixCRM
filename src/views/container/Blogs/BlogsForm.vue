@@ -71,28 +71,6 @@
                       single-line
                       :rules="[rules.required]"
                     >
-                      <!-- <template v-slot:item="{ attrs, item, on }">
-                          <v-list-item
-                            v-bind="attrs"
-                            active-class="secondary elevation-4 white--text"
-                            class="mx-3 mb-2 v-sheet"
-                            elevation="0"
-                            v-on="on"
-                          >
-                            <v-list-item-content>
-                              <v-list-item-title v-text="item" />
-                            </v-list-item-content>
-  
-                            <v-scale-transition>
-                              <v-list-item-icon
-                                v-if="attrs.inputValue"
-                                class="my-3"
-                              >
-                                <v-icon>mdi-check</v-icon>
-                              </v-list-item-icon>
-                            </v-scale-transition>
-                          </v-list-item>
-                        </template> -->
                     </v-select>
                   </v-col>
                   <v-col cols="12" sm="4">
@@ -194,7 +172,6 @@
     <div class="text-center">
     <v-snackbar   
       v-model="snackbar"
-      :timeout="timeout"
       color="#75B768"
     >
     {{ message }}
@@ -215,7 +192,7 @@
 </template>
 
 <script>
-/* eslint-disable */
+
 import i18n from "@/i18n";
 import { catalogsGetList } from "../../../api/modules/catalogs";
 import { createblog ,uploadimg,url,updateblog,blogsGet  } from "../../../api/modules/blogs";
@@ -226,7 +203,6 @@ export default {
     option: 0,
     snackbar: false,  
     message: "",
-  timeout: 3000,
     title: "",
     filep: null,
     fileb: null,
@@ -236,10 +212,11 @@ export default {
     urlMainPhoto: "",
     urlBannerPhoto: "",
     urlgalery: [],
+    photos: [],
       rules: {
         sise: value=> !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       required: value => !!value || "Debe ingresar Texto.",
-      min: v => v.length >= 5 || "Mínimo 8 caracteres",
+      min: v => v.length >= 5 || "Mínimo 5 caracteres",
     },
     blogData: {
       idBlogLanding:"",
@@ -250,7 +227,8 @@ export default {
       idCatType: "",
       mainPhoto: "",
       bannerPhoto: "",
-      listPhotosGalery:[]
+      listPhotosGalery:[],
+      gal: []
     },
     selcatalog: [],
    
@@ -286,6 +264,13 @@ export default {
        var id = this.$route.params.blogData.idBlogLanding
        this.id = id;
        this.blogData =  await blogsGet(1,100,id);
+
+        this.photos =this.blogData.listPhotosGalery.items;
+        console.log("phots",this.photos)
+       
+      
+       //this.gal = this.blogData.listPhotosGalery;
+
       }
     },
 
@@ -310,7 +295,7 @@ export default {
         blog= await createblog(blog)
 
         if (blog != null) {
-            console.log("Tituulo del blog", blog);
+          
             this.snackbar = true;
         this.message = "Registro exitoso";
      setTimeout(()=>{this.$router.push({ name: "Blogs" })},3000);
@@ -330,23 +315,36 @@ export default {
       }
        if (this.option === 3){
         if (this.$refs.form.validate()) {
-          this.blogData.listPhotosGalery =this.urlgalery
-        console.log(this.blogData)
-        if(this.filep !=null){
+        
+         
+        if(this.filep!=null){
          
           this.urlMainPhoto =  await this.upload(this.filep);
           this.blogData.mainPhoto = this.urlMainPhoto
-        }else{
-          this.blogData.mainPhoto =this.blogData.mainPhoto
         }
         if(this.fileb!=null){
           this.urlBannerPhoto =  await this.upload(this.fileb);
           this.blogData.bannerPhoto = this.urlBannerPhoto
 
-        }else{
-          
-          this.blogData.bannerPhoto =this.urlBannerPhoto
         }
+
+        //galeria
+        console.log("galeriafhsfjhgsfjs",this.galery)
+        if(this.galery.length>0){
+          console.log("galeria llena")
+          console.log("esto es lo que esta", this.blogData.listPhotosGalery)
+          this.blogData.listPhotosGalery =this.urlgalery
+          console.log("esto es lo nuevo", this.blogData.listPhotosGalery)
+
+        }else{
+       let ar_empty = []; 
+      this.photos.map((item) => { 
+      ar_empty.push({photo: item.photo}); 
+      return  item; 
+          });
+         this.blogData.listPhotosGalery  =ar_empty;
+        }
+
         let blog = {
          
          idBlogLanding:this.id,
@@ -356,12 +354,13 @@ export default {
           mainPhoto: this.blogData.mainPhoto ,
           bannerPhoto: this.blogData.bannerPhoto,
           idCatType: this.blogData.idCatType,
-          reference: this.blogData.reference
-          // photosGalery: this.blogData.listPhotosGalery
+          reference: this.blogData.reference,
+           photosGalery: this.blogData.listPhotosGalery
         };
+
+        console.log("blog update",blog)
         blog= await updateblog(blog);
         if (blog != null) {
-            console.log("Titulooo del blog", blog);
             this.snackbar = true;
         this.message = "Actualizacion exitosa";
         setTimeout(()=>{this.$router.push({ name: "Blogs" })},3000);
@@ -370,7 +369,7 @@ export default {
             this.message = "Hubo un error durante el registro";
             setTimeout(() => {
               this.snackbar = false;
-            }, 3000);
+            }, 2000);
           }
 
         }else{
@@ -384,18 +383,6 @@ export default {
        
       
     },
-    // async upload(img) {
-    //   const formData = new FormData();
-    //   formData.append("file", img);
-    //   //  console.log("archivos = "+ formData);
-    //   let result;
-    //   result = await uploadimg(formData);
-
-    //   //  this.urlMainPhoto = result;
-    //   return result;
-
-     
-    // },
 
  async  upload(event) {
       console.log(event);
@@ -430,7 +417,7 @@ export default {
       }).catch(error => {return error.response.data})
        
     });
-
+      // console.log("")
     }
   
   
