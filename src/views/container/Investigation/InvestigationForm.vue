@@ -1,86 +1,109 @@
 <template>
-    <v-container id="investigation-profile" fluid tag="section">
-      <v-row justify="center">
-        <base-material-card icon="mdi-account-outline">
-          <template v-slot:heading>
-            <v-tabs
-              v-model="tabs"
-              background-color="transparent"
-              slider-color="white"
-            >
-              <v-tab class="mr-3">
-                <v-icon class="mr-2"> mdi-account-key </v-icon>
-                {{ getTitleButton }}
-              </v-tab>
-            </v-tabs>
-          </template>
-  
-          <v-card-text style="height: 100px; position: relative">
-            <v-fab-transition>
-              <v-btn
-                fab
-                dark
-                small
-                color="gray"
-                absolute
-                right
-                top
-                @click="$router.go(-1)"
-              >
-                <v-icon>mdi-arrow-left</v-icon>
-              </v-btn>
-            </v-fab-transition>
-          </v-card-text>
-          <v-tabs-items v-model="tabs" class="transparent">
-            <v-tab-item :kei="0">
-              <v-form ref="form" v-model="valid" lazy-validation>
-                <v-container class="py-0">
-                  <v-row>
-                    <v-col cols="12" sm="4">
-                      <v-text-field
-                        v-model="publiData.title"
-                        class="purple-input"
-                        :label="$t('investigation.title')"
-                        :disabled="option === 2 ? true : false"
-                        :rules="[rules.required, rules.min]"
-                      />
-                    </v-col>
-  
-                    <v-col cols="12" sm="4">
-                      <v-file-input
-                        v-model="filePdf"
-                        type="file"
-                        accept=" "
-                        placeholder="Seleccione PDF"
-                        prepend-icon="mdi-file"
-                        label="Archivo"
-                        :disabled="option === 2 ? true : false"
-                        @change="upload"
-                      >
-                        <template v-slot:selection="{ text }">
-                          <v-chip small label color="primary">
-                            {{ text }}
-                          </v-chip>
-                        </template>
-                      </v-file-input>
-                    </v-col>
-                     <v-col cols="12">
-                      <v-textarea
-                        v-model="publiData.description"
-                        :label="$t('publications.description')"
-                        class="purple-input"
-                        :disabled="option === 2 ? true : false"
-                        :rules="[rules.required, rules.min]"
-                      ></v-textarea>
-                    </v-col>  
-                    <v-col cols="12" class="text-right">
-                      <v-btn v-if="option !== 2" color="success" class="mr-0" @click="submit">
-                        {{ getTitleButton }}
-                      </v-btn>
-                    </v-col>
-                  </v-row>
+  <v-container id="investigation-profile" fluid tag="section">
+    <v-row justify="center">
+      <base-material-card icon="mdi-account-outline">
+        <template v-slot:heading>
+          <v-tabs
+            v-model="tabs"
+            background-color="transparent"
+            slider-color="white"
+          >
+            <v-tab class="mr-3">
+              <v-icon class="mr-2"> mdi-account-key </v-icon>
+              {{ getTitleButton }}
+            </v-tab>
+          </v-tabs>
+        </template>
 
-                  <div class="text-center">
+        <v-card-text style="height: 100px; position: relative">
+          <v-fab-transition>
+            <v-btn
+              fab
+              dark
+              small
+              color="gray"
+              absolute
+              right
+              top
+              @click="$router.go(-1)"
+            >
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
+          </v-fab-transition>
+        </v-card-text>
+        <v-tabs-items v-model="tabs" class="transparent">
+          <v-tab-item :kei="0">
+            <v-form ref="form" v-model="valid" lazy-validation>
+              <v-container class="py-0">
+                <v-row>
+                  <v-col cols="12" sm="4">
+                    <v-text-field
+                      v-model="invesData.title"
+                      class="purple-input"
+                      :label="$t('investigation.title')"
+                      :disabled="option === 2 ? true : false"
+                      :rules="[rules.required, rules.min]"
+                    />
+                  </v-col>
+
+                  <v-col cols="12" sm="4">
+                    <v-file-input
+                      v-model="filePdf"
+                      type="file"
+                      accept=" "
+                      placeholder="Seleccione PDF"
+                      prepend-icon="mdi-file"
+                      label="Archivo"
+                      :disabled="option === 2 ? true : false"
+                      @change="uploadPdf"
+                    >
+                      <template v-slot:selection="{ text }">
+                        <v-chip small label color="primary">
+                          {{ text }}
+                        </v-chip>
+                      </template>
+                    </v-file-input>
+                  </v-col>
+                  <v-col cols="12" sm="4">
+                    <v-file-input
+                      v-model="photo"
+                      
+                      accept=" "
+                      placeholder="Seleccione Imagen"
+                      prepend-icon="mdi-file"
+                      label="Imagen"
+                      :disabled="option === 2 ? true : false"
+                      @change="uploadPhoto"
+                    >
+                      <template v-slot:selection="{ text }">
+                        <v-chip small label color="primary">
+                          {{ text }}
+                        </v-chip>
+                      </template>
+                    </v-file-input>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-textarea
+                      v-model="invesData.description"
+                      :label="$t('publications.description')"
+                      class="purple-input"
+                      :disabled="option === 2 ? true : false"
+                      :rules="[rules.required, rules.min]"
+                    ></v-textarea>
+                  </v-col>
+                  <v-col cols="12" class="text-right">
+                    <v-btn
+                      v-if="option !== 2"
+                      color="success"
+                      class="mr-0"
+                      @click="submit"
+                    >
+                      {{ getTitleButton }}
+                    </v-btn>
+                  </v-col>
+                </v-row>
+
+                <div class="text-center">
                   <v-snackbar
                     v-model="snackbar"
                     :timeout="timeout"
@@ -100,149 +123,204 @@
                     </template>
                   </v-snackbar>
                 </div>
-                </v-container>
-              </v-form>
-            </v-tab-item>
-          </v-tabs-items>
-        </base-material-card>
-      </v-row>
-    </v-container>
-  </template>
+              </v-container>
+            </v-form>
+          </v-tab-item>
+        </v-tabs-items>
+      </base-material-card>
+    </v-row>
+  </v-container>
+</template>
   
   <script>
-  import i18n from "@/i18n";
-  import {createinvestigation, updateinvestigation, uploadpdf} from "../../../api/modules/investigation";
-  
-  export default {
-    data: () => ({
-      tabs: 0,
-      option: 0,
+import i18n from "@/i18n";
+import {
+  createinvestigation,
+  updateinvestigation,
+  uploadpdf,
+} from "../../../api/modules/investigation";
+
+export default {
+  data: () => ({
+    tabs: 0,
+    option: 0,
+    title: "",
+    filePdf: null,
+    urlfilePdf: "",
+    currentPage: 0,
+    pageCount: 0,
+    message: "",
+    photo: null,
+    urlPhoto: null,
+    rules: {
+      required: (value) => !!value || "Debe ingresar Texto.",
+      min: (v) => v.length >= 8 || "Mínimo 8 caracteres",
+    },
+    //   rules: [
+    //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+    // ],
+    invesData: {
+      idResearchLanding: null,
       title: "",
+      description: "",
+      photo: "",
       filePdf: null,
-      urlfilePdf: "",
-      currentPage: 0,
-			pageCount: 0,
-      message:'',
-      rules: {
-      required: value => !!value || "Debe ingresar Texto.",
-      min: v => v.length >= 8 || "Mínimo 8 caracteres"
+      datePublication: "",
     },
-      //   rules: [
-      //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
-      // ],
-      publiData: {
-        idResearchLanding: null,
-        title: "",
-        description: "",
-        pdf: null,
-        datePublication: "",
-      },
-    }),
-    computed: {
-      getTitle() {
-        if (this.option === 1) return i18n.t("investigation.create");
-        else if (this.option === 2) return i18n.t("investigation.show");
-        else if (this.option === 3) return i18n.t("investigation.edit");
-        else return i18n.t("investigation.head");
-      },
-      getTitleButton() {
-        if (this.option === 1) return i18n.t("crud.create");
-        else if (this.option === 2) return i18n.t("crud.show");
-        else if (this.option === 3) return i18n.t("crud.edit");
-        else return i18n.t("investigation.head");
-      },
+  }),
+  computed: {
+    getTitle() {
+      if (this.option === 1) return i18n.t("investigation.create");
+      else if (this.option === 2) return i18n.t("investigation.show");
+      else if (this.option === 3) return i18n.t("investigation.edit");
+      else return i18n.t("investigation.head");
     },
-    mounted() {
-      this.initialize();
+    getTitleButton() {
+      if (this.option === 1) return i18n.t("crud.create");
+      else if (this.option === 2) return i18n.t("crud.show");
+      else if (this.option === 3) return i18n.t("crud.edit");
+      else return i18n.t("investigation.head");
     },
-    methods: {
-      initialize() {
-        this.option = this.$route.params.option;
-        if (this.option === 3 || this.option === 2) {
-          this.publiData = this.$route.params.publiData;
-        console.log(this.publiData);
-        }
-      },
-  
-      async submit() {
-        console.log("opcion", this.option)
-        if (this.option === 1) {
-          console.log("crear")
-          if (this.$refs.form.validate()) {
-            let newInv = {
-            title: this.publiData.title,
-            description: this.publiData.description,
-            filePdf: this.urlfilePdf,
+  },
+  mounted() {
+    this.initialize();
+  },
+  methods: {
+    initialize() {
+      this.option = this.$route.params.option;
+      if (this.option === 3 || this.option === 2) {
+        this.invesData = this.$route.params.invesData;
+        console.log(this.invesData);
+      }
+    },
+
+    async submit() {
+      console.log("opcion", this.option);
+      if (this.option === 1) {
+        console.log("crear");
+        if (this.$refs.form.validate()) {
+          if (this.filePdf != null) {
+            this.invesData.filePdf = this.urlfilePdf;
+          } else {
+            this.snackbar = true;
+            this.message = "Debe seleccionar un archivo Pdf";
+            setTimeout(() => {
+              this.snackbar = false;
+            }, 3000);
+          }
+
+
+          if (this.photo != null) {
+            this.invesData.photo = this.urlPhoto;
+          } else {
+            this.snackbar = true;
+            this.message = "Debe seleccionar una Imagen";
+            setTimeout(() => {
+              this.snackbar = false;
+            }, 3000);
+          }
+
+
+
+          let newInv = {
+            title: this.invesData.title,
+            description: this.invesData.description,
+            photo: this.invesData.photo,
+            filePdf: this.invesData.filePdf,
             datePublication: new Date().toISOString(),
           };
-          console.log("esta es la investigacion",newInv);
+          console.log("esta es la investigacion", newInv);
           var investigations = await createinvestigation(newInv);
           if (investigations != null) {
             console.log("Tituulo de la publicacion", investigations);
             this.snackbar = true;
             this.message = "Registro exitoso";
-            setTimeout(() => { this.$router.push({ name: "Investigation" });}, 3000);
-          }else{
+            setTimeout(() => {
+              this.$router.push({ name: "Investigation" });
+            }, 3000);
+          } else {
             this.snackbar = true;
             this.message = "Hubo un error durante el registro";
-            setTimeout(() => {this.snackbar = false; }, 3000);
-
+            setTimeout(() => {
+              this.snackbar = false;
+            }, 3000);
           }
-        }else{
+        } else {
           this.snackbar = true;
           this.message = "Debe llenar todos los campos";
-          setTimeout(() => { this.snackbar = false; }, 3000);
+          setTimeout(() => {
+            this.snackbar = false;
+          }, 3000);
         }
       }
-      
-     
-      if(this.option === 3){
-        if (this.$refs.form.validate()) {
-          console.log("Actualizar")
-          console.log("cvsdvsd",this.publiData.pdf)
-          if(this.filePdf!=null)
-          {
-            console.log("Addddddr",this.urlfilePdf)
-              this.publiData.filePdf = this.urlfilePdf
-          }
-            let inv = {
-              idResearchLanding : this.publiData.idResearchLanding,
-              title: this.publiData.title,
-              description: this.publiData.description,
-              filePdf: this.publiData.filePdf
-            };
-            console.log("estos son los datos",inv);
-            var investigationUpdate = await updateinvestigation(inv);
-            if(investigationUpdate  != null){
-              this.snackbar = true;
-            this.message = "Actualización exitosa";
-            setTimeout(() => { this.$router.push({ name: "Investigation" });}, 3000);
-            }else{
-              this.snackbar = true;
-            this.message = "Hubo un error durante la actualización";
-            setTimeout(() => {this.snackbar = false; }, 3000);
-            }
 
-        }else{ 
+      if (this.option === 3) {
+        if (this.$refs.form.validate()) {
+          console.log("Actualizar");
+          console.log("cvsdvsd", this.invesData.pdf);
+          if (this.filePdf != null) {
+            console.log("Addddddr", this.urlfilePdf);
+            this.invesData.filePdf = this.urlfilePdf;
+          }
+
+          if(this.filePdf!=null){
+          
+            this.invesData.filePdf = this.urlfilePdf;
+          }
+          if(this.photo!=null){
+          
+            this.invesData.photo = this.urlPhoto;
+          }
+          let inv = {
+            idResearchLanding: this.invesData.idResearchLanding,
+            title: this.invesData.title,
+            description: this.invesData.description,
+            photo: this.invesData.photo,
+            filePdf: this.invesData.filePdf
+          };
+          console.log("estos son los datos", inv);
+          var investigationUpdate = await updateinvestigation(inv);
+          if (investigationUpdate != null) {
+            this.snackbar = true;
+            this.message = "Actualización exitosa";
+            setTimeout(() => {
+              this.$router.push({ name: "Investigation" });
+            }, 3000);
+          } else {
+            this.snackbar = true;
+            this.message = "Hubo un error durante la actualización";
+            setTimeout(() => {
+              this.snackbar = false;
+            }, 3000);
+          }
+        } else {
           this.snackbar = true;
           this.message = "Debe llenar todos los campos";
-          setTimeout(() => { this.snackbar = false; }, 3000);
+          setTimeout(() => {
+            this.snackbar = false;
+          }, 3000);
         }
+      }
+    },
+    async uploadPdf(event) {
+      const formData = new FormData();
+      formData.append("file", event);
 
+      let result;
+      result = await uploadpdf(formData);
+      console.log("pdf : ",result)
+      this.urlfilePdf = result;
+    },
+    async uploadPhoto(event) {
+      const formData = new FormData();
+      formData.append("file", event);
 
-            
-          }
-        },
-      async upload(event) {
-        const formData = new FormData();
-        formData.append("file",event);
-  
-        let result;
-        result = await uploadpdf(formData);
-  
-        this.urlfilePdf = result;
-      },
-    }, //
-  };
-  </script>
+      let result;
+      result = await uploadpdf(formData);
+      console.log("photo : ",result)
+      this.urlPhoto = result;
+    },
+  }, //
+};
+</script>
   

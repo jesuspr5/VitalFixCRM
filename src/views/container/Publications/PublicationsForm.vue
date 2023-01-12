@@ -62,6 +62,22 @@
                       </template>
                     </v-file-input>
                   </v-col>
+                  <v-col cols="12" sm="4">
+                    <v-file-input
+                      v-model="photo"
+                      accept=" "
+                      placeholder="Seleccione Imagen"
+                      prepend-icon="mdi-file"
+                      label="Imagen"
+                      :disabled="option === 2 ? true : false"
+                    >
+                      <template v-slot:selection="{ text }">
+                        <v-chip small label color="primary">
+                          {{ text }}
+                        </v-chip>
+                      </template>
+                    </v-file-input>
+                  </v-col>
                   <!-- <embed :src="publiData.filePdf" type="application/pdf" /> -->
                   <!-- <iframe src="https://www3.gobiernodecanarias.org/medusa/proyecto/38011546-0002/wp-content/uploads/sites/299/2017/11/cuadernillo-sobre-plantas.pdf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="width: 100%; height: 100%;" /> -->
           
@@ -138,6 +154,8 @@ export default {
     snackbar: false,
     pageCount: 0,
     valid: true,
+    photo: null,
+    urlPhoto: null,
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
@@ -145,6 +163,7 @@ export default {
       idPublicationsLanding: null,
       title: "",
       description: "",
+      photo: "",
       filePdf: null,
       datePublication: ""
     },
@@ -188,12 +207,34 @@ export default {
       if (this.option === 1) {
         if (this.$refs.form.validate()) {
           console.log("Entra al metodo");
-          await this.upload();
+          if(this.filePdf!=null){
+            await this.uploadPdf();
+            this.publiData.filePdf = this.urlfilePdf;
+          }else {
+            this.snackbar = true;
+            this.message = "Debe seleccionar un archivo Pdf";
+            setTimeout(() => {
+              this.snackbar = false;
+            }, 3000);
+          }
+          if(this.photo!=null){
+            await this.uploadPhoto();
+            this.publiData.photo = this.urlPhoto;
+          }else {
+            this.snackbar = true;
+            this.message = "Debe seleccionar una Imagen";
+            setTimeout(() => {
+              this.snackbar = false;
+            }, 3000);
+          }
+          
+          
           //  await this.upload();
           let newPub = {
             title: this.publiData.title,
             description: this.publiData.description,
-            filePdf: this.urlfilePdf,
+            photo: this.publiData.photo,
+            filePdf: this.publiData.filePdf,
             datePublication: new Date().toISOString()
           };
 
@@ -226,14 +267,19 @@ export default {
       if (this.option === 3) {
         if (this.$refs.form.validate()) {
           if(this.filePdf!=null){
-            await this.upload();
+            await this.uploadPdf();
             this.publiData.filePdf = this.urlfilePdf;
+          }
+          if(this.photo!=null){
+            await this.uploadPhoto();
+            this.publiData.photo = this.urlPhoto;
           }
           console.log("Actualizar");
           let pub = {
             idPublicationsLanding: this.publiData.idPublicationsLanding,
             title: this.publiData.title,
             description: this.publiData.description,
+            photo: this.publiData.photo,
             filePdf: this.publiData.filePdf
           };
 
@@ -266,7 +312,7 @@ export default {
       }
     },
 
-    async upload() {
+    async uploadPdf() {
       const formData = new FormData();
       formData.append("file", this.filePdf);
       let result;
@@ -274,6 +320,16 @@ export default {
 
       console.log("ulrPDF ", result);
       this.urlfilePdf = result;
+    },
+
+    async uploadPhoto() {
+      const formData = new FormData();
+      formData.append("file", this.photo);
+      let result;
+      result = await uploadpdf(formData);
+
+      console.log("ulrPDF ", result);
+      this.urlPhoto = result;
     }
 
     // chooseFiles() {

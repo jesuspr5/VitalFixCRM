@@ -159,7 +159,7 @@
           name: "InvestigationForm",
           params: {
             option: 2, // option 2 to show
-            publiData: item,
+            invesData: item,
           },
         });
       },
@@ -169,7 +169,7 @@
           name: "InvestigationForm",
           params: {
             option: 3, // option 3 to edit
-            publiData: item,
+            invesData: item,
           },
         });
       },
