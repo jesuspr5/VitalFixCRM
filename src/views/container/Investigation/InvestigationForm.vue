@@ -171,9 +171,6 @@ export default {
       required: (value) => !!value || "Debe ingresar Texto.",
       min: (v) => v.length >= 8 || "Mínimo 8 caracteres",
     },
-    //   rules: [
-    //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
-    // ],
     invesData: {
       idResearchLanding: null,
       title: "",
@@ -205,17 +202,14 @@ export default {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
         this.invesData = this.$route.params.invesData;
-        console.log(this.invesData);
       }
     },
 
     async submit() {
-      console.log("opcion", this.option);
+   
       if (this.option === 1) {
-        console.log("crear");
         if (this.$refs.form.validate()) {
           if (this.filePdf != null) {
-            // this.invesData.filePdf = this.urlfilePdf;
           } else {
             this.snackbar = true;
             this.message = "Debe seleccionar un archivo Pdf";
@@ -224,9 +218,7 @@ export default {
             }, 3000);
           }
 
-
           if (this.photo != null) {
-            // this.invesData.photo = this.urlPhoto;
           } else {
             this.snackbar = true;
             this.message = "Debe seleccionar una Imagen";
@@ -235,8 +227,6 @@ export default {
             }, 3000);
           }
 
-
-
           let newInv = {
             title: this.invesData.title,
             description: this.invesData.description,
@@ -244,10 +234,9 @@ export default {
             filePdf: this.invesData.filePdf,
             datePublication: new Date().toISOString(),
           };
-          console.log("esta es la investigacion", newInv);
+      
           var investigations = await createinvestigation(newInv);
           if (investigations != null) {
-            console.log("Tituulo de la publicacion", investigations);
             this.snackbar = true;
             this.message = "Registro exitoso";
             setTimeout(() => {
@@ -271,7 +260,6 @@ export default {
 
       if (this.option === 3) {
         if (this.$refs.form.validate()) {
-          console.log("Actualizar");
           let inv = {
             idResearchLanding: this.invesData.idResearchLanding,
             title: this.invesData.title,
@@ -279,7 +267,7 @@ export default {
             photo: this.invesData.photo,
             filePdf: this.invesData.filePdf
           };
-          console.log("estos son los datos", inv);
+         
           var investigationUpdate = await updateinvestigation(inv);
           if (investigationUpdate != null) {
             this.snackbar = true;
@@ -310,7 +298,6 @@ export default {
 
       let result;
       result = await uploadpdf(formData);
-      console.log("pdf : ",result)
       this.invesData.filePdf = result;
       }
       
@@ -322,7 +309,6 @@ export default {
 
       let result;
       result = await uploadpdf(formData);
-      console.log("photo : ",result)
       this.invesData.photo = result;
       }
     },
