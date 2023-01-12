@@ -9,7 +9,7 @@ async function investigationGetList(Page,Rows){
 
 async function investigationGet(idinvestigation){
   let result;
-  result = await axios.get("https://as-humedal-api.azurewebsites.net/Researchs/Get?idResearchLanding="+publications)
+  result = await axios.get("https://as-humedal-api.azurewebsites.net/Researchs/Get?idResearchLanding="+idinvestigation)
   console.log('GETRESULT: ', result.data.data)
   return result.data.data
 }

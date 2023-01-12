@@ -13,7 +13,7 @@ export const store = new Vuex.Store({
     // color de la barra verde
     barColor: 'rgba(117, 186, 104, .8), rgba(20, 126, 72, .8)',
     // img para que apareza en la barra VRangeSlider, esta img de ya no existe y por eso no aparece
-    barImage: 'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
+    barImage: 'https://lamenteesmaravillosa.com/wp-content/uploads/2021/11/hojas-color-verde.jpg',
     drawer: null,
   },
   getters,

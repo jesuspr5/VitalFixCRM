@@ -92,6 +92,17 @@ export default new Router({
           path: 'investigation/form',
           component: () => import('@/views/container/Investigation/InvestigationForm'),
         },
+        {
+          name: 'Contact',
+          path: 'contact/contact',
+          component: () => import('@/views/container/Contact/Contact'),
+        },
+        {
+          name: 'ContactForm',
+          path: 'contact/form',
+          component: () => import('@/views/container/Contact/ContactForm'),
+        },
+
 
         // Kitchen
         {
