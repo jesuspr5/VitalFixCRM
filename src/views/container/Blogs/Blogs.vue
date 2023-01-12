@@ -132,7 +132,7 @@ export default {
 
   data: () => ({
     hidden: false,
-    idblog:'',
+    idblog:null,
     dialogDelete:false,
     snackbar:false,
     message:'',
@@ -162,20 +162,17 @@ export default {
   async mounted() {
     // window.getApp.$emit("SHOW_ERROR", "34534535")
     this.data();
+    
   },
   methods: {
     data: async function() {
       let result;
       result = await blogsGetList(1, 100);
       this.items = result;
-  // console.log('EL STOREE: ', result)
+   console.log('EL STOREE: ', result)
       // console.log('array',this.items)
     },
-    deletedata: async function () {
-      let result;
-      result = await deleteblog(item);
-      this.items = result;
-    },
+
   
 
     createBlogs() {
@@ -207,21 +204,25 @@ export default {
       });
     },
     deleteBlogs(item) {
-  this.idblog =item.idBLogLanding
+  this.idblog =item.idBlogLanding
   this.dialogDelete = true;
     },
     closeDelete() {
       this.dialogDelete = false;
     },
-    async   deleteItemConfirm(item) {
+    async   deleteItemConfirm() {
       let result;
       result = await deleteblog(this.idblog);
       console.log("respuesta", result)
       if(result === "Transacción exitosa.")
       {
-       
+        this.snackbar = true;
+          this.message = "Eliminación exitosa";
         this.data();
         this.dialogDelete = false;
+        setTimeout(() => {
+            this.$router.push({ name: "Blogs"});
+          }, 3000);
       }
       else{
       
@@ -233,6 +234,8 @@ export default {
       // this.data();
      
     },
+
+ 
 
   }
 };

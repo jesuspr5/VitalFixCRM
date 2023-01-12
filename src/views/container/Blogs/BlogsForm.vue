@@ -90,8 +90,13 @@
                         <v-chip small label color="primary">
                           {{ text }}
                         </v-chip>
-                      </template></v-file-input
-                    >
+                      </template></v-file-input>
+                      <v-img
+                        contain
+                        max-height="150"
+                        max-width="250"
+                        :src="blogData.mainPhoto"
+                      ></v-img>
                   </v-col>
 
                   <v-col cols="12" sm="4">
@@ -102,14 +107,19 @@
                       placeholder="Seleccione foto "
                       prepend-icon="mdi-camera"
                       label="Banner foto"
-                      @change="upload"
+                      @change="uploadb"
                       :disabled="option === 2 ? true : false"
                       ><template v-slot:selection="{ text }">
                         <v-chip small label color="secondary">
                           {{ text }}
                         </v-chip>
-                      </template></v-file-input
-                    >
+                      </template></v-file-input >
+                      <v-img
+                        cover
+                        max-height="150"
+                        max-width="250"
+                        :src="blogData.bannerPhoto"
+                      ></v-img>
                   </v-col>
                   <v-col cols="12" sm="4">
                     <v-file-input
@@ -131,6 +141,16 @@
                         </v-chip>
                       </template></v-file-input
                     >
+                    
+                      <!-- <div class="rowfoto" v-for="(logo, index) of photos" :key="index">
+                       
+                          <v-img
+                        cover
+                        max-height="100"
+                        max-width="50"
+                        :src="logo.photo"
+                      ></v-img>
+                      </div> -->
                   </v-col>
                   <v-col cols="12" sm="4">
                     <v-textarea
@@ -209,8 +229,6 @@ export default {
     galery: [],
     valid: true,
     id: 0,
-    urlMainPhoto: "",
-    urlBannerPhoto: "",
     urlgalery: [],
     photos: [],
       rules: {
@@ -228,7 +246,7 @@ export default {
       mainPhoto: "",
       bannerPhoto: "",
       listPhotosGalery:[],
-      gal: []
+      
     },
     selcatalog: [],
    
@@ -277,9 +295,6 @@ export default {
     async submit() {
       if (this.option === 1) {
         if (this.$refs.form.validate()) {
-
-          this.urlMainPhoto =   await this.upload(this.filep);
-         this.urlBannerPhoto =   await this.upload(this.fileb);
         let blog = {
           title: this.blogData.title,
           subTitle: this.blogData.subTitle,
@@ -287,8 +302,8 @@ export default {
           reference: this.blogData.reference,
           datePublication: new Date().toISOString(),
           idCatType: this.blogData.idCatType,
-          mainPhoto: this.urlMainPhoto,
-          bannerPhoto: this.urlBannerPhoto,
+          mainPhoto: this.blogData.mainPhoto,
+          bannerPhoto: this.blogData.bannerPhoto,
           photosGalery: this.urlgalery
         };
        
@@ -298,43 +313,30 @@ export default {
           
             this.snackbar = true;
         this.message = "Registro exitoso";
-     setTimeout(()=>{this.$router.push({ name: "Blogs" })},3000);
+     setTimeout(()=>{this.$router.push({ name: "Blogs" })},2000);
           } else {
             this.snackbar = true;
             this.message = "Hubo un error durante el registro";
             setTimeout(() => {
               this.snackbar = false;
-            }, 3000);
+            }, 2000);
           }
         }else{ 
           this.snackbar = true;
           this.message = "Debe llenar todos los campos";
-          setTimeout(() => { this.snackbar = false;}, 3000);
+          setTimeout(() => { this.snackbar = false;}, 2000);
         }
         
       }
        if (this.option === 3){
         if (this.$refs.form.validate()) {
         
-         
-        if(this.filep!=null){
-         
-          this.urlMainPhoto =  await this.upload(this.filep);
-          this.blogData.mainPhoto = this.urlMainPhoto
-        }
-        if(this.fileb!=null){
-          this.urlBannerPhoto =  await this.upload(this.fileb);
-          this.blogData.bannerPhoto = this.urlBannerPhoto
-
-        }
-
         //galeria
-        console.log("galeriafhsfjhgsfjs",this.galery)
+      
         if(this.galery.length>0){
-          console.log("galeria llena")
-          console.log("esto es lo que esta", this.blogData.listPhotosGalery)
+         
           this.blogData.listPhotosGalery =this.urlgalery
-          console.log("esto es lo nuevo", this.blogData.listPhotosGalery)
+        
 
         }else{
        let ar_empty = []; 
@@ -363,7 +365,7 @@ export default {
         if (blog != null) {
             this.snackbar = true;
         this.message = "Actualizacion exitosa";
-        setTimeout(()=>{this.$router.push({ name: "Blogs" })},3000);
+        setTimeout(()=>{this.$router.push({ name: "Blogs" })},2000);
           } else {
             this.snackbar = true;
             this.message = "Hubo un error durante el registro";
@@ -375,7 +377,7 @@ export default {
         }else{
           this.snackbar = true;
           this.message = "Debe llenar todos los campos";
-          setTimeout(() => {this.snackbar = false;}, 3000);
+          setTimeout(() => {this.snackbar = false;}, 2000);
         }
        
        
@@ -391,7 +393,17 @@ export default {
       //  console.log("archivos = "+ formData);
       let result;
       result = await uploadimg(formData);
-      return result;
+     this.blogData.mainPhoto = result
+    },
+
+    async  uploadb(event) {
+      console.log(event);
+        const formData = new FormData();
+      formData.append("file", event);
+      //  console.log("archivos = "+ formData);
+      let result;
+      result = await uploadimg(formData);
+      this.blogData.bannerPhoto = result;
     },
 
    
@@ -424,3 +436,12 @@ export default {
 }
 };
 </script>
+<style>
+.rowfoto{
+  
+  display: flex;
+    margin: auto;
+    padding: 0.5em;
+}
+
+</style>
