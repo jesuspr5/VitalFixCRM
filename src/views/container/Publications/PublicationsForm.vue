@@ -48,12 +48,14 @@
 
                   <v-col cols="12" sm="4">
                     <v-file-input
+                    v-if="option!=2"
                       v-model="filePdf"
                       accept=" "
                       placeholder="Seleccione PDF"
                       prepend-icon="mdi-file"
                       label="Archivo"
                       :disabled="option === 2 ? true : false"
+                      @change="uploadPdf"
                     >
                       <template v-slot:selection="{ text }">
                         <v-chip small label color="primary">
@@ -64,12 +66,14 @@
                   </v-col>
                   <v-col cols="12" sm="4">
                     <v-file-input
+                    v-if="option!=2"
                       v-model="photo"
                       accept=" "
                       placeholder="Seleccione Imagen"
                       prepend-icon="mdi-file"
                       label="Imagen"
                       :disabled="option === 2 ? true : false"
+                      @change="uploadPhoto"
                     >
                       <template v-slot:selection="{ text }">
                         <v-chip small label color="primary">
@@ -78,18 +82,31 @@
                       </template>
                     </v-file-input>
                   </v-col>
-                  <!-- <embed :src="publiData.filePdf" type="application/pdf" /> -->
-                  <!-- <iframe src="https://www3.gobiernodecanarias.org/medusa/proyecto/38011546-0002/wp-content/uploads/sites/299/2017/11/cuadernillo-sobre-plantas.pdf" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="width: 100%; height: 100%;" /> -->
-          
-                  <v-col cols="12">
-                    <v-textarea
-                      v-model="publiData.description"
-                      :label="$t('publications.description')"
-                      class="purple-input"
-                      :disabled="option === 2 ? true : false"
-                      :rules="[rules.required, rules.min]"
-                    ></v-textarea>
-                  </v-col>
+                  <!-- <embed :src="publiData.photo"/> -->
+                  <!-- <iframe :src="publiData.photo" /> -->
+
+                  <v-row>
+                    <v-col cols="7">
+                      <v-textarea
+                        v-model="publiData.description"
+                        :label="$t('publications.description')"
+                        class="purple-input"
+                        :disabled="option === 2 ? true : false"
+                        :rules="[rules.required, rules.min]"
+                      ></v-textarea>
+                    </v-col>
+                    <v-col cols="1">
+
+                    </v-col>
+                    <v-col cols="4">
+                      <v-img
+                        contain
+                        max-height="150"
+                        max-width="250"
+                        :src="publiData.photo"
+                      ></v-img>
+                    </v-col>
+                  </v-row>
 
                   <v-col cols="12" class="text-right">
                     <v-btn
@@ -137,7 +154,7 @@ import i18n from "@/i18n";
 import {
   createpublications,
   updatepublications,
-  uploadpdf
+  uploadpdf,
 } from "../../../api/modules/publications";
 
 export default {
@@ -165,12 +182,12 @@ export default {
       description: "",
       photo: "",
       filePdf: null,
-      datePublication: ""
+      datePublication: "",
     },
     rules: {
-      required: value => !!value || "Debe ingresar Texto.",
-      min: v => v.length >= 8 || "Mínimo 8 caracteres"
-    }
+      required: (value) => !!value || "Debe ingresar Texto.",
+      min: (v) => v.length >= 8 || "Mínimo 8 caracteres",
+    },
   }),
   computed: {
     getTitle() {
@@ -184,7 +201,7 @@ export default {
       else if (this.option === 2) return i18n.t("crud.show");
       else if (this.option === 3) return i18n.t("crud.edit");
       else return i18n.t("publications.head");
-    }
+    },
   },
   mounted() {
     // console.log($t('roles.title'))
@@ -207,35 +224,34 @@ export default {
       if (this.option === 1) {
         if (this.$refs.form.validate()) {
           console.log("Entra al metodo");
-          if(this.filePdf!=null){
-            await this.uploadPdf();
-            this.publiData.filePdf = this.urlfilePdf;
-          }else {
+          if (this.filePdf != null) {
+           // await this.uploadPdf();
+          //  this.publiData.filePdf = this.urlfilePdf;
+          } else {
             this.snackbar = true;
             this.message = "Debe seleccionar un archivo Pdf";
             setTimeout(() => {
               this.snackbar = false;
             }, 3000);
           }
-          if(this.photo!=null){
-            await this.uploadPhoto();
-            this.publiData.photo = this.urlPhoto;
-          }else {
+          if (this.photo != null) {
+           // await this.uploadPhoto();
+           // this.publiData.photo = this.urlPhoto;
+          } else {
             this.snackbar = true;
             this.message = "Debe seleccionar una Imagen";
             setTimeout(() => {
               this.snackbar = false;
             }, 3000);
           }
-          
-          
+
           //  await this.upload();
           let newPub = {
             title: this.publiData.title,
             description: this.publiData.description,
             photo: this.publiData.photo,
             filePdf: this.publiData.filePdf,
-            datePublication: new Date().toISOString()
+            datePublication: new Date().toISOString(),
           };
 
           // newPub = await createpublications(newPub);
@@ -266,21 +282,21 @@ export default {
       }
       if (this.option === 3) {
         if (this.$refs.form.validate()) {
-          if(this.filePdf!=null){
-            await this.uploadPdf();
-            this.publiData.filePdf = this.urlfilePdf;
-          }
-          if(this.photo!=null){
-            await this.uploadPhoto();
-            this.publiData.photo = this.urlPhoto;
-          }
+          // if (this.filePdf != null) {
+          //   await this.uploadPdf();
+          //   this.publiData.filePdf = this.urlfilePdf;
+          // }
+          // if (this.photo != null) {
+          //   await this.uploadPhoto();
+          //   this.publiData.photo = this.urlPhoto;
+          // }
           console.log("Actualizar");
           let pub = {
             idPublicationsLanding: this.publiData.idPublicationsLanding,
             title: this.publiData.title,
             description: this.publiData.description,
             photo: this.publiData.photo,
-            filePdf: this.publiData.filePdf
+            filePdf: this.publiData.filePdf,
           };
 
           // newPub = await createpublications(newPub);
@@ -311,30 +327,32 @@ export default {
         }
       }
     },
-
-    async uploadPdf() {
-      const formData = new FormData();
-      formData.append("file", this.filePdf);
+    async uploadPdf(event) {
+      if(this.filePdf!=null){
+        const formData = new FormData();
+      formData.append("file", event);
       let result;
       result = await uploadpdf(formData);
 
       console.log("ulrPDF ", result);
-      this.urlfilePdf = result;
+      this.publiData.filePdf = result;
+      }
+      
     },
+    async uploadPhoto(event) {
+      if(this.photo!=null){
+        const formData = new FormData();
+      formData.append("file", event);
 
-    async uploadPhoto() {
-      const formData = new FormData();
-      formData.append("file", this.photo);
       let result;
       result = await uploadpdf(formData);
-
-      console.log("ulrPDF ", result);
-      this.urlPhoto = result;
-    }
-
+      console.log("photo : ",result)
+      this.publiData.photo = result;
+      }
+    },
     // chooseFiles() {
     //   document.getElementById("fileUpload").click();
     // },
-  } //
+  }, //
 };
 </script>

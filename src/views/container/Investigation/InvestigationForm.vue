@@ -48,6 +48,7 @@
 
                   <v-col cols="12" sm="4">
                     <v-file-input
+                    v-if="option!=2"
                       v-model="filePdf"
                       type="file"
                       accept=" "
@@ -66,6 +67,7 @@
                   </v-col>
                   <v-col cols="12" sm="4">
                     <v-file-input
+                    v-if="option!=2"
                       v-model="photo"
                       
                       accept=" "
@@ -82,7 +84,8 @@
                       </template>
                     </v-file-input>
                   </v-col>
-                  <v-col cols="12">
+                  <v-row>
+                    <v-col cols="7">
                     <v-textarea
                       v-model="invesData.description"
                       :label="$t('publications.description')"
@@ -91,6 +94,18 @@
                       :rules="[rules.required, rules.min]"
                     ></v-textarea>
                   </v-col>
+                  <v-col cols="1">
+
+</v-col>
+                  <v-col cols="4">
+                      <v-img
+                        contain
+                        max-height="150"
+                        max-width="250"
+                        :src="invesData.photo"
+                      ></v-img>
+                    </v-col>
+                  </v-row>
                   <v-col cols="12" class="text-right">
                     <v-btn
                       v-if="option !== 2"
@@ -200,7 +215,7 @@ export default {
         console.log("crear");
         if (this.$refs.form.validate()) {
           if (this.filePdf != null) {
-            this.invesData.filePdf = this.urlfilePdf;
+            // this.invesData.filePdf = this.urlfilePdf;
           } else {
             this.snackbar = true;
             this.message = "Debe seleccionar un archivo Pdf";
@@ -211,7 +226,7 @@ export default {
 
 
           if (this.photo != null) {
-            this.invesData.photo = this.urlPhoto;
+            // this.invesData.photo = this.urlPhoto;
           } else {
             this.snackbar = true;
             this.message = "Debe seleccionar una Imagen";
@@ -257,20 +272,6 @@ export default {
       if (this.option === 3) {
         if (this.$refs.form.validate()) {
           console.log("Actualizar");
-          console.log("cvsdvsd", this.invesData.pdf);
-          if (this.filePdf != null) {
-            console.log("Addddddr", this.urlfilePdf);
-            this.invesData.filePdf = this.urlfilePdf;
-          }
-
-          if(this.filePdf!=null){
-          
-            this.invesData.filePdf = this.urlfilePdf;
-          }
-          if(this.photo!=null){
-          
-            this.invesData.photo = this.urlPhoto;
-          }
           let inv = {
             idResearchLanding: this.invesData.idResearchLanding,
             title: this.invesData.title,
@@ -303,22 +304,27 @@ export default {
       }
     },
     async uploadPdf(event) {
-      const formData = new FormData();
+      if(this.filePdf!=null){
+        const formData = new FormData();
       formData.append("file", event);
 
       let result;
       result = await uploadpdf(formData);
       console.log("pdf : ",result)
-      this.urlfilePdf = result;
+      this.invesData.filePdf = result;
+      }
+      
     },
     async uploadPhoto(event) {
-      const formData = new FormData();
+      if(this.photo!=null){
+        const formData = new FormData();
       formData.append("file", event);
 
       let result;
       result = await uploadpdf(formData);
       console.log("photo : ",result)
-      this.urlPhoto = result;
+      this.invesData.photo = result;
+      }
     },
   }, //
 };
