@@ -129,15 +129,18 @@
             v-if="p.divider"
             :key="`divider-${i}`"
             class="mb-2 mt-2"
+            
           />
-
-          <app-bar-item
-            v-else
+          <v-button
+          v-else
             :key="`item-${i}`"
-            to="/"
+          @click="cerrarSesion">
+          <app-bar-item
           >
             <v-list-item-title v-text="p.title" />
           </app-bar-item>
+          </v-button>
+         
         </template>
       </v-list>
     </v-menu>
@@ -199,7 +202,7 @@
         { title: 'Profile' },
         { title: 'Settings' },
         { divider: true },
-        { title: 'Log out' },
+        { title: 'Cerrar Sesion'},
       ],
     }),
 
@@ -211,6 +214,11 @@
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),
+      cerrarSesion(){
+  console.log("cerrar sessio")
+  localStorage.removeItem('token');
+  this.$router.push('/')
+}
     },
   }
 </script>
