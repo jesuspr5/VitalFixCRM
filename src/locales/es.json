@@ -74,6 +74,27 @@
   "status":"Status",
   "functions":"Funciones"
 },
+"blogs":{
+  "head":"Blogs",
+    "title": "titulo",
+    "subtitle": "subtitulo",
+    "description": "descripcion",
+    "datePublication": "Fecha_de_publicacion",
+    "idCatType": "idcat",
+    "Catalogs":"Catalogos",
+    "mainPhoto": "fotoprincipal",
+    "bannerPhoto": "bannerfoto",
+    "reference": "referencia",
+    "create":"Crear Blog",
+    "edit": "Editar Blog",
+    "show": "Mostrar Blog"
+
+ },
+ "texts":{
+  "createtext": "Blog creado con exito",
+  "deletetext": " Blog eliminado ",
+  "updatetext": "Blog actualizado con exito"
+},
  "crud":{
   "create":"Crear",
   "edit":"Editar",

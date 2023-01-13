@@ -2,7 +2,7 @@
   <v-navigation-drawer
     id="core-navigation-drawer"
     v-model="drawer"
-    :dark="barColor !== 'rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7)'"
+    :dark="barColor !== 'rgba(117, 183, 104, 1), rgba(20, 126, 72, 0.7)'"
     :expand-on-hover="expandOnHover"
     :right="$vuetify.rtl"
     :src="barImage"
@@ -11,6 +11,8 @@
     width="260"
     v-bind="$attrs"
   >
+  <!-- img dentro del v-navigation-drawer
+     :src="barImage" -->
     <template v-slot:img="props">
       <v-img
         :gradient="`to bottom, ${barColor}`"
@@ -45,8 +47,9 @@
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
-
+    <!--  -->
       <template v-for="(item, i) in computedItems">
+        <!-- grupo de item, ejemplo: users, pages, roles -->
         <base-item-group
           v-if="item.children"
           :key="`group-${i}`"
@@ -54,7 +57,7 @@
         >
           <!--  -->
         </base-item-group>
-
+        <!-- item solos, ejemplo blog -->
         <base-item
           v-else
           :key="`item-${i}`"
@@ -85,40 +88,51 @@
 
     data: () => ({
       items: [
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'dashboard',
-          to: '/dashboard',
-        },
-        {
-          group: '/pages',
-          icon: 'mdi-image',
-          title: 'pages',
-          children: [
-
-            {
-              title: 'login',
-              to: 'login',
-            },
-            {
-              title: 'register',
-              to: 'pricing',
-            },
-            {
-              title: 'lock',
-              to: 'lock',
-            },
-            {
-              title: 'user',
-              to: 'user',
-            },
-            {
-              title: 'error',
-              to: '404',
-            },
-          ],
-        },
-
+        // item-solos
+        // {
+        //   icon: 'mdi-view-dashboard',
+        //   title: 'dashboard',
+        //   to: '/',
+        // },
+        // item-con-grupo,se-le-coloca-children
+        // {
+        //   group: '/pages',
+        //   icon: 'mdi-image',
+        //   title: 'pages',
+        //   children: [
+        //     {
+        //       title: 'login',
+        //       to: 'login',
+        //     },
+        //     {
+        //       title: 'register',
+        //       to: 'pricing',
+        //     },
+        //     {
+        //       title: 'lock',
+        //       to: 'lock',
+        //     },
+        //     {
+        //       title: 'user',
+        //       to: 'user',
+        //     },
+        //     {
+        //       title: 'error',
+        //       to: '404',
+        //     },
+        //   ],
+        // },
+        // {
+        //   group: '/home/roles',
+        //   icon: 'mdi-account-key',
+        //   title: 'roles.title',
+        //   children: [
+        //     {
+        //       title: 'roles.title',
+        //       to: 'roles',
+        //     },
+        //   ],
+        // },
         {
           group: '/home/users',
           icon: 'mdi-account-tie',
@@ -131,13 +145,47 @@
           ],
         },
         {
-          group: '/home/roles',
+          group: '/home/blogs',
           icon: 'mdi-account-key',
-          title: 'roles.title',
+          title: 'blogs.head',
           children: [
             {
-              title: 'roles.title',
-              to: 'roles',
+              title: 'blogs.head',
+              to: 'blogs',
+            },
+          ],
+        },
+        {
+          group: '/home/publications',
+          icon: 'mdi-image',
+          title: 'publications.head',
+          children: [
+            {
+              title: 'publications.head',
+              to: 'publications',
+            },
+          ],
+        },
+        {
+          group: '/home/investigation',
+          icon: 'mdi-image',
+          title: 'investigation.head',
+          children: [
+            {
+              title: 'investigation.head',
+              to: 'investigation',
+            },
+          ],
+        },
+        
+        {
+          group: '/home/contact',
+          icon: 'mdi-image',
+          title: 'contact.head',
+          children: [
+            {
+              title: 'contact.head',
+              to: 'contact',
             },
           ],
         },

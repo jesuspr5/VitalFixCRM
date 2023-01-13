@@ -34,7 +34,7 @@
   "settings": "Settings",
   "tables": "Tables",
   "tabs": "Tabs",
-  "tim": "Creative Tim",
+  "tim": "El Humedal",
   "timeline": "Timeline",
   "typography": "Typography",
   "user": "User Profile",
@@ -47,7 +47,7 @@
     "errors": "Errors"
   },
   "users":{
-     "title":"Users",
+     "title":"Usuarios",
      "dni": "DNI",
      "type":"User Type",
      "create":"Create User",
@@ -55,11 +55,12 @@
      "show": "Show User",
      "id":"ID User",
      "username":"Username",
-     "name":"Name",
-     "lastname":"Lastname",
+     "name":"Nombre",
+     "lastname":"Apellido",
      "fullname":"fullname",
+     "datebird":"Fecha_de_nacimiento",
      "email":"Email",
-     "phone":"Phone",
+     "phone":"Teléfono",
      "role":"Role",
      "address":"address",
     "pharmacist":"pharmacist",
@@ -75,11 +76,53 @@
     "functions":"Functions"
   
  },
+ "blogs":{
+  "head":"Blogs",
+    "title": "titulo",
+    "subtitle": "subtitulo",
+    "description": "descripcion",
+    "datePublication": "Fecha_de_publicacion",
+    "idCatType": "idcat",
+    "mainPhoto": "foto",
+    "Catalogs":"Catalogos",
+    "bannerPhoto": "bannerfoto",
+    "reference": "referencia",
+    "create":"Crear Blog",
+    "edit": "Editar Blog",
+    "show": "Mostrar Blog"
+ },
+ "texts":{
+  "createtext": "Blog creado con exito",
+  "deletetext": " Blog eliminado ",
+  "updatetext": "Blog actualizado con exito"
+},
+ "publications":{
+    "head": "Publicaciones",
+    "title": "Título",
+    "description": "Descripción",
+    "datePublication": "Fecha_de_publicación"
+ },
+ "investigation":{
+    "head": "Investigaciones",
+    "title": "Título",
+    "description": "Descripción",
+    "datePublication": "Fecha_de_publicación"
+ },
+ 
+ "contact":{
+  "head": "Contactos",
+  "title": "Título",
+  "description": "Descripción",
+  "datePublication": "Fecha_de_publicación",
+  "name": "Nombre",
+  "email": "Email",
+  "message": "Mensaje"
+},
   "crud":{
-     "create":"Create",
-     "edit":"Edit",
-     "delete":"Delete",
-     "show":"Show"
+     "create":"Crear",
+     "edit":"Editar",
+     "delete":"Eliminar",
+     "show":"Ver"
   },
   "message": {
     "apiError401": "Incorrect credentials",
