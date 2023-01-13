@@ -285,9 +285,6 @@ export default {
 
         this.photos =this.blogData.listPhotosGalery.items;
         console.log("phots",this.photos)
-       
-      
-       //this.gal = this.blogData.listPhotosGalery;
 
       }
     },
@@ -321,7 +318,7 @@ export default {
           }
         }else{ 
           this.snackbar = true;
-          this.message = "Debe llenar todos los campos";
+          this.message = "Debe llenar todos los campos requeridos";
           setTimeout(() => { this.snackbar = false;}, 1000);
         }
         
@@ -366,13 +363,13 @@ export default {
         setTimeout(()=>{this.$router.push({ name: "Blogs" })},2000);
           } else {
             this.snackbar = true;
-            this.message = "Hubo un error durante el registro";
+            this.message = "Hubo un error durante la actualizacion";
             setTimeout(() => {this.snackbar = false;}, 1000);
           }
 
         }else{
           this.snackbar = true;
-          this.message = "Debe llenar todos los campos";
+          this.message = "Debe llenar todos los campos requeridos";
           setTimeout(() => {this.snackbar = false;}, 1000);
         }
        

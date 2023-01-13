@@ -106,7 +106,7 @@
     <script>
   import i18n from "@/i18n";
   import { investigationGetList, deleteinvestigation } from "../../../api/modules/investigation";
-//   import { deletepublications } from "../../../api/modules/publications";
+
   export default {
     name: "DashboardDataTables",
   
@@ -135,7 +135,7 @@
     }),
     async mounted() {
       this.data();
-      // this.deletedata
+      
     },
     methods: {
       data: async function () {
@@ -190,14 +190,12 @@ this.dialogDelete = true;
           this.data();
           this.dialogDelete = false;
           setTimeout(() => {
-            this.$router.push({ name: "Investigation" });
-          }, 3000);
+            this.$router.push({ name: "Investigation" });}, 2000);
         } else {
           this.snackbar = true;
           this.message = "Hubo un error durante la eliminación";
           setTimeout(() => {
-            this.snackbar = false;
-          }, 3000);
+            this.snackbar = false;}, 1000);
         }
   
   },

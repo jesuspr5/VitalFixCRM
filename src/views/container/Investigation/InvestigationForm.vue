@@ -223,8 +223,7 @@ export default {
             this.snackbar = true;
             this.message = "Debe seleccionar una Imagen";
             setTimeout(() => {
-              this.snackbar = false;
-            }, 3000);
+              this.snackbar = false;}, 1000);
           }
 
           let newInv = {
@@ -240,21 +239,16 @@ export default {
             this.snackbar = true;
             this.message = "Registro exitoso";
             setTimeout(() => {
-              this.$router.push({ name: "Investigation" });
-            }, 3000);
+              this.$router.push({ name: "Investigation" });}, 2000);
           } else {
             this.snackbar = true;
             this.message = "Hubo un error durante el registro";
-            setTimeout(() => {
-              this.snackbar = false;
-            }, 3000);
+            setTimeout(() => {this.snackbar = false;}, 1000);
           }
         } else {
           this.snackbar = true;
           this.message = "Debe llenar todos los campos";
-          setTimeout(() => {
-            this.snackbar = false;
-          }, 3000);
+          setTimeout(() => { this.snackbar = false;}, 1000);
         }
       }
 
@@ -273,21 +267,16 @@ export default {
             this.snackbar = true;
             this.message = "Actualización exitosa";
             setTimeout(() => {
-              this.$router.push({ name: "Investigation" });
-            }, 3000);
+              this.$router.push({ name: "Investigation" }); }, 2000);
           } else {
             this.snackbar = true;
             this.message = "Hubo un error durante la actualización";
-            setTimeout(() => {
-              this.snackbar = false;
-            }, 3000);
+            setTimeout(() => {this.snackbar = false;}, 1000);
           }
         } else {
           this.snackbar = true;
           this.message = "Debe llenar todos los campos";
-          setTimeout(() => {
-            this.snackbar = false;
-          }, 3000);
+          setTimeout(() => {this.snackbar = false; }, 1000);
         }
       }
     },
