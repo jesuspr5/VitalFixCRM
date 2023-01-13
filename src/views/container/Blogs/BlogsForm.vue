@@ -142,7 +142,7 @@
                       </template></v-file-input
                     >
                     
-                      <!-- <div class="rowfoto" v-for="(logo, index) of photos" :key="index">
+                      <div class="rowfoto" v-for="(logo, index) of photos" :key="index">
                        
                           <v-img
                         cover
@@ -150,7 +150,7 @@
                         max-width="50"
                         :src="logo.photo"
                       ></v-img>
-                      </div> -->
+                      </div>
                   </v-col>
                   <v-col cols="12" sm="4">
                     <v-textarea
@@ -426,7 +426,17 @@ export default {
        
     });
        console.log("evento galeria",this.urlgalery)
-    }
+    },
+    
+//      formatoFecha(fecha, formato) {
+//     const map = {
+//         dd: fecha.getDate(),
+//         mm: fecha.getMonth() + 1,
+//         yyyy: fecha.getFullYear()
+//     }
+
+//     return formato.replace(/yyyy|mm|dd|/gi, matched => map[matched])
+// }
   
   
 }

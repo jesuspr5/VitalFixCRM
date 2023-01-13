@@ -135,14 +135,17 @@ export default {
           this.dialog = true;
           this.message = "El usuario no esta registrado";
           break;
-        case "CONTRASEÑA INVALIDA" : 
+        case "Contraseña inválida" : 
           this.dialog = true;
         this.message = "La contraseña es invalida";
         break;
+        case "" : 
+        this.$router.push('/home/users/users')
+        break;
         default:
-        // this.dialog = true;
-        // this.message = "El token es" + result.data;
-        this.$router.push('/home')
+        this.dialog = true;
+        this.message = "Hubo un error.!";
+        
         break;
           
         }

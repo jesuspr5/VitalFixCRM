@@ -19,7 +19,7 @@
         v-model="search"
         append-icon="mdi-magnify"
         class="ml-auto"
-        :label="searchLabel"
+        label="Buscar"
         hide-details
         single-line
         style="max-width: 250px;"
@@ -60,7 +60,6 @@
 </template>
 
 <script>
-  import { getUsers } from '@/api/modules'
   import i18n from '@/i18n'
   import userjson from './user.json'
   import { usersGetList } from '../../../api/modules/user'
@@ -96,7 +95,6 @@
       ],
       items: [],
       search: undefined,
-      searchLabel: 'undefined',
     }),
     async mounted () {
     

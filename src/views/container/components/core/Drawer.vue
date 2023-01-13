@@ -89,11 +89,11 @@
     data: () => ({
       items: [
         // item-solos
-        {
-          icon: 'mdi-view-dashboard',
-          title: 'dashboard',
-          to: '/',
-        },
+        // {
+        //   icon: 'mdi-view-dashboard',
+        //   title: 'dashboard',
+        //   to: '/',
+        // },
         // item-con-grupo,se-le-coloca-children
         // {
         //   group: '/pages',
