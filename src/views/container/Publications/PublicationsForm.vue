@@ -219,20 +219,15 @@ export default {
           } else {
             this.snackbar = true;
             this.message = "Debe seleccionar un archivo Pdf";
-            setTimeout(() => {
-              this.snackbar = false;
-            }, 3000);
+            setTimeout(() => { this.snackbar = false; }, 1000);
           }
           if (this.photo != null) {
           } else {
             this.snackbar = true;
             this.message = "Debe seleccionar una Imagen";
-            setTimeout(() => {
-              this.snackbar = false;
-            }, 3000);
+            setTimeout(() => {this.snackbar = false; }, 1000);
           }
 
-          //  await this.upload();
           let newPub = {
             title: this.publiData.title,
             description: this.publiData.description,
@@ -245,22 +240,16 @@ export default {
           if (publications != null) {
             this.snackbar = true;
             this.message = "Registro exitoso";
-            setTimeout(() => {
-              this.$router.push({ name: "Publications" });
-            }, 3000);
+            setTimeout(() => { this.$router.push({ name: "Publications" });}, 2000);
           } else {
             this.snackbar = true;
             this.message = "Hubo un error durante el registro";
-            setTimeout(() => {
-              this.snackbar = false;
-            }, 3000);
+            setTimeout(() => { this.snackbar = false; }, 1000);
           }
         } else {
           this.snackbar = true;
           this.message = "Debe llenar todos los campos";
-          setTimeout(() => {
-            this.snackbar = false;
-          }, 3000);
+          setTimeout(() => { this.snackbar = false;}, 1000);
         }
       }
       if (this.option === 3) {
@@ -276,22 +265,16 @@ export default {
           if (publicationsUpdate != null) {
             this.snackbar = true;
             this.message = "Actualización exitosa";
-            setTimeout(() => {
-              this.$router.push({ name: "Publications" });
-            }, 3000);
+            setTimeout(() => {this.$router.push({ name: "Publications" }); }, 2000);
           } else {
             this.snackbar = true;
             this.message = "Hubo un error en el registro";
-            setTimeout(() => {
-              this.snackbar = false;
-            }, 3000);
+            setTimeout(() => { this.snackbar = false; }, 1000);
           }
         } else {
           this.snackbar = true;
           this.message = "Debe llenar todos los campos";
-          setTimeout(() => {
-            this.snackbar = false;
-          }, 3000);
+          setTimeout(() => { this.snackbar = false; }, 1000);
         }
       }
     },

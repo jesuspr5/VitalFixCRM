@@ -133,9 +133,9 @@ export default {
     search: undefined,
   }),
   async mounted() {
-    // window.getApp.$emit("SHOW_ERROR", "34534535")
+   
     this.data();
-   // this.deletedata
+  
   },
   methods: {
     data: async function () {
@@ -191,14 +191,11 @@ export default {
             this.data();
             this.dialogDelete = false;
             setTimeout(() => {
-              this.$router.push({ name: "Publications" });
-            }, 3000);
+              this.$router.push({ name: "Publications" }); }, 2000);
           } else {
             this.snackbar = true;
             this.message = "Hubo un error durante la eliminación";
-            setTimeout(() => {
-              this.snackbar = false;
-            }, 3000);
+            setTimeout(() => {this.snackbar = false;}, 1000);
           }
     
     },

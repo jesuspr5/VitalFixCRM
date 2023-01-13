@@ -228,7 +228,7 @@ export default {
       
        this.snackbar = true;
         this.message = "ocurrio un error al eliminar el Blog";
-          setTimeout(() => { this.snackbar = false;}, 2000);
+          setTimeout(() => { this.snackbar = false;}, 1000);
       }
 
       // this.data();
