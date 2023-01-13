@@ -245,7 +245,7 @@ export default {
       idCatType: "",
       mainPhoto: "",
       bannerPhoto: "",
-      listPhotosGalery:[],
+      listPhotosGalery:[]
       
     },
     selcatalog: [],

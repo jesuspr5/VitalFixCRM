@@ -38,7 +38,7 @@
                 <v-row>
                   <v-col cols="12" sm="6">
                     <v-text-field
-                      v-model="publiData.title"
+                      v-model="userData.names"
                       class="purple-input"
                       :label="$t('users.name')"
                       :disabled="option === 2 ? true : false"
@@ -46,7 +46,7 @@
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-text-field
-                      v-model="publiData.title"
+                      v-model="userData.lastNames"
                       class="purple-input"
                       :label="$t('users.lastname')"
                       :disabled="option === 2 ? true : false"
@@ -54,7 +54,7 @@
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-text-field
-                      v-model="publiData.title"
+                      v-model="userData.email"
                       class="users.email"
                       :label="$t('users.')"
                       :disabled="option === 2 ? true : false"
@@ -62,18 +62,11 @@
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-text-field
-                      v-model="publiData.title"
+                      v-model="userData.phone"
                       class="purple-input"
-                      :label="$t('users.datebird')"
+                      :label="$t('users.phone')"
                       :disabled="option === 2 ? true : false"
                     />
-                  </v-col>
-                  
-                
-                  <v-col cols="12" class="text-right">
-                    <v-btn v-if="option !== 2" color="success" class="mr-0" @click="submit">
-                      {{ getTitleButton }}
-                    </v-btn>
                   </v-col>
                 </v-row>
               </v-container>
@@ -98,24 +91,23 @@ export default {
     //   rules: [
     //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
     // ],
-    publiData: {
-      title: "",
-      description: "",
-      pdf: null,
-      datePublication: "",
+    userData: {
+      idUserLanding: null,
+      names: "",
+      lastNames: "",
+      email: "",
+      phone: "",
+      photo: "",
     },
   }),
   computed: {
     getTitle() {
-      if (this.option === 1) return i18n.t("publications.create");
-      else if (this.option === 2) return i18n.t("publications.show");
-      else if (this.option === 3) return i18n.t("publications.edit");
-      else return i18n.t("publications.head");
+   if (this.option === 2) return i18n.t("users.show");
+    
+      else return i18n.t("users.head");
     },
     getTitleButton() {
-      if (this.option === 1) return i18n.t("crud.create");
-      else if (this.option === 2) return i18n.t("crud.show");
-      else if (this.option === 3) return i18n.t("crud.edit");
+      if (this.option === 2) return i18n.t("crud.show");
       else return i18n.t("users.title");
     },
   },
@@ -129,48 +121,14 @@ export default {
     initialize() {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
-        this.publiData = this.$route.params.publiData;
-        console.log(this.publiData);
+        this.userData = this.$route.params.userData;
+        console.log(this.userData);
       }
     },
 
-    async submit() {
-      if (this.option === 1) {
-        console.log("Entra al metodo")
-        await this.upload();
-      //  await this.upload();
-        let newPub = {
-          title: this.publiData.title,
-          description: this.publiData.description,
-          filePdf: this.urlfilePdf,
-          datePublication: new Date().toISOString(),
-        };
-
-       // newPub = await createpublications(newPub);
-        // console.log(newPub)
-        console.log("esta es la publicacion",newPub);
-       var publications = await createpublications(newPub);
-         if(publications != null){
-          console.log("Tituulo de la publicacion", publications);
-          alert("Publicación creada con exito")
-        }
-      }
-    },
-    
-    async upload() {
-      const formData = new FormData();
-      formData.append("file", this.filePdf);
-      let result;
-      result = await uploadpdf(formData);
-
-      console.log("ulrPDF ", result)
-      this.urlfilePdf = result;
-    },
+   
 
 
-    // chooseFiles() {
-    //   document.getElementById("fileUpload").click();
-    // },
-  }, //
+  }, 
 };
 </script>

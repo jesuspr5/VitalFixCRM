@@ -177,6 +177,18 @@
             },
           ],
         },
+        
+        {
+          group: '/home/contact',
+          icon: 'mdi-image',
+          title: 'contact.head',
+          children: [
+            {
+              title: 'contact.head',
+              to: 'contact',
+            },
+          ],
+        },
         // {
         //   group: '/kitchens',
         //   icon: 'mdi-coffee-maker',

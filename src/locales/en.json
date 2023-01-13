@@ -108,6 +108,16 @@
     "description": "Descripción",
     "datePublication": "Fecha_de_publicación"
  },
+ 
+ "contact":{
+  "head": "Contactos",
+  "title": "Título",
+  "description": "Descripción",
+  "datePublication": "Fecha_de_publicación",
+  "name": "Nombre",
+  "email": "Email",
+  "message": "Mensaje"
+},
   "crud":{
      "create":"Crear",
      "edit":"Editar",

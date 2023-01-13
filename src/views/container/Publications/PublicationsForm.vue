@@ -82,8 +82,6 @@
                       </template>
                     </v-file-input>
                   </v-col>
-                  <!-- <embed :src="publiData.photo"/> -->
-                  <!-- <iframe :src="publiData.photo" /> -->
 
                   <v-row>
                     <v-col cols="7">
@@ -100,6 +98,8 @@
                     </v-col>
                     <v-col cols="4">
                       <v-img
+                      class="img-card"
+                      placeholder="Imagen de Presentación"
                         contain
                         max-height="150"
                         max-width="250"
@@ -173,9 +173,6 @@ export default {
     valid: true,
     photo: null,
     urlPhoto: null,
-    //   rules: [
-    //   value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
-    // ],
     publiData: {
       idPublicationsLanding: null,
       title: "",
@@ -204,29 +201,21 @@ export default {
     },
   },
   mounted() {
-    // console.log($t('roles.title'))
-    // this.data();
     this.initialize();
-    // this.createPublications();
   },
   methods: {
     initialize() {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
         this.publiData = this.$route.params.publiData;
-        console.log("hola soy bata");
-        console.log(this.publiData);
-        console.log(this.option);
       }
     },
 
     async submit() {
       if (this.option === 1) {
         if (this.$refs.form.validate()) {
-          console.log("Entra al metodo");
+        
           if (this.filePdf != null) {
-           // await this.uploadPdf();
-          //  this.publiData.filePdf = this.urlfilePdf;
           } else {
             this.snackbar = true;
             this.message = "Debe seleccionar un archivo Pdf";
@@ -235,8 +224,6 @@ export default {
             }, 3000);
           }
           if (this.photo != null) {
-           // await this.uploadPhoto();
-           // this.publiData.photo = this.urlPhoto;
           } else {
             this.snackbar = true;
             this.message = "Debe seleccionar una Imagen";
@@ -254,12 +241,8 @@ export default {
             datePublication: new Date().toISOString(),
           };
 
-          // newPub = await createpublications(newPub);
-          // console.log(newPub)
-          console.log("esta es la publicacion", newPub);
           var publications = await createpublications(newPub);
           if (publications != null) {
-            console.log("Tituulo de la publicacion", publications);
             this.snackbar = true;
             this.message = "Registro exitoso";
             setTimeout(() => {
@@ -282,15 +265,6 @@ export default {
       }
       if (this.option === 3) {
         if (this.$refs.form.validate()) {
-          // if (this.filePdf != null) {
-          //   await this.uploadPdf();
-          //   this.publiData.filePdf = this.urlfilePdf;
-          // }
-          // if (this.photo != null) {
-          //   await this.uploadPhoto();
-          //   this.publiData.photo = this.urlPhoto;
-          // }
-          console.log("Actualizar");
           let pub = {
             idPublicationsLanding: this.publiData.idPublicationsLanding,
             title: this.publiData.title,
@@ -298,20 +272,14 @@ export default {
             photo: this.publiData.photo,
             filePdf: this.publiData.filePdf,
           };
-
-          // newPub = await createpublications(newPub);
-          // console.log(newPub)
-          console.log("estos son los datos", pub);
           var publicationsUpdate = await updatepublications(pub);
           if (publicationsUpdate != null) {
-            console.log("Tituulo de la publicacion", publicationsUpdate);
             this.snackbar = true;
             this.message = "Actualización exitosa";
             setTimeout(() => {
               this.$router.push({ name: "Publications" });
             }, 3000);
           } else {
-            console.log("Error", publicationsUpdate);
             this.snackbar = true;
             this.message = "Hubo un error en el registro";
             setTimeout(() => {
@@ -333,8 +301,6 @@ export default {
       formData.append("file", event);
       let result;
       result = await uploadpdf(formData);
-
-      console.log("ulrPDF ", result);
       this.publiData.filePdf = result;
       }
       
@@ -346,13 +312,17 @@ export default {
 
       let result;
       result = await uploadpdf(formData);
-      console.log("photo : ",result)
       this.publiData.photo = result;
       }
     },
-    // chooseFiles() {
-    //   document.getElementById("fileUpload").click();
-    // },
-  }, //
+    
+  }, 
 };
 </script>
+
+<style scoped>
+.img-card{
+  box-shadow: 0 !important;
+
+}
+</style>
