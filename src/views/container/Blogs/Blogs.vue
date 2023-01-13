@@ -160,7 +160,7 @@ export default {
     search: undefined
   }),
   async mounted() {
-    // window.getApp.$emit("SHOW_ERROR", "34534535")
+  
     this.data();
     
   },
@@ -221,8 +221,7 @@ export default {
         this.data();
         this.dialogDelete = false;
         setTimeout(() => {
-            this.$router.push({ name: "Blogs"});
-          }, 3000);
+            this.$router.push({ name: "Blogs"});}, 1000);
       }
       else{
       
@@ -231,7 +230,7 @@ export default {
           setTimeout(() => { this.snackbar = false;}, 1000);
       }
 
-      // this.data();
+   
      
     },
 

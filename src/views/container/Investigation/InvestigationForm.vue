@@ -96,8 +96,9 @@
                   </v-col>
                   <v-col cols="1">
 
-</v-col>
+                    </v-col>
                   <v-col cols="4">
+                    <div class="lbl"><label for="" v-if="option !==3 && option!==1">Portada</label></div>
                       <v-img
                         contain
                         max-height="150"
@@ -213,9 +214,7 @@ export default {
           } else {
             this.snackbar = true;
             this.message = "Debe seleccionar un archivo Pdf";
-            setTimeout(() => {
-              this.snackbar = false;
-            }, 3000);
+            setTimeout(() => { this.snackbar = false;}, 1000);
           }
 
           if (this.photo != null) {
@@ -305,3 +304,11 @@ export default {
 };
 </script>
   
+<style scoped>
+.lbl{
+  padding: 0.5em;
+  margin:auto;
+  
+}
+
+</style>
