@@ -317,14 +317,12 @@ export default {
           } else {
             this.snackbar = true;
             this.message = "Hubo un error durante el registro";
-            setTimeout(() => {
-              this.snackbar = false;
-            }, 2000);
+            setTimeout(() => {this.snackbar = false; }, 1000);
           }
         }else{ 
           this.snackbar = true;
           this.message = "Debe llenar todos los campos";
-          setTimeout(() => { this.snackbar = false;}, 2000);
+          setTimeout(() => { this.snackbar = false;}, 1000);
         }
         
       }
@@ -363,21 +361,19 @@ export default {
         console.log("blog update",blog)
         blog= await updateblog(blog);
         if (blog != null) {
-            this.snackbar = true;
+        this.snackbar = true;
         this.message = "Actualizacion exitosa";
         setTimeout(()=>{this.$router.push({ name: "Blogs" })},2000);
           } else {
             this.snackbar = true;
             this.message = "Hubo un error durante el registro";
-            setTimeout(() => {
-              this.snackbar = false;
-            }, 2000);
+            setTimeout(() => {this.snackbar = false;}, 1000);
           }
 
         }else{
           this.snackbar = true;
           this.message = "Debe llenar todos los campos";
-          setTimeout(() => {this.snackbar = false;}, 2000);
+          setTimeout(() => {this.snackbar = false;}, 1000);
         }
        
        
@@ -429,7 +425,7 @@ export default {
       }).catch(error => {return error.response.data})
        
     });
-      // console.log("")
+       console.log("evento galeria",this.urlgalery)
     }
   
   
