@@ -129,7 +129,8 @@ export default {
         result = await loginUser(userToLogin);
         console.log("token" + result);
         console.log(result.message);
-        var mess = result.message
+        var mess = result.message;
+        var token = result.data;
         switch(mess){
         case "Input string was not in a correct format." : 
           this.dialog = true;
@@ -140,6 +141,7 @@ export default {
         this.message = "La contraseña es invalida";
         break;
         case "" : 
+        localStorage.setItem("token",token);
         this.$router.push('/home/users/users')
         break;
         default:
@@ -150,8 +152,6 @@ export default {
           
         }
 
-        // this.dialog = true;
-        // this.message = result.message;
       }
       else{
         this.dialog = true;
