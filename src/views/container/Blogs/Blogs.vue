@@ -2,7 +2,7 @@
   <v-container id="data-tables" tag="section">
     <base-material-card
       color="greenligth"
-      icon="mdi-vuetify"
+      icon="mdi-post-outline"
       inline
       class="px-5 py-3"
     >

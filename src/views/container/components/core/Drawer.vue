@@ -25,6 +25,7 @@
         <v-list-item-title class="text-uppercase font-weight-regular display-2">
           <span class="logo-mini">{{ $t("ct") }}</span>
           <span class="logo-normal">{{ $t("tim") }}</span>
+          hola soy bata
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -135,7 +136,7 @@
         // },
         {
           group: '/home/users',
-          icon: 'mdi-account-tie',
+          icon: 'mdi-account-group',
           title: 'users.title',
           children: [
             {
@@ -146,7 +147,7 @@
         },
         {
           group: '/home/blogs',
-          icon: 'mdi-account-key',
+          icon: 'mdi-post-outline',
           title: 'blogs.head',
           children: [
             {
@@ -157,7 +158,7 @@
         },
         {
           group: '/home/publications',
-          icon: 'mdi-image',
+          icon: 'mdi-file-chart-outline',
           title: 'publications.head',
           children: [
             {
@@ -168,7 +169,7 @@
         },
         {
           group: '/home/investigation',
-          icon: 'mdi-image',
+          icon: 'mdi-feature-search-outline',
           title: 'investigation.head',
           children: [
             {
@@ -180,7 +181,7 @@
         
         {
           group: '/home/contact',
-          icon: 'mdi-image',
+          icon: 'mdi-message-badge-outline',
           title: 'contact.head',
           children: [
             {
