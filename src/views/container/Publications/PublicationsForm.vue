@@ -47,6 +47,7 @@
                   </v-col>
 
                   <v-col cols="12" sm="4">
+                   
                     <v-file-input
                     v-if="option!=2"
                       v-model="filePdf"
@@ -65,6 +66,7 @@
                     </v-file-input>
                   </v-col>
                   <v-col cols="12" sm="4">
+                   
                     <v-file-input
                     v-if="option!=2"
                       v-model="photo"
@@ -97,6 +99,7 @@
 
                     </v-col>
                     <v-col cols="4">
+                      <div class="lbl"><label for="" v-if="option !==3 && option!==1">Portada</label></div>
                       <v-img
                       class="img-card"
                       placeholder="Imagen de Presentación"
@@ -268,7 +271,7 @@ export default {
             setTimeout(() => {this.$router.push({ name: "Publications" }); }, 2000);
           } else {
             this.snackbar = true;
-            this.message = "Hubo un error en el registro";
+            this.message = "Hubo un error en la actualizacion";
             setTimeout(() => { this.snackbar = false; }, 1000);
           }
         } else {
@@ -308,4 +311,12 @@ export default {
   box-shadow: 0 !important;
 
 }
+
+
+.lbl{
+  padding: 0.5em;
+  margin:auto;
+  
+}
+
 </style>

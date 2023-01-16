@@ -199,9 +199,9 @@
         'Another one',
       ],
       profile: [
-        { title: 'Profile' },
-        { title: 'Settings' },
-        { divider: true },
+        // { title: 'Profile' },
+        // { title: 'Settings' },
+        // { divider: true },
         { title: 'Cerrar Sesion'},
       ],
     }),

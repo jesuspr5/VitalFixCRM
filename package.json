@@ -2,6 +2,9 @@
   "name": "vuetify-material-dashboard-pro",
   "version": "2.0.0",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "dev": "vue-cli-service serve --open",
     "serve": "vue-cli-service serve",
@@ -45,9 +48,10 @@
     "vue-cli-plugin-eslint-config-vuetify": "latest",
     "vue-cli-plugin-i18n": "^0.6.0",
     "vue-cli-plugin-vuetify": "^1.1.0",
-    "vue-cli-plugin-vuetify-essentials": "latest",
+    "vue-cli-plugin-vuetify-essentials": "^0.8.3",
     "vue-template-compiler": "^2.6.10",
     "vue-world-map": "^0.1.1",
     "vuetify-loader": "^1.2.2"
   }
+  
 }

@@ -71,7 +71,7 @@ async function updateblog(blogToUpdate) {
     "https://as-humedal-api.azurewebsites.net/Blogs/Update",
     blogToUpdate
   );
-  console.log("Usuario Actualizado: ", result);
+  console.log("Blog Actualizado: ", result);
   return result;
 }
 async function uploadimg(img){

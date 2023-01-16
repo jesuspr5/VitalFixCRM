@@ -74,7 +74,9 @@
                     </v-select>
                   </v-col>
                   <v-col cols="12" sm="4">
+                    <div class="lbl"><label for="" v-if="option !==3 && option!==1">Foto principal</label></div>
                     <v-file-input
+                    v-if="option !== 2"
                       v-model="filep"
                       type="file"
                       accept="image/*"
@@ -100,7 +102,9 @@
                   </v-col>
 
                   <v-col cols="12" sm="4">
+                    <div class="lbl"><label for="" v-if="option !==3 && option!==1">Banner foto</label></div>
                     <v-file-input
+                    v-if="option !== 2"
                       v-model="fileb"
                       type="file"
                       accept="image/*"
@@ -122,7 +126,9 @@
                       ></v-img>
                   </v-col>
                   <v-col cols="12" sm="4">
+                    <div class="lbl"><label for="" v-if="option !==3 && option!==1">Galeria</label></div>
                     <v-file-input
+                    v-if="option !== 2"
                       v-model="galery"
                       type="file"
                       accept="image/*"
@@ -149,6 +155,7 @@
                         max-height="100"
                         max-width="50"
                         :src="logo.photo"
+                        :hidden="option === 3 ? true : false"
                       ></v-img>
                       </div>
                   </v-col>
@@ -292,7 +299,11 @@ export default {
     async submit() {
       if (this.option === 1) {
         if (this.$refs.form.validate()) {
-        let blog = {
+          console.log("filep",this.filep)
+          console.log("fileb", this.fileb)
+          console.log("galeria",this.galery.length)
+          if(this.filep != null && this.fileb != null && this.galery.length!=0 ){
+            let blog = {
           title: this.blogData.title,
           subTitle: this.blogData.subTitle,
           description: this.blogData.description,
@@ -303,7 +314,7 @@ export default {
           bannerPhoto: this.blogData.bannerPhoto,
           photosGalery: this.urlgalery
         };
-       
+       console.log("blog",blog)
         blog= await createblog(blog)
 
         if (blog != null) {
@@ -316,6 +327,17 @@ export default {
             this.message = "Hubo un error durante el registro";
             setTimeout(() => {this.snackbar = false; }, 1000);
           }
+
+          }else{
+            this.snackbar = true;
+            this.message = "Debe seleccionar las imagenes del blog";
+            setTimeout(() => { this.snackbar = false;}, 2000);
+          }
+
+        
+
+
+      
         }else{ 
           this.snackbar = true;
           this.message = "Debe llenar todos los campos requeridos";
@@ -439,12 +461,17 @@ export default {
 }
 };
 </script>
-<style>
+<style scoped>
 .rowfoto{
   
   display: flex;
     margin: auto;
     padding: 0.5em;
 }
-
+.lbl{
+  padding: 0.5em;
+  margin:auto;
+  
+}
 </style>
+
