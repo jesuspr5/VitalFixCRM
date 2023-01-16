@@ -2,7 +2,7 @@
     <v-container id="data-tables" tag="section">
       <base-material-card
         color="greenligth"
-        icon="mdi-vuetify"
+        icon="mdi-feature-search-outline"
         inline
         class="px-5 py-3"
       >

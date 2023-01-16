@@ -41,7 +41,7 @@
                       v-model="publiData.title"
                       class="purple-input"
                       :label="$t('publications.title')"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                       :rules="[rules.required, rules.min]"
                     />
                   </v-col>
@@ -55,7 +55,7 @@
                       placeholder="Seleccione PDF"
                       prepend-icon="mdi-file"
                       label="Archivo"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                       @change="uploadPdf"
                     >
                       <template v-slot:selection="{ text }">
@@ -91,7 +91,7 @@
                         v-model="publiData.description"
                         :label="$t('publications.description')"
                         class="purple-input"
-                        :disabled="option === 2 ? true : false"
+                        :readonly="option === 2 ? true : false"
                         :rules="[rules.required, rules.min]"
                       ></v-textarea>
                     </v-col>

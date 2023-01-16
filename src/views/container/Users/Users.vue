@@ -4,17 +4,28 @@
     tag="section"
   >
     <base-material-card
-      color="greenligth"
-      icon="mdi-vuetify"
+    icon="mdi-account-group"
+    color="greenligth"
       inline
       class="px-5 py-3"
-    >
+    >   
+
       <template v-slot:after-heading>
+        <!-- <v-img
+          :src="logo"
+          class="img-Logo"
+        > -->
+      
         <div class="display-2 font-weight-light">
+          
           {{$t("users.title")}}
         </div>
-      </template>
+      <!-- </v-img> -->
 
+       
+        <!-- <v-img :src="logo" class="img-Logo"></v-img> -->
+      </template>
+     
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -63,6 +74,8 @@
   import i18n from '@/i18n'
   import userjson from './user.json'
   import { usersGetList } from '../../../api/modules/user'
+  import logo from "../../../assets/logoHumedal.png"
+ // import ico from "../../../assets/logohumedal.ico"
   export default {
     name: 'DashboardDataTables',
 
@@ -70,6 +83,8 @@
       hidden: false,
       title: userjson.title,
       users: [],
+      logo,
+  //    ico,
       headers: [
         {
           text: i18n.t('users.name'),
@@ -119,3 +134,12 @@
     },
   }
 </script>
+<style scoped>
+.img-Logo{
+  width: 20vw;
+  height: 10vh;
+  display: flex;
+  justify-items: flex-end;
+/* background-image: url("../../../assets/logoHumedal.png"); */
+}
+</style>

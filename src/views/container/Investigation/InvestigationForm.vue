@@ -41,7 +41,7 @@
                       v-model="invesData.title"
                       class="purple-input"
                       :label="$t('investigation.title')"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                       :rules="[rules.required, rules.min]"
                     />
                   </v-col>
@@ -90,7 +90,7 @@
                       v-model="invesData.description"
                       :label="$t('publications.description')"
                       class="purple-input"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                       :rules="[rules.required, rules.min]"
                     ></v-textarea>
                   </v-col>
