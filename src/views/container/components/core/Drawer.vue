@@ -23,9 +23,10 @@
     <v-list-item two-line>
       <v-list-item-content>
         <v-list-item-title class="text-uppercase font-weight-regular display-2">
-          <span class="logo-mini">{{ $t("ct") }}</span>
+           <v-img :src="logo" class="img-Logo"></v-img> 
+          <!-- <span class="logo-mini">{{ $t("ct") }}</span>
           <span class="logo-normal">{{ $t("tim") }}</span>
-          hola soy bata
+          -->
         </v-list-item-title>
       </v-list-item-content>
     </v-list-item>
@@ -76,6 +77,7 @@
 <script>
 // Utilities
   import { mapState } from 'vuex'
+  import logo from "../../../../assets/logoHumedal.png"
 
   export default {
     name: 'DashboardCoreDrawer',
@@ -88,6 +90,7 @@
     },
 
     data: () => ({
+      logo,
       items: [
         // item-solos
         // {
@@ -332,4 +335,14 @@
 
           +rtl()
             margin-left: 8px
+</style>
+
+<style scoped>
+.img-Logo{
+  /* width: 20vw;
+  height: 10vh; */
+  display: flex;
+  justify-items: flex-end;
+/* background-image: url("../../../assets/logoHumedal.png"); */
+}
 </style>

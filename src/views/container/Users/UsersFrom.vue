@@ -41,7 +41,7 @@
                       v-model="userData.names"
                       class="purple-input"
                       :label="$t('users.name')"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="12" sm="6">
@@ -49,7 +49,7 @@
                       v-model="userData.lastNames"
                       class="purple-input"
                       :label="$t('users.lastname')"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="12" sm="6">
@@ -57,7 +57,7 @@
                       v-model="userData.email"
                       class="users.email"
                       :label="$t('users.')"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="12" sm="6">
@@ -65,7 +65,7 @@
                       v-model="userData.phone"
                       class="purple-input"
                       :label="$t('users.phone')"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                 </v-row>

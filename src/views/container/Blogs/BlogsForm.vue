@@ -43,7 +43,7 @@
                       v-model="blogData.title"
                       class="purple-input"
                       :label="$t('blogs.title')"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                       :rules="[rules.required, rules.min]"
                     />
                   </v-col>
@@ -53,7 +53,7 @@
                       v-model="blogData.subTitle"
                       :label="$t('blogs.subtitle')"
                       class="purple-input"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                       :rules="[rules.required, rules.min]"
                     />
                   </v-col>
@@ -67,7 +67,7 @@
                       :items="selcatalog"
                       item-text="name"
                       item-value="id"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                       single-line
                       :rules="[rules.required]"
                     >
@@ -164,7 +164,7 @@
                       v-model="blogData.description"
                       :label="$t('blogs.description')"
                       class="purple-input"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                       :rules="[rules.required, rules.min]"
                     ></v-textarea>
                   </v-col>
@@ -173,7 +173,7 @@
                       v-model="blogData.reference"
                       class="purple-input"
                       :label="$t('blogs.reference')"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                       :rules="[rules.required, rules.min]"
                     ></v-textarea>
                   </v-col>
@@ -440,7 +440,7 @@ export default {
              
             });
         
-      
+      readonly
       }).catch(error => {return error.response.data})
        
     });

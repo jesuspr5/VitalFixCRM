@@ -43,7 +43,7 @@
                       v-model="contactData.names"
                       class="purple-input"
                       :label="$t('contact.names')"
-                      disabled
+                      readonly
                       :rules="[rules.required, rules.min]"
                     />
                   </v-col>
@@ -53,7 +53,7 @@
                       v-model="contactData.email"
                       :label="$t('contact.email')"
                       class="purple-input"
-                      disabled
+                      readonly
                       :rules="[rules.required, rules.min]"
                     />
                   </v-col>
@@ -62,7 +62,7 @@
                       v-model="contactData.message"
                       :label="$t('contact.message')"
                       class="purple-input"
-                      disabled
+                      readonly
                     ></v-textarea>
                   </v-col>
                   
