@@ -4,7 +4,11 @@
     :prepend-icon="item.icon"
     :sub-group="subGroup"
     append-icon="mdi-menu-down"
-    :color="barColor !== 'rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7)' ? 'white' : 'grey darken-1'"
+    :color="
+      barColor !== 'rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.7)'
+        ? 'white'
+        : 'grey darken-1'
+    "
   >
     <template v-slot:activator>
       <v-list-item-icon
@@ -18,7 +22,9 @@
         class="align-self-center"
         color="grey"
       >
-        <v-img src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/avatar.jpg" />
+        <v-img
+          src="https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/avatar.jpg"
+        />
       </v-list-item-avatar>
 
       <v-list-item-content>
@@ -44,7 +50,7 @@
 </template>
 
 <script>
-  // Utilities
+// Utilities
   import kebabCase from 'lodash/kebabCase'
   import { mapState } from 'vuex'
 
@@ -110,7 +116,8 @@
             }
 
             return group
-          }).join('|')
+          })
+          .join('|')
       },
     },
   }

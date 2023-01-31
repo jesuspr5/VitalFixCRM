@@ -5,7 +5,7 @@
     v-bind="{
       ...$attrs,
       ...$props,
-      'color': 'transparent'
+      color: 'transparent'
     }"
     @change="$emit('change', $event)"
   >
@@ -21,7 +21,7 @@
   </v-snackbar>
 </template>
 <script>
-  // Components
+// Components
   import { VSnackbar } from 'vuetify/lib'
 
   export default {
@@ -52,15 +52,15 @@
 </script>
 
 <style lang="sass">
-  .v-snackbar--material
-    margin-top: 32px
-    margin-bottom: 32px
+.v-snackbar--material
+  margin-top: 32px
+  margin-bottom: 32px
 
-    .v-alert--material,
-    .v-snack__wrapper
-      border-radius: 4px
+  .v-alert--material,
+  .v-snack__wrapper
+    border-radius: 4px
 
-    .v-snack__content
-      overflow: visible
-      padding: 0
+  .v-snack__content
+    overflow: visible
+    padding: 0
 </style>

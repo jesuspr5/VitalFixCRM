@@ -27,21 +27,19 @@
 
       <v-divider class="mt-3" />
 
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus harum recusandae repellat repudiandae possimus nihil iusto eligendi, ut sed earum.
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus harum
+      recusandae repellat repudiandae possimus nihil iusto eligendi, ut sed
+      earum.
     </base-material-card>
   </v-container>
 </template>
 
 <script>
   export default {
-    data: () => ({
-    }),
-    computed: {
-    },
-    created () {
-    },
+    data: () => ({}),
+    computed: {},
+    created () {},
   }
 </script>
 
-<style>
-</style>
+<style></style>

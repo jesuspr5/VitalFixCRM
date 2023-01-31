@@ -11,7 +11,10 @@
         <h1 class="title font-weight-black">
           404
         </h1>
-        <img src="" alt="">
+        <img
+          src=""
+          alt=""
+        >
 
         <div class="display-3 mb-5 mt-10">
           No se encontro la página :(
@@ -35,7 +38,7 @@
 </script>
 
 <style lang="sass">
-  .error-page
-    h1
-      font-size: 12rem
+.error-page
+  h1
+    font-size: 12rem
 </style>

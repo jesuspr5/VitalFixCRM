@@ -49,7 +49,8 @@
       },
       avatar: {
         type: String,
-        default: 'https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/card-profile1-square.jpg',
+        default:
+          'https://demos.creative-tim.com/material-dashboard-pro/assets/img/faces/card-profile1-square.jpg',
       },
       blurb: {
         type: String,
@@ -64,12 +65,12 @@
 </script>
 
 <style lang="sass">
-  .v-card--testimony
-    padding-bottom: 72px
-    margin-bottom: 64px
+.v-card--testimony
+  padding-bottom: 72px
+  margin-bottom: 64px
 
-    .v-avatar
-      position: absolute
-      left: calc(50% - 64px)
-      top: calc(100% - 64px)
+  .v-avatar
+    position: absolute
+    left: calc(50% - 64px)
+    top: calc(100% - 64px)
 </style>

@@ -11,7 +11,7 @@
     width="260"
     v-bind="$attrs"
   >
-  <!-- img dentro del v-navigation-drawer
+    <!-- img dentro del v-navigation-drawer
      :src="barImage" -->
     <template v-slot:img="props">
       <v-img
@@ -23,7 +23,10 @@
     <v-list-item two-line>
       <v-list-item-content>
         <v-list-item-title class="text-uppercase font-weight-regular display-2">
-           <v-img :src="logo" class="img-Logo"></v-img> 
+          <v-img
+            :src="logo"
+            class="img-Logo"
+          />
           <!-- <span class="logo-mini">{{ $t("ct") }}</span>
           <span class="logo-normal">{{ $t("tim") }}</span>
           -->
@@ -49,7 +52,7 @@
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
-    <!--  -->
+      <!--  -->
       <template v-for="(item, i) in computedItems">
         <!-- grupo de item, ejemplo: users, pages, roles -->
         <base-item-group
@@ -77,7 +80,7 @@
 <script>
 // Utilities
   import { mapState } from 'vuex'
-  import logo from "../../../../assets/logoHumedal.png"
+  import logo from '../../../../assets/logoHumedal.png'
 
   export default {
     name: 'DashboardCoreDrawer',
@@ -181,7 +184,7 @@
             },
           ],
         },
-        
+
         {
           group: '/home/contact',
           icon: 'mdi-message-badge-outline',
@@ -193,29 +196,28 @@
             },
           ],
         },
-        // {
-        //   group: '/kitchens',
-        //   icon: 'mdi-coffee-maker',
-        //   title: 'kitchens.kitchens',
-        //   children: [
-        //     {
-        //       title: 'kitchens.kitchens',
-        //       to: 'kitchens',
-        //     },
-        //   ],
-        // },
-        // {
-        //   group: '/vendors',
-        //   icon: 'mdi-account-tie',
-        //   title: 'vendors.vendors',
-        //   children: [
-        //     {
-        //       title: 'vendors.vendors',
-        //       to: 'vendors',
-        //     },
-        //   ],
-        // },
-
+      // {
+      //   group: '/kitchens',
+      //   icon: 'mdi-coffee-maker',
+      //   title: 'kitchens.kitchens',
+      //   children: [
+      //     {
+      //       title: 'kitchens.kitchens',
+      //       to: 'kitchens',
+      //     },
+      //   ],
+      // },
+      // {
+      //   group: '/vendors',
+      //   icon: 'mdi-account-tie',
+      //   title: 'vendors.vendors',
+      //   children: [
+      //     {
+      //       title: 'vendors.vendors',
+      //       to: 'vendors',
+      //     },
+      //   ],
+      // },
       ],
     }),
 
@@ -274,75 +276,75 @@
 </script>
 
 <style lang="sass">
-  @import '~vuetify/src/styles/tools/_rtl.sass'
+@import '~vuetify/src/styles/tools/_rtl.sass'
 
-  #core-navigation-drawer
-    &.v-navigation-drawer--mini-variant
-      .v-list-item
-        justify-content: flex-start !important
+#core-navigation-drawer
+  &.v-navigation-drawer--mini-variant
+    .v-list-item
+      justify-content: flex-start !important
 
-      .v-list-group--sub-group
-        display: block !important
+    .v-list-group--sub-group
+      display: block !important
 
-    .v-list-group__header.v-list-item--active:before
-      opacity: .24
+  .v-list-group__header.v-list-item--active:before
+    opacity: .24
 
+  .v-list-item
+    &__icon--text,
+    &__icon:first-child
+      justify-content: center
+      text-align: center
+      width: 20px
+
+      +ltr()
+        margin-right: 24px
+        margin-left: 12px !important
+
+      +rtl()
+        margin-left: 24px
+        margin-right: 12px !important
+
+  .v-list--dense
     .v-list-item
       &__icon--text,
       &__icon:first-child
-        justify-content: center
-        text-align: center
-        width: 20px
+        margin-top: 10px
+
+  .v-list-group--sub-group
+    .v-list-item
+      +ltr()
+        padding-left: 8px
+
+      +rtl()
+        padding-right: 8px
+
+    .v-list-group__header
+      +ltr()
+        padding-right: 0
+
+      +rtl()
+        padding-right: 0
+
+      .v-list-item__icon--text
+        margin-top: 19px
+        order: 0
+
+      .v-list-group__header__prepend-icon
+        order: 2
 
         +ltr()
-          margin-right: 24px
-          margin-left: 12px !important
+          margin-right: 8px
 
         +rtl()
-          margin-left: 24px
-          margin-right: 12px !important
-
-    .v-list--dense
-      .v-list-item
-        &__icon--text,
-        &__icon:first-child
-          margin-top: 10px
-
-    .v-list-group--sub-group
-      .v-list-item
-        +ltr()
-          padding-left: 8px
-
-        +rtl()
-          padding-right: 8px
-
-      .v-list-group__header
-        +ltr()
-          padding-right: 0
-
-        +rtl()
-          padding-right: 0
-
-        .v-list-item__icon--text
-          margin-top: 19px
-          order: 0
-
-        .v-list-group__header__prepend-icon
-          order: 2
-
-          +ltr()
-            margin-right: 8px
-
-          +rtl()
-            margin-left: 8px
+          margin-left: 8px
 </style>
 
 <style scoped>
-.img-Logo{
+.img-Logo {
   /* width: 20vw;
   height: 10vh; */
   display: flex;
   justify-items: flex-end;
-/* background-image: url("../../../assets/logoHumedal.png"); */
+  /* background-image: url("../../../assets/logoHumedal.png"); */
 }
 </style>

@@ -4,28 +4,25 @@
     tag="section"
   >
     <base-material-card
-    icon="mdi-account-group"
-    color="greenligth"
+      icon="mdi-account-group"
+      color="greenligth"
       inline
       class="px-5 py-3"
-    >   
-
+    >
       <template v-slot:after-heading>
         <!-- <v-img
           :src="logo"
           class="img-Logo"
         > -->
-      
-        <div class="display-2 font-weight-light">
-          
-          {{$t("users.title")}}
-        </div>
-      <!-- </v-img> -->
 
-       
+        <div class="display-2 font-weight-light">
+          {{ $t("users.title") }}
+        </div>
+        <!-- </v-img> -->
+
         <!-- <v-img :src="logo" class="img-Logo"></v-img> -->
       </template>
-     
+
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -33,7 +30,7 @@
         label="Buscar"
         hide-details
         single-line
-        style="max-width: 250px;"
+        style="max-width: 250px"
       />
 
       <v-divider class="mt-3" />
@@ -49,7 +46,6 @@
       >
         <template v-slot:[`item.actions`]="{ item }">
           <v-btn
-
             :key="1"
             color="gray"
             fab
@@ -62,10 +58,8 @@
               v-text="'mdi-eye'"
             />
           </v-btn>
-         
         </template>
       </v-data-table>
-     
     </base-material-card>
   </v-container>
 </template>
@@ -74,8 +68,8 @@
   import i18n from '@/i18n'
   import userjson from './user.json'
   import { usersGetList } from '../../../api/modules/user'
-  import logo from "../../../assets/logoHumedal.png"
- // import ico from "../../../assets/logohumedal.ico"
+  import logo from '../../../assets/logoHumedal.png'
+  // import ico from "../../../assets/logohumedal.ico"
   export default {
     name: 'DashboardDataTables',
 
@@ -84,14 +78,14 @@
       title: userjson.title,
       users: [],
       logo,
-  //    ico,
+      //    ico,
       headers: [
         {
           text: i18n.t('users.name'),
           value: 'names',
         },
         {
-          text: ('apellidos'),
+          text: 'apellidos',
           value: 'lastNames',
         },
         {
@@ -112,15 +106,14 @@
       search: undefined,
     }),
     async mounted () {
-    
       this.data()
     },
     methods: {
-      data: async function(){
-      let result;
-      result = await usersGetList();
-      this.items = result;
-    },
+      data: async function () {
+        let result
+        result = await usersGetList()
+        this.items = result
+      },
       showUser (item) {
         console.log(item)
         this.$router.push({
@@ -130,16 +123,16 @@
             userData: item,
           },
         })
-      }
+      },
     },
   }
 </script>
 <style scoped>
-.img-Logo{
+.img-Logo {
   width: 20vw;
   height: 10vh;
   display: flex;
   justify-items: flex-end;
-/* background-image: url("../../../assets/logoHumedal.png"); */
+  /* background-image: url("../../../assets/logoHumedal.png"); */
 }
 </style>

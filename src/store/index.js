@@ -4,7 +4,7 @@ import actions from './actions'
 import mutations from './mutations'
 import getters from './getters'
 import modules from './modules'
-import { VRangeSlider } from 'vuetify/lib'
+// import { VRangeSlider } from 'vuetify/lib'
 
 Vue.use(Vuex)
 

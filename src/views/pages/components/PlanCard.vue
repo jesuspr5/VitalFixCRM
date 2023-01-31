@@ -10,9 +10,7 @@
       v-text="plan.heading"
     />
 
-    <v-avatar
-      size="130"
-    >
+    <v-avatar size="130">
       <v-icon
         :color="!plan.best ? undefined : 'success'"
         size="64"
@@ -31,7 +29,7 @@
     />
 
     <pages-btn :color="!plan.best ? 'white' : 'success'">
-      {{ $t('plan') }}
+      {{ $t("plan") }}
     </pages-btn>
   </v-card>
 </template>
@@ -60,8 +58,8 @@
 </script>
 
 <style lang="sass">
-  .v-card--plan
-    .v-avatar
-      border-radius: 50%
-      border: 1px solid #E5E5E5
+.v-card--plan
+  .v-avatar
+    border-radius: 50%
+    border: 1px solid #E5E5E5
 </style>

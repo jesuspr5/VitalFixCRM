@@ -73,11 +73,11 @@
 </script>
 
 <style lang="sass">
-  #pages-core-footer
-    a
-      color: #FFFFFF
-      font-size: .825rem
-      font-weight: 500
-      text-decoration: none
-      text-transform: uppercase
+#pages-core-footer
+  a
+    color: #FFFFFF
+    font-size: .825rem
+    font-weight: 500
+    text-decoration: none
+    text-transform: uppercase
 </style>

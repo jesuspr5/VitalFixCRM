@@ -11,7 +11,7 @@
     >
       <template v-slot:after-heading>
         <div class="display-2 font-weight-light">
-          {{ $t('roles.title') }}
+          {{ $t("roles.title") }}
         </div>
       </template>
 
@@ -36,9 +36,8 @@
         multi-sort
         class="elevation-1"
       >
-      <template v-slot:[`item.actions`]="{ item }">
+        <template v-slot:[`item.actions`]="{ item }">
           <v-btn
-
             :key="1"
             color="blue"
             fab
@@ -52,7 +51,6 @@
             />
           </v-btn>
           <v-btn
-
             :key="2"
             color="primary"
             fab
@@ -66,7 +64,6 @@
             />
           </v-btn>
           <v-btn
-
             :key="3"
             color="secondary"
             fab
@@ -142,7 +139,7 @@
       search: undefined,
     }),
     async mounted () {
-      // window.getApp.$emit("SHOW_ERROR", "34534535")
+    // window.getApp.$emit("SHOW_ERROR", "34534535")
     },
     methods: {
       async loadRolesData () {

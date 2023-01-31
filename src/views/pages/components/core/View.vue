@@ -10,7 +10,6 @@
       }"
       :src="require(`@/assets/${src || 'home.png'}`)"
       gradient="to top, rgba(0, 0, 0, .5), rgba(0, 0, 0, .5)"
-
       style="object-fit: contain; min-width: 100vw; min-height: 100vh;"
     >
       <router-view />
@@ -40,17 +39,17 @@
 </script>
 
 <style lang="sass">
-  #pages
-    > .v-content__wrap > .v-image
-      padding-top: 64px
-      padding-bottom: 88px
+#pages
+  > .v-content__wrap > .v-image
+    padding-top: 64px
+    padding-bottom: 88px
 
-    .v-responsive__sizer
-      display: none
+  .v-responsive__sizer
+    display: none
 
-    .v-image--md
-      padding: 188px 0
+  .v-image--md
+    padding: 188px 0
 
-    .v-image--sm
-      padding: 96px 0 188px 0
+  .v-image--sm
+    padding: 96px 0 188px 0
 </style>

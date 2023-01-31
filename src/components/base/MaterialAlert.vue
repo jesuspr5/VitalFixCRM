@@ -1,5 +1,5 @@
 <script>
-  // Components
+// Components
   import { VAlert, VBtn, VIcon } from 'vuetify/lib'
 
   export default {
@@ -13,25 +13,33 @@
 
         const color = 'white'
 
-        return this.$createElement(VBtn, {
-          staticClass: 'v-alert__dismissible',
-          props: {
-            color,
-            icon: true,
-            small: true,
-          },
-          attrs: {
-            'aria-label': this.$vuetify.lang.t(this.closeLabel),
-          },
-          on: {
-            // eslint-disable-next-line
+        return this.$createElement(
+          VBtn,
+          {
+            staticClass: 'v-alert__dismissible',
+            props: {
+              color,
+              icon: true,
+              small: true,
+            },
+            attrs: {
+              'aria-label': this.$vuetify.lang.t(this.closeLabel),
+            },
+            on: {
+              // eslint-disable-next-line
             click: () => (this.isActive = false)
+            },
           },
-        }, [
-          this.$createElement(VIcon, {
-            props: { color },
-          }, '$vuetify.icons.cancel'),
-        ])
+          [
+            this.$createElement(
+              VIcon,
+              {
+                props: { color },
+              },
+              '$vuetify.icons.cancel'
+            ),
+          ]
+        )
       },
       classes () {
         return {
@@ -48,17 +56,17 @@
 
 <style lang="sass">
 
-  .v-alert--material
-    margin-top: 32px
+.v-alert--material
+  margin-top: 32px
 
-    .v-alert__icon
-      background-color: #FFFFFF
-      height: 44px
-      min-width: 44px
-      top: -36px
+  .v-alert__icon
+    background-color: #FFFFFF
+    height: 44px
+    min-width: 44px
+    top: -36px
 
-    .v-alert__dismissible
-      align-self: flex-start
-      margin: 0 !important
-      padding: 0 !important
+  .v-alert__dismissible
+    align-self: flex-start
+    margin: 0 !important
+    padding: 0 !important
 </style>

@@ -10,7 +10,11 @@
     <v-btn
       fab
       small
-      @click="$vuetify.breakpoint.smAndDown ? setDrawer(!drawer) : $emit('input', !value)"
+      @click="
+        $vuetify.breakpoint.smAndDown
+          ? setDrawer(!drawer)
+          : $emit('input', !value)
+      "
     >
       <v-icon v-if="value">
         mdi-view-quilt
@@ -129,18 +133,16 @@
             v-if="p.divider"
             :key="`divider-${i}`"
             class="mb-2 mt-2"
-            
           />
           <v-button
-          v-else
+            v-else
             :key="`item-${i}`"
-          @click="cerrarSesion">
-          <app-bar-item
+            @click="cerrarSesion"
           >
-            <v-list-item-title v-text="p.title" />
-          </app-bar-item>
+            <app-bar-item>
+              <v-list-item-title v-text="p.title" />
+            </app-bar-item>
           </v-button>
-         
         </template>
       </v-list>
     </v-menu>
@@ -148,7 +150,7 @@
 </template>
 
 <script>
-  // Components
+// Components
   import { VHover, VListItem } from 'vuetify/lib'
 
   // Utilities
@@ -163,19 +165,23 @@
           return h(VHover, {
             scopedSlots: {
               default: ({ hover }) => {
-                return h(VListItem, {
-                  attrs: this.$attrs,
-                  class: {
-                    'black--text': !hover,
-                    'white--text secondary elevation-12': hover,
+                return h(
+                  VListItem,
+                  {
+                    attrs: this.$attrs,
+                    class: {
+                      'black--text': !hover,
+                      'white--text secondary elevation-12': hover,
+                    },
+                    props: {
+                      activeClass: '',
+                      dark: hover,
+                      link: true,
+                      ...this.$attrs,
+                    },
                   },
-                  props: {
-                    activeClass: '',
-                    dark: hover,
-                    link: true,
-                    ...this.$attrs,
-                  },
-                }, this.$slots.default)
+                  this.$slots.default
+                )
               },
             },
           })
@@ -202,7 +208,7 @@
         // { title: 'Profile' },
         // { title: 'Settings' },
         // { divider: true },
-        { title: 'Cerrar Sesion'},
+        { title: 'Cerrar Sesion' },
       ],
     }),
 
@@ -214,11 +220,11 @@
       ...mapMutations({
         setDrawer: 'SET_DRAWER',
       }),
-      cerrarSesion(){
-  console.log("cerrar sessio")
-  localStorage.removeItem('token');
-  this.$router.push('/')
-}
+      cerrarSesion () {
+        console.log('cerrar sessio')
+        localStorage.removeItem('token')
+        this.$router.push('/')
+      },
     },
   }
 </script>
