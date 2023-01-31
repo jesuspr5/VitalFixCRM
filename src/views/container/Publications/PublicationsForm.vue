@@ -220,7 +220,7 @@
       },
       rules: {
         required: value => !!value || 'Debe ingresar Texto.',
-        min: v => v.length >= 8 || 'Mínimo 8 caracteres',
+        min: v => v.length >= 10 || 'El titulo debe tener un mínimo 10 caracteres',
         minDesc: v => v.length >=70 || 'La descripción debe tener un mínimo de 70 caracteres',
       },
     }),
