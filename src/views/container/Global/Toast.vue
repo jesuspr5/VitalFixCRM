@@ -3,11 +3,13 @@
     v-model="snackbar"
     :type="color"
     v-bind="{
-      'center': true,
-      'top': true
+      center: true,
+      top: true
     }"
   >
-    Welcome to <span class="font-weight-bold">&nbsp;MATERIAL DASHBOARD PRO&nbsp;</span> — a beautiful admin panel for every web developer.
+    Welcome to
+    <span class="font-weight-bold">&nbsp;MATERIAL DASHBOARD PRO&nbsp;</span> — a
+    beautiful admin panel for every web developer.
   </base-material-snackbar>
 </template>
 <script>
@@ -19,9 +21,7 @@
       snackbar: false,
     }),
 
-    computed: {
-
-    },
+    computed: {},
 
     methods: {
       open () {

@@ -1,5 +1,7 @@
 <template>
-  <div class="display-2 font-weight-light col col-12 text-left text--primary pa-0 mb-8">
+  <div
+    class="display-2 font-weight-light col col-12 text-left text--primary pa-0 mb-8"
+  >
     <h5 class="font-weight-light">
       {{ subheading }}
       <template v-if="text">

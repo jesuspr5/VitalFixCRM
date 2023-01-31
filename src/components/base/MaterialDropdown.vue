@@ -16,9 +16,7 @@
       >
         <slot />
 
-        <v-icon>
-          mdi-{{ value ? 'menu-up' : 'menu-down' }}
-        </v-icon>
+        <v-icon> mdi-{{ value ? "menu-up" : "menu-down" }} </v-icon>
       </v-btn>
     </template>
 
@@ -39,7 +37,7 @@
 </template>
 
 <script>
-  // Mixins
+// Mixins
   import Proxyable from 'vuetify/lib/mixins/proxyable'
 
   export default {
@@ -54,12 +52,12 @@
       },
       items: {
         type: Array,
-        default: () => ([
+        default: () => [
           {
             id: undefined,
             text: undefined,
           },
-        ]),
+        ],
       },
       transition: {
         type: String,

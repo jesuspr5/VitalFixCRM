@@ -1,58 +1,76 @@
-import axios from "axios";
+import axios from 'axios'
 
-
-async function usersGetList(){
-  let result;
-  result = await axios.get("https://as-humedal-api.azurewebsites.net/Users/GetList?Page=1&Rows=123123")
+async function usersGetList () {
+  let result
+  result = await axios.get(
+    'https://as-humedal-api.azurewebsites.net/Users/GetList?Page=1&Rows=123123'
+  )
   return result.data.data.items
 }
 
-async function usersGet(IdUserLanding){
-  let result;
-  result = await axios.get("https://as-humedal-api.azurewebsites.net/Users/Get?IdUserLanding="+IdUserLanding)
+async function usersGet (IdUserLanding) {
+  let result
+  result = await axios.get(
+    'https://as-humedal-api.azurewebsites.net/Users/Get?IdUserLanding=' +
+      IdUserLanding
+  )
   console.log('GETRESULT: ', result.data.data)
   return result.data.data
 }
-async function createUser( userToCreate ){
-  let result;
-    result = await axios.post("https://as-humedal-api.azurewebsites.net/Users/Create", userToCreate)
-    console.log('Usuario creado: ', result)
-    return result
-
+async function createUser (userToCreate) {
+  let result
+  result = await axios.post(
+    'https://as-humedal-api.azurewebsites.net/Users/Create',
+    userToCreate
+  )
+  console.log('Usuario creado: ', result)
+  return result
 }
 
-async function deleteUser(IdUserLanding){
-  let result;
-    result = await axios.delete("https://as-humedal-api.azurewebsites.net/Users/Delete?IdUserLanding=0"+ IdUserLanding)
-    console.log('Usuario Eliminado: ', result)
-    return result
-
+async function deleteUser (IdUserLanding) {
+  let result
+  result = await axios.delete(
+    'https://as-humedal-api.azurewebsites.net/Users/Delete?IdUserLanding=0' +
+      IdUserLanding
+  )
+  console.log('Usuario Eliminado: ', result)
+  return result
 }
 
-async function updateUser( userToUpdate ){
-  let result;
-    result = await axios.post("https://as-humedal-api.azurewebsites.net/Users/Create", userToUpdate)
-    console.log('Usuario Actualizado: ', result)
-    return result
-
+async function updateUser (userToUpdate) {
+  let result
+  result = await axios.post(
+    'https://as-humedal-api.azurewebsites.net/Users/Create',
+    userToUpdate
+  )
+  console.log('Usuario Actualizado: ', result)
+  return result
 }
 
-async function loginUser( userToLogin ){
-  let result;
+async function loginUser (userToLogin) {
+  let result
   console.log('USUARIO: ', userToLogin)
-    result = await axios.post("https://as-humedal-api.azurewebsites.net/Users/Authenticate", userToLogin)
-    .then(data => {return data.data}).catch(error => {return error.response.data})
-    console.log('LoginData: ', result)
-    return result
-
+  result = await axios
+    .post(
+      'https://as-humedal-api.azurewebsites.net/Users/Authenticate',
+      userToLogin
+    )
+    .then(data => {
+      return data.data
+    })
+    .catch(error => {
+      return error.response.data
+    })
+  console.log('LoginData: ', result)
+  return result
 }
-export { 
+export {
   usersGetList,
   loginUser,
   updateUser,
   deleteUser,
   createUser,
-  usersGet
+  usersGet,
 }
 
 //  getListUsers(){
@@ -67,9 +85,6 @@ export {
 //       console.log(e);
 //     });
 // };
-
-
-
 
 // import { apiHttp } from '../axiosApi.js'
 // import {

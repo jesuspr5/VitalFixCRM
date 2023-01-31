@@ -102,8 +102,7 @@
                         class="secondary--text ml-6 ml-sm-0"
                         href="#"
                       >
-                        terms and conditions
-                      </a>.
+                        terms and conditions </a>.
                     </template>
                   </v-checkbox>
 
@@ -147,7 +146,8 @@
           icon: 'mdi-account-multiple',
           iconColor: 'cyan',
           title: 'Built Audience',
-          text: 'There is also a Fully Customizable CMS Admin Dashboard for this product.',
+          text:
+            'There is also a Fully Customizable CMS Admin Dashboard for this product.',
         },
       ],
       socials: [
@@ -166,15 +166,14 @@
           icon: 'mdi-facebook',
           iconColor: '#3B5998',
         },
-
       ],
     }),
   }
 </script>
 
 <style lang="sass">
-  #register
-    .v-list-item__subtitle
-      -webkic-line-clamp: initial
-      -webkit-box-orient: initial
+#register
+  .v-list-item__subtitle
+    -webkic-line-clamp: initial
+    -webkit-box-orient: initial
 </style>

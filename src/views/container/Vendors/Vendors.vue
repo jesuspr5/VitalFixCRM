@@ -171,12 +171,9 @@
 
 <script>
   export default {
-    data: () => ({
-    }),
-    created () {
-    },
+    data: () => ({}),
+    created () {},
   }
 </script>
 
-<style>
-</style>
+<style></style>

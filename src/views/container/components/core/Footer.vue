@@ -1,7 +1,5 @@
 <template>
-  <v-footer
-    id="dashboard-core-footer"
-  >
+  <v-footer id="dashboard-core-footer">
     <v-container>
       <v-row
         align="center"
@@ -33,7 +31,8 @@
             <v-icon size="18">
               mdi-heart
             </v-icon>
-            by <a href="https://www.creative-tim.com">Creative Tim</a> for a better web.
+            by <a href="https://www.creative-tim.com">Creative Tim</a> for a
+            better web.
           </div>
         </v-col>
       </v-row>
@@ -69,11 +68,11 @@
 </script>
 
 <style lang="sass">
-  #dashboard-core-footer
-    a
-      color: #3c4858
-      font-size: .825rem
-      font-weight: 500
-      text-decoration: none
-      text-transform: uppercase
+#dashboard-core-footer
+  a
+    color: #3c4858
+    font-size: .825rem
+    font-weight: 500
+    text-decoration: none
+    text-transform: uppercase
 </style>

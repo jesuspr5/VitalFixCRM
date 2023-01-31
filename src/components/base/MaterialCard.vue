@@ -74,7 +74,6 @@
         class="ml-4"
       >
         <div
-
           class="card-title font-weight-light"
           v-text="title"
         />
@@ -150,19 +149,19 @@
 </script>
 
 <style lang="sass">
-  .v-card--material
-    &__avatar
-      position: relative
-      top: -64px
-      margin-bottom: -32px
+.v-card--material
+  &__avatar
+    position: relative
+    top: -64px
+    margin-bottom: -32px
 
-    &__heading
-      position: relative
-      top: -40px
-      transition: .3s ease
-      z-index: 1
+  &__heading
+    position: relative
+    top: -40px
+    transition: .3s ease
+    z-index: 1
 
-    &.v-card--material--hover-reveal:hover
-      .v-card--material__heading
-        transform: translateY(-40px)
+  &.v-card--material--hover-reveal:hover
+    .v-card--material__heading
+      transform: translateY(-40px)
 </style>

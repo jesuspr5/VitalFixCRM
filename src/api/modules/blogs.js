@@ -1,91 +1,99 @@
-import axios from "axios";
+import axios from 'axios'
 
-async function blogsGetList(Page, Rows) {
-  let result;
+async function blogsGetList (Page, Rows) {
+  let result
   result = await axios.get(
-    "https://as-humedal-api.azurewebsites.net/Blogs/GetList?Page=" +
+    'https://as-humedal-api.azurewebsites.net/Blogs/GetList?Page=' +
       Page +
-      "&Rows=" +
+      '&Rows=' +
       Rows
-  );
-  return result.data.data.items;
+  )
+  return result.data.data.items
 }
 
-async function blogsGetListCatType(Page, Rows, IdCatTyp) {
-  let result;
+async function blogsGetListCatType (Page, Rows, IdCatTyp) {
+  let result
   result = await axios.get(
-    "https://as-humedal-api.azurewebsites.net/Blogs/GetListCat?Page=" +
+    'https://as-humedal-api.azurewebsites.net/Blogs/GetListCat?Page=' +
       Page +
-      "&Rows=" +
+      '&Rows=' +
       Rows +
-      "&IdCatTyp=" +
+      '&IdCatTyp=' +
       IdCatTyp
-  );
-  return result.data.data.items;
+  )
+  return result.data.data.items
 }
-async function blogsGetListText(Page, Rows, Text) {
-  let result;
+async function blogsGetListText (Page, Rows, Text) {
+  let result
   result = await axios.get(
-    "https://as-humedal-api.azurewebsites.net/Blogs/GetListText?Page=" +
+    'https://as-humedal-api.azurewebsites.net/Blogs/GetListText?Page=' +
       Page +
-      "&Rows=" +
+      '&Rows=' +
       Rows +
-      "&IdCatType=" +
+      '&IdCatType=' +
       Text
-  );
-  return result.data.data.items;
+  )
+  return result.data.data.items
 }
 
-async function blogsGet(Page, Rows,Id) {
-  let result;
+async function blogsGet (Page, Rows, Id) {
+  let result
   result = await axios.get(
-    "https://as-humedal-api.azurewebsites.net/Blogs/Get?Page="+
-    Page +
-    "&Rows=" +
-    Rows +
-    "&idBLogLanding=" +
-    Id);
-  console.log("GETRESULT: ", result.data.data);
-  return result.data.data;
+    'https://as-humedal-api.azurewebsites.net/Blogs/Get?Page=' +
+      Page +
+      '&Rows=' +
+      Rows +
+      '&idBLogLanding=' +
+      Id
+  )
+  console.log('GETRESULT: ', result.data.data)
+  return result.data.data
 }
-async function createblog(blogToCreate) {
-  let result;
+async function createblog (blogToCreate) {
+  let result
   result = await axios.post(
-    "https://as-humedal-api.azurewebsites.net/Blogs/Create",
+    'https://as-humedal-api.azurewebsites.net/Blogs/Create',
     blogToCreate
-  );
-  console.log("Blog creado: ", result);
-  return result;
+  )
+  console.log('Blog creado: ', result)
+  return result
 }
 
-async function deleteblog( IdBlogLanding) {
-  let result;
-  result = await axios.delete("https://as-humedal-api.azurewebsites.net/Blogs/Delete?IdBlogLanding="+IdBlogLanding);
-  console.log("Blog Eliminado con exito: ", result);
-  return result.data.data;
+async function deleteblog (IdBlogLanding) {
+  let result
+  result = await axios.delete(
+    'https://as-humedal-api.azurewebsites.net/Blogs/Delete?IdBlogLanding=' +
+      IdBlogLanding
+  )
+  console.log('Blog Eliminado con exito: ', result)
+  return result.data.data
 }
 
-async function updateblog(blogToUpdate) {
-  let result;
+async function updateblog (blogToUpdate) {
+  let result
   result = await axios.put(
-    "https://as-humedal-api.azurewebsites.net/Blogs/Update",
+    'https://as-humedal-api.azurewebsites.net/Blogs/Update',
     blogToUpdate
-  );
-  console.log("Blog Actualizado: ", result);
-  return result;
+  )
+  console.log('Blog Actualizado: ', result)
+  return result
 }
-async function uploadimg(img){
-  let result ;
- result=await axios.post("https://as-humedal-api.azurewebsites.net/Blogs/Upload",img)
- .then(data => {return data.data.data}).catch(error => {return error.response.data})
- console.log('url: ', result)
- return result
+async function uploadimg (img) {
+  let result
+  result = await axios
+    .post('https://as-humedal-api.azurewebsites.net/Blogs/Upload', img)
+    .then(data => {
+      return data.data.data
+    })
+    .catch(error => {
+      return error.response.data
+    })
+  console.log('url: ', result)
+  return result
 }
 
-
-
-function url() {
-  return "https://as-humedal-api.azurewebsites.net/Blogs/Upload";
+function url () {
+  return 'https://as-humedal-api.azurewebsites.net/Blogs/Upload'
 }
 
 //  function uploadimg() {
@@ -107,5 +115,5 @@ export {
   createblog,
   blogsGet,
   uploadimg,
-  url
-};
+  url,
+}

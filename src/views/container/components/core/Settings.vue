@@ -241,7 +241,7 @@
 </template>
 
 <script>
-  // Mixins
+// Mixins
   import Proxyable from 'vuetify/lib/mixins/proxyable'
   import { mapMutations, mapState } from 'vuex'
 
@@ -252,15 +252,9 @@
 
     data: () => ({
       color: '#E91E63',
-      colors: [
-        '#9C27b0',
-        '#00CAE3',
-        '#4CAF50',
-        '#ff9800',
-        '#E91E63',
-        '#FF5252',
-      ],
-      image: 'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
+      colors: ['#9C27b0', '#00CAE3', '#4CAF50', '#ff9800', '#E91E63', '#FF5252'],
+      image:
+        'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
       images: [
         'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-1.jpg',
         'https://demos.creative-tim.com/material-dashboard-pro/assets/img/sidebar-2.jpg',
@@ -314,15 +308,15 @@
 </script>
 
 <style lang="sass">
-  .v-settings
-    .v-item-group > *
-      cursor: pointer
+.v-settings
+  .v-item-group > *
+    cursor: pointer
 
-    &__item
-      border-width: 3px
-      border-style: solid
-      border-color: transparent !important
+  &__item
+    border-width: 3px
+    border-style: solid
+    border-color: transparent !important
 
-      &--active
-        border-color: #00cae3 !important
+    &--active
+      border-color: #00cae3 !important
 </style>

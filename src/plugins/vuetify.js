@@ -15,7 +15,7 @@ const theme = {
   grenndark: '#147E48',
   four: '#97A575',
   five: '#CCD8F3',
-  gray: '#4B524A'
+  gray: '#4B524A',
 }
 
 export default new Vuetify({

@@ -62,14 +62,14 @@
         min-width="100"
         @click="$emit('click:next')"
       >
-        {{ internalValue === items.length - 1 ? 'Finish' : 'Next' }}
+        {{ internalValue === items.length - 1 ? "Finish" : "Next" }}
       </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
-  // Mixins
+// Mixins
   import Proxyable from 'vuetify/lib/mixins/proxyable'
 
   export default {
@@ -80,31 +80,31 @@
     props: {
       availableSteps: {
         type: Array,
-        default: () => ([]),
+        default: () => [],
       },
       items: {
         type: Array,
-        default: () => ([]),
+        default: () => [],
       },
     },
   }
 </script>
 
 <style lang="sass">
-  .v-card--wizard
+.v-card--wizard
+  overflow: visible
+
+  .v-tabs-bar
+    height: 56px
+    padding: 0 8px
+
+  .v-tabs-slider-wrapper
     overflow: visible
 
-    .v-tabs-bar
-      height: 56px
-      padding: 0 8px
+  .v-tabs-slider
+    border-radius: 4px
 
-    .v-tabs-slider-wrapper
-      overflow: visible
-
-    .v-tabs-slider
-      border-radius: 4px
-
-    .v-tabs-slider-wrapper
-      contain: initial
-      z-index: 0
+  .v-tabs-slider-wrapper
+    contain: initial
+    z-index: 0
 </style>

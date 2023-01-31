@@ -53,7 +53,7 @@
                       v-model="roleData.name"
                       class="purple-input"
                       :label="$t('roles.name')"
-                      :disabled="option===2?true:false"
+                      :disabled="option === 2 ? true : false"
                     />
                   </v-col>
 
@@ -65,7 +65,7 @@
                       v-model="roleData.status"
                       :label="$t('roles.status')"
                       class="purple-input"
-                      :disabled="option===2?true:false"
+                      :disabled="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col
@@ -79,7 +79,7 @@
                       :label="$t('roles.functions')"
                       multiple
                       :items="functions"
-                      :disabled="option===2?true:false"
+                      :disabled="option === 2 ? true : false"
                     >
                       <template v-slot:item="{ attrs, item, on }">
                         <v-list-item
@@ -110,7 +110,7 @@
                     class="text-right"
                   >
                     <v-btn
-                      v-if="option!==2"
+                      v-if="option !== 2"
                       color="success"
                       class="mr-0"
                     >

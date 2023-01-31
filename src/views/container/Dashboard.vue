@@ -16,9 +16,7 @@
               md="6"
               class="mt-10"
             >
-              <v-simple-table
-                class="ml-2"
-              >
+              <v-simple-table class="ml-2">
                 <tbody>
                   <tr
                     v-for="(sale, i) in sales"
@@ -32,7 +30,11 @@
                     </td>
                     <td v-text="sale.country" />
                     <td v-text="sale.salesInM" />
-                    <td v-text="((sale.salesInM / totalSales) * 100).toFixed(2) + '%'" />
+                    <td
+                      v-text="
+                        ((sale.salesInM / totalSales) * 100).toFixed(2) + '%'
+                      "
+                    />
                   </tr>
                 </tbody>
               </v-simple-table>
@@ -73,9 +75,7 @@
                   icon
                   v-on="on"
                 >
-                  <v-icon
-                    color="info"
-                  >
+                  <v-icon color="info">
                     mdi-refresh
                   </v-icon>
                 </v-btn>
@@ -115,7 +115,9 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">updated 10 minutes ago</span>
+            <span
+              class="caption grey--text font-weight-light"
+            >updated 10 minutes ago</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -140,9 +142,7 @@
                   icon
                   v-on="on"
                 >
-                  <v-icon
-                    color="info"
-                  >
+                  <v-icon color="info">
                     mdi-refresh
                   </v-icon>
                 </v-btn>
@@ -178,8 +178,7 @@
             >
               mdi-arrow-up
             </v-icon>
-            <span class="green--text">55%</span>&nbsp;
-            increase in today's sales
+            <span class="green--text">55%</span>&nbsp; increase in today's sales
           </p>
 
           <template v-slot:actions>
@@ -189,7 +188,9 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">updated 4 minutes ago</span>
+            <span
+              class="caption grey--text font-weight-light"
+            >updated 4 minutes ago</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -214,9 +215,7 @@
                   icon
                   v-on="on"
                 >
-                  <v-icon
-                    color="info"
-                  >
+                  <v-icon color="info">
                     mdi-refresh
                   </v-icon>
                 </v-btn>
@@ -256,7 +255,9 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">campaign sent 26 minutes ago</span>
+            <span
+              class="caption grey--text font-weight-light"
+            >campaign sent 26 minutes ago</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -322,9 +323,7 @@
         />
       </v-col>
 
-      <v-col
-        cols="12"
-      >
+      <v-col cols="12">
         <div
           class="font-weight-light mt-1"
           style="color:#3c4858; font-size: 25px"
@@ -407,8 +406,12 @@
             Cozy 5 Stars Apartment
           </v-card-title>
 
-          <v-card-text class="body-1 text-center mb-3 font-weight-light grey--text">
-            The place is close to Barceloneta Beach and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the life in Barcelona.
+          <v-card-text
+            class="body-1 text-center mb-3 font-weight-light grey--text"
+          >
+            The place is close to Barceloneta Beach and bus stop just 2 min by
+            walk and near to "Naviglio" where you can enjoy the life in
+            Barcelona.
           </v-card-text>
 
           <template v-slot:actions>
@@ -501,8 +504,12 @@
             Office Studio
           </v-card-title>
 
-          <v-card-text class="body-1 text-center mb-3 font-weight-light grey--text">
-            The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the night life in London, UK.
+          <v-card-text
+            class="body-1 text-center mb-3 font-weight-light grey--text"
+          >
+            The place is close to Metro Station and bus stop just 2 min by walk
+            and near to "Naviglio" where you can enjoy the night life in London,
+            UK.
           </v-card-text>
 
           <template v-slot:actions>
@@ -595,8 +602,12 @@
             Beautiful Castle
           </v-card-title>
 
-          <v-card-text class="body-1 text-center mb-3 font-weight-light grey--text">
-            The place is close to Metro Station and bus stop just 2 min by walk and near to "Naviglio" where you can enjoy the main night life in Milan.
+          <v-card-text
+            class="body-1 text-center mb-3 font-weight-light grey--text"
+          >
+            The place is close to Metro Station and bus stop just 2 min by walk
+            and near to "Naviglio" where you can enjoy the main night life in
+            Milan.
           </v-card-text>
 
           <template v-slot:actions>
@@ -635,9 +646,7 @@
         dailySalesChart: {
           data: {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-            series: [
-              [12, 17, 7, 17, 23, 18, 38],
-            ],
+            series: [[12, 17, 7, 17, 23, 18, 38]],
           },
           options: {
             lineSmooth: this.$chartist.Interpolation.cardinal({
@@ -656,9 +665,7 @@
         dataCompletedTasksChart: {
           data: {
             labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
-            series: [
-              [230, 750, 450, 300, 280, 240, 200, 190],
-            ],
+            series: [[230, 750, 450, 300, 280, 240, 200, 190]],
           },
           options: {
             lineSmooth: this.$chartist.Interpolation.cardinal({
@@ -676,11 +683,21 @@
         },
         emailsSubscriptionChart: {
           data: {
-            labels: ['Ja', 'Fe', 'Ma', 'Ap', 'Mai', 'Ju', 'Jul', 'Au', 'Se', 'Oc', 'No', 'De'],
-            series: [
-              [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-
+            labels: [
+              'Ja',
+              'Fe',
+              'Ma',
+              'Ap',
+              'Mai',
+              'Ju',
+              'Jul',
+              'Au',
+              'Se',
+              'Oc',
+              'No',
+              'De',
             ],
+            series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]],
           },
           options: {
             axisX: {
@@ -696,14 +713,17 @@
             },
           },
           responsiveOptions: [
-            ['screen and (max-width: 640px)', {
-              seriesBarDistance: 5,
-              axisX: {
-                labelInterpolationFnc: function (value) {
-                  return value[0]
+            [
+              'screen and (max-width: 640px)',
+              {
+                seriesBarDistance: 5,
+                axisX: {
+                  labelInterpolationFnc: function (value) {
+                    return value[0]
+                  },
                 },
               },
-            }],
+            ],
           ],
         },
         headers: [
