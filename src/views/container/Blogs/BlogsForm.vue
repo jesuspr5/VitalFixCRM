@@ -189,7 +189,7 @@
                       v-model="galery"
                       type="file"
                       accept="image/*"
-                      placeholder="Seleccione las imagenes"
+                      placeholder="Seleccione las imágenes"
                       multiple
                       prepend-icon="mdi-camera"
                       label="Galeria"
