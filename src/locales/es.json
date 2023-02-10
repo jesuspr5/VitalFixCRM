@@ -76,24 +76,24 @@
 },
 "blogs":{
   "head":"Blogs",
-    "title": "titulo",
-    "subtitle": "subtitulo",
-    "description": "descripcion",
-    "datePublication": "Fecha_de_publicacion",
+    "title": "Título",
+    "subtitle": "Subtítulo",
+    "description": "Descripción",
+    "datePublication": "Fecha_de_publicación",
     "idCatType": "idcat",
-    "Catalogs":"Catalogos",
+    "Catalogs":"Catálogos",
     "mainPhoto": "fotoprincipal",
     "bannerPhoto": "bannerfoto",
-    "reference": "referencia",
+    "reference": "Referencia",
     "create":"Crear Blog",
     "edit": "Editar Blog",
     "show": "Mostrar Blog"
 
  },
  "texts":{
-  "createtext": "Blog creado con exito",
+  "createtext": "Blog creado con éxito",
   "deletetext": " Blog eliminado ",
-  "updatetext": "Blog actualizado con exito"
+  "updatetext": "Blog actualizado con éxito"
 },
  "crud":{
   "create":"Crear",

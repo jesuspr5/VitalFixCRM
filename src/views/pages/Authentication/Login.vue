@@ -30,7 +30,7 @@
               <v-text-field
                 v-model="user.email"
                 color="secondary"
-                label="Correo Electronico"
+                label="Correo electrónico"
                 prepend-icon="mdi-email"
                 :rules="[rules.required, rules.emailRules]"
                 required
@@ -150,11 +150,11 @@
           switch (mess) {
             case 'Input string was not in a correct format.':
               this.dialog = true
-              this.message = 'El usuario no esta registrado'
+              this.message = 'El usuario no está registrado.'
               break
             case 'Contraseña inválida':
               this.dialog = true
-              this.message = 'La contraseña es invalida'
+              this.message = 'La contraseña es incorrecta.'
               break
             case '':
               localStorage.setItem('token', token)

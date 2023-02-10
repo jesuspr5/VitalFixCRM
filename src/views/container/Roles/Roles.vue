@@ -123,7 +123,7 @@
         },
         {
           sortable: false,
-          text: 'Actions',
+          text: 'Acciones',
           value: 'actions',
         },
       ],

@@ -85,7 +85,7 @@
           value: 'names',
         },
         {
-          text: 'apellidos',
+          text: 'Apellidos',
           value: 'lastNames',
         },
         {
@@ -98,7 +98,7 @@
         },
         {
           sortable: false,
-          text: 'Actions',
+          text: 'Acciones',
           value: 'actions',
         },
       ],

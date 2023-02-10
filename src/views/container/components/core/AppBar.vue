@@ -208,7 +208,7 @@
         // { title: 'Profile' },
         // { title: 'Settings' },
         // { divider: true },
-        { title: 'Cerrar Sesion' },
+        { title: 'Cerrar Sesión' },
       ],
     }),
 
