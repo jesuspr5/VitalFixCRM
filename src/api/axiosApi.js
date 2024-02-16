@@ -43,7 +43,7 @@ export const apiHttp = async (
   return serviceResponse
 }
 
-function buildErrorMessage (error) {
+function buildErrorMessage(error) {
   console.error(error.response)
   let errorResponse = {
     ok: 0,

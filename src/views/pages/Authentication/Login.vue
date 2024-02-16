@@ -32,21 +32,20 @@
                 color="secondary"
                 label="Correo electrónico"
                 prepend-icon="mdi-email"
-                :rules="[rules.required, rules.emailRules]"
-                required
+                
               />
 
               <v-text-field
                 v-model="user.password"
                 :append-icon="show1 ? 'mdi-eye' : ' mdi-eye-off'"
-                :rules="[rules.required, rules.min]"
+               
                 :type="show1 ? 'text' : 'password'"
                 name="input-10-1"
                 label="Contraseña"
                 prepend-icon="mdi-lock-outline"
                 hint="At least 8 characters"
                 counter
-                required
+              
                 @click:append="show1 = !show1"
               />
 
@@ -131,45 +130,46 @@
     }),
     methods: {
       async submit () {
-        if (this.$refs.form.validate()) {
-          let userToLogin = {
-            email: this.user.email,
-            password: this.user.password,
-            rememberMe: true,
-          }
-          // this.new = userToLogin;
-          console.log('usuario' + userToLogin)
-          console.log(userToLogin)
+        this.$router.push('/home/users/users')
+        // if (this.$refs.form.validate()) {
+        //   let userToLogin = {
+        //     email: this.user.email,
+        //     password: this.user.password,
+        //     rememberMe: true,
+        //   }
+        //   // this.new = userToLogin;
+        //   console.log('usuario' + userToLogin)
+        //   console.log(userToLogin)
 
-          let result
-          result = await loginUser(userToLogin)
-          console.log('token' + result)
-          console.log(result.message)
-          var mess = result.message
-          var token = result.data
-          switch (mess) {
-            case 'Input string was not in a correct format.':
-              this.dialog = true
-              this.message = 'El usuario no está registrado.'
-              break
-            case 'Contraseña inválida':
-              this.dialog = true
-              this.message = 'La contraseña es incorrecta.'
-              break
-            case '':
-              localStorage.setItem('token', token)
-              this.$router.push('/home/users/users')
-              break
-            default:
-              this.dialog = true
-              this.message = 'Hubo un error.!'
+        //   let result
+        //   result = await loginUser(userToLogin)
+        //   console.log('token' + result)
+        //   console.log(result.message)
+        //   var mess = result.message
+        //   var token = result.data
+        //   switch (mess) {
+        //     case 'Input string was not in a correct format.':
+        //       this.dialog = true
+        //       this.message = 'El usuario no está registrado.'
+        //       break
+        //     case 'Contraseña inválida':
+        //       this.dialog = true
+        //       this.message = 'La contraseña es incorrecta.'
+        //       break
+        //     case '':
+        //       localStorage.setItem('token', token)
+        //       this.$router.push('/home/users/users')
+        //       break
+        //     default:
+        //       this.dialog = true
+        //       this.message = 'Hubo un error.!'
 
-              break
-          }
-        } else {
-          this.dialog = true
-          this.message = 'Debe llenar todos los campos'
-        }
+        //       break
+        //   }
+        // } else {
+        //   this.dialog = true
+        //   this.message = 'Debe llenar todos los campos'
+        // }
       },
     },
   }

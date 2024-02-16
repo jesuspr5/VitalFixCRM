@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-function AuthorizationFunction (to, from, next) {
+function AuthorizationFunction(to, from, next) {
   let acction = false
   if (localStorage.getItem('token')) {
     // let menu = JSON.parse(localStorage.getItem("modulesAsig"));
@@ -59,91 +59,91 @@ export default new Router({
     {
       path: '/home',
       component: () => import('@/views/container/Index'),
-      beforeEnter: AuthorizationFunction,
+      // beforeEnter: AuthorizationFunction,
       children: [
         // Dashboard
         {
           name: 'Dashboard',
           path: 'dashboard',
-          beforeEnter: AuthorizationFunction,
+          // beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Dashboard'),
         },
         // Users
         {
           name: 'Users',
           path: 'users/users',
-          beforeEnter: AuthorizationFunction,
+          // beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Users/Users'),
         },
         {
           name: 'UsersFrom',
           path: 'users/form',
-          beforeEnter: AuthorizationFunction,
+          // beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Users/UsersFrom'),
         },
         // Roles
         {
           name: 'Roles',
           path: 'roles/roles',
-          beforeEnter: AuthorizationFunction,
+          //  beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Roles/Roles'),
         },
         {
           name: 'RolesFrom',
           path: 'roles/form',
-          beforeEnter: AuthorizationFunction,
+          //  beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Roles/RolesForm'),
         },
         // BLogs
         {
           name: 'Blogs',
           path: 'blogs/blogs',
-          beforeEnter: AuthorizationFunction,
+          //  beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Blogs/Blogs'),
         },
         {
           name: 'BlogsForm',
           path: 'blogs/form',
-          beforeEnter: AuthorizationFunction,
+          //  beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Blogs/BlogsForm'),
         },
         {
           name: 'Publications',
           path: 'publications/publications',
-          beforeEnter: AuthorizationFunction,
+          //  beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Publications/Publications'),
         },
         {
           name: 'PublicationsForm',
           path: 'publications/form',
-          beforeEnter: AuthorizationFunction,
+          //  beforeEnter: AuthorizationFunction,
           component: () =>
             import('@/views/container/Publications/PublicationsForm'),
         },
         {
           name: 'Investigation',
           path: 'investigation/investigation',
-          beforeEnter: AuthorizationFunction,
+          //  beforeEnter: AuthorizationFunction,
           component: () =>
             import('@/views/container/Investigation/Investigation'),
         },
         {
           name: 'InvestigationForm',
           path: 'investigation/form',
-          beforeEnter: AuthorizationFunction,
+          //  beforeEnter: AuthorizationFunction,
           component: () =>
             import('@/views/container/Investigation/InvestigationForm'),
         },
         {
           name: 'Contact',
           path: 'contact/contact',
-          beforeEnter: AuthorizationFunction,
+          //  beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Contact/Contact'),
         },
         {
           name: 'ContactForm',
           path: 'contact/form',
-          beforeEnter: AuthorizationFunction,
+          //   beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Contact/ContactForm'),
         },
 
