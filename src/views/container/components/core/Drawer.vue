@@ -80,7 +80,7 @@
 <script>
 // Utilities
   import { mapState } from 'vuex'
-  import logo from '../../../../assets/logoHumedal.png'
+  import logo from '../../../../assets/LogoVitalFix.png'
 
   export default {
     name: 'DashboardCoreDrawer',
