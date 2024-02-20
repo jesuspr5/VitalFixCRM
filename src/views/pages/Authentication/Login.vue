@@ -7,7 +7,7 @@
     <v-row justify="center">
       <v-slide-y-transition appear>
         <base-material-card
-          color="greenligth"
+          color="gray"
           light
           max-width="100%"
           width="400"
@@ -52,9 +52,9 @@
               <pages-btn
                 large
                 dark
-                color=""
+                color="white"
                 depressed
-                class="v-btn--text success--text"
+                class="v-btn--text success--text font-weight-bold"
                 style="text-transform: capitalize;"
                 @click="submit"
               >
