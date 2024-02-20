@@ -222,7 +222,7 @@
     }),
 
     computed: {
-      ...mapState(['barColor', 'barImage']),
+      ...mapState(['barColor', '']),
       drawer: {
         get () {
           return this.$store.state.drawer
