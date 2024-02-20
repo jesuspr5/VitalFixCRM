@@ -63,10 +63,24 @@ export default new Router({
       children: [
         //equips
         {
-          name: 'Equips',
-          path: 'equips/equips',
+          name: 'Inventory',
+          path: 'inventory/inventory',
           // beforeEnter: AuthorizationFunction,
-          component: () => import('@/views/container/Equips/Equips'),
+          component: () => import('@/views/container/Inventory/Inventory'),
+        },
+        //services
+        {
+          name: 'Services',
+          path: 'services/services',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Servicess/Services'),
+        },
+        //Orders
+        {
+          name: 'Orders',
+          path: 'orders/orders',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Orders/Orders'),
         },
         // Dashboard
         {

@@ -141,13 +141,13 @@
         //   ],
         // },
         {
-          group: '/home/equips',
-          icon: 'mdi-account-group', //se cambia este icono en los iconos del material de vue
-          title: 'Equipos',
+          group: '/home/Inventory',
+          icon: 'mdi-plus-network', //se cambia este icono en los iconos del material de vue
+          title: 'Inventario',
           children: [
             {
-              title: 'Equipos',
-              to: 'equips',
+              title: 'Inventario',
+              to: 'inventory',
             },
           ],
         },
@@ -184,14 +184,38 @@
         //     },
         //   ],
         // },
+        // {
+        //  group: '/home/investigation',
+        //  icon: 'mdi-feature-search-outline',
+        //  title: 'investigation.head',
+        //  children: [
+        //    {
+        //      title: 'investigation.head',
+        //      to: 'investigation',
+        //    },
+        //  ],
+        // },
+
         {
-          group: '/home/investigation',
-          icon: 'mdi-feature-search-outline',
-          title: 'investigation.head',
+          group: '/home/Services',
+          icon: 'mdi-truck-fast',
+          title: 'Servicios',
           children: [
             {
-              title: 'investigation.head',
-              to: 'investigation',
+              title: 'Servicios',
+              to: 'Services',
+            },
+          ],
+        },
+
+        {
+          group: '/home/Orders',
+          icon: 'mdi-format-page-break',
+          title: 'Ordenes',
+          children: [
+            {
+              title: 'Ordenes',
+              to: 'Orders',
             },
           ],
         },
