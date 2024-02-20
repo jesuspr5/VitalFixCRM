@@ -141,6 +141,17 @@
         //   ],
         // },
         {
+          group: '/home/equips',
+          icon: 'mdi-account-group', //se cambia este icono en los iconos del material de vue
+          title: 'Equipos',
+          children: [
+            {
+              title: 'Equipos',
+              to: 'equips',
+            },
+          ],
+        },
+        {
           group: '/home/users',
           icon: 'mdi-account-group',
           title: 'users.title',
@@ -151,28 +162,28 @@
             },
           ],
         },
-        {
-          group: '/home/blogs',
-          icon: 'mdi-post-outline',
-          title: 'blogs.head',
-          children: [
-            {
-              title: 'blogs.head',
-              to: 'blogs',
-            },
-          ],
-        },
-        {
-          group: '/home/publications',
-          icon: 'mdi-file-chart-outline',
-          title: 'publications.head',
-          children: [
-            {
-              title: 'publications.head',
-              to: 'publications',
-            },
-          ],
-        },
+        // {
+        //   group: '/home/blogs',
+        //   icon: 'mdi-post-outline',
+        //   title: 'blogs.head',
+        //   children: [
+        //     {
+        //       title: 'blogs.head',
+        //       to: 'blogs',
+        //     },
+        //   ],
+        // },
+        // {
+        //   group: '/home/publications',
+        //   icon: 'mdi-file-chart-outline',
+        //   title: 'publications.head',
+        //   children: [
+        //     {
+        //       title: 'publications.head',
+        //       to: 'publications',
+        //     },
+        //   ],
+        // },
         {
           group: '/home/investigation',
           icon: 'mdi-feature-search-outline',

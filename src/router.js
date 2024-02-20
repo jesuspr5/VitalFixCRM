@@ -61,6 +61,13 @@ export default new Router({
       component: () => import('@/views/container/Index'),
       // beforeEnter: AuthorizationFunction,
       children: [
+        //equips
+        {
+          name: 'Equips',
+          path: 'equips/equips',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Equips/Equips'),
+        },
         // Dashboard
         {
           name: 'Dashboard',
