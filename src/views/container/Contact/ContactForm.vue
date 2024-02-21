@@ -151,7 +151,7 @@
         this.option = this.$route.params.option
         if (this.option === 2) {
           this.contactData = this.$route.params.contactData
-          console.log('estos es lo qeu trae', this.$route.params.contactData)
+          console.log('estos es lo que trae', this.$route.params.contactData)
         }
       },
     },

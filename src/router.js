@@ -68,12 +68,24 @@ export default new Router({
           // beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Inventory/Inventory'),
         },
+        {
+          name: 'InventoryForm',
+          path: 'inventory/form',
+          //   beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Inventory/InventoryForm'),
+        },
         //services
         {
           name: 'Services',
           path: 'services/services',
           // beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Servicess/Services'),
+        },
+        {
+          name: 'ServicesForm',
+          path: 'services/form',
+          //   beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Servicess/ServicesForm'),
         },
         //Orders
         {

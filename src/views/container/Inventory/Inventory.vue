@@ -190,9 +190,9 @@
 
         {
          
-         names: 'Carlos',
+         names: 'Tuercas',
          quantity: 10,
-         description: 'hola',
+         description: 'Tuercas para los tornillos. ',
         
        },
         ],
@@ -201,14 +201,16 @@
   }),
   methods :{
      create (){
-      this.snackbar = true
-          this.message = 'agregar equipo al inventario'
-          setTimeout(() => {
-            this.snackbar = false
-          }, 1000)
-    }
+      this.$router.push({
+          name: 'InventoryForm',
+          params: {
+            option: 1, // option 1 to create
+          },
+        })
+    },
 
-  }
+  },
+  
   }
   </script>
   

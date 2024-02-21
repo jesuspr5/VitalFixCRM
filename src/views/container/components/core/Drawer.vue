@@ -163,15 +163,15 @@
           ],
         },
         // {
-        //   group: '/home/blogs',
-        //   icon: 'mdi-post-outline',
-        //   title: 'blogs.head',
-        //   children: [
-        //     {
-        //       title: 'blogs.head',
-        //       to: 'blogs',
-        //     },
-        //   ],
+        //  group: '/home/blogs',
+        //  icon: 'mdi-post-outline',
+        //  title: 'blogs.head',
+        //  children: [
+        //    {
+        //      title: 'blogs.head',
+        //      to: 'blogs',
+        //    },
+        //  ],
         // },
         // {
         //   group: '/home/publications',
@@ -185,15 +185,15 @@
         //   ],
         // },
         // {
-        //  group: '/home/investigation',
-        //  icon: 'mdi-feature-search-outline',
-        //  title: 'investigation.head',
-        //  children: [
-        //    {
-        //      title: 'investigation.head',
-        //      to: 'investigation',
-        //    },
-        //  ],
+        // group: '/home/investigation',
+        // icon: 'mdi-feature-search-outline',
+        // title: 'investigation.head',
+        // children: [
+        //   {
+        //    title: 'investigation.head',
+        //    to: 'investigation',
+        //  },
+        // ],
         // },
 
         {
