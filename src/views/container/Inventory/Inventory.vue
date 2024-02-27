@@ -11,7 +11,7 @@
       >
         <template v-slot:after-heading>
           <div class="display-2 font-weight-light">
-            {{ $t("Inventario") }}
+            {{ $t("inventory.head") }}
           </div>
         </template>
   
@@ -43,7 +43,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="show"
+            @click="show(item)"
           >
             <v-icon
               small
@@ -56,7 +56,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="edit"
+            @click="edit(item)"
           >
             <v-icon
               small
@@ -69,7 +69,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteequips"
+            @click="deleteequips(item)"
           >
             <v-icon
               small
@@ -109,7 +109,7 @@
           <v-card-title
             class="text-h5"
           >
-            Estas seguro que deseas eliminar este Blog?
+            Estas seguro que deseas eliminar este Equipo del inventario?
           </v-card-title>
           <v-card-actions>
             <v-spacer />
@@ -155,7 +155,7 @@
   <script>
   import i18n from '@/i18n'
   export default {
-  name : 'Inventory.vue',
+    name: 'DashboardDataTables',
   data: () => ({
     dialogDelete: false,
       snackbar: false,
@@ -167,16 +167,16 @@
         message: '',
         headers: [
           {
-            text: i18n.t('Nombre'),
-            value: 'names',
+            text: i18n.t('inventory.Name'),
+            value: 'name',
           },
   
           {
-            text: i18n.t('Cantidad'),
+            text: i18n.t('inventory.quantity'),
             value: 'quantity',
           },
           {
-            text: i18n.t('contact.description'),
+            text: i18n.t('inventory.description'),
             value: 'description',
           },
           {
@@ -190,9 +190,16 @@
 
         {
          
-         names: 'Carlos',
+         name: 'Carlos',
          quantity: 10,
          description: 'hola',
+        
+       },
+       {
+         
+         name: 'jesus',
+         quantity: 102,
+         description: 'what ups',
         
        },
         ],
@@ -201,13 +208,45 @@
   }),
   methods :{
      create (){
-      this.snackbar = true
-          this.message = 'agregar equipo al inventario'
-          setTimeout(() => {
-            this.snackbar = false
-          }, 1000)
-    }
+     
+      this.$router.push({
+          name: 'InventoryFrom',
+          params: {
+            option: 1, // option 1 to create
+          },
+        })
+    },
+    show (item) {
+        console.log(item)
+        this.$router.push({
+          name: 'InventoryFrom',
+          params: {
+            option: 2, // option 2 to show
+            invesData: item,
+          },
+        })
+      },
+      edit (item) {
+        console.log(item)
+        this.$router.push({
+          name: 'InventoryFrom',
+          params: {
+            option: 3, // option 3 to edit
+            invesData: item,
+          },
+        })
+      },
+      deleteequips (item) {
+        //hay que pasar un id
+        this.dialogDelete = true
+      },
+      closeDelete () {
+        this.dialogDelete = false
+      },
 
+      deleteItemConfirm () {
+        this.dialogDelete = false
+      },
   }
   }
   </script>

@@ -41,88 +41,97 @@
   "vforms": "Validation Forms",
   "widgets": "Widgets",
   "wizard": "Wizard",
-  "id":"ID",
+  "id": "ID",
   "alert": {
     "confirm": "Confirm this action",
     "errors": "Errors"
   },
-  "users":{
-     "title":"Usuarios",
-     "dni": "DNI",
-     "type":"User Type",
-     "create":"Create User",
-     "edit": "Edit User",
-     "show": "Show User",
-     "id":"ID User",
-     "username":"Username",
-     "name":"Nombre",
-     "lastname":"Apellido",
-     "fullname":"fullname",
-     "datebird":"Fecha_de_nacimiento",
-     "email":"Email",
-     "phone":"Teléfono",
-     "role":"Role",
-     "address":"address",
-    "pharmacist":"pharmacist",
-    "doctor":"Doctor"
+  "users": {
+    "title": "Usuarios",
+    "dni": "DNI",
+    "type": "User Type",
+    "create": "Create User",
+    "edit": "Edit User",
+    "show": "Show User",
+    "id": "ID User",
+    "username": "Username",
+    "name": "Nombre",
+    "lastname": "Apellido",
+    "fullname": "fullname",
+    "datebird": "Fecha_de_nacimiento",
+    "email": "Email",
+    "phone": "Teléfono",
+    "role": "Role",
+    "address": "address",
+    "pharmacist": "pharmacist",
+    "doctor": "Doctor"
   },
-  "roles":{
-    "create":"Create Role",
+  "roles": {
+    "create": "Create Role",
     "edit": "Edit Role",
     "show": "Show Role",
-    "title":"Roles",
-    "name":"Rol Name",
-    "status":"Status",
-    "functions":"Functions"
-  
- },
- "blogs":{
-  "head":"Blogs",
+    "title": "Roles",
+    "name": "Rol Name",
+    "status": "Status",
+    "functions": "Functions"
+  },
+  "blogs": {
+    "head": "Blogs",
     "title": "Título",
     "subtitle": "Subtítulo",
     "description": "Descripción",
     "datePublication": "Fecha_de_publicación",
     "idCatType": "idcat",
     "mainPhoto": "foto",
-    "Catalogs":"Catálogos",
+    "Catalogs": "Catálogos",
     "bannerPhoto": "bannerfoto",
     "reference": "Referencia",
-    "create":"Crear Blog",
+    "create": "Crear Blog",
     "edit": "Editar Blog",
     "show": "Mostrar Blog"
- },
- "texts":{
-  "createtext": "Blog creado con exito",
-  "deletetext": " Blog eliminado ",
-  "updatetext": "Blog actualizado con exito"
-},
- "publications":{
+  },
+  "inventory": {
+    "head": "Inventario",
+    "title": "Título",
+    "subtitle": "Subtítulo",
+    "Name": "Nombre",
+    "description": "Descripción",
+    "quantity": "cantidad",
+    "create": "Crear Inventario",
+    "edit": "Editar Inventario",
+    "show": "Mostrar Inventario"
+  },
+  "texts": {
+    "createtext": "Blog creado con exito",
+    "deletetext": " Blog eliminado ",
+    "updatetext": "Blog actualizado con exito"
+  },
+  "publications": {
     "head": "Publicaciones",
     "title": "Título",
     "description": "Descripción",
     "datePublication": "Fecha_de_publicación"
- },
- "investigation":{
+  },
+  "investigation": {
     "head": "Investigaciones",
     "title": "Título",
     "description": "Descripción",
     "datePublication": "Fecha_de_publicación"
- },
- 
- "contact":{
-  "head": "Contactos",
-  "title": "Título",
-  "description": "Descripción",
-  "datePublication": "Fecha_de_publicación",
-  "name": "Nombre",
-  "email": "Email",
-  "message": "Mensaje"
-},
-  "crud":{
-     "create":"Crear",
-     "edit":"Editar",
-     "delete":"Eliminar",
-     "show":"Ver"
+  },
+  "contact": {
+    "head": "Contactos",
+    "title": "Título",
+    "description": "Descripción",
+    "datePublication": "Fecha_de_publicación",
+    "name": "Nombre",
+    "email": "Email",
+    "message": "Mensaje"
+  },
+  "crud": {
+    "create": "Crear",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "show": "Ver"
   },
   "message": {
     "apiError401": "Incorrect credentials",
@@ -132,14 +141,14 @@
     "apiErrorUndefined": "General Application Error",
     "invalidKey": "Invalid key"
   },
-  "kitchens":{
-    "kitchen":"Kitchen",
-    "kitchens":"Kitchens",
-    "kitchen-edit":"Edit Kitchen",
-    "kitchen-show":"Kitchen"
+  "kitchens": {
+    "kitchen": "Kitchen",
+    "kitchens": "Kitchens",
+    "kitchen-edit": "Edit Kitchen",
+    "kitchen-show": "Kitchen"
   },
-  "vendors":{
-    "vendor":"Vendor",
-    "vendors":"Vendors"
+  "vendors": {
+    "vendor": "Vendor",
+    "vendors": "Vendors"
   }
 }

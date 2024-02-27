@@ -44,63 +44,71 @@
   "alert": {
     "confirm": "Confirma esta acción",
     "errors": "Error"
-
   },
-  "users":{
-    "title":"Usuarios",
+  "users": {
+    "title": "Usuarios",
     "dni": "DNI",
-    "type":"tipo de Usuario",
-    "create":"Crear Usuario",
+    "type": "tipo de Usuario",
+    "create": "Crear Usuario",
     "edit": "Editar Usuario",
-    "show": "Ver Usuario",    
-    "username":"Nombre de Usuario",
-     "name":"Nombre",
-     "id":"ID Usuario",
-     "lastname":"Segundo Nombre",
-     "fullname":"Nombre Completo",
-     "email":"Correo",
-     "phone":"teléfono",  
-     "role":"Rol" ,
-     "address":"dirección",
-    "pharmacist":"Farmaceuta",
-    "doctor":"Médico"
- },
- "roles":{
-  "create":"Crear Rol",
-  "edit": "Editar Rol",
-  "show": "Ver Rol",
-  "title":"Roles",
-  "name":"Rol Name",
-  "status":"Status",
-  "functions":"Funciones"
-},
-"blogs":{
-  "head":"Blogs",
+    "show": "Ver Usuario",
+    "username": "Nombre de Usuario",
+    "name": "Nombre",
+    "id": "ID Usuario",
+    "lastname": "Segundo Nombre",
+    "fullname": "Nombre Completo",
+    "email": "Correo",
+    "phone": "teléfono",
+    "role": "Rol",
+    "address": "dirección",
+    "pharmacist": "Farmaceuta",
+    "doctor": "Médico"
+  },
+  "roles": {
+    "create": "Crear Rol",
+    "edit": "Editar Rol",
+    "show": "Ver Rol",
+    "title": "Roles",
+    "name": "Rol Name",
+    "status": "Status",
+    "functions": "Funciones"
+  },
+  "blogs": {
+    "head": "Blogs",
     "title": "Título",
     "subtitle": "Subtítulo",
     "description": "Descripción",
     "datePublication": "Fecha_de_publicación",
     "idCatType": "idcat",
-    "Catalogs":"Catálogos",
+    "Catalogs": "Catálogos",
     "mainPhoto": "fotoprincipal",
     "bannerPhoto": "bannerfoto",
     "reference": "Referencia",
-    "create":"Crear Blog",
+    "create": "Crear Blog",
     "edit": "Editar Blog",
     "show": "Mostrar Blog"
-
- },
- "texts":{
-  "createtext": "Blog creado con éxito",
-  "deletetext": " Blog eliminado ",
-  "updatetext": "Blog actualizado con éxito"
-},
- "crud":{
-  "create":"Crear",
-  "edit":"Editar",
-  "delete":"Borrar",
-  "show":"Ver"
-},
+  },
+  "inventory": {
+    "head": "Inventario",
+    "title": "Título",
+    "Name": "Nombre",
+    "description": "Descripción",
+    "quantity": "cantidad",
+    "create": "Crear inventario",
+    "edit": "Editar inventario",
+    "show": "Mostrar inventario"
+  },
+  "texts": {
+    "createtext": "Blog creado con éxito",
+    "deletetext": " Blog eliminado ",
+    "updatetext": "Blog actualizado con éxito"
+  },
+  "crud": {
+    "create": "Crear",
+    "edit": "Editar",
+    "delete": "Borrar",
+    "show": "Ver"
+  },
   "message": {
     "apiError401": "Credenciales Incorrectas",
     "apiError404": "Servicio No disponible",
@@ -109,15 +117,14 @@
     "apiErrorUndefined": "Error general de la aplicación",
     "invalidKey": "Clave Invalida"
   },
-  "kitchens":{
-    "kitchen":"Cocina",
-    "kitchens":"Cocinas",
-    "kitchen-edit":"Editar Cocina",
-    "kitchen-show":"Cocina"
-
+  "kitchens": {
+    "kitchen": "Cocina",
+    "kitchens": "Cocinas",
+    "kitchen-edit": "Editar Cocina",
+    "kitchen-show": "Cocina"
   },
-  "vendors":{
-    "vendor":"Vendedor",
-    "vendors":"Vendedores"
+  "vendors": {
+    "vendor": "Vendedor",
+    "vendors": "Vendedores"
   }
 }

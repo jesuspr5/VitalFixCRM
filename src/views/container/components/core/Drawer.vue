@@ -95,7 +95,71 @@
     data: () => ({
       logo,
       items: [
-        // item-solos
+      
+        {
+          group: '/home',
+          icon: 'mdi-plus-network', //se cambia este icono en los iconos del material de vue
+          title: 'Operaciones',
+          children: [
+            {
+              title: 'Inventario',
+              to: 'inventory/inventory',
+            },
+            {
+              title: 'users.title',
+              to: 'users/users',
+            },
+          ],
+         
+          
+          
+        },
+        {
+          group: '/home',
+          icon: 'mdi-account-group',
+          title: 'PROMOCIONES',
+          children: [
+            {
+              title: 'users.title',
+              to: 'users',
+            },
+          ],
+        },
+        {
+          group: '/home',
+          icon: 'mdi-truck-fast',
+          title: 'Servicios',
+          children: [
+            {
+              title: 'Servicios',
+              to: 'Services',
+            },
+          ],
+        },
+        {
+          group: '/home',
+          icon: 'mdi-format-page-break',
+          title: 'Ordenes',
+          children: [
+            {
+              title: 'Ordenes',
+              to: 'Orders',
+            },
+          ],
+        },
+
+        {
+          group: '/home',
+          icon: 'mdi-message-badge-outline',
+          title: 'contactos',
+          children: [
+            {
+              title: 'contact.head',
+              to: 'contact',
+            },
+          ],
+        },
+       // item-solos
         // {
         //   icon: 'mdi-view-dashboard',
         //   title: 'dashboard',
@@ -140,120 +204,8 @@
         //     },
         //   ],
         // },
-        {
-          group: '/home/Inventory',
-          icon: 'mdi-plus-network', //se cambia este icono en los iconos del material de vue
-          title: 'Inventario',
-          children: [
-            {
-              title: 'Inventario',
-              to: 'inventory',
-            },
-          ],
-        },
-        {
-          group: '/home/users',
-          icon: 'mdi-account-group',
-          title: 'users.title',
-          children: [
-            {
-              title: 'users.title',
-              to: 'users',
-            },
-          ],
-        },
-        // {
-        //   group: '/home/blogs',
-        //   icon: 'mdi-post-outline',
-        //   title: 'blogs.head',
-        //   children: [
-        //     {
-        //       title: 'blogs.head',
-        //       to: 'blogs',
-        //     },
-        //   ],
-        // },
-        // {
-        //   group: '/home/publications',
-        //   icon: 'mdi-file-chart-outline',
-        //   title: 'publications.head',
-        //   children: [
-        //     {
-        //       title: 'publications.head',
-        //       to: 'publications',
-        //     },
-        //   ],
-        // },
-        // {
-        //  group: '/home/investigation',
-        //  icon: 'mdi-feature-search-outline',
-        //  title: 'investigation.head',
-        //  children: [
-        //    {
-        //      title: 'investigation.head',
-        //      to: 'investigation',
-        //    },
-        //  ],
-        // },
-
-        {
-          group: '/home/Services',
-          icon: 'mdi-truck-fast',
-          title: 'Servicios',
-          children: [
-            {
-              title: 'Servicios',
-              to: 'Services',
-            },
-          ],
-        },
-
-        {
-          group: '/home/Orders',
-          icon: 'mdi-format-page-break',
-          title: 'Ordenes',
-          children: [
-            {
-              title: 'Ordenes',
-              to: 'Orders',
-            },
-          ],
-        },
-
-        {
-          group: '/home/contact',
-          icon: 'mdi-message-badge-outline',
-          title: 'contact.head',
-          children: [
-            {
-              title: 'contact.head',
-              to: 'contact',
-            },
-          ],
-        },
-      // {
-      //   group: '/kitchens',
-      //   icon: 'mdi-coffee-maker',
-      //   title: 'kitchens.kitchens',
-      //   children: [
-      //     {
-      //       title: 'kitchens.kitchens',
-      //       to: 'kitchens',
-      //     },
-      //   ],
-      // },
-      // {
-      //   group: '/vendors',
-      //   icon: 'mdi-account-tie',
-      //   title: 'vendors.vendors',
-      //   children: [
-      //     {
-      //       title: 'vendors.vendors',
-      //       to: 'vendors',
-      //     },
-      //   ],
-      // },
       ],
+      
     }),
 
     computed: {
