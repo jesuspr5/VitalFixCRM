@@ -192,7 +192,7 @@
          
          name: 'Carlos',
          quantity: 10,
-         description: 'hola',
+         description: 'Tuercas para los tornillos. ',
         
        },
        {
