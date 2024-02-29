@@ -95,24 +95,30 @@
     data: () => ({
       logo,
       items: [
-      
+        {
+           icon: 'mdi-view-dashboard',
+           title: 'dashboard',
+           to: '/',
+        },
         {
           group: '/home',
           icon: 'mdi-plus-network', //se cambia este icono en los iconos del material de vue
           title: 'Operaciones',
           children: [
             {
-              title: 'Inventario',
-              to: 'inventory/inventory',
-            },
-            {
               title: 'users.title',
               to: 'users/users',
             },
+            {
+              title: 'Inventario',
+              to: 'inventory/inventory',
+            },
+            
+            {
+              title: 'Servicios',
+              to: 'Services/Services',
+            },
           ],
-         
-          
-          
         },
         {
           group: '/home',
@@ -125,17 +131,7 @@
             },
           ],
         },
-        {
-          group: '/home',
-          icon: 'mdi-truck-fast',
-          title: 'Servicios',
-          children: [
-            {
-              title: 'Servicios',
-              to: 'Services',
-            },
-          ],
-        },
+        
         {
           group: '/home',
           icon: 'mdi-format-page-break',
@@ -159,12 +155,8 @@
             },
           ],
         },
-       // item-solos
-        // {
-        //   icon: 'mdi-view-dashboard',
-        //   title: 'dashboard',
-        //   to: '/',
-        // },
+        //item-solos
+        
         // item-con-grupo,se-le-coloca-children
         // {
         //   group: '/pages',

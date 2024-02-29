@@ -101,6 +101,20 @@
     "edit": "Editar Inventario",
     "show": "Mostrar Inventario"
   },
+  "services": {
+    "head": "Servicios",
+    "title": "Nombre",
+    "description": "Descripción",
+    "datePublication": "Fecha_de_publicación",
+    "idCatType": "Tipo",
+    "mainPhoto": "foto",
+    "Catalogs": "Catálogos",
+    "bannerPhoto": "bannerfoto",
+    "reference": "Referencia",
+    "create": "Crear Servicio",
+    "edit": "Editar Servicio",
+    "show": "Mostrar Servicio"
+  },
   "texts": {
     "createtext": "Blog creado con exito",
     "deletetext": " Blog eliminado ",

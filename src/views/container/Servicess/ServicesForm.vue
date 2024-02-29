@@ -58,9 +58,9 @@
                       sm="4"
                     >
                       <v-text-field
-                        v-model="blogData.title"
+                        v-model="servicesData.title"
                         class="purple-input"
-                        :label="$t('Nombre')"
+                        :label="$t('services.title')"
                         :readonly="option === 2 ? true : false"
                         :rules="[rules.required, rules.min]"
                       />
@@ -73,10 +73,10 @@
                       sm="4"
                     >
                       <v-select
-                        v-model="blogData.idCatType"
+                        v-model="servicesData.idCatType"
                         color="secondary"
                         item-color="secondary"
-                        :label="$t('Tipo')"
+                        :label="$t('services.idCatType')"
                         :items="selcatalog"
                         item-text="name"
                         item-value="id"
@@ -122,7 +122,7 @@
                         contain
                         max-height="150"
                         max-width="250"
-                        :src="blogData.mainPhoto"
+                        :src="servicesData.mainPhoto"
                       />
                     </v-col>
   
@@ -161,7 +161,7 @@
                         cover
                         max-height="150"
                         max-width="250"
-                        :src="blogData.bannerPhoto"
+                        :src="servicesData.bannerPhoto"
                       />
                     </v-col>
                     <v-col
@@ -217,8 +217,8 @@
                       sm="4"
                     >
                       <v-textarea
-                        v-model="blogData.description"
-                        :label="$t('blogs.description')"
+                        v-model="servicesData.description"
+                        :label="$t('services.description')"
                         class="purple-input"
                         :readonly="option === 2 ? true : false"
                         :rules="[rules.required, rules.minDesc]"
@@ -272,11 +272,11 @@
     import i18n from '@/i18n'
     import { catalogsGetList } from '../../../api/modules/catalogs'
     import {
-      createblog,
+      createservice,
       uploadimg,
       url,
-      updateblog,
-      blogsGet,
+      updateservice,
+      serviceGet,
     } from '../../../api/modules/blogs'
     import axios from 'axios'
     export default {
@@ -302,8 +302,8 @@
           min: v => v.length >= 5 || 'El Nombre debe tener un mínimo de 5 caracteres',
           minDesc: v => v.length >=20 || 'La descripción debe tener un mínimo de 20 caracteres',
         },
-        blogData: {
-          idBlogLanding: '',
+        servicesData: {
+          idServiceLanding: '',
           nombre: '',
           description: '',
           idCatType: '',
@@ -315,16 +315,16 @@
       }),
       computed: {
         getTitle () {
-          if (this.option === 1) return i18n.t('blogs.create')
-          else if (this.option === 2) return i18n.t('blogs.show')
-          else if (this.option === 3) return i18n.t('blogs.edit')
-          else return i18n.t('blogs.head')
+          if (this.option === 1) return i18n.t('services.create')
+          else if (this.option === 2) return i18n.t('services.show')
+          else if (this.option === 3) return i18n.t('services.edit')
+          else return i18n.t('services.head')
         },
         getTitleButton () {
           if (this.option === 1) return i18n.t('crud.create')
           else if (this.option === 2) return i18n.t('crud.show')
           else if (this.option === 3) return i18n.t('crud.edit')
-          else return i18n.t('blogs.head')
+          else return i18n.t('services.head')
         },
       },
       mounted () {
@@ -341,11 +341,11 @@
         async initialize () {
           this.option = this.$route.params.option
           if (this.option === 3 || this.option === 2) {
-            var id = this.$route.params.blogData.idBlogLanding
+            var id = this.$route.params.servicesData.idServiceLanding
             this.id = id
-            this.blogData = await blogsGet(1, 100, id)
+            this.servicesData = await serviceGet(1, 100, id)
   
-            this.photos = this.blogData.listPhotosGalery.items
+            this.photos = this.servicesData.listPhotosGalery.items
             console.log('phots', this.photos)
           }
         },
@@ -361,23 +361,23 @@
                 this.fileb != null &&
                 this.galery.length != 0
               ) {
-                let blog = {
-                  title: this.blogData.title,
-                  description: this.blogData.description,
+                let service = {
+                  title: this.servicesData.title,
+                  description: this.servicesData.description,
                   datePublication: new Date().toISOString(),
-                  idCatType: this.blogData.idCatType,
-                  mainPhoto: this.blogData.mainPhoto,
-                  bannerPhoto: this.blogData.bannerPhoto,
+                  idCatType: this.servicesData.idCatType,
+                  mainPhoto: this.servicesData.mainPhoto,
+                  bannerPhoto: this.servicesData.bannerPhoto,
                   photosGalery: this.urlgalery,
                 }
-                console.log('blog', blog)
-                blog = await createblog(blog)
+                console.log('service', service)
+                service = await createservice(service)
   
-                if (blog != null) {
+                if (service != null) {
                   this.snackbar = true
                   this.message = 'Registro exitoso'
                   setTimeout(() => {
-                    this.$router.push({ name: 'Blogs' })
+                    this.$router.push({ name: 'services' })
                   }, 2000)
                 } else {
                   this.snackbar = true
@@ -388,7 +388,7 @@
                 }
               } else {
                 this.snackbar = true
-                this.message = 'Debe seleccionar las imagenes del blog'
+                this.message = 'Debe seleccionar las imagenes del servicio'
                 setTimeout(() => {
                   this.snackbar = false
                 }, 2000)
@@ -406,35 +406,35 @@
               // galeria
   
               if (this.galery.length > 0) {
-                this.blogData.listPhotosGalery = this.urlgalery
+                this.servicesData.listPhotosGalery = this.urlgalery
               } else {
                 let ar_empty = []
                 this.photos.map(item => {
                   ar_empty.push({ photo: item.photo })
                   return item
                 })
-                this.blogData.listPhotosGalery = ar_empty
+                this.servicesData.listPhotosGalery = ar_empty
               }
   
-              let blog = {
-                idBlogLanding: this.id,
-                title: this.blogData.title,
-                subTitle: this.blogData.subTitle,
-                description: this.blogData.description,
-                mainPhoto: this.blogData.mainPhoto,
-                bannerPhoto: this.blogData.bannerPhoto,
-                idCatType: this.blogData.idCatType,
-                reference: this.blogData.reference,
-                photosGalery: this.blogData.listPhotosGalery,
+              let service = {
+                idServiceLanding: this.id,
+                title: this.servicesData.title,
+                subTitle: this.servicesData.subTitle,
+                description: this.servicesData.description,
+                mainPhoto: this.servicesData.mainPhoto,
+                bannerPhoto: this.servicesData.bannerPhoto,
+                idCatType: this.servicesData.idCatType,
+                reference: this.servicesData.reference,
+                photosGalery: this.servicesData.listPhotosGalery,
               }
   
-              console.log('blog update', blog)
-              blog = await updateblog(blog)
-              if (blog != null) {
+              console.log('services update', service)
+              service = await updateservice(service)
+              if (service != null) {
                 this.snackbar = true
                 this.message = 'Actualizacion exitosa'
                 setTimeout(() => {
-                  this.$router.push({ name: 'Blogs' })
+                  this.$router.push({ name: 'services' })
                 }, 2000)
               } else {
                 this.snackbar = true
@@ -460,7 +460,7 @@
           //  console.log("archivos = "+ formData);
           let result
           result = await uploadimg(formData)
-          this.blogData.mainPhoto = result
+          this.servicesData.mainPhoto = result
         },
   
         async uploadb (event) {
@@ -470,7 +470,7 @@
           //  console.log("archivos = "+ formData);
           let result
           result = await uploadimg(formData)
-          this.blogData.bannerPhoto = result
+          this.servicesData.bannerPhoto = result
         },
   
         filechange () {
