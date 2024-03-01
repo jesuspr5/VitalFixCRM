@@ -130,7 +130,7 @@
     }),
     methods: {
       async submit () {
-        this.$router.push('/home/users/users')
+        this.$router.push('/home/Dashboard')
         // if (this.$refs.form.validate()) {
         //   let userToLogin = {
         //     email: this.user.email,

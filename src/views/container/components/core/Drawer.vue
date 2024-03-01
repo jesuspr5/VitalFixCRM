@@ -96,12 +96,13 @@
       logo,
       items: [
         {
+          group: '/home',
           icon: 'mdi-view-dashboard',
           title: 'Dashboard',
           children: [
             {
               title: 'Dashboard',
-              to: 'dashboard',
+              to: 'Dashboard',
             },
           ],
         },
