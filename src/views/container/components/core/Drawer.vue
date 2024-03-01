@@ -96,9 +96,14 @@
       logo,
       items: [
         {
-           icon: 'mdi-view-dashboard',
-           title: 'dashboard',
-           to: '/',
+          icon: 'mdi-view-dashboard',
+          title: 'Dashboard',
+          children: [
+            {
+              title: 'Dashboard',
+              to: 'dashboard',
+            },
+          ],
         },
         {
           group: '/home',
@@ -120,18 +125,7 @@
             },
           ],
         },
-        {
-          group: '/home',
-          icon: 'mdi-account-group',
-          title: 'PROMOCIONES',
-          children: [
-            {
-              title: 'users.title',
-              to: 'users',
-            },
-          ],
-        },
-        
+
         {
           group: '/home',
           icon: 'mdi-format-page-break',
@@ -139,10 +133,23 @@
           children: [
             {
               title: 'Ordenes',
-              to: 'Orders',
+              to: 'Orders/Orders',
             },
           ],
         },
+
+        {
+          group: '/home',
+          icon: 'mdi-account-group',
+          title: 'PROMOCIONES',
+          children: [
+            {
+              
+            },
+          ],
+        },
+        
+        
 
         {
           group: '/home',
@@ -151,7 +158,7 @@
           children: [
             {
               title: 'contact.head',
-              to: 'contact',
+              to: 'contact/contact',
             },
           ],
         },
