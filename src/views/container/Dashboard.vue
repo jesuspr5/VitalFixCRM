@@ -5,7 +5,7 @@
     tag="section"
   >
     <v-row>
-      <v-col cols="12">
+      <!-- <v-col cols="12">
         <base-material-card
           icon="mdi-earth"
           :title="$t('alert.confirm')"
@@ -52,7 +52,7 @@
             </v-col>
           </v-row>
         </base-material-card>
-      </v-col>
+      </v-col> -->
 
       <v-col
         cols="12"
