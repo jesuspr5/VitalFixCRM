@@ -414,7 +414,7 @@
             Barcelona.
           </v-card-text>
 
-          <template v-slot:actions>
+          <!-- <template v-slot:actions>
             <div class="display-2 font-weight-light grey--text">
               $899/night
             </div>
@@ -426,7 +426,7 @@
 
               Barcelona, Spain
             </span>
-          </template>
+          </template> -->
         </base-material-card>
       </v-col>
 
@@ -512,7 +512,7 @@
             UK.
           </v-card-text>
 
-          <template v-slot:actions>
+          <!-- <template v-slot:actions>
             <div class="display-2 font-weight-light grey--text">
               $1.119/night
             </div>
@@ -524,7 +524,7 @@
 
               London, UK
             </span>
-          </template>
+          </template> -->
         </base-material-card>
       </v-col>
 
@@ -610,7 +610,7 @@
             Milan.
           </v-card-text>
 
-          <template v-slot:actions>
+          <!-- <template v-slot:actions>
             <div class="display-2 font-weight-light grey--text">
               $459/night
             </div>
@@ -622,7 +622,7 @@
 
               Milan, Italy
             </span>
-          </template>
+          </template> -->
         </base-material-card>
       </v-col>
     </v-row>
@@ -630,7 +630,7 @@
 </template>
 
 <script>
-import Equip1 from '../../assets/Equips/equip4.jpg'
+import Equip1 from '../../assets/Equips/equip6.jpg'
 import Equip2 from '../../assets/Equips/equip2.jpg'
 import Equip4 from '../../assets/Equips/Equip3.jpg'
   export default {
