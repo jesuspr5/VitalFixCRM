@@ -101,6 +101,17 @@
     "edit": "Editar Inventario",
     "show": "Mostrar Inventario"
   },
+  "Promotion": {
+    "head": "Promociones",
+    "title": "Título",
+    "subtitle": "Subtítulo",
+    "Name": "Nombre",
+    "description": "Descripción",
+    "quantity": "cantidad",
+    "create": "Crear Promocion",
+    "edit": "Editar Promocion",
+    "show": "Mostrar Promocion"
+  },
   "services": {
     "head": "Servicios",
     "title": "Nombre",

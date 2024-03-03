@@ -161,10 +161,6 @@
       snackbar: false,
       message: '',
     hidden: false,
-        idblog: '',
-        dialogDelete: false,
-        snackbar: false,
-        message: '',
         headers: [
           {
             text: i18n.t('inventory.Name'),
