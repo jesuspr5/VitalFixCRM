@@ -101,11 +101,11 @@
           </template>
 
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            Website Views
+           Vistas
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Last Campaign Performance
+           Ultimas visitas a la web
           </p>
 
           <template v-slot:actions>
@@ -117,7 +117,7 @@
             </v-icon>
             <span
               class="caption grey--text font-weight-light"
-            >updated 10 minutes ago</span>
+            >actualizado hace 6 minutos</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -168,7 +168,7 @@
           </template>
 
           <h4 class="card-title font-weight-light mt-2 ml-2">
-            Daily Sales
+            Servicios
           </h4>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
@@ -178,7 +178,7 @@
             >
               mdi-arrow-up
             </v-icon>
-            <span class="green--text">55%</span>&nbsp; increase in today's sales
+            <span class="green--text">55%</span>&nbsp; Subieron
           </p>
 
           <template v-slot:actions>
@@ -190,7 +190,7 @@
             </v-icon>
             <span
               class="caption grey--text font-weight-light"
-            >updated 4 minutes ago</span>
+            >actualizado hace 4 minutos</span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -241,11 +241,11 @@
           </template>
 
           <h3 class="card-title font-weight-light mt-2 ml-2">
-            Completed Tasks
+            Promociones
           </h3>
 
           <p class="d-inline-flex font-weight-light ml-2 mt-1">
-            Last Last Campaign Performance
+           Promociones agregadas
           </p>
 
           <template v-slot:actions>
@@ -257,7 +257,7 @@
             </v-icon>
             <span
               class="caption grey--text font-weight-light"
-            >campaign sent 26 minutes ago</span>
+            >actualizado hacer 8 minutos </span>
           </template>
         </base-material-chart-card>
       </v-col>
@@ -268,12 +268,12 @@
         lg="3"
       >
         <base-material-stats-card
-          color="info"
-          icon="mdi-twitter"
-          title="Followers"
-          value="+245"
+          color="success"
+          icon="mdi-whatsapp"
+          title="usuarios"
+          value="+3"
           sub-icon="mdi-clock"
-          sub-text="Just Updated"
+          sub-text="Actualizado"
         />
       </v-col>
 
@@ -285,10 +285,10 @@
         <base-material-stats-card
           color="primary"
           icon="mdi-poll"
-          title="Website Visits"
-          value="75.521"
+          title="Visitas a la Web"
+          value="75"
           sub-icon="mdi-tag"
-          sub-text="Tracked from Google Analytics"
+          sub-text=" Google Analytics"
         />
       </v-col>
 
@@ -300,10 +300,10 @@
         <base-material-stats-card
           color="success"
           icon="mdi-store"
-          title="Revenue"
-          value="$ 34,245"
+          title="Ordenes"
+          value="40"
           sub-icon="mdi-calendar"
-          sub-text="Last 24 Hours"
+          sub-text="febrero"
         />
       </v-col>
 
@@ -315,11 +315,11 @@
         <base-material-stats-card
           color="orange"
           icon="mdi-sofa"
-          title="Bookings"
-          value="184"
+          title="Sugerencias"
+          value="6"
           sub-icon="mdi-alert"
-          sub-icon-color="red"
-          sub-text="Get More Space..."
+          sub-icon-color="blue"
+          sub-text="Revisar"
         />
       </v-col>
 
@@ -328,7 +328,7 @@
           class="font-weight-light mt-1"
           style="color:#3c4858; font-size: 25px"
         >
-          Manage Listings
+         Servicios 
         </div>
       </v-col>
 
@@ -343,11 +343,11 @@
         >
           <template v-slot:image>
             <v-img
-              src="https://demos.creative-tim.com/vue-material-dashboard-pro/img/card-2.jpg"
+            :src="Equip4"
             />
           </template>
 
-          <template v-slot:reveal-actions>
+          <!-- <template v-slot:reveal-actions>
             <v-tooltip bottom>
               <template v-slot:activator="{ attrs, on }">
                 <v-btn
@@ -400,7 +400,7 @@
 
               <span>Remove</span>
             </v-tooltip>
-          </template>
+          </template> -->
 
           <v-card-title class="justify-center font-weight-light">
             Cozy 5 Stars Apartment
@@ -441,11 +441,11 @@
         >
           <template v-slot:image>
             <v-img
-              src="https://demos.creative-tim.com/vue-material-dashboard-pro/img/card-3.jpg"
+            :src="Equip2"
             />
           </template>
 
-          <template v-slot:reveal-actions>
+          <!-- <template v-slot:reveal-actions>
             <v-tooltip bottom>
               <template v-slot:activator="{ attrs, on }">
                 <v-btn
@@ -498,7 +498,7 @@
 
               <span>Remove</span>
             </v-tooltip>
-          </template>
+          </template> -->
 
           <v-card-title class="justify-center font-weight-light">
             Office Studio
@@ -539,11 +539,11 @@
         >
           <template v-slot:image>
             <v-img
-              src="https://demos.creative-tim.com/vue-material-dashboard-pro/img/card-1.jpg"
+              :src="Equip1"
             />
           </template>
 
-          <template v-slot:reveal-actions>
+          <!-- <template v-slot:reveal-actions>
             <v-tooltip bottom>
               <template v-slot:activator="{ attrs, on }">
                 <v-btn
@@ -596,7 +596,7 @@
 
               <span>Remove</span>
             </v-tooltip>
-          </template>
+          </template> -->
 
           <v-card-title class="justify-center font-weight-light">
             Beautiful Castle
@@ -630,11 +630,18 @@
 </template>
 
 <script>
+import Equip1 from '../../assets/Equips/equip4.jpg'
+import Equip2 from '../../assets/Equips/equip2.jpg'
+import Equip4 from '../../assets/Equips/Equip3.jpg'
   export default {
     name: 'DashboardDashboard',
 
     data () {
+      
       return {
+        Equip1 : Equip1,
+        Equip2 : Equip2,
+        Equip4 : Equip4,
         countryData: {
           US: 2920,
           DE: 1390,
