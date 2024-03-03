@@ -43,7 +43,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="show"
+            @click="show(item)"
           >
             <v-icon
               small
@@ -56,7 +56,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="edit"
+            @click="edit(item)"
           >
             <v-icon
               small
@@ -69,7 +69,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteequips"
+            @click="deleteequips(item)"
           >
             <v-icon
               small
@@ -153,81 +153,106 @@
   </template>
   
   <script>
- import i18n from '@/i18n'
+  import i18n from '@/i18n'
   export default {
-  name : 'Services.vue',
-  data: () => ({
-    dialogDelete: false,
+    name : 'DashboardDataTables',
+    data: () => ({
+      dialogDelete: false,
       snackbar: false,
       message: '',
-    hidden: false,
-        idblog: '',
-        dialogDelete: false,
-        snackbar: false,
-        message: '',
-        headers: [
-          {
-            text: i18n.t('Nombre'),
-            value: 'names',
-          },
-  
-          {
-            text: i18n.t('Tipo'),
-            value: 'type',
-          },
-          {
-            text: i18n.t('contact.description'),
-            value: 'description',
-          },
-          {
-            sortable: false,
-            text: 'Acciones',
-            value: 'actions',
-          },
-        ],
-        items: [
-// agrega aqui json para llenar las tablas
+      hidden: false,
+      headers: [
+        {
+          text: i18n.t('services.title'),
+          value: 'names',
+        },
+    
+        {
+          text: i18n.t('services.idCatType'),
+          value: 'type',
+        },
+        {
+          text: i18n.t('services.description'),
+          value: 'description',
+        },
+        {
+          sortable: false,
+          text: 'Acciones',
+          value: 'actions',
+        },
+      ],
+      items: [
+  // agrega aqui json para llenar las tablas
 
         {
-         
-         names: 'Odontologia',
-         type: 'Mantenimiento',
-         description: 'Mantenimiento para equipos medicos utilizados en odontologia.',
-        
-       },
+          
+          names: 'Odontologia',
+          type: 'Mantenimiento',
+          description: 'Mantenimiento para equipos medicos utilizados en odontologia.',
+          
+        },
 
-       {
-         
-         names: 'Radiologia',
-         type: 'Reparación',
-         description: 'Reparacion de equipos medicos utilizados en radiologia.',
-        
-       },
+        {
+          
+          names: 'Radiologia',
+          type: 'Reparación',
+          description: 'Reparacion de equipos medicos utilizados en radiologia.',
+          
+        },
 
-       {
-         
-         names: 'Cardiologia',
-         type: 'Mantenimiento',
-         description: 'Mantenimiento para equipos medicos utilizados en cardiologia.',
-        
-       },
-        ],
-        search: undefined,
-  
-  }),
-  methods :{
-     create (){
-      this.$router.push({
-          name: 'ServicesForm',
-          params: {
-            option: 1, // option 1 to create
-          },
-        })
-    }
-
+        {
+          
+          names: 'Cardiologia',
+          type: 'Mantenimiento',
+          description: 'Mantenimiento para equipos medicos utilizados en cardiologia.',
+          
+        },
+      ],
+      search: undefined,
     
+    }),
+    methods :
+      {
+        create () {
+          this.$router.push({
+            name: 'ServicesForm',
+            params: {
+              option: 1, // option 1 to create
+            },
+          })
+        },
+        show (item) {
+          this.$router.push({
+            name: 'ServicesForm',
+            params: {
+              option: 2, // option 2 to show
+              servicesData: item,
+            },
+          })
+        },
+        edit (item) {
+          this.$router.push({
+            name: 'ServicesForm',
+            params: {
+              option: 3, // option 3 to edit
+              servicesData: item,
+            },
+          })
+        },
+        deleteequips (item) {
+          //hay que pasar un id
+          this.dialogDelete = true
+        },
+        closeDelete () {
+          this.dialogDelete = false
+        },
 
-  }
+        deleteItemConfirm () {
+          this.dialogDelete = false
+        },
+      
+
+    }
   }
   </script>
   

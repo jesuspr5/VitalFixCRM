@@ -163,7 +163,7 @@
   <script>
   import i18n from '@/i18n'
   export default {
-  name : 'Inventory.vue',
+  name : 'DashboardDataTables',
   data: () => ({
     dialogDelete: false,
       snackbar: false,
@@ -238,6 +238,37 @@
           },
         })
     },
+    show (item) {
+        console.log(item)
+        this.$router.push({
+          name: 'UsersFrom',
+          params: {
+            option: 2, // option 2 to show
+            invesData: item,
+          },
+        })
+      },
+      edit (item) {
+        console.log(item)
+        this.$router.push({
+          name: 'UsersFrom',
+          params: {
+            option: 3, // option 3 to edit
+            invesData: item,
+          },
+        })
+      },
+      deleteequips (item) {
+        //hay que pasar un id
+        this.dialogDelete = true
+      },
+      closeDelete () {
+        this.dialogDelete = false
+      },
+
+      deleteItemConfirm () {
+        this.dialogDelete = false
+      },
 
   },
   

@@ -246,253 +246,253 @@
         </base-material-card>
       </v-row>
   
-      <div class="text-center">
-        <v-snackbar
-          v-model="snackbar"
-          color="#75B768"
-        >
-          {{ message }}
+    <div class="text-center">
+      <v-snackbar
+        v-model="snackbar"
+        color="#75B768"
+      >
+        {{ message }}
   
-          <template v-slot:action="{ attrs }">
-            <v-btn
-              color="white"
-              text
-              v-bind="attrs"
-              @click="snackbar = false"
-            >
-              Close
-            </v-btn>
-          </template>
-        </v-snackbar>
-      </div>
-    </v-container>
-  </template>
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            color="white"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+          >
+            Close
+          </v-btn>
+        </template>
+      </v-snackbar>
+    </div>
+  </v-container>
+</template>
   
   <script>
-    import i18n from '@/i18n'
-    import { catalogsGetList } from '../../../api/modules/catalogs'
-    import {
-      createservice,
-      uploadimg,
-      url,
-      updateservice,
-      serviceGet,
-    } from '../../../api/modules/blogs'
-    import axios from 'axios'
-    export default {
-      data: () => ({
-        tabs: 0,
-        option: 0,
-        snackbar: false,
-        message: '',
+  import i18n from '@/i18n'
+  import { catalogsGetList } from '../../../api/modules/catalogs'
+  import {
+    createservice,
+    uploadimg,
+    url,
+    updateservice,
+    serviceGet,
+  } from '../../../api/modules/blogs'
+  import axios from 'axios'
+  export default {
+    data: () => ({
+      tabs: 0,
+      option: 0,
+      snackbar: false,
+      message: '',
+      title: '',
+      filep: null,
+      fileb: null,
+      galery: [],
+      valid: true,
+      id: 0,
+      urlgalery: [],
+      photos: [],
+      rules: {
+        sise: value =>
+          !value ||
+          value.size < 2000000 ||
+          'Avatar size should be less than 2 MB!',
+        required: value => !!value || 'Debe ingresar Texto.',
+        min: v => v.length >= 5 || 'El Nombre debe tener un mínimo de 5 caracteres',
+        minDesc: v => v.length >=20 || 'La descripción debe tener un mínimo de 20 caracteres',
+      },
+      servicesData: {
+        idServiceLanding: '',
         title: '',
-        filep: null,
-        fileb: null,
-        galery: [],
-        valid: true,
-        id: 0,
-        urlgalery: [],
-        photos: [],
-        rules: {
-          sise: value =>
-            !value ||
-            value.size < 2000000 ||
-            'Avatar size should be less than 2 MB!',
-          required: value => !!value || 'Debe ingresar Texto.',
-          min: v => v.length >= 5 || 'El Nombre debe tener un mínimo de 5 caracteres',
-          minDesc: v => v.length >=20 || 'La descripción debe tener un mínimo de 20 caracteres',
-        },
-        servicesData: {
-          idServiceLanding: '',
-          nombre: '',
-          description: '',
-          idCatType: '',
-          mainPhoto: '',
-          bannerPhoto: '',
-          listPhotosGalery: [],
-        },
-        selcatalog: [],
-      }),
-      computed: {
-        getTitle () {
-          if (this.option === 1) return i18n.t('services.create')
-          else if (this.option === 2) return i18n.t('services.show')
-          else if (this.option === 3) return i18n.t('services.edit')
-          else return i18n.t('services.head')
-        },
-        getTitleButton () {
-          if (this.option === 1) return i18n.t('crud.create')
-          else if (this.option === 2) return i18n.t('crud.show')
-          else if (this.option === 3) return i18n.t('crud.edit')
-          else return i18n.t('services.head')
-        },
+        description: '',
+        idCatType: '',
+        mainPhoto: '',
+        bannerPhoto: '',
+        listPhotosGalery: [],
       },
-      mounted () {
-        this.cata()
-        this.initialize()
+      selcatalog: [],
+    }),
+    computed: {
+      getTitle () {
+        if (this.option === 1) return i18n.t('services.create')
+        else if (this.option === 2) return i18n.t('services.show')
+        else if (this.option === 3) return i18n.t('services.edit')
+        else return i18n.t('services.head')
       },
-      methods: {
-        cata: async function () {
-          let result
-          result = await catalogsGetList(1, 100)
-          this.selcatalog = result
-        },
-  
-        async initialize () {
-          this.option = this.$route.params.option
-          if (this.option === 3 || this.option === 2) {
-            var id = this.$route.params.servicesData.idServiceLanding
-            this.id = id
-            this.servicesData = await serviceGet(1, 100, id)
-  
-            this.photos = this.servicesData.listPhotosGalery.items
-            console.log('phots', this.photos)
-          }
-        },
-  
-        async submit () {
-          if (this.option === 1) {
-            if (this.$refs.form.validate()) {
-              console.log('filep', this.filep)
-              console.log('fileb', this.fileb)
-              console.log('galeria', this.galery.length)
-              if (
-                this.filep != null &&
-                this.fileb != null &&
-                this.galery.length != 0
-              ) {
-                let service = {
-                  title: this.servicesData.title,
-                  description: this.servicesData.description,
-                  datePublication: new Date().toISOString(),
-                  idCatType: this.servicesData.idCatType,
-                  mainPhoto: this.servicesData.mainPhoto,
-                  bannerPhoto: this.servicesData.bannerPhoto,
-                  photosGalery: this.urlgalery,
-                }
-                console.log('service', service)
-                service = await createservice(service)
-  
-                if (service != null) {
-                  this.snackbar = true
-                  this.message = 'Registro exitoso'
-                  setTimeout(() => {
-                    this.$router.push({ name: 'services' })
-                  }, 2000)
-                } else {
-                  this.snackbar = true
-                  this.message = 'Hubo un error durante el registro'
-                  setTimeout(() => {
-                    this.snackbar = false
-                  }, 1000)
-                }
-              } else {
-                this.snackbar = true
-                this.message = 'Debe seleccionar las imagenes del servicio'
-                setTimeout(() => {
-                  this.snackbar = false
-                }, 2000)
-              }
-            } else {
-              this.snackbar = true
-              this.message = 'Debe llenar todos los campos requeridos'
-              setTimeout(() => {
-                this.snackbar = false
-              }, 1000)
-            }
-          }
-          if (this.option === 3) {
-            if (this.$refs.form.validate()) {
-              // galeria
-  
-              if (this.galery.length > 0) {
-                this.servicesData.listPhotosGalery = this.urlgalery
-              } else {
-                let ar_empty = []
-                this.photos.map(item => {
-                  ar_empty.push({ photo: item.photo })
-                  return item
-                })
-                this.servicesData.listPhotosGalery = ar_empty
-              }
-  
+      getTitleButton () {
+        if (this.option === 1) return i18n.t('crud.create')
+        else if (this.option === 2) return i18n.t('crud.show')
+        else if (this.option === 3) return i18n.t('crud.edit')
+        else return i18n.t('services.head')
+      },
+    },
+    mounted () {
+      this.cata()
+      this.initialize()
+    },
+    methods: {
+      cata: async function () {
+        let result
+        result = await catalogsGetList(1, 100)
+        this.selcatalog = result
+      },
+    
+      async initialize () {
+        this.option = this.$route.params.option
+        if (this.option === 3 || this.option === 2) {
+          var id = this.$route.params.servicesData.idServiceLanding
+          this.id = id
+          this.servicesData = await serviceGet(1, 100, id)
+    
+          this.photos = this.servicesData.listPhotosGalery.items
+          console.log('phots', this.photos)
+        }
+      },
+    
+      async submit () {
+        if (this.option === 1) {
+          if (this.$refs.form.validate()) {
+            console.log('filep', this.filep)
+            console.log('fileb', this.fileb)
+            console.log('galeria', this.galery.length)
+            if (
+              this.filep != null &&
+              this.fileb != null &&
+              this.galery.length != 0
+            ) {
               let service = {
-                idServiceLanding: this.id,
                 title: this.servicesData.title,
-                subTitle: this.servicesData.subTitle,
                 description: this.servicesData.description,
+                datePublication: new Date().toISOString(),
+                idCatType: this.servicesData.idCatType,
                 mainPhoto: this.servicesData.mainPhoto,
                 bannerPhoto: this.servicesData.bannerPhoto,
-                idCatType: this.servicesData.idCatType,
-                reference: this.servicesData.reference,
-                photosGalery: this.servicesData.listPhotosGalery,
+                photosGalery: this.urlgalery,
               }
-  
-              console.log('services update', service)
-              service = await updateservice(service)
+              console.log('service', service)
+              service = await createservice(service)
+    
               if (service != null) {
                 this.snackbar = true
-                this.message = 'Actualizacion exitosa'
+                this.message = 'Registro exitoso'
                 setTimeout(() => {
                   this.$router.push({ name: 'services' })
                 }, 2000)
               } else {
                 this.snackbar = true
-                this.message = 'Hubo un error durante la actualizacion'
+                this.message = 'Hubo un error durante el registro'
                 setTimeout(() => {
                   this.snackbar = false
                 }, 1000)
               }
             } else {
               this.snackbar = true
-              this.message = 'Debe llenar todos los campos requeridos'
+              this.message = 'Debe seleccionar las imagenes del servicio'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 2000)
+            }
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        }
+        if (this.option === 3) {
+          if (this.$refs.form.validate()) {
+            // galeria
+    
+            if (this.galery.length > 0) {
+              this.servicesData.listPhotosGalery = this.urlgalery
+            } else {
+              let ar_empty = []
+              this.photos.map(item => {
+                ar_empty.push({ photo: item.photo })
+                return item
+              })
+              this.servicesData.listPhotosGalery = ar_empty
+            }
+    
+            let service = {
+              idServiceLanding: this.id,
+              title: this.servicesData.title,
+              subTitle: this.servicesData.subTitle,
+              description: this.servicesData.description,
+              mainPhoto: this.servicesData.mainPhoto,
+              bannerPhoto: this.servicesData.bannerPhoto,
+              idCatType: this.servicesData.idCatType,
+              reference: this.servicesData.reference,
+              photosGalery: this.servicesData.listPhotosGalery,
+            }
+    
+            console.log('services update', service)
+            service = await updateservice(service)
+            if (service != null) {
+              this.snackbar = true
+              this.message = 'Actualizacion exitosa'
+              setTimeout(() => {
+                this.$router.push({ name: 'services' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante la actualizacion'
               setTimeout(() => {
                 this.snackbar = false
               }, 1000)
             }
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
           }
-        },
+        }
+      },
+    
+      async upload (event) {
+        console.log(event)
+        const formData = new FormData()
+        formData.append('file', event)
+        //  console.log("archivos = "+ formData);
+        let result
+        result = await uploadimg(formData)
+        this.servicesData.mainPhoto = result
+      },
+    
+      async uploadb (event) {
+        console.log(event)
+        const formData = new FormData()
+        formData.append('file', event)
+        //  console.log("archivos = "+ formData);
+        let result
+        result = await uploadimg(formData)
+        this.servicesData.bannerPhoto = result
+      },
+    
+      filechange () {
+        console.log('galeria:', this.galery)
   
-        async upload (event) {
-          console.log(event)
-          const formData = new FormData()
-          formData.append('file', event)
-          //  console.log("archivos = "+ formData);
-          let result
-          result = await uploadimg(formData)
-          this.servicesData.mainPhoto = result
-        },
-  
-        async uploadb (event) {
-          console.log(event)
-          const formData = new FormData()
-          formData.append('file', event)
-          //  console.log("archivos = "+ formData);
-          let result
-          result = await uploadimg(formData)
-          this.servicesData.bannerPhoto = result
-        },
-  
-        filechange () {
-          console.log('galeria:', this.galery)
-  
-          this.galery.map(item => {
-            var formData = new FormData()
-            formData.append('file', item)
-  
-            axios
-              .post(url(), formData)
-              .then(data => {
-                this.urlgalery.push({
-                  photo: data.data.data,
-                })
+        this.galery.map(item => {
+          var formData = new FormData()
+          formData.append('file', item)
+    
+          axios
+            .post(url(), formData)
+            .then(data => {
+              this.urlgalery.push({
+                photo: data.data.data,
               })
-              .catch(error => {
-                return error.response.data
-              })
-          })
-          console.log('evento galeria', this.urlgalery)
-        },
+            })
+            .catch(error => {
+              return error.response.data
+            })
+        })
+        console.log('evento galeria', this.urlgalery)
+      },
   
       //      formatoFecha(fecha, formato) {
       //     const map = {
@@ -503,8 +503,8 @@
   
       //     return formato.replace(/yyyy|mm|dd|/gi, matched => map[matched])
       // }
-      },
-    }
+    },
+  }
   </script>
   <style scoped>
   .rowfoto {

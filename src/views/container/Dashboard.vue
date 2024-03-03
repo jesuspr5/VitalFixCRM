@@ -328,7 +328,7 @@
           class="font-weight-light mt-1"
           style="color:#3c4858; font-size: 25px"
         >
-         Servicios 
+         Servicios mas populares 
         </div>
       </v-col>
 
@@ -403,15 +403,15 @@
           </template> -->
 
           <v-card-title class="justify-center font-weight-light">
-            Cozy 5 Stars Apartment
+            Mantenimiento de equipos de cardiologia
           </v-card-title>
 
           <v-card-text
             class="body-1 text-center mb-3 font-weight-light grey--text"
           >
-            The place is close to Barceloneta Beach and bus stop just 2 min by
-            walk and near to "Naviglio" where you can enjoy the life in
-            Barcelona.
+          Nuestro servicio de mantenimiento de equipos de cardiología va más 
+          allá de la simple reparación. Nos dedicamos a garantizar que cada instrumento 
+          funcione a la perfección, asegurando la precisión crucial en la evaluación cardiovascular.
           </v-card-text>
 
           <!-- <template v-slot:actions>
@@ -501,15 +501,17 @@
           </template> -->
 
           <v-card-title class="justify-center font-weight-light">
-            Office Studio
+            Reparacion de equipos de tensión
           </v-card-title>
 
           <v-card-text
             class="body-1 text-center mb-3 font-weight-light grey--text"
           >
-            The place is close to Metro Station and bus stop just 2 min by walk
-            and near to "Naviglio" where you can enjoy the night life in London,
-            UK.
+          En el mundo de la salud, la precisión es crucial, especialmente
+          cuando se trata de medir la presión arterial. Nuestro servicio de
+          reparación de equipos médicos de tensión se centra en preservar esta
+          precisión vital, asegurando que tus instrumentos de medición estén siempre
+          listos para brindar lecturas fiables.
           </v-card-text>
 
           <!-- <template v-slot:actions>
@@ -599,15 +601,18 @@
           </template> -->
 
           <v-card-title class="justify-center font-weight-light">
-            Beautiful Castle
+            Instalacion de equipos para ecografias
           </v-card-title>
 
           <v-card-text
             class="body-1 text-center mb-3 font-weight-light grey--text"
           >
-            The place is close to Metro Station and bus stop just 2 min by walk
-            and near to "Naviglio" where you can enjoy the main night life in
-            Milan.
+          En la búsqueda constante de ofrecer una atención médica de vanguardia,
+          nuestra instalación de equipos de ecografías es la clave para asegurar
+          imágenes nítidas y diagnósticos precisos. Nos enorgullece ofrecer un servicio
+          integral que garantiza la configuración perfecta de tus equipos para una experiencia
+          ecográfica excepcional.
+
           </v-card-text>
 
           <!-- <template v-slot:actions>
