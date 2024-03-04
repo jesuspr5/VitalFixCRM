@@ -1,41 +1,41 @@
 <template>
-    <v-container
-      id="data-tables"
-      tag="section"
+  <v-container
+    id="data-tables"
+    tag="section"
+  >
+    <base-material-card
+      color="greenligth"
+      icon="mdi-truck-fast"
+      inline
+      class="px-5 py-3"
     >
-      <base-material-card
-        color="greenligth"
-        icon="mdi-truck-fast"
-        inline
-        class="px-5 py-3"
+      <template v-slot:after-heading>
+        <div class="display-2 font-weight-light">
+          {{ $t("Servicios") }}
+        </div>
+      </template>
+  
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        class="ml-auto"
+        label="Buscar"
+        hide-details
+        single-line
+        style="max-width: 250px;"
+      />
+  
+      <v-divider class="mt-3" />
+  
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        :search.sync="search"
+        :sort-by="['id', 'titulo']"
+        :sort-desc="[false, true]"
+        multi-sort
+        class="elevation-1"
       >
-        <template v-slot:after-heading>
-          <div class="display-2 font-weight-light">
-            {{ $t("Servicios") }}
-          </div>
-        </template>
-  
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          class="ml-auto"
-          label="Buscar"
-          hide-details
-          single-line
-          style="max-width: 250px;"
-        />
-  
-        <v-divider class="mt-3" />
-  
-        <v-data-table
-          :headers="headers"
-          :items="items"
-          :search.sync="search"
-          :sort-by="['id', 'titulo']"
-          :sort-desc="[false, true]"
-          multi-sort
-          class="elevation-1"
-        >
         <template v-slot:[`item.actions`]="{ item }">
           <v-btn
             :key="1"
@@ -77,10 +77,9 @@
             />
           </v-btn>
         </template>
-        </v-data-table>
-  
-       
-          <div class="text-center">
+      </v-data-table>
+
+      <div class="text-center">
         <v-snackbar
           v-model="snackbar"
           :timeout="timeout"
@@ -132,7 +131,7 @@
         </v-card>
       </v-dialog>
        
-         <v-card-text style="height: 100px; position: relative">
+      <v-card-text style="height: 100px; position: relative">
         <v-fab-transition>
           <v-btn
             fab
@@ -148,14 +147,14 @@
           </v-btn>
         </v-fab-transition>
       </v-card-text>
-      </base-material-card>
-    </v-container>
-  </template>
+    </base-material-card>
+  </v-container>
+</template>
   
   <script>
   import i18n from '@/i18n'
   export default {
-    name : 'DashboardDataTables',
+    name: 'DashboardDataTables',
     data: () => ({
       dialogDelete: false,
       snackbar: false,
@@ -166,7 +165,7 @@
           text: i18n.t('services.title'),
           value: 'names',
         },
-    
+
         {
           text: i18n.t('services.idCatType'),
           value: 'type',
@@ -182,36 +181,36 @@
         },
       ],
       items: [
-  // agrega aqui json para llenar las tablas
+        // agrega aqui json para llenar las tablas
 
         {
-          
+
           names: 'Odontologia',
           type: 'Mantenimiento',
           description: 'Mantenimiento para equipos medicos utilizados en odontologia.',
-          
+
         },
 
         {
-          
+
           names: 'Radiologia',
           type: 'Reparación',
           description: 'Reparacion de equipos medicos utilizados en radiologia.',
-          
+
         },
 
         {
-          
+
           names: 'Cardiologia',
           type: 'Mantenimiento',
           description: 'Mantenimiento para equipos medicos utilizados en cardiologia.',
-          
+
         },
       ],
       search: undefined,
-    
+
     }),
-    methods :
+    methods:
       {
         create () {
           this.$router.push({
@@ -240,7 +239,7 @@
           })
         },
         deleteequips (item) {
-          //hay que pasar un id
+          // hay que pasar un id
           this.dialogDelete = true
         },
         closeDelete () {
@@ -252,7 +251,7 @@
         },
       
 
-    }
+      }
   }
   </script>
   

@@ -78,8 +78,7 @@
           </v-btn>
         </template>
         </v-data-table>
-  
-       
+
           <div class="text-center">
         <v-snackbar
           v-model="snackbar"
@@ -148,9 +147,9 @@
           </v-btn>
         </v-fab-transition>
       </v-card-text>
-      </base-material-card>
-    </v-container>
-  </template>
+    </base-material-card>
+  </v-container>
+</template>
   
   <script>
   import i18n from '@/i18n'
@@ -182,27 +181,27 @@
         },
       ],
       items: [
-// agrega aqui json para llenar las tablas
+        // agrega aqui json para llenar las tablas
 
         {
-         
+
           name: 'Carlos',
           quantity: 10,
           description: 'Tuercas para los tornillos. ',
-        
+
         },
         {
-         
+
           name: 'jesus',
           quantity: 102,
           description: 'what ups',
-        
+
         },
       ],
       search: undefined,
-  
+
     }),
-    methods :
+    methods:
       {
         create () {
           this.$router.push({
@@ -232,7 +231,7 @@
           })
         },
         deleteequips (item) {
-        //hay que pasar un id
+          // hay que pasar un id
           this.dialogDelete = true
         },
         closeDelete () {
