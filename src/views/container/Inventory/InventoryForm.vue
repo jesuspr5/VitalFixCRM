@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id="inventory-profile"
+    id="Servicios-profile"
     fluid
     tag="section"
   >
@@ -136,6 +136,7 @@ data: () => ({
     tabs: 0,
       option: 0,
       title: '',
+      snackbar:'',
     message:'',
     invesData: {
         name: '',

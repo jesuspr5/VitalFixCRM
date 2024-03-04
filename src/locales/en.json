@@ -114,14 +114,9 @@
   },
   "services": {
     "head": "Servicios",
-    "title": "Nombre",
+    "name": "Nombre",
     "description": "Descripción",
-    "datePublication": "Fecha_de_publicación",
-    "idCatType": "Tipo",
-    "mainPhoto": "foto",
-    "Catalogs": "Catálogos",
-    "bannerPhoto": "bannerfoto",
-    "reference": "Referencia",
+    "type": "Tipo",
     "create": "Crear Servicio",
     "edit": "Editar Servicio",
     "show": "Mostrar Servicio"

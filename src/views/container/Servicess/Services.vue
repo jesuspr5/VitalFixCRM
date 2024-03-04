@@ -69,7 +69,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteequips(item)"
+            @click="deleteservice(item)"
           >
             <v-icon
               small
@@ -162,12 +162,12 @@
       hidden: false,
       headers: [
         {
-          text: i18n.t('services.title'),
-          value: 'names',
+          text: i18n.t('services.name'),
+          value: 'name',
         },
 
         {
-          text: i18n.t('services.idCatType'),
+          text: i18n.t('services.type'),
           value: 'type',
         },
         {
@@ -185,7 +185,7 @@
 
         {
 
-          names: 'Odontologia',
+          name: 'Odontologia',
           type: 'Mantenimiento',
           description: 'Mantenimiento para equipos medicos utilizados en odontologia.',
 
@@ -193,7 +193,7 @@
 
         {
 
-          names: 'Radiologia',
+          name: 'Radiologia',
           type: 'Reparación',
           description: 'Reparacion de equipos medicos utilizados en radiologia.',
 
@@ -201,7 +201,7 @@
 
         {
 
-          names: 'Cardiologia',
+          name: 'Cardiologia',
           type: 'Mantenimiento',
           description: 'Mantenimiento para equipos medicos utilizados en cardiologia.',
 
@@ -221,6 +221,7 @@
           })
         },
         show (item) {
+       
           this.$router.push({
             name: 'ServicesForm',
             params: {
@@ -229,7 +230,9 @@
             },
           })
         },
+        
         edit (item) {
+       
           this.$router.push({
             name: 'ServicesForm',
             params: {
@@ -238,7 +241,7 @@
             },
           })
         },
-        deleteequips (item) {
+        deleteservice(item) {
           // hay que pasar un id
           this.dialogDelete = true
         },
