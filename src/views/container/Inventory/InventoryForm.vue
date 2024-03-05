@@ -44,45 +44,37 @@
           <v-tab-item :kei="0">
             <v-form
               ref="form"
-              
+
               lazy-validation
             >
               <v-container class="py-0">
                 <v-row>
-                 
                   <v-col cols="7">
-                      <v-text-field
-                        v-model="invesData.name"
-                        :label="$t('inventory.Name')"
-                        class="purple-input"
-                        :readonly="option === 2 ? true : false"
-                     
-                      />
-                    </v-col>
-                    <v-col cols="7">
-                      <v-text-field
-                        v-model="invesData.quantity"
-                        :label="$t('inventory.quantity')"
-                        class="purple-input"
-                        :readonly="option === 2 ? true : false"
-                        
-                      />
-                    </v-col>
+                    <v-text-field
+                      v-model="invesData.name"
+                      :label="$t('inventory.Name')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field
+                      v-model="invesData.quantity"
+                      :label="$t('inventory.quantity')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
 
-                  
-                  
-                    <v-col cols="7">
-                      <v-textarea
-                        v-model="invesData.description"
-                        :label="$t('inventory.description')"
-                        class="purple-input"
-                        :readonly="option === 2 ? true : false"
-                      
-                      />
-                    </v-col>
-                  
-                   
-                 
+                  <v-col cols="7">
+                    <v-textarea
+                      v-model="invesData.description"
+                      :label="$t('inventory.description')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
+
                   <v-col
                     cols="12"
                     class="text-right"
@@ -128,26 +120,24 @@
 </template>
 
 <script>
- import i18n from '@/i18n'
-export default {
+  import i18n from '@/i18n'
+  export default {
 
-
-data: () => ({
-    tabs: 0,
+    data: () => ({
+      tabs: 0,
       option: 0,
       title: '',
-      snackbar:'',
-    message:'',
-    invesData: {
+      snackbar: '',
+      message: '',
+      invesData: {
         name: '',
         quantity: '',
         description: '',
-       
-      
+
       },
 
-}) ,
-computed: {
+    }),
+    computed: {
       getTitle () {
         if (this.option === 1) return i18n.t('inventory.create')
         else if (this.option === 2) return i18n.t('inventory.show')
@@ -171,10 +161,8 @@ computed: {
           this.invesData = this.$route.params.invesData
         }
       },
-    }
-
-
-}
+    },
+  }
 </script>
 
 <style>

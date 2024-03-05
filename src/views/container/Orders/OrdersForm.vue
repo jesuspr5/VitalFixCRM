@@ -51,32 +51,32 @@
                 <v-row>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.names"
-                      :label="$t('users.Name')"
+                      v-model="ordersData.id"
+                      :label="$t('orders.id')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.lastNames"
-                      :label="$t('Apellido')"
+                      v-model="ordersData.type"
+                      :label="$t('orders.type')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.email"
-                      :label="$t('users.email')"
+                      v-model="ordersData.amount"
+                      :label="$t('orders.amount')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.phone"
-                      :label="$t('users.phone')"
+                      v-model="ordersData.status"
+                      :label="$t('orders.status')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
@@ -136,27 +136,27 @@
       title: '',
       snackbar: '',
       message: '',
-      usersData: {
-        name: '',
-        lastNames: '',
-        email: '',
-        phone: '',
+      ordersData: {
+        id: '',
+        type: '',
+        amount: '',
+        status: '',
 
       },
 
     }),
     computed: {
       getTitle () {
-        if (this.option === 1) return i18n.t('users.create')
-        else if (this.option === 2) return i18n.t('users.show')
-        else if (this.option === 3) return i18n.t('users.edit')
-        else return i18n.t('users.head')
+        if (this.option === 1) return i18n.t('orders.create')
+        else if (this.option === 2) return i18n.t('orders.show')
+        else if (this.option === 3) return i18n.t('orders.edit')
+        else return i18n.t('orders.head')
       },
       getTitleButton () {
         if (this.option === 1) return i18n.t('crud.create')
         else if (this.option === 2) return i18n.t('crud.show')
         else if (this.option === 3) return i18n.t('crud.edit')
-        else return i18n.t('users.head')
+        else return i18n.t('orders.head')
       },
     },
     mounted () {
@@ -166,7 +166,7 @@
       initialize () {
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
-          this.usersData = this.$route.params.usersData
+          this.ordersData = this.$route.params.ordersData
         }
       },
     },

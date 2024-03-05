@@ -16,7 +16,7 @@
         > -->
 
         <div class="display-2 font-weight-light">
-          {{ $t("users.title") }}
+          {{ $t("users.head") }}
         </div>
         <!-- </v-img> -->
 
@@ -34,16 +34,15 @@
       />
 
       <v-divider class="mt-3" />
-  
-        <v-data-table
-          :headers="headers"
-          :items="items"
-          :search.sync="search"
-          :sort-by="['id', 'titulo']"
-          :sort-desc="[false, true]"
-          multi-sort
-          class="elevation-1"
-        >
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        :search.sync="search"
+        :sort-by="['id', 'titulo']"
+        :sort-desc="[false, true]"
+        multi-sort
+        class="elevation-1"
+      >
         <template v-slot:[`item.actions`]="{ item }">
           <v-btn
             :key="1"
@@ -51,7 +50,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="show"
+            @click="show(item)"
           >
             <v-icon
               small
@@ -64,7 +63,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="edit"
+            @click="edit(item)"
           >
             <v-icon
               small
@@ -77,7 +76,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteequips"
+            @click="deleteusers(item)"
           >
             <v-icon
               small
@@ -85,10 +84,9 @@
             />
           </v-btn>
         </template>
-        </v-data-table>
-  
-       
-          <div class="text-center">
+      </v-data-table>
+
+      <div class="text-center">
         <v-snackbar
           v-model="snackbar"
           :timeout="timeout"
@@ -139,8 +137,8 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-       
-         <v-card-text style="height: 100px; position: relative">
+
+      <v-card-text style="height: 100px; position: relative">
         <v-fab-transition>
           <v-btn
             fab
@@ -156,30 +154,27 @@
           </v-btn>
         </v-fab-transition>
       </v-card-text>
-      </base-material-card>
-    </v-container>
-  </template>
-  
+    </base-material-card>
+  </v-container>
+</template>
+
   <script>
   import i18n from '@/i18n'
   export default {
-  name : 'DashboardDataTables',
-  data: () => ({
-    dialogDelete: false,
+    name: 'DashboardDataTables',
+    data: () => ({
+      dialogDelete: false,
       snackbar: false,
       message: '',
-    hidden: false,
-        idblog: '',
-        dialogDelete: false,
-        snackbar: false,
-        message: '',
-        headers: [
+      hidden: false,
+      idblog: '',
+      headers: [
         {
-          text: i18n.t('users.name'),
+          text: i18n.t('users.Name'),
           value: 'names',
         },
         {
-          text: 'Apellidos',
+          text: 'Apellido',
           value: 'lastNames',
         },
         {
@@ -195,56 +190,55 @@
           text: 'Acciones',
           value: 'actions',
         },
-        ],
-        items: [
-// agrega aqui json para llenar las tablas
+      ],
+      items: [
+        // agrega aqui json para llenar las tablas
 
         {
-         
-         names: 'Carlos',
-         lastNames: 'Perez',
-         email: 'Carlos@gmail.com',
-         phone: 123456,
-        
-       },
+          names: 'Carlos',
+          lastNames: 'Perez',
+          email: 'Carlos@gmail.com',
+          phone: 123456,
 
-       {
-         
-         names: 'Jose',
-         lastNames: 'Mendoza',
-         email: 'Jose@gmail.com',
-         phone: 6758423,
-        
-       },
+        },
 
-       {
-         
-         names: 'Maria',
-         lastNames: 'Gomez',
-         email: 'Maria@gmail.com',
-         phone: 268448,
-        
-       },
-        ],
-        search: undefined,
-  
-  }),
-  methods :{
-     create (){
-      this.$router.push({
+        {
+
+          names: 'Jose',
+          lastNames: 'Mendoza',
+          email: 'Jose@gmail.com',
+          phone: 6758423,
+
+        },
+
+        {
+
+          names: 'Maria',
+          lastNames: 'Gomez',
+          email: 'Maria@gmail.com',
+          phone: 268448,
+
+        },
+      ],
+      search: undefined,
+
+    }),
+    methods: {
+      create () {
+        this.$router.push({
           name: 'UsersFrom',
           params: {
             option: 1, // option 1 to create
           },
         })
-    },
-    show (item) {
+      },
+      show (item) {
         console.log(item)
         this.$router.push({
           name: 'UsersFrom',
           params: {
             option: 2, // option 2 to show
-            invesData: item,
+            usersData: item,
           },
         })
       },
@@ -254,12 +248,12 @@
           name: 'UsersFrom',
           params: {
             option: 3, // option 3 to edit
-            invesData: item,
+            usersData: item,
           },
         })
       },
-      deleteequips (item) {
-        //hay que pasar un id
+      deleteusers (item) {
+        // hay que pasar un id
         this.dialogDelete = true
       },
       closeDelete () {
@@ -269,12 +263,11 @@
       deleteItemConfirm () {
         this.dialogDelete = false
       },
+    },
 
-  },
-  
   }
   </script>
-  
+
   <style>
-  
+
   </style>

@@ -11,7 +11,7 @@
     >
       <template v-slot:after-heading>
         <div class="display-2 font-weight-light">
-          {{ $t("Servicios") }}
+          {{ $t("services.head") }}
         </div>
       </template>
   

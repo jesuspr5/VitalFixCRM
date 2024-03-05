@@ -94,6 +94,12 @@ export default new Router({
           // beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Orders/Orders'),
         },
+        {
+          name: 'OrdersForm',
+          path: 'orders/form',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Orders/OrdersForm'),
+        },
         // Dashboard
         {
           name: 'Dashboard',
