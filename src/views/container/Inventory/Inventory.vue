@@ -1,41 +1,41 @@
 <template>
-    <v-container
-      id="data-tables"
-      tag="section"
+  <v-container
+    id="data-tables"
+    tag="section"
+  >
+    <base-material-card
+      color="greenligth"
+      icon="mdi-plus-network"
+      inline
+      class="px-5 py-3"
     >
-      <base-material-card
-        color="greenligth"
-        icon="mdi-plus-network"
-        inline
-        class="px-5 py-3"
+      <template v-slot:after-heading>
+        <div class="display-2 font-weight-light">
+          {{ $t("inventory.head") }}
+        </div>
+      </template>
+
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        class="ml-auto"
+        label="Buscar"
+        hide-details
+        single-line
+        style="max-width: 250px;"
+      />
+
+      <v-divider class="mt-3" />
+
+      <v-data-table
+        :headers="headers"
+        :items="items"
+        :search.sync="search"
+        :sort-by="['id', 'titulo']"
+        :sort-desc="[false, true]"
+        multi-sort
+        class="elevation-1"
       >
-        <template v-slot:after-heading>
-          <div class="display-2 font-weight-light">
-            {{ $t("inventory.head") }}
-          </div>
-        </template>
-  
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          class="ml-auto"
-          label="Buscar"
-          hide-details
-          single-line
-          style="max-width: 250px;"
-        />
-  
-        <v-divider class="mt-3" />
-  
-        <v-data-table
-          :headers="headers"
-          :items="items"
-          :search.sync="search"
-          :sort-by="['id', 'titulo']"
-          :sort-desc="[false, true]"
-          multi-sort
-          class="elevation-1"
-        >
         <template v-slot:[`item.actions`]="{ item }">
           <v-btn
             :key="1"
@@ -77,10 +77,9 @@
             />
           </v-btn>
         </template>
-        </v-data-table>
-  
-       
-          <div class="text-center">
+      </v-data-table>
+
+      <div class="text-center">
         <v-snackbar
           v-model="snackbar"
           :timeout="timeout"
@@ -131,8 +130,8 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
-       
-         <v-card-text style="height: 100px; position: relative">
+
+      <v-card-text style="height: 100px; position: relative">
         <v-fab-transition>
           <v-btn
             fab
@@ -148,17 +147,17 @@
           </v-btn>
         </v-fab-transition>
       </v-card-text>
-      </base-material-card>
-    </v-container>
-  </template>
-  
+    </base-material-card>
+  </v-container>
+</template>
+
   <script>
   import i18n from '@/i18n'
   import { GetList,deleteinventario } from '../../../api/modules/inventario';
   export default {
     name: 'DashboardDataTables',
-  data: () => ({
-    dialogDelete: false,
+    data: () => ({
+      dialogDelete: false,
       snackbar: false,
       message: '',
       idinv: null,
@@ -183,24 +182,7 @@
             value: 'actions',
           },
         ],
-        items: [
-// agrega aqui json para llenar las tablas
-
-      //   {
-         
-      //    name: 'Carlos',
-      //    quantity: 10,
-      //    description: 'Tuercas para los tornillos. ',
-        
-      //  },
-      //  {
-         
-      //    name: 'jesus',
-      //    quantity: 102,
-      //    description: 'what ups',
-        
-      //  },
-        ],
+        items: [],
         search: undefined,
   
   }),
@@ -223,8 +205,8 @@
             option: 1, // option 1 to create
           },
         })
-    },
-    show (item) {
+      },
+      show (item) {
         console.log(item)
         this.$router.push({
           name: 'InventoryFrom',
@@ -279,7 +261,7 @@
   }
   }
   </script>
-  
+
   <style>
-  
+
   </style>

@@ -112,7 +112,7 @@
           title: 'Operaciones',
           children: [
             {
-              title: 'users.title',
+              title: 'Usuarios',
               to: 'users/users',
             },
             {

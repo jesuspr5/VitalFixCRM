@@ -46,25 +46,20 @@
     "confirm": "Confirm this action",
     "errors": "Errors"
   },
+ 
   "users": {
-    "title": "Usuarios",
-    "dni": "DNI",
-    "type": "User Type",
-    "create": "Create User",
-    "edit": "Edit User",
-    "show": "Show User",
-    "id": "ID User",
-    "username": "Username",
-    "name": "Nombre",
-    "lastname": "Apellido",
-    "fullname": "fullname",
-    "datebird": "Fecha_de_nacimiento",
+    "head": "Usuarios",
+    "title": "Título",
+    "subtitle": "Subtítulo",
+    "Name": "Nombre",
+    "lastName": "Apellido",
+    "description": "Descripción",
+    "quantity": "cantidad",
     "email": "Email",
     "phone": "Teléfono",
-    "role": "Role",
-    "address": "address",
-    "pharmacist": "pharmacist",
-    "doctor": "Doctor"
+    "create": "Crear Inventario",
+    "edit": "Editar Inventario",
+    "show": "Mostrar Inventario"
   },
   "roles": {
     "create": "Create Role",
@@ -120,6 +115,18 @@
     "create": "Crear Servicio",
     "edit": "Editar Servicio",
     "show": "Mostrar Servicio"
+  },
+  "orders": {
+    "head": "Ordenes",
+    "title": "Título",
+    "subtitle": "Subtítulo",
+    "id": "ID",
+    "type": "Tipo",
+    "amount": "Monto",
+    "status": "Estatus",
+    "create": "Crear Inventario",
+    "edit": "Editar Inventario",
+    "show": "Mostrar Inventario"
   },
   "texts": {
     "createtext": "Blog creado con exito",
