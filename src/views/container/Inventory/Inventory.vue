@@ -154,12 +154,14 @@
   
   <script>
   import i18n from '@/i18n'
+  import { GetList,deleteinventario } from '../../../api/modules/inventario';
   export default {
     name: 'DashboardDataTables',
   data: () => ({
     dialogDelete: false,
       snackbar: false,
       message: '',
+      idinv: null,
     hidden: false,
         headers: [
           {
@@ -184,25 +186,35 @@
         items: [
 // agrega aqui json para llenar las tablas
 
-        {
+      //   {
          
-         name: 'Carlos',
-         quantity: 10,
-         description: 'Tuercas para los tornillos. ',
+      //    name: 'Carlos',
+      //    quantity: 10,
+      //    description: 'Tuercas para los tornillos. ',
         
-       },
-       {
+      //  },
+      //  {
          
-         name: 'jesus',
-         quantity: 102,
-         description: 'what ups',
+      //    name: 'jesus',
+      //    quantity: 102,
+      //    description: 'what ups',
         
-       },
+      //  },
         ],
         search: undefined,
   
   }),
+ async mounted (){
+    this.data()
+  },
   methods :{
+    data: async  function () {
+        let result
+        result = await GetList()
+        this.items = result
+        console.log('EL STOREE: ', result)
+      // console.log('array',this.items)
+      },
      create (){
      
       this.$router.push({
@@ -233,7 +245,7 @@
         })
       },
       deleteequips (item) {
-        //hay que pasar un id
+        this.idinv = item.id
         this.dialogDelete = true
       },
       closeDelete () {
@@ -242,6 +254,27 @@
 
       deleteItemConfirm () {
         this.dialogDelete = false
+      },
+
+      async deleteItemConfirm () {
+        let result
+        result = await deleteinventario(this.idinv)
+        console.log("🚀 ~ deleteItemConfirm ~ result:", result)
+        if (result === 'OK') {
+          this.snackbar = true
+          this.message = 'Eliminación exitosa'
+          this.data()
+          this.dialogDelete = false
+          setTimeout(() => {
+            this.$router.push({ name: 'Inventory' })
+          }, 1000)
+        } else {
+          this.snackbar = true
+          this.message = 'ocurrio un error al eliminar el Equipo'
+          setTimeout(() => {
+            this.snackbar = false
+          }, 1000)
+        }
       },
   }
   }

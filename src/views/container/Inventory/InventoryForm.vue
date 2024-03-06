@@ -44,6 +44,7 @@
           <v-tab-item :kei="0">
             <v-form
               ref="form"
+              v-model="valid"
               
               lazy-validation
             >
@@ -129,6 +130,7 @@
 
 <script>
  import i18n from '@/i18n'
+ import { createinventario,updateinventario } from '../../../api/modules/inventario'
 export default {
 
 
@@ -138,12 +140,19 @@ data: () => ({
       title: '',
       snackbar:'',
     message:'',
+    valid: true,
     invesData: {
+        id: '',
         name: '',
         quantity: '',
         description: '',
        
       
+      },
+      rules: {
+       
+        required: value => !!value || 'Debe ingresar Texto.',
+        min: v => v.length >= 10 || 'El titulo debe tener un mínimo 10 caracteres',
       },
 
 }) ,
@@ -171,6 +180,80 @@ computed: {
           this.invesData = this.$route.params.invesData
         }
       },
+      async submit () {
+        if (this.option === 1) {
+          if (this.$refs.form.validate()) {
+          
+           
+              let inventario = {
+              name: this.invesData.name,
+              quantity: this.invesData.quantity,
+              description : this.invesData.description
+
+              }
+              console.log("🚀 ~ submit ~ inventario:", inventario)
+              inventario = await createinventario(inventario)
+
+              if (inventario != null) {
+                this.snackbar = true
+                this.message = 'Registro exitoso'
+                setTimeout(() => {
+                  this.$router.push({ name: 'Inventory' })
+                }, 2000)
+              } else {
+                this.snackbar = true
+                this.message = 'Hubo un error durante el registro'
+                setTimeout(() => {
+                  this.snackbar = false
+                }, 1000)
+              }
+            
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        }  
+        if (this.option === 3) {
+          if (this.$refs.form.validate()) {
+           
+            
+            let inventario = {
+              id: this.invesData.id,
+              name: this.invesData.name,
+              quantity: this.invesData.quantity,
+              description : this.invesData.description
+
+              }
+
+           
+
+            console.log('inventario que se envia ', inventario)
+            inventario = await updateinventario(inventario)
+            if (inventario != null) {
+              this.snackbar = true
+              this.message = 'Actualizacion exitosa'
+              setTimeout(() => {
+                this.$router.push({ name: 'Inventory' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante la actualizacion'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        }
+      }
     }
 
 
