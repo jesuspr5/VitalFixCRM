@@ -98,7 +98,7 @@
         {
           group: '/home',
           icon: 'mdi-view-dashboard',
-          title: 'Dashboard',
+          title: 'DASHBOARD',
           children: [
             {
               title: 'Dashboard',
@@ -109,7 +109,7 @@
         {
           group: '/home',
           icon: 'mdi-plus-network', //se cambia este icono en los iconos del material de vue
-          title: 'Operaciones',
+          title: 'GESTIONES',
           children: [
             {
               title: 'Usuarios',
@@ -130,11 +130,15 @@
         {
           group: '/home',
           icon: 'mdi-format-page-break',
-          title: 'Ordenes',
+          title: 'REPORTES',
           children: [
             {
               title: 'Ordenes',
               to: 'Orders/Orders',
+            },
+            {
+              title: 'Revisiones',
+              to: 'Reviews/Reviews',
             },
           ],
         },
@@ -145,12 +149,10 @@
           title: 'PROMOCIONES',
           children: [
             {
-              
+
             },
           ],
         },
-        
-        
 
         {
           group: '/home',

@@ -87,7 +87,7 @@ export default new Router({
           //   beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Servicess/ServicesForm'),
         },
-        //Orders
+        // Orders
         {
           name: 'Orders',
           path: 'orders/orders',
@@ -99,6 +99,19 @@ export default new Router({
           path: 'orders/form',
           // beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Orders/OrdersForm'),
+        },
+        // Reviews
+        {
+          name: 'Reviews',
+          path: 'reviews/reviews',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/ReviewServices/Reviews'),
+        },
+        {
+          name: 'ReviewsForm',
+          path: 'reviews/form',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/ReviewServices/ReviewsForm'),
         },
         // Dashboard
         {

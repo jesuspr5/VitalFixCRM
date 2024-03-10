@@ -128,6 +128,18 @@
     "edit": "Editar Inventario",
     "show": "Mostrar Inventario"
   },
+  "reviews": {
+    "head": "Revisiones",
+    "title": "Título",
+    "subtitle": "Subtítulo",
+    "id": "ID",
+    "type": "Tipo",
+    "amount": "Monto",
+    "status": "Estatus",
+    "create": "Crear Inventario",
+    "edit": "Editar Inventario",
+    "show": "Mostrar Inventario"
+  },
   "texts": {
     "createtext": "Blog creado con exito",
     "deletetext": " Blog eliminado ",
