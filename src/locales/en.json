@@ -57,6 +57,7 @@
     "quantity": "cantidad",
     "email": "Email",
     "phone": "Teléfono",
+    "status": "Estatus",
     "create": "Crear Inventario",
     "edit": "Editar Inventario",
     "show": "Mostrar Inventario"
@@ -92,6 +93,7 @@
     "Name": "Nombre",
     "description": "Descripción",
     "quantity": "cantidad",
+    "status": "Estatus",
     "create": "Crear Inventario",
     "edit": "Editar Inventario",
     "show": "Mostrar Inventario"
@@ -112,9 +114,20 @@
     "name": "Nombre",
     "description": "Descripción",
     "type": "Tipo",
+    "status": "Estatus",
     "create": "Crear Servicio",
     "edit": "Editar Servicio",
     "show": "Mostrar Servicio"
+  },
+  "promotions": {
+    "head": "Promociones",
+    "name": "Nombre",
+    "description": "Descripción",
+    "type": "Tipo",
+    "status": "Estatus",
+    "create": "Crear Promoción",
+    "edit": "Editar Promoción",
+    "show": "Mostrar Promoción"
   },
   "orders": {
     "head": "Ordenes",

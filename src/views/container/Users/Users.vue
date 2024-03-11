@@ -186,6 +186,10 @@
           value: 'phone',
         },
         {
+          text: i18n.t('users.status'),
+          value: 'status',
+        },
+        {
           sortable: false,
           text: 'Acciones',
           value: 'actions',
@@ -199,6 +203,7 @@
           lastNames: 'Perez',
           email: 'Carlos@gmail.com',
           phone: 123456,
+          status: 'Activo',
 
         },
 
@@ -208,6 +213,7 @@
           lastNames: 'Mendoza',
           email: 'Jose@gmail.com',
           phone: 6758423,
+          status: 'Activo',
 
         },
 
@@ -217,6 +223,7 @@
           lastNames: 'Gomez',
           email: 'Maria@gmail.com',
           phone: 268448,
+          status: 'Activo',
 
         },
       ],

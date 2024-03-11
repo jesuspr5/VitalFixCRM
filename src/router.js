@@ -113,6 +113,19 @@ export default new Router({
           // beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/ReviewServices/ReviewsForm'),
         },
+        // Promotions
+        {
+          name: 'Promotions',
+          path: 'promotions/promotions',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Promotions/Promotions'),
+        },
+        {
+          name: 'PromotionsForm',
+          path: 'promotions/form',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Promotions/PromotionsForm'),
+        },
         // Dashboard
         {
           name: 'Dashboard',

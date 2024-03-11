@@ -11,10 +11,10 @@
     >
       <template v-slot:after-heading>
         <div class="display-2 font-weight-light">
-          {{ $t("services.head") }}
+          {{ $t("promotions.head") }}
         </div>
       </template>
-
+  
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -24,9 +24,9 @@
         single-line
         style="max-width: 250px;"
       />
-
+  
       <v-divider class="mt-3" />
-
+  
       <v-data-table
         :headers="headers"
         :items="items"
@@ -69,7 +69,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteservice(item)"
+            @click="deletepromotion(item)"
           >
             <v-icon
               small
@@ -150,7 +150,7 @@
     </base-material-card>
   </v-container>
 </template>
-
+  
   <script>
   import i18n from '@/i18n'
   export default {
@@ -162,20 +162,20 @@
       hidden: false,
       headers: [
         {
-          text: i18n.t('services.name'),
+          text: i18n.t('promotions.name'),
           value: 'name',
         },
 
         {
-          text: i18n.t('services.type'),
+          text: i18n.t('promotions.type'),
           value: 'type',
         },
         {
-          text: i18n.t('services.description'),
+          text: i18n.t('promotions.description'),
           value: 'description',
         },
         {
-          text: i18n.t('services.status'),
+          text: i18n.t('promotions.status'),
           value: 'status',
         },
         {
@@ -221,32 +221,34 @@
       {
         create () {
           this.$router.push({
-            name: 'ServicesForm',
+            name: 'PromotionsForm',
             params: {
               option: 1, // option 1 to create
             },
           })
         },
         show (item) {
+
           this.$router.push({
-            name: 'ServicesForm',
+            name: 'PromotionsForm',
             params: {
               option: 2, // option 2 to show
-              servicesData: item,
+              promotionsData: item,
             },
           })
         },
-
+        
         edit (item) {
+       
           this.$router.push({
-            name: 'ServicesForm',
+            name: 'PromotionsForm',
             params: {
               option: 3, // option 3 to edit
-              servicesData: item,
+              promotionsData: item,
             },
           })
         },
-        deleteservice (item) {
+        deletepromotion (item) {
           // hay que pasar un id
           this.dialogDelete = true
         },
@@ -257,6 +259,7 @@
         deleteItemConfirm () {
           this.dialogDelete = false
         },
+
       },
   }
   </script>

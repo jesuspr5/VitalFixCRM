@@ -74,7 +74,14 @@
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
-
+                  <v-col cols="7">
+                    <v-text-field
+                      v-model="servicesData.status"
+                      :label="$t('services.status')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
                   <v-col
                     cols="12"
                     class="text-right"
@@ -133,6 +140,7 @@
         name: '',
         type: '',
         description: '',
+        status: '',
       },
 
     }),

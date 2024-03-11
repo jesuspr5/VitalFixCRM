@@ -161,45 +161,48 @@
       snackbar: false,
       message: '',
       idinv: null,
-    hidden: false,
-        headers: [
-          {
-            text: i18n.t('inventory.Name'),
-            value: 'name',
-          },
-  
-          {
-            text: i18n.t('inventory.quantity'),
-            value: 'quantity',
-          },
-          {
-            text: i18n.t('inventory.description'),
-            value: 'description',
-          },
-          {
-            sortable: false,
-            text: 'Acciones',
-            value: 'actions',
-          },
-        ],
-        items: [],
-        search: undefined,
-  
-  }),
- async mounted (){
-    this.data()
-  },
-  methods :{
-    data: async  function () {
+      hidden: false,
+      headers: [
+        {
+          text: i18n.t('inventory.Name'),
+          value: 'name',
+        },
+
+        {
+          text: i18n.t('inventory.quantity'),
+          value: 'quantity',
+        },
+        {
+          text: i18n.t('inventory.description'),
+          value: 'description',
+        },
+        {
+          text: i18n.t('inventory.status'),
+          value: 'status',
+        },
+        {
+          sortable: false,
+          text: 'Acciones',
+          value: 'actions',
+        },
+      ],
+      items: [],
+      search: undefined,
+
+    }),
+    async mounted () {
+      this.data()
+    },
+    methods: {
+      data: async function () {
         let result
         result = await GetList()
         this.items = result
         console.log('EL STOREE: ', result)
       // console.log('array',this.items)
       },
-     create (){
-     
-      this.$router.push({
+      create () {
+        this.$router.push({
           name: 'InventoryFrom',
           params: {
             option: 1, // option 1 to create
@@ -258,7 +261,7 @@
           }, 1000)
         }
       },
-  }
+    },
   }
   </script>
 

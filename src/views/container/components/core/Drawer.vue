@@ -149,7 +149,8 @@
           title: 'PROMOCIONES',
           children: [
             {
-
+              title: 'Promociones',
+              to: 'Promotions/Promotions',
             },
           ],
         },

@@ -74,7 +74,14 @@
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
-
+                  <v-col cols="7">
+                    <v-text-field
+                      v-model="inventoryData.status"
+                      :label="$t('inventory.status')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
                   <v-col
                     cols="12"
                     class="text-right"
@@ -120,26 +127,27 @@
 </template>
 
 <script>
- import i18n from '@/i18n'
- import { createinventario,updateinventario } from '../../../api/modules/inventario'
-export default {
+  import i18n from '@/i18n'
+  import { createinventario, updateinventario } from '../../../api/modules/inventario'
+  export default {
 
     data: () => ({
       tabs: 0,
       option: 0,
       title: '',
-      snackbar:'',
-    message:'',
-    valid: true,
-    invesData: {
+      snackbar: '',
+      message: '',
+      valid: true,
+      invesData: {
         id: '',
         name: '',
         quantity: '',
         description: '',
+        status: '',
 
       },
       rules: {
-       
+
         required: value => !!value || 'Debe ingresar Texto.',
         min: v => v.length >= 10 || 'El titulo debe tener un mínimo 10 caracteres',
       },
@@ -172,31 +180,30 @@ export default {
       async submit () {
         if (this.option === 1) {
           if (this.$refs.form.validate()) {
-          
-           
-              let inventario = {
+
+            let inventario = {
               name: this.invesData.name,
               quantity: this.invesData.quantity,
-              description : this.invesData.description
+              description: this.invesData.description,
 
-              }
-              console.log("🚀 ~ submit ~ inventario:", inventario)
-              inventario = await createinventario(inventario)
+            }
+            console.log("🚀 ~ submit ~ inventario:", inventario)
+            inventario = await createinventario(inventario)
 
-              if (inventario != null) {
-                this.snackbar = true
-                this.message = 'Registro exitoso'
-                setTimeout(() => {
-                  this.$router.push({ name: 'Inventory' })
-                }, 2000)
-              } else {
-                this.snackbar = true
-                this.message = 'Hubo un error durante el registro'
-                setTimeout(() => {
-                  this.snackbar = false
-                }, 1000)
-              }
-            
+            if (inventario != null) {
+              this.snackbar = true
+              this.message = 'Registro exitoso'
+              setTimeout(() => {
+                this.$router.push({ name: 'Inventory' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante el registro'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+
           } else {
             this.snackbar = true
             this.message = 'Debe llenar todos los campos requeridos'
@@ -207,18 +214,13 @@ export default {
         }  
         if (this.option === 3) {
           if (this.$refs.form.validate()) {
-           
-            
+
             let inventario = {
               id: this.invesData.id,
               name: this.invesData.name,
               quantity: this.invesData.quantity,
-              description : this.invesData.description
-
-              }
-
-           
-
+              description: this.invesData.description,
+            }
             console.log('inventario que se envia ', inventario)
             inventario = await updateinventario(inventario)
             if (inventario != null) {
@@ -242,11 +244,9 @@ export default {
             }, 1000)
           }
         }
-      }
-    }
-
-
-}
+      },
+    },
+  }
 </script>
 
 <style>

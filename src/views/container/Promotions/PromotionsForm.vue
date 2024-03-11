@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id="Servicios-profile"
+    id="promotions-profile"
     fluid
     tag="section"
   >
@@ -51,40 +51,33 @@
                 <v-row>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.names"
-                      :label="$t('users.Name')"
+                      v-model="promotionsData.name"
+                      :label="$t('promotions.name')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.lastNames"
-                      :label="$t('Apellido')"
+                      v-model="promotionsData.type"
+                      :label="$t('promotions.type')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
+
+                  <v-col cols="7">
+                    <v-textarea
+                      v-model="promotionsData.description"
+                      :label="$t('promotions.description')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.email"
-                      :label="$t('users.email')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="usersData.phone"
-                      :label="$t('users.phone')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="usersData.status"
-                      :label="$t('users.status')"
+                      v-model="promotionsData.status"
+                      :label="$t('promotions.status')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
@@ -143,28 +136,26 @@
       title: '',
       snackbar: '',
       message: '',
-      usersData: {
+      promotionsData: {
         name: '',
-        lastNames: '',
-        email: '',
-        phone: '',
+        type: '',
+        description: '',
         status: '',
-
       },
 
     }),
     computed: {
       getTitle () {
-        if (this.option === 1) return i18n.t('users.create')
-        else if (this.option === 2) return i18n.t('users.show')
-        else if (this.option === 3) return i18n.t('users.edit')
-        else return i18n.t('users.head')
+        if (this.option === 1) return i18n.t('promotions.create')
+        else if (this.option === 2) return i18n.t('promotions.show')
+        else if (this.option === 3) return i18n.t('promotions.edit')
+        else return i18n.t('promotions.head')
       },
       getTitleButton () {
         if (this.option === 1) return i18n.t('crud.create')
         else if (this.option === 2) return i18n.t('crud.show')
         else if (this.option === 3) return i18n.t('crud.edit')
-        else return i18n.t('users.head')
+        else return i18n.t('promotions.head')
       },
     },
     mounted () {
@@ -174,7 +165,7 @@
       initialize () {
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
-          this.usersData = this.$route.params.usersData
+          this.promotionsData = this.$route.params.promotionsData
         }
       },
     },
