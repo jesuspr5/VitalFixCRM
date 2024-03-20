@@ -186,6 +186,10 @@
           value: 'phone',
         },
         {
+          text: i18n.t('users.rol'),
+          value: 'rol',
+        },
+        {
           text: i18n.t('users.status'),
           value: 'status',
         },
@@ -203,6 +207,7 @@
           lastNames: 'Perez',
           email: 'Carlos@gmail.com',
           phone: 123456,
+          rol: 'Administrador',
           status: 'Activo',
 
         },
@@ -213,6 +218,7 @@
           lastNames: 'Mendoza',
           email: 'Jose@gmail.com',
           phone: 6758423,
+          rol: 'Cliente',
           status: 'Activo',
 
         },
@@ -223,6 +229,7 @@
           lastNames: 'Gomez',
           email: 'Maria@gmail.com',
           phone: 268448,
+          rol: 'Cliente',
           status: 'Activo',
 
         },

@@ -36,14 +36,14 @@
         multi-sort
         class="elevation-1"
       >
-        <template v-slot:[`item.actions`]="{ item }">
+      <template v-slot:[`item.actions`]="{ item }">
           <v-btn
             :key="1"
-            color="blue"
+            color="gray"
             fab
             class="px-1 ml-1"
             x-small
-            @click="showRole(item)"
+            @click="show(item)"
           >
             <v-icon
               small
@@ -52,11 +52,11 @@
           </v-btn>
           <v-btn
             :key="2"
-            color="primary"
+            color="four"
             fab
             class="px-1 ml-1"
             x-small
-            @click="editRole(item)"
+            @click="edit(item)"
           >
             <v-icon
               small
@@ -65,11 +65,11 @@
           </v-btn>
           <v-btn
             :key="3"
-            color="secondary"
+            color="primary"
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteRole(item)"
+            @click="deleteservice(item)"
           >
             <v-icon
               small
@@ -78,6 +78,58 @@
           </v-btn>
         </template>
       </v-data-table>
+
+      <div class="text-center">
+        <v-snackbar
+          v-model="snackbar"
+          :timeout="timeout"
+          color="#75B768"
+        >
+          {{ message }}
+
+          <template v-slot:action="{ attrs }">
+            <v-btn
+              color="white"
+              text
+              v-bind="attrs"
+              @click="snackbar = false"
+            >
+              Close
+            </v-btn>
+          </template>
+        </v-snackbar>
+      </div>
+      <v-dialog
+        v-model="dialogDelete"
+        persistent
+        max-width="500px"
+      >
+        <v-card>
+          <v-card-title
+            class="text-h5"
+          >
+            Estas seguro que deseas eliminar este servicio?
+          </v-card-title>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="closeDelete"
+            >
+              Cancelar
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="deleteItemConfirm"
+            >
+              OK
+            </v-btn>
+            <v-spacer />
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
       <v-card-text style="height: 100px; position: relative">
         <v-fab-transition>
           <v-btn
@@ -88,7 +140,7 @@
             fixed
             right
             bottom
-            @click="createRole"
+            @click="create"
           >
             <v-icon>mdi-plus</v-icon>
           </v-btn>
@@ -99,27 +151,27 @@
 </template>
 
 <script>
-  import { getRoles } from '@/api/modules'
   import i18n from '@/i18n'
-
   export default {
     name: 'DashboardDataTables',
-
     data: () => ({
+      dialogDelete: false,
+      snackbar: false,
+      message: '',
       hidden: false,
       headers: [
         {
-          text: i18n.t('id'),
-          value: 'role.id',
+          text: i18n.t('roles.id'),
+          value: 'id',
         },
         {
           text: i18n.t('roles.name'),
-          value: 'role.name',
+          value: 'name',
         },
 
         {
           text: i18n.t('roles.status'),
-          value: 'role.status',
+          value: 'status',
         },
         {
           sortable: false,
@@ -128,65 +180,70 @@
         },
       ],
       items: [
+        // agrega aqui json para llenar las tablas
+
         {
-          role: {
-            id: 1,
-            name: 'admin',
-            status: 'Activo',
-          },
+          id: '1',
+          name: 'Administrador',
+          status: 'Activo',
+
+        },
+
+        {
+
+          id: '2',
+          name: 'Cliente',
+          status: 'Activo',
+
         },
       ],
       search: undefined,
+
     }),
-    async mounted () {
-    // window.getApp.$emit("SHOW_ERROR", "34534535")
-    },
-    methods: {
-      async loadRolesData () {
-        console.log('mounted')
-        let serviceResponse = await getRoles()
-        if (serviceResponse.ok === 1) {
-          console.log(serviceResponse)
-          this.items = serviceResponse.data
-        } else {
-          console.log(serviceResponse)
-          const params = { text: serviceResponse.message.text }
-          window.getApp.$emit('SHOW_ERROR', params)
-        }
+    methods:
+      {
+        create () {
+          this.$router.push({
+            name: 'RolesForm',
+            params: {
+              option: 1, // option 1 to create
+            },
+          })
+        },
+        show (item) {
+          this.$router.push({
+            name: 'RolesForm',
+            params: {
+              option: 2, // option 2 to show
+              roleData: item,
+            },
+          })
+        },
+
+        edit (item) {
+          this.$router.push({
+            name: 'RolesForm',
+            params: {
+              option: 3, // option 3 to edit
+              roleData: item,
+            },
+          })
+        },
+        deleteservice (item) {
+          // hay que pasar un id
+          this.dialogDelete = true
+        },
+        closeDelete () {
+          this.dialogDelete = false
+        },
+
+        deleteItemConfirm () {
+          this.dialogDelete = false
+        },
       },
-      createRole () {
-        console.log('create')
-        this.$router.push({
-          name: 'RolesFrom',
-          params: {
-            option: 1, // option 1 to create
-          },
-        })
-      },
-      showRole (item) {
-        console.log(item)
-        this.$router.push({
-          name: 'RolesFrom',
-          params: {
-            option: 2, // option 2 to show
-            roleData: item,
-          },
-        })
-      },
-      editRole (item) {
-        console.log(item)
-        this.$router.push({
-          name: 'RolesFrom',
-          params: {
-            option: 3, // option 3 to edit
-            roleData: item,
-          },
-        })
-      },
-      deleteRole (item) {
-        console.log(item)
-        console.log('Delete')
-      },
-    },
   }
-</script>
+  </script>
+
+  <style>
+
+  </style>

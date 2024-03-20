@@ -83,6 +83,14 @@
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
+                      v-model="usersData.rol"
+                      :label="$t('users.rol')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field
                       v-model="usersData.status"
                       :label="$t('users.status')"
                       class="purple-input"
@@ -148,6 +156,7 @@
         lastNames: '',
         email: '',
         phone: '',
+        rol: '',
         status: '',
 
       },

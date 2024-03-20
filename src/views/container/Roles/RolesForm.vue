@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id="role-profile"
+    id="inventory-profile"
     fluid
     tag="section"
   >
@@ -27,7 +27,7 @@
               fab
               dark
               small
-              color="secondary"
+              color="gray"
               absolute
               right
               top
@@ -42,68 +42,28 @@
           class="transparent"
         >
           <v-tab-item :kei="0">
-            <v-form>
+            <v-form
+              ref="form"
+
+              lazy-validation
+            >
               <v-container class="py-0">
                 <v-row>
-                  <v-col
-                    cols="12"
-                    sm="4"
-                  >
+                  <v-col cols="7">
                     <v-text-field
                       v-model="roleData.name"
-                      class="purple-input"
                       :label="$t('roles.name')"
-                      :disabled="option === 2 ? true : false"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
                     />
                   </v-col>
-
-                  <v-col
-                    cols="12"
-                    sm="4"
-                  >
+                  <v-col cols="7">
                     <v-text-field
                       v-model="roleData.status"
                       :label="$t('roles.status')"
                       class="purple-input"
-                      :disabled="option === 2 ? true : false"
+                      :readonly="option === 2 ? true : false"
                     />
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="4"
-                  >
-                    <v-select
-                      v-model="roleData.functions"
-                      color="secondary"
-                      item-color="secondary"
-                      :label="$t('roles.functions')"
-                      multiple
-                      :items="functions"
-                      :disabled="option === 2 ? true : false"
-                    >
-                      <template v-slot:item="{ attrs, item, on }">
-                        <v-list-item
-                          v-bind="attrs"
-                          active-class="secondary elevation-4 white--text"
-                          class="mx-3 mb-2 v-sheet"
-                          elevation="0"
-                          v-on="on"
-                        >
-                          <v-list-item-content>
-                            <v-list-item-title v-text="item" />
-                          </v-list-item-content>
-
-                          <v-scale-transition>
-                            <v-list-item-icon
-                              v-if="attrs.inputValue"
-                              class="my-3"
-                            >
-                              <v-icon>mdi-check</v-icon>
-                            </v-list-item-icon>
-                          </v-scale-transition>
-                        </v-list-item>
-                      </template>
-                    </v-select>
                   </v-col>
                   <v-col
                     cols="12"
@@ -113,11 +73,33 @@
                       v-if="option !== 2"
                       color="success"
                       class="mr-0"
+                      @click="submit"
                     >
                       {{ getTitleButton }}
                     </v-btn>
                   </v-col>
                 </v-row>
+
+                <div class="text-center">
+                  <v-snackbar
+                    v-model="snackbar"
+                    :timeout="timeout"
+                    color="#75B768"
+                  >
+                    {{ message }}
+
+                    <template v-slot:action="{ attrs }">
+                      <v-btn
+                        color="white"
+                        text
+                        v-bind="attrs"
+                        @click="snackbar = false"
+                      >
+                        Cerrar
+                      </v-btn>
+                    </template>
+                  </v-snackbar>
+                </div>
               </v-container>
             </v-form>
           </v-tab-item>
@@ -129,66 +111,52 @@
 
 <script>
   import i18n from '@/i18n'
-  import { editRoles, createRoles } from '@/api/modules'
   export default {
+
     data: () => ({
       tabs: 0,
       option: 0,
       title: '',
+      snackbar: '',
+      message: '',
       roleData: {
-        status: '',
+        id: '',
         name: '',
-        functions: [],
+        status: '',
       },
-      functions: ['demo', 'demo2'],
+
     }),
     computed: {
       getTitle () {
         if (this.option === 1) return i18n.t('roles.create')
         else if (this.option === 2) return i18n.t('roles.show')
         else if (this.option === 3) return i18n.t('roles.edit')
-        else return i18n.t('roles.title')
+        else return i18n.t('roles.head')
       },
       getTitleButton () {
         if (this.option === 1) return i18n.t('crud.create')
         else if (this.option === 2) return i18n.t('crud.show')
         else if (this.option === 3) return i18n.t('crud.edit')
-        else return i18n.t('roles.title')
+        else return i18n.t('roles.head')
       },
     },
     mounted () {
-      // console.log($t('roles.title'))
       this.initialize()
     },
     methods: {
       initialize () {
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
-          this.roleData = this.$route.params.roleData.role
-          console.log(this.roleData)
+          this.roleData = this.$route.params.roleData
         }
       },
-      async submit () {
-        if (this.option === 1) {
-          let serviceResponse = await createRoles(this.roleData)
-          if (serviceResponse.ok === 1) {
-            console.log(serviceResponse)
-          } else {
-            console.log(serviceResponse)
-            const params = { text: serviceResponse.message.text }
-            window.getApp.$emit('SHOW_ERROR', params)
-          }
-        } else if (this.option === 3) {
-          let serviceResponse = await editRoles(this.roleData.id, this.roleData)
-          if (serviceResponse.ok === 1) {
-            console.log(serviceResponse)
-          } else {
-            console.log(serviceResponse)
-            const params = { text: serviceResponse.message.text }
-            window.getApp.$emit('SHOW_ERROR', params)
-          }
-        }
-      },
-    }, //
+    },
   }
 </script>
+
+<style>
+.lbl {
+  padding: 0.5em;
+  margin: auto;
+}
+</style>

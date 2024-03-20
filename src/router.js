@@ -154,7 +154,7 @@ export default new Router({
           component: () => import('@/views/container/Roles/Roles'),
         },
         {
-          name: 'RolesFrom',
+          name: 'RolesForm',
           path: 'roles/form',
           //  beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Roles/RolesForm'),

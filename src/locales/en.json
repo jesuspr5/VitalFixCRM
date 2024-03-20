@@ -57,6 +57,7 @@
     "quantity": "cantidad",
     "email": "Email",
     "phone": "Teléfono",
+    "rol": "Rol",
     "status": "Estatus",
     "create": "Crear Inventario",
     "edit": "Editar Inventario",
@@ -67,7 +68,8 @@
     "edit": "Edit Role",
     "show": "Show Role",
     "title": "Roles",
-    "name": "Rol Name",
+    "id": "ID",
+    "name": "Tipo de Rol",
     "status": "Status",
     "functions": "Functions"
   },

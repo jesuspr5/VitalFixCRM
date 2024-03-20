@@ -191,7 +191,7 @@
 
           name: 'Odontologia',
           type: 'Mantenimiento',
-          description: 'Mantenimiento para equipos medicos utilizados en odontologia.',
+          description: 'Obten una promocion de 50% de descuento para el mantenimiento de equipos medicos utilizados en odontologia.',
           status: 'Activo',
 
         },
@@ -200,7 +200,7 @@
 
           name: 'Radiologia',
           type: 'Reparación',
-          description: 'Reparacion de equipos medicos utilizados en radiologia.',
+          description: 'Obten una promocion de 10% de descuento para la reparacion de equipos medicos utilizados en radiologia.',
           status: 'Activo',
 
         },
@@ -209,7 +209,7 @@
 
           name: 'Cardiologia',
           type: 'Mantenimiento',
-          description: 'Mantenimiento para equipos medicos utilizados en cardiologia.',
+          description: 'Obten una promocion de 5% de descuento para el Mantenimiento de equipos medicos utilizados en cardiologia.',
           status: 'Activo',
 
         },
