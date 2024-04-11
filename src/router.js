@@ -61,7 +61,7 @@ export default new Router({
       component: () => import('@/views/container/Index'),
       // beforeEnter: AuthorizationFunction,
       children: [
-        //equips
+        // equips
         {
           name: 'Inventory',
           path: 'inventory/inventory',
@@ -74,7 +74,7 @@ export default new Router({
           // beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Inventory/InventoryForm'),
         },
-        //services
+        // services
         {
           name: 'Services',
           path: 'services/services',

@@ -108,7 +108,7 @@
         },
         {
           group: '/home',
-          icon: 'mdi-plus-network', //se cambia este icono en los iconos del material de vue
+          icon: 'mdi-plus-network', // se cambia este icono en los iconos del material de vue
           title: 'GESTIONES',
           children: [
             {
@@ -119,7 +119,7 @@
               title: 'Inventario',
               to: 'inventory/inventory',
             },
-            
+
             {
               title: 'Servicios',
               to: 'Services/Services',
@@ -137,16 +137,25 @@
           title: 'REPORTES',
           children: [
             {
-              title: 'Ordenes',
-              to: 'Orders/Orders',
+              group: '/home',
+              title: 'ORDENES',
+              children: [
+                {
+                  title: 'Pendientes',
+                  to: 'Orders/Orders',
+                },
+                {
+                  title: 'Completadas',
+                  to: 'Orders/Orders',
+                },
+              ],
             },
             {
-              title: 'Revisiones',
+              title: 'REVISIONES',
               to: 'Reviews/Reviews',
             },
           ],
         },
-
         {
           group: '/home',
           icon: 'mdi-account-group',
@@ -170,8 +179,8 @@
             },
           ],
         },
-        //item-solos
-        
+        // item-solos
+
         // item-con-grupo,se-le-coloca-children
         // {
         //   group: '/pages',
@@ -212,7 +221,7 @@
         //   ],
         // },
       ],
-      
+
     }),
 
     computed: {
