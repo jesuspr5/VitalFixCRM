@@ -16,7 +16,7 @@
         > -->
 
         <div class="display-2 font-weight-light">
-          {{ $t("users.head") }}
+          {{ $t("requests.head") }}
         </div>
         <!-- </v-img> -->
 
@@ -76,7 +76,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteusers(item)"
+            @click="deleterequests(item)"
           >
             <v-icon
               small
@@ -170,32 +170,48 @@
       idblog: '',
       headers: [
         {
-          text: i18n.t('users.Name'),
+          text: i18n.t('requests.detailsEquip'),
+          value: 'detailsEquip',
+        },
+        {
+          text: i18n.t('requests.manufacturer'),
+          value: 'manufacturer',
+        },
+        {
+          text: i18n.t('requests.model'),
+          value: 'model',
+        },
+        {
+          text: i18n.t('requests.numberSerial'),
+          value: 'numberSerial',
+        },
+        {
+          text: i18n.t('requests.description'),
+          value: 'description',
+        },
+        {
+          text: i18n.t('requests.Name'),
           value: 'names',
         },
         {
-          text: i18n.t('users.lastName'),
+          text: i18n.t('requests.lastName'),
           value: 'lastNames',
         },
         {
-          text: i18n.t('users.nameUser'),
-          value: 'nameUser',
-        },
-        {
-          text: i18n.t('users.email'),
+          text: i18n.t('requests.email'),
           value: 'email',
         },
         {
-          text: i18n.t('users.phone'),
+          text: i18n.t('requests.phone'),
           value: 'phone',
         },
         {
-          text: i18n.t('users.rol'),
-          value: 'rol',
+          text: i18n.t('requests.address'),
+          value: 'address',
         },
         {
-          text: i18n.t('users.status'),
-          value: 'status',
+          text: i18n.t('requests.references'),
+          value: 'references',
         },
         {
           sortable: false,
@@ -207,12 +223,22 @@
         // agrega aqui json para llenar las tablas
 
         {
+          detailsEquip: 'Maquina de rayos X',
+          manufacturer: 'Daewoo',
+          model: 'pro',
+          numberSerial: '123456',
+          description: 'No realiza los rayos X',
           names: 'Carlos',
           lastNames: 'Perez',
           nameUser: 'CarlosP',
           email: 'Carlos@gmail.com',
           phone: 123456,
-          rol: 'Administrador',
+          country: 'Venezuela',
+          address: 'Avenida moran',
+          references: 'Al frente de la frutera',
+          city: 'Barquisimeto',
+          state: 'Lara',
+          zip: '3001',
           status: 'Activo',
 
         },
@@ -247,7 +273,7 @@
     methods: {
       create () {
         this.$router.push({
-          name: 'UsersFrom',
+          name: 'RequestsForm',
           params: {
             option: 1, // option 1 to create
           },
@@ -256,24 +282,24 @@
       show (item) {
         console.log(item)
         this.$router.push({
-          name: 'UsersFrom',
+          name: 'RequestsForm',
           params: {
             option: 2, // option 2 to show
-            usersData: item,
+            requestsData: item,
           },
         })
       },
       edit (item) {
         console.log(item)
         this.$router.push({
-          name: 'UsersFrom',
+          name: 'RequestsForm',
           params: {
             option: 3, // option 3 to edit
-            usersData: item,
+            requestsData: item,
           },
         })
       },
-      deleteusers (item) {
+      deleterequests (item) {
         // hay que pasar un id
         this.dialogDelete = true
       },

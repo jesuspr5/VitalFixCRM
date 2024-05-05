@@ -137,23 +137,18 @@
           title: 'REPORTES',
           children: [
             {
-              group: '/home',
-              title: 'ORDENES',
-              children: [
-                {
-                  title: 'Pendientes',
-                  to: 'Orders/Orders',
-                },
-                {
-                  title: 'Completadas',
-                  to: 'Orders/Orders',
-                },
-              ],
+              title: 'Solicitudes pendientes',
+              to: 'Requests/Requests',
             },
             {
-              title: 'REVISIONES',
+              title: 'Ordenes completadas',
+              to: 'Orders/Orders',
+            },
+            {
+              title: 'Revisiones',
               to: 'Reviews/Reviews',
             },
+
           ],
         },
         {
