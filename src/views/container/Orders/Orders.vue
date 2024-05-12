@@ -136,6 +136,7 @@
 
     <script>
   import i18n from '@/i18n'
+  import { GetList, deleteorder } from '../../../api/modules/orders'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
@@ -143,7 +144,7 @@
       snackbar: false,
       message: '',
       hidden: false,
-      idblog: '',
+      idord: null,
       headers: [
         {
           text: i18n.t('orders.id'),
@@ -168,43 +169,24 @@
           value: 'actions',
         },
       ],
-      items: [
-        // agrega aqui json para llenar las tablas
-
-        {
-
-          id: '1',
-          type: 'Mantenimiento',
-          amount: '50',
-          status: 'Pendiente',
-
-        },
-
-        {
-
-          id: '2',
-          type: 'Instalacion',
-          amount: '70',
-          status: 'Completada',
-
-        },
-
-        {
-
-          id: '3',
-          type: 'Reparacion',
-          amount: '100',
-          status: 'En revision',
-
-        },
-      ],
+      items: [],
       search: undefined,
 
     }),
+    async mounted () {
+      this.data()
+    },
     methods: {
+      data: async function () {
+        let result
+        result = await GetList()
+        this.items = result
+        console.log('EL STOREE: ', result)
+      // console.log('array',this.items)
+      },
       create () {
         this.$router.push({
-          name: 'Orders',
+          name: 'OrdersForm',
           params: {
             option: 1, // option 1 to create
           },
@@ -220,16 +202,36 @@
           },
         })
       },
-      deleteequips (item) {
-        // hay que pasar un id
+      deleteorder (item) {
+        this.idord = item.id
         this.dialogDelete = true
       },
       closeDelete () {
         this.dialogDelete = false
       },
 
-      deleteItemConfirm () {
+      deleteOrderConfirm () {
         this.dialogDelete = false
+      },
+      async deleteOrderConfirm () {
+        let result
+        result = await deleteorder(this.idord)
+        console.log("🚀 ~ deleteItemConfirm ~ result:", result)
+        if (result === 'OK') {
+          this.snackbar = true
+          this.message = 'Eliminación exitosa'
+          this.data()
+          this.dialogDelete = false
+          setTimeout(() => {
+            this.$router.push({ name: 'Order' })
+          }, 1000)
+        } else {
+          this.snackbar = true
+          this.message = 'ocurrio un error al eliminar la orden'
+          setTimeout(() => {
+            this.snackbar = false
+          }, 1000)
+        }
       },
     },
   }

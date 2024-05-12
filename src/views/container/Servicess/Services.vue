@@ -175,6 +175,10 @@
           value: 'description',
         },
         {
+          text: i18n.t('services.price'),
+          value: 'price',
+        },
+        {
           text: i18n.t('services.status'),
           value: 'status',
         },
@@ -192,6 +196,7 @@
           name: 'Odontologia',
           type: 'Mantenimiento',
           description: 'Mantenimiento para equipos medicos utilizados en odontologia.',
+          price: '50',
           status: 'Activo',
 
         },
@@ -201,6 +206,7 @@
           name: 'Radiologia',
           type: 'Reparación',
           description: 'Reparacion de equipos medicos utilizados en radiologia.',
+          price: '60',
           status: 'Activo',
 
         },
@@ -209,7 +215,8 @@
 
           name: 'Cardiologia',
           type: 'Mantenimiento',
-          description: 'Mantenimiento para equipos medicos utilizados en cardiologia.',
+          description: 'Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.',
+          price: '50',
           status: 'Activo',
 
         },

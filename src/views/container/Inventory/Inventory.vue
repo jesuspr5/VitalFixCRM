@@ -153,7 +153,7 @@
 
   <script>
   import i18n from '@/i18n'
-  import { GetList,deleteinventario } from '../../../api/modules/inventario';
+  import { GetList, deleteinventario } from '../../../api/modules/inventario'
   export default {
     name: 'DashboardDataTables',
     data: () => ({

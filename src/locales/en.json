@@ -139,6 +139,7 @@
     "name": "Nombre",
     "description": "Descripción",
     "type": "Tipo",
+    "price": "Precio",
     "status": "Estatus",
     "create": "Crear Servicio",
     "edit": "Editar Servicio",
