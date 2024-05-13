@@ -128,6 +128,7 @@
 
 <script>
   import i18n from '@/i18n'
+  import { createorder, updateorder } from '../../../api/modules/orders'
   export default {
 
     data: () => ({
@@ -167,6 +168,73 @@
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
           this.ordersData = this.$route.params.ordersData
+        }
+      },
+      async submit () {
+        if (this.option === 1) {
+          if (this.$refs.form.validate()) {
+
+            let orders = {
+              id: this.ordersData.id,
+              type: this.ordersData.type,
+              amount: this.ordersData.amount,
+
+            }
+            console.log("🚀 ~ submit ~ order:", orders)
+            orders = await createorder(orders)
+
+            if (orders != null) {
+              this.snackbar = true
+              this.message = 'Registro exitoso'
+              setTimeout(() => {
+                this.$router.push({ name: 'orders' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante el registro'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        }  
+        if (this.option === 3) {
+          if (this.$refs.form.validate()) {
+
+            let orders = {
+              id: this.ordersData.id,
+              type: this.ordersData.type,
+              amount: this.ordersData.amount,
+            }
+            console.log('orden que se envia ', orders)
+            orders = await updateorder(orders)
+            if (orders != null) {
+              this.snackbar = true
+              this.message = 'Actualizacion exitosa'
+              setTimeout(() => {
+                this.$router.push({ name: 'orders' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante la actualizacion'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
         }
       },
     },

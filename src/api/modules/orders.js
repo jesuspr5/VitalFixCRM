@@ -32,7 +32,7 @@ async function updateorder(orders) {
 async function deleteorder(id) {
     let result
     result = await axios.delete(
-        'https://back-vitalfix.onrender.com/api/v1/orders' + id
+        'https://back-vitalfix.onrender.com/api/v1/orders/' + id
     )
     console.log("🚀 ~ deleteorder ~ result:", result)
 

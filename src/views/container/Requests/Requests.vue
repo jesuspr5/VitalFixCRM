@@ -160,6 +160,7 @@
 
   <script>
   import i18n from '@/i18n'
+  import { GetList, deleterequests } from '../../../api/modules/requests'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
@@ -219,58 +220,21 @@
           value: 'actions',
         },
       ],
-      items: [
-        // agrega aqui json para llenar las tablas
-
-        {
-          detailsEquip: 'Maquina de rayos X',
-          manufacturer: 'Daewoo',
-          model: 'pro',
-          numberSerial: '123456',
-          description: 'No realiza los rayos X',
-          names: 'Carlos',
-          lastNames: 'Perez',
-          nameUser: 'CarlosP',
-          email: 'Carlos@gmail.com',
-          phone: 123456,
-          country: 'Venezuela',
-          address: 'Avenida moran',
-          references: 'Al frente de la frutera',
-          city: 'Barquisimeto',
-          state: 'Lara',
-          zip: '3001',
-          status: 'Activo',
-
-        },
-
-        {
-
-          names: 'Jose',
-          lastNames: 'Mendoza',
-          nameUser: 'JoseMen',
-          email: 'Jose@gmail.com',
-          phone: 6758423,
-          rol: 'Cliente',
-          status: 'Activo',
-
-        },
-
-        {
-
-          names: 'Maria',
-          lastNames: 'Gomez',
-          nameUser: 'Mariita',
-          email: 'Maria@gmail.com',
-          phone: 268448,
-          rol: 'Cliente',
-          status: 'Activo',
-
-        },
-      ],
+      items: [],
       search: undefined,
 
     }),
+    async mounted () {
+      this.data()
+    },
     methods: {
+      data: async function () {
+        let result
+        result = await GetList()
+        this.items = result
+        console.log('EL STOREE: ', result)
+      // console.log('array',this.items)
+      },
       create () {
         this.$router.push({
           name: 'RequestsForm',
@@ -307,8 +271,28 @@
         this.dialogDelete = false
       },
 
-      deleteItemConfirm () {
+      deleteRequestConfirm () {
         this.dialogDelete = false
+      },
+      async deleteRequestConfirm () {
+        let result
+        result = await deleterequests(this.idord)
+        console.log("🚀 ~ deleteRequestConfirm ~ result:", result)
+        if (result === 'OK') {
+          this.snackbar = true
+          this.message = 'Eliminación exitosa'
+          this.data()
+          this.dialogDelete = false
+          setTimeout(() => {
+            this.$router.push({ name: 'Request' })
+          }, 1000)
+        } else {
+          this.snackbar = true
+          this.message = 'ocurrio un error al eliminar la solicitud'
+          setTimeout(() => {
+            this.snackbar = false
+          }, 1000)
+        }
       },
     },
 

@@ -223,6 +223,7 @@
 
 <script>
   import i18n from '@/i18n'
+  import { createrequest, updaterequest } from '../../../api/modules/requests'
   export default {
 
     data: () => ({
@@ -274,6 +275,97 @@
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
           this.requestsData = this.$route.params.requestsData
+        }
+      },
+      async submit () {
+        if (this.option === 1) {
+          if (this.$refs.form.validate()) {
+
+            let requests = {
+              detailsEquip: this.requestsData.detailsEquip,
+              manufacturer: this.requestsData.manufacturer,
+              model: this.requestsData.model,
+              numberSerial: this.requestsData.numberSerial,
+              description: this.requestsData.description,
+              name: this.requestsData.name,
+              lastNames: this.requestsData.lastNames,
+              email: this.requestsData.email,
+              phone: this.requestsData.phone,
+              country: this.requestsData.country,
+              address: this.requestsData.address,
+              references: this.requestsData.references,
+              city: this.requestsData.city,
+              state: this.requestsData.state,
+              zip: this.requestsData.zip,
+
+            }
+            console.log("🚀 ~ submit ~ requests:", requests)
+            requests = await createresquest(requests)
+
+            if (requests != null) {
+              this.snackbar = true
+              this.message = 'Registro exitoso'
+              setTimeout(() => {
+                this.$router.push({ name: 'requests' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante el registro'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        }  
+        if (this.option === 3) {
+          if (this.$refs.form.validate()) {
+
+            let requests = {
+              detailsEquip: this.requestsData.detailsEquip,
+              manufacturer: this.requestsData.manufacturer,
+              model: this.requestsData.model,
+              numberSerial: this.requestsData.numberSerial,
+              description: this.requestsData.description,
+              name: this.requestsData.name,
+              lastNames: this.requestsData.lastNames,
+              email: this.requestsData.email,
+              phone: this.requestsData.phone,
+              country: this.requestsData.country,
+              address: this.requestsData.address,
+              references: this.requestsData.references,
+              city: this.requestsData.city,
+              state: this.requestsData.state,
+              zip: this.requestsData.zip,
+            }
+            console.log('request que se envia ', requests)
+            requests = await updaterequest(requests)
+            if (requests != null) {
+              this.snackbar = true
+              this.message = 'Actualizacion exitosa'
+              setTimeout(() => {
+                this.$router.push({ name: 'requests' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante la actualizacion'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
         }
       },
     },
