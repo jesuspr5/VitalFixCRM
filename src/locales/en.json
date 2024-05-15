@@ -148,7 +148,7 @@
   },
   "promotions": {
     "head": "Promociones",
-    "name": "Nombre",
+    "titulo": "Titulo",
     "description": "Descripción",
     "type": "Tipo",
     "status": "Estatus",

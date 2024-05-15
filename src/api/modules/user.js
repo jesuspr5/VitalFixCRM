@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { apiHttp } from '../axiosApi'
 
-async function usersGetList() {
+async function usersGetList () {
     const result = await apiHttp('get', '/api/v1/users');
     return result
 }
@@ -45,23 +45,23 @@ async function usersGetList() {
 //   return result
 // }
 
-async function loginUser(userToLogin) {
-    let result
-    console.log('USUARIO: ', userToLogin)
-    result = await axios
-        .post(
-            'https://as-humedal-api.azurewebsites.net/Users/Authenticate',
-            userToLogin
-        )
-        .then(data => {
-            return data.data
-        })
-        .catch(error => {
-            return error.response.data
-        })
-    console.log('LoginData: ', result)
-    return result
-}
+// async function loginUser(userToLogin) {
+//     let result
+//     console.log('USUARIO: ', userToLogin)
+//     result = await axios
+//         .post(
+//             'https://as-humedal-api.azurewebsites.net/Users/Authenticate',
+//             userToLogin
+//         )
+//         .then(data => {
+//             return data.data
+//         })
+//         .catch(error => {
+//             return error.response.data
+//         })
+//     console.log('LoginData: ', result)
+//     return result
+// }
 
 export {
     usersGetList,

@@ -209,12 +209,10 @@
 
     }),
 
-     mounted () {
+    mounted () {
       this.data()
     },
 
-    
-    
     methods: {
       data: async function () {
         let result
@@ -222,13 +220,13 @@
         console.log("🚀 ~ result:", result)
         if (result.status==200) {
           this.items = result.data
-        }else {
+        } else {
           console.log("Error api")
         // Muestra un mensaje de error si la autenticación falla
         // this.dialog = true;
         // this.message = result.message.text;
-      }
-       
+        }
+
         console.log('EL STOREE: ', result)
       // console.log('array',this.items)
       },

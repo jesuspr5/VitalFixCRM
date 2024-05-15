@@ -153,6 +153,7 @@
   
   <script>
   import i18n from '@/i18n'
+  import { promotionsGetList } from '../../../api/modules/promotions'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
@@ -162,8 +163,8 @@
       hidden: false,
       headers: [
         {
-          text: i18n.t('promotions.name'),
-          value: 'name',
+          text: i18n.t('promotions.titulo'),
+          value: 'titulo',
         },
 
         {
@@ -184,41 +185,27 @@
           value: 'actions',
         },
       ],
-      items: [
-        // agrega aqui json para llenar las tablas
-
-        {
-
-          name: 'Odontologia',
-          type: 'Mantenimiento',
-          description: 'Obten una promocion de 50% de descuento para el mantenimiento de equipos medicos utilizados en odontologia.',
-          status: 'Activo',
-
-        },
-
-        {
-
-          name: 'Radiologia',
-          type: 'Reparación',
-          description: 'Obten una promocion de 10% de descuento para la reparacion de equipos medicos utilizados en radiologia.',
-          status: 'Activo',
-
-        },
-
-        {
-
-          name: 'Cardiologia',
-          type: 'Mantenimiento',
-          description: 'Obten una promocion de 5% de descuento para el Mantenimiento de equipos medicos utilizados en cardiologia.',
-          status: 'Activo',
-
-        },
-      ],
+      items: [ ],
       search: undefined,
 
     }),
+    mounted () {
+      this.data()
+    },
     methods:
       {
+        data: async function () {
+          let result
+          result = await promotionsGetList()
+          console.log("🚀 ~ result:", result)
+          if (result.status==200) {
+            this.items = result.data
+          } else {
+            console.log("Error api")
+          }
+        },
+
+
         create () {
           this.$router.push({
             name: 'PromotionsForm',
