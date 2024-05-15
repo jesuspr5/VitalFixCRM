@@ -1,69 +1,73 @@
 import axios from 'axios'
 import i18n from '@/i18n'
 
-export const API_URL_BACKEND = 'https://as-humedal-api.azurewebsites.net'
+export const API_URL_BACKEND = 'https://back-vitalfix.onrender.com'
 
 export const apiHttp = async (
   method,
   endpoint,
   data,
   options = {},
-  loading = true
+  loading = true,
+  jwtToken = null
 ) => {
-  // const { email, password } = localStorage
   const defaultHeaders = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    //   Authorization: 'Basic ' + btoa(`${'joanrosendo@najoconsultores.com'}:${'12345'}`),
   }
 
-  if (!options.hasOwnProperty('headers')) options.headers = defaultHeaders
+  if (jwtToken) {
+    defaultHeaders.Authorization = `Bearer ${jwtToken}`
+  }
 
-  let serviceResponse = {}
+  options.headers = { ...defaultHeaders, ...options.headers }
 
-  method = method.toLowerCase()
-  const servicePromise = axios({
-    method,
-    url: `${API_URL_BACKEND}${endpoint}`,
-    data,
-    ...options,
-  })
+  if (loading) {
+    window.getApp.$emit('LOADING', true)
+  }
 
   try {
-    if (loading) {
-      window.getApp.$emit('LOADING', true)
+    const responseData = await axios({
+      method: method.toLowerCase(),
+      url: `${API_URL_BACKEND}${endpoint}`,
+      data,
+      ...options,
+    })
+
+    return responseData
+  } catch (error) {
+    console.error(error.response)
+
+    let errorResponse = {
+      ok: 0,
+      message: {
+        code: 'E999',
+        text: i18n.t('message.apiErrorUndefined')
+      }
     }
 
-    const [materializedPromise] = await Promise.all([servicePromise])
-    serviceResponse = { ...materializedPromise.data }
-  } catch (error) {
-    serviceResponse = buildErrorMessage(error)
-  }
-  window.getApp.$emit('LOADING', false)
-  return serviceResponse
-}
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          errorResponse.message.text = i18n.t('message.apiError401')
+          break
+        case 404:
+          errorResponse.message.text = i18n.t('message.apiError404')
+          break
+        case 500:
+          errorResponse.message.text = i18n.t('message.apiError500')
+          break
+        case 405:
+        case 406:
+          errorResponse.message.text = i18n.t('message.apiError405_406')
+          break
+        default:
+          errorResponse.message.text = error.response.data.message.text
+      }
+    }
 
-function buildErrorMessage(error) {
-  console.error(error.response)
-  let errorResponse = {
-    ok: 0,
-    message: {
-      code: String,
-      text: String,
-    },
+    return errorResponse
+  } finally {
+    window.getApp.$emit('LOADING', false)
   }
-  if (typeof error.response === 'undefined') {
-    errorResponse.message.text = i18n.t('message.apiErrorUndefined')
-  } else if (error.response.status === 401) {
-    errorResponse.message.text = i18n.t('message.apiError401')
-  } else if (error.response.status === 404) {
-    errorResponse.message.text = i18n.t('message.apiError404')
-  } else if (error.response.status === 500) {
-    errorResponse.message.text = i18n.t('message.apiError500')
-  } else if (error.response.status === 405 || error.response.status === 406) {
-    errorResponse.message.text = i18n.t('message.apiError405_406')
-  } else errorResponse.message.text = error.response.data.message.text
-  errorResponse.ok = 0
-  errorResponse.message.code = 'E999'
-  return errorResponse
 }

@@ -190,7 +190,7 @@
       search: undefined,
 
     }),
-    async mounted () {
+  mounted () {
       this.data()
     },
     methods: {

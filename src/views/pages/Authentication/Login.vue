@@ -32,13 +32,14 @@
                 color="secondary"
                 label="Correo electrónico"
                 prepend-icon="mdi-email"
-                
+                required
+               
               />
 
               <v-text-field
                 v-model="user.password"
                 :append-icon="show1 ? 'mdi-eye' : ' mdi-eye-off'"
-               
+               required
                 :type="show1 ? 'text' : 'password'"
                 name="input-10-1"
                 label="Contraseña"
@@ -98,8 +99,8 @@
 //   email: "",
 //   password: ""
 // };
-
-  import { loginUser } from '../../../api/modules/user'
+  import {apiHttp} from '../../../api/axiosApi'
+ 
   export default {
     name: 'PagesLogin',
 
@@ -121,57 +122,45 @@
         password: '',
       },
       rules: {
-        required: value => !!value || 'Debe ingresar su contraseña.',
+        required: value => !!value || 'Debe ingresar este campo.',
         min: v => v.length >= 5 || 'Mínimo 8 caracteres',
         emailRules: v =>
           /.+@.+\..+/.test(v) || 'el correo deber ser valido. Ejemplo@gmail.com',
-      //    emailMatch: () => "El correo y la contraseña no coinciden"
+         // emailMatch: () => "El correo y la contraseña no coinciden"
       },
     }),
     methods: {
-      async submit () {
-        this.$router.push('/home/Dashboard')
-        // if (this.$refs.form.validate()) {
-        //   let userToLogin = {
-        //     email: this.user.email,
-        //     password: this.user.password,
-        //     rememberMe: true,
-        //   }
-        //   // this.new = userToLogin;
-        //   console.log('usuario' + userToLogin)
-        //   console.log(userToLogin)
+      
+  async submit() {
+    if (this.$refs.form.validate()) {
+      const userToLogin = {
+        email: this.user.email,
+        password: this.user.password,
+      };
 
-        //   let result
-        //   result = await loginUser(userToLogin)
-        //   console.log('token' + result)
-        //   console.log(result.message)
-        //   var mess = result.message
-        //   var token = result.data
-        //   switch (mess) {
-        //     case 'Input string was not in a correct format.':
-        //       this.dialog = true
-        //       this.message = 'El usuario no está registrado.'
-        //       break
-        //     case 'Contraseña inválida':
-        //       this.dialog = true
-        //       this.message = 'La contraseña es incorrecta.'
-        //       break
-        //     case '':
-        //       localStorage.setItem('token', token)
-        //       this.$router.push('/home/users/users')
-        //       break
-        //     default:
-        //       this.dialog = true
-        //       this.message = 'Hubo un error.!'
+      // Llama a la API para autenticar al usuario
+      const result = await apiHttp('post', '/api/v1/auth/login', userToLogin);
+      console.log("🚀 ~ submit ~ result:", result)
 
-        //       break
-        //   }
-        // } else {
-        //   this.dialog = true
-        //   this.message = 'Debe llenar todos los campos'
-        // }
-      },
-    },
+      if (result.status==201) {
+        // Autenticación exitosa, redirige al usuario al dashboard
+       localStorage.setItem("token",result.data.token)
+        this.$router.push('/home/Dashboard');
+      } else {
+        // Muestra un mensaje de error si la autenticación falla
+        this.dialog = true;
+        this.message = result.message.text;
+      }
+       console.log("🚀 ~ submit ~ localStorage:", localStorage)
+    } else {
+      // Muestra un mensaje si los campos no están completos
+      this.dialog = true;
+      this.message = 'Debe llenar todos los campos';
+    }
+  },
+},
+
+    
   }
 </script>
 

@@ -160,6 +160,7 @@
 
   <script>
   import i18n from '@/i18n'
+  import { usersGetList } from '../../../api/modules/user'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
@@ -171,11 +172,11 @@
       headers: [
         {
           text: i18n.t('users.Name'),
-          value: 'names',
+          value: 'name',
         },
         {
           text: i18n.t('users.lastName'),
-          value: 'lastNames',
+          value: 'lastname',
         },
         {
           text: i18n.t('users.nameUser'),
@@ -191,11 +192,11 @@
         },
         {
           text: i18n.t('users.rol'),
-          value: 'rol',
+          value: 'role',
         },
         {
           text: i18n.t('users.status'),
-          value: 'status',
+          
         },
         {
           sortable: false,
@@ -203,48 +204,34 @@
           value: 'actions',
         },
       ],
-      items: [
-        // agrega aqui json para llenar las tablas
-
-        {
-          names: 'Carlos',
-          lastNames: 'Perez',
-          nameUser: 'CarlosP',
-          email: 'Carlos@gmail.com',
-          phone: 123456,
-          rol: 'Administrador',
-          status: 'Activo',
-
-        },
-
-        {
-
-          names: 'Jose',
-          lastNames: 'Mendoza',
-          nameUser: 'JoseMen',
-          email: 'Jose@gmail.com',
-          phone: 6758423,
-          rol: 'Cliente',
-          status: 'Activo',
-
-        },
-
-        {
-
-          names: 'Maria',
-          lastNames: 'Gomez',
-          nameUser: 'Mariita',
-          email: 'Maria@gmail.com',
-          phone: 268448,
-          rol: 'Cliente',
-          status: 'Activo',
-
-        },
-      ],
+      items: [ ],
       search: undefined,
 
     }),
+
+     mounted () {
+      this.data()
+    },
+
+    
+    
     methods: {
+      data: async function () {
+        let result
+        result = await usersGetList()
+        console.log("🚀 ~ result:", result)
+        if (result.status==200) {
+          this.items = result.data
+        }else {
+          console.log("Error api")
+        // Muestra un mensaje de error si la autenticación falla
+        // this.dialog = true;
+        // this.message = result.message.text;
+      }
+       
+        console.log('EL STOREE: ', result)
+      // console.log('array',this.items)
+      },
       create () {
         this.$router.push({
           name: 'UsersFrom',
