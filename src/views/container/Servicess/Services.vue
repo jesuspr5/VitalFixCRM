@@ -153,6 +153,7 @@
 
   <script>
   import i18n from '@/i18n'
+  import { GetList, deleteservices } from '../../../api/modules/services'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
@@ -160,12 +161,16 @@
       snackbar: false,
       message: '',
       hidden: false,
+      idser: null,
       headers: [
+        {
+          text: i18n.t('services.id'),
+          value: 'id',
+        },
         {
           text: i18n.t('services.name'),
           value: 'name',
         },
-
         {
           text: i18n.t('services.type'),
           value: 'type',
@@ -188,44 +193,22 @@
           value: 'actions',
         },
       ],
-      items: [
-        // agrega aqui json para llenar las tablas
-
-        {
-
-          name: 'Odontologia',
-          type: 'Mantenimiento',
-          description: 'Mantenimiento para equipos medicos utilizados en odontologia.',
-          price: '50',
-          status: 'Activo',
-
-        },
-
-        {
-
-          name: 'Radiologia',
-          type: 'Reparación',
-          description: 'Reparacion de equipos medicos utilizados en radiologia.',
-          price: '60',
-          status: 'Activo',
-
-        },
-
-        {
-
-          name: 'Cardiologia',
-          type: 'Mantenimiento',
-          description: 'Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.Mantenimiento para equipos medicos utilizados en cardiologia.',
-          price: '50',
-          status: 'Activo',
-
-        },
-      ],
+      items: [],
       search: undefined,
 
     }),
+    async mounted () {
+      this.data()
+    },
     methods:
       {
+        data: async function () {
+          let result
+          result = await GetList()
+          this.items = result
+          console.log('EL STOREE: ', result)
+        // console.log('array',this.items)
+        },
         create () {
           this.$router.push({
             name: 'ServicesForm',
@@ -261,8 +244,28 @@
           this.dialogDelete = false
         },
 
-        deleteItemConfirm () {
+        deleteServiceConfirm () {
           this.dialogDelete = false
+        },
+        async deleteServiceConfirm () {
+          let result
+          result = await deleteservices(this.idser)
+          console.log("🚀 ~ deleteServiceConfirm ~ result:", result)
+          if (result === 'OK') {
+            this.snackbar = true
+            this.message = 'Eliminación exitosa'
+            this.data()
+            this.dialogDelete = false
+            setTimeout(() => {
+              this.$router.push({ name: 'Services' })
+            }, 1000)
+          } else {
+            this.snackbar = true
+            this.message = 'ocurrio un error al eliminar el Services'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
         },
       },
   }

@@ -51,6 +51,14 @@
                 <v-row>
                   <v-col cols="7">
                     <v-text-field
+                      v-model="servicesData.id"
+                      :label="$t('services.id')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field
                       v-model="servicesData.name"
                       :label="$t('services.name')"
                       class="purple-input"
@@ -128,6 +136,7 @@
 
 <script>
   import i18n from '@/i18n'
+  import { createservices, updateservices } from '../../../api/modules/services'
   export default {
 
     data: () => ({
@@ -137,9 +146,11 @@
       snackbar: '',
       message: '',
       servicesData: {
+        id: '',
         name: '',
         type: '',
         description: '',
+        price: '',
         status: '',
       },
 
@@ -166,6 +177,77 @@
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
           this.servicesData = this.$route.params.servicesData
+        }
+      },
+      async submit () {
+        if (this.option === 1) {
+          if (this.$refs.form.validate()) {
+
+            let services = {
+              id: this.servicesData.id,
+              name: this.servicesData.id,
+              type: this.servicesData.type,
+              description: this.servicesData.description,
+              price: this.servicesData.price,
+
+            }
+            console.log("🚀 ~ submit ~ service:", services)
+            services = await createservices(services)
+
+            if (services != null) {
+              this.snackbar = true
+              this.message = 'Registro exitoso'
+              setTimeout(() => {
+                this.$router.push({ name: 'services' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante el registro'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        }  
+        if (this.option === 3) {
+          if (this.$refs.form.validate()) {
+
+            let services = {
+              id: this.servicesData.id,
+              name: this.servicesData.name,
+              type: this.servicesData.type,
+              description: this.servicesData.description,
+              price: this.servicesData.price,
+            }
+            console.log('servicio que se envia ', services)
+            services = await updateservices(services)
+            if (services != null) {
+              this.snackbar = true
+              this.message = 'Actualizacion exitosa'
+              setTimeout(() => {
+                this.$router.push({ name: 'services' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante la actualizacion'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
         }
       },
     },
