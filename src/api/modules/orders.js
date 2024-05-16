@@ -1,39 +1,23 @@
 import axios from 'axios'
 
 async function GetList() {
-    let result
-    result = await axios.get(
-        'https://back-vitalfix.onrender.com/api/v1/orders'
-    )
-    return result.data
+    const result = await apiHttp('get', '/api/v1/orders');
+    return result;
 }
 
 async function createorder(orders) {
-    let result
-    result = await axios.post(
-        'https://back-vitalfix.onrender.com/api/v1/orders',
-        orders
-    )
+    const result = await apiHttp('post', '/api/v1/orders', orders)
     console.log('orders creada: ', result)
     return result
 }
 
 async function updateorder(orders) {
-    let result
-    result = await axios.patch(
-        `https://back-vitalfix.onrender.com/api/v1/orders/${orders.id}`, orders
-
-    )
-    console.log("🚀 ~ updateorder ~ result:", result)
-
+    const result = await apiHttp('patch', `/api/v1/orders/${orders.id}`, orders)
     return result
 }
 
 async function deleteorder(id) {
-    let result
-    result = await axios.delete(
-        'https://back-vitalfix.onrender.com/api/v1/orders/' + id
-    )
+    const result = await apiHttp('delete', '/api/v1/orders/' + id)
     console.log("🚀 ~ deleteorder ~ result:", result)
 
     return result.request.statusText

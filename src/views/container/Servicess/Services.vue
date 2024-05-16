@@ -257,11 +257,11 @@
             this.data()
             this.dialogDelete = false
             setTimeout(() => {
-              this.$router.push({ name: 'Services' })
+              this.$router.push({ name: 'Promotions' })
             }, 1000)
           } else {
             this.snackbar = true
-            this.message = 'ocurrio un error al eliminar el Services'
+            this.message = 'ocurrio un error al eliminar la promocion'
             setTimeout(() => {
               this.snackbar = false
             }, 1000)

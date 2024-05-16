@@ -6,4 +6,22 @@ async function promotionsGetList() {
     return result;
 }
 
-export { promotionsGetList };
+async function createpromotions(promotion) {
+    const result = await apiHttp('post', '/api/v1/promotions', promotion)
+    console.log('promotion creado: ', result)
+    return result
+}
+
+async function updatepromotions(promotion) {
+    const result = await apiHttp('patch', `/api/v1/promotions/${promotion.id}`, promotion)
+    return result
+}
+
+async function deletepromotions(id) {
+    const result = await apiHttp('delete', '/api/v1/promotions/' + id)
+    console.log("🚀 ~ deleteservices ~ result:", result)
+
+    return result.request.statusText
+}
+
+export { promotionsGetList, createpromotions, updatepromotions, deletepromotions }

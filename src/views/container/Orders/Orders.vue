@@ -180,10 +180,13 @@
       data: async function () {
         let result
         result = await GetList()
-        this.items = result
-        console.log('EL STOREE: ', result)
-      // console.log('array',this.items)
+        if (result.status==200) {
+          this.items = result.data
+        } else {
+          console.log("Error api")
+        }
       },
+
       create () {
         this.$router.push({
           name: 'OrdersForm',

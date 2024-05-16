@@ -51,8 +51,8 @@
                 <v-row>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="promotionsData.name"
-                      :label="$t('promotions.name')"
+                      v-model="promotionsData.titulo"
+                      :label="$t('promotions.titulo')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
@@ -128,6 +128,7 @@
 
 <script>
   import i18n from '@/i18n'
+  import { createpromotions, updatepromotions } from '../../../api/modules/promotions'
   export default {
 
     data: () => ({
@@ -137,7 +138,7 @@
       snackbar: '',
       message: '',
       promotionsData: {
-        name: '',
+        titulo: '',
         type: '',
         description: '',
         status: '',
@@ -162,6 +163,72 @@
       this.initialize()
     },
     methods: {
+      async submit () {
+        if (this.option === 1) {
+          if (this.$refs.form.validate()) {
+
+            let promotion = {
+              titulo: this.promotionsData.titulo,
+              description: this.promotionsData.description,
+
+            }
+
+            promotion = await createpromotions(promotion)
+
+            if (promotion.status == 201) {
+              this.snackbar = true
+              this.message = 'Registro exitoso'
+              setTimeout(() => {
+                this.$router.push({ name: 'Promotions' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante el registro'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        }  
+        if (this.option === 3) {
+          if (this.$refs.form.validate()) {
+
+            let promotion = {
+              titulo: this.promotionsData.titulo,
+              description: this.promotionsData.description,
+            }
+            console.log('inventario que se envia ', promotion)
+            
+            promotion = await updatepromotions(promotion)
+            if (promotion.status == 201) {
+              this.snackbar = true
+              this.message = 'Actualizacion exitosa'
+              setTimeout(() => {
+                this.$router.push({ name: 'Promotions' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante la actualizacion'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        }
+      },
       initialize () {
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {

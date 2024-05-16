@@ -153,13 +153,14 @@
   
   <script>
   import i18n from '@/i18n'
-  import { promotionsGetList } from '../../../api/modules/promotions'
+  import { promotionsGetList, deletepromotions } from '../../../api/modules/promotions'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
       dialogDelete: false,
       snackbar: false,
       message: '',
+      idpro: null,
       hidden: false,
       headers: [
         {
@@ -246,7 +247,26 @@
         deleteItemConfirm () {
           this.dialogDelete = false
         },
-
+        async deleteItemConfirm () {
+          let result
+          result = await deletepromotions(this.idpro)
+          console.log("🚀 ~ deleteItemConfirm ~ result:", result)
+          if (result === 'OK') {
+            this.snackbar = true
+            this.message = 'Eliminación exitosa'
+            this.data()
+            this.dialogDelete = false
+            setTimeout(() => {
+              this.$router.push({ name: 'Promotions' })
+            }, 1000)
+          } else {
+            this.snackbar = true
+            this.message = 'ocurrio un error al eliminar la promocion'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        },
       },
   }
   </script>

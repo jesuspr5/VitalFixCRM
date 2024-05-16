@@ -23,7 +23,7 @@ import vuetify from './plugins/vuetify'
 import i18n from './i18n'
 import VueLoading from 'vuejs-loading-plugin'
 import Toasted from 'vue-toasted'
-import './axiosConfig';
+import './api/config/axiosConfig'
 Vue.config.productionTip = false
 Vue.use(VueLoading)
 Vue.use(Toasted, {
