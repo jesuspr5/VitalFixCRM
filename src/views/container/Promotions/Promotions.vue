@@ -160,7 +160,7 @@
       dialogDelete: false,
       snackbar: false,
       message: '',
-      idpro: null,
+      id: null,
       hidden: false,
       headers: [
         {
@@ -249,7 +249,7 @@
         },
         async deleteItemConfirm () {
           let result
-          result = await deletepromotions(this.idpro)
+          result = await deletepromotions(this.id)
           console.log("🚀 ~ deleteItemConfirm ~ result:", result)
           if (result === 'OK') {
             this.snackbar = true

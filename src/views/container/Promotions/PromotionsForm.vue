@@ -138,10 +138,9 @@
       snackbar: '',
       message: '',
       promotionsData: {
-        titulo: '',
-        type: '',
-        description: '',
-        status: '',
+        id:'',
+        titulo:'',
+        description:'',
       },
 
     }),
@@ -201,13 +200,15 @@
           if (this.$refs.form.validate()) {
 
             let promotion = {
+              id: this.promotionsData.id,
               titulo: this.promotionsData.titulo,
               description: this.promotionsData.description,
             }
-            console.log('inventario que se envia ', promotion)
+            
             
             promotion = await updatepromotions(promotion)
-            if (promotion.status == 201) {
+            console.log('que trae ', promotion)
+            if (promotion.status == 200) {
               this.snackbar = true
               this.message = 'Actualizacion exitosa'
               setTimeout(() => {

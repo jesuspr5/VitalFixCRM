@@ -33,7 +33,7 @@ export const apiHttp = async (
       data,
       ...options,
     })
-
+console.log("AXIOSSS"+responseData)
     return responseData
   } catch (error) {
     console.error(error.response)

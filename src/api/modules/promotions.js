@@ -3,6 +3,7 @@ import { apiHttp } from '../axiosApi'
 
 async function promotionsGetList() {
     const result = await apiHttp('get', '/api/v1/promotions');
+    console.log('mostrame algo get:', result)
     return result;
 }
 
@@ -13,7 +14,9 @@ async function createpromotions(promotion) {
 }
 
 async function updatepromotions(promotion) {
+    
     const result = await apiHttp('patch', `/api/v1/promotions/${promotion.id}`, promotion)
+    
     return result
 }
 
