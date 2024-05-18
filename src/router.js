@@ -69,7 +69,7 @@ export default new Router({
           component: () => import('@/views/container/Inventory/Inventory'),
         },
         {
-          name: 'InventoryFrom',
+          name: 'InventoryForm',
           path: 'inventory/form',
           // beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Inventory/InventoryForm'),

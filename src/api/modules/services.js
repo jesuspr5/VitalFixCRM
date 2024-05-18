@@ -1,20 +1,14 @@
 import axios from 'axios'
 
 async function GetList() {
-    let result
-    result = await axios.get(
-        'https://back-vitalfix.onrender.com/api/v1/services'
-    )
-    return result.data
+    const result = await apiHttp('get', '/api/v1/services');
+    console.log('mostrame algo get:', result)
+    return result;
 }
 
 async function createservices(services) {
-    let result
-    result = await axios.post(
-        'https://back-vitalfix.onrender.com/api/v1/services',
-        services
-    )
-    console.log('Servicio creado: ', result)
+    const result = await apiHttp('post', '/api/v1/services', services)
+    console.log('services creado: ', result)
     return result
 }
 

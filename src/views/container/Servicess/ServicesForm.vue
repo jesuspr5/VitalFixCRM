@@ -84,6 +84,14 @@
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
+                      v-model="servicesData.price"
+                      :label="$t('services.price')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field
                       v-model="servicesData.status"
                       :label="$t('services.status')"
                       class="purple-input"
@@ -194,7 +202,7 @@
             console.log("🚀 ~ submit ~ service:", services)
             services = await createservices(services)
 
-            if (services != null) {
+            if (services.status == 201) {
               this.snackbar = true
               this.message = 'Registro exitoso'
               setTimeout(() => {
@@ -218,6 +226,7 @@
         }  
         if (this.option === 3) {
           if (this.$refs.form.validate()) {
+
 
             let services = {
               id: this.servicesData.id,

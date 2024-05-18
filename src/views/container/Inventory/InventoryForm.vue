@@ -190,7 +190,7 @@
             console.log("🚀 ~ submit ~ inventario:", inventario)
             inventario = await createinventario(inventario)
 
-            if (inventario != null) {
+            if (inventario.status == 201) {
               this.snackbar = true
               this.message = 'Registro exitoso'
               setTimeout(() => {
@@ -211,7 +211,7 @@
               this.snackbar = false
             }, 1000)
           }
-        }  
+        }    
         if (this.option === 3) {
           if (this.$refs.form.validate()) {
 

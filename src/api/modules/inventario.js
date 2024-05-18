@@ -1,19 +1,13 @@
 import axios from 'axios'
 
 async function GetList() {
-    let result
-    result = await axios.get(
-        'http://localhost:8000/inventario'
-    )
-    return result.data
+    const result = await apiHttp('get', '/api/v1/inventario');
+    console.log('mostrame algo get:', result)
+    return result;
 }
 
 async function createinventario(inventario) {
-    let result
-    result = await axios.post(
-        'http://localhost:8000/inventario',
-        inventario
-    )
+    const result = await apiHttp('post', '/api/v1/inventario', inventario)
     console.log('inventario creado: ', result)
     return result
 }

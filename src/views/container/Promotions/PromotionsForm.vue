@@ -138,9 +138,9 @@
       snackbar: '',
       message: '',
       promotionsData: {
-        id:'',
-        titulo:'',
-        description:'',
+        id: '',
+        titulo: '',
+        description: '',
       },
 
     }),

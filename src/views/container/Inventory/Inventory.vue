@@ -186,7 +186,12 @@
           value: 'actions',
         },
       ],
-      items: [],
+      items: [
+        {name: "Junior",
+         quantity: "20",
+         description: "afsaf"
+        }
+      ],
       search: undefined,
 
     }),
@@ -197,13 +202,16 @@
       data: async function () {
         let result
         result = await GetList()
-        this.items = result
-        console.log('EL STOREE: ', result)
-      // console.log('array',this.items)
+        console.log("🚀 ~ result:", result)
+        if (result.status==200) {
+          this.items = result.data
+        } else {
+          console.log("Error api")
+        }
       },
       create () {
         this.$router.push({
-          name: 'InventoryFrom',
+          name: 'InventoryForm',
           params: {
             option: 1, // option 1 to create
           },
@@ -212,7 +220,7 @@
       show (item) {
         console.log(item)
         this.$router.push({
-          name: 'InventoryFrom',
+          name: 'InventoryForm',
           params: {
             option: 2, // option 2 to show
             invesData: item,
@@ -222,7 +230,7 @@
       edit (item) {
         console.log(item)
         this.$router.push({
-          name: 'InventoryFrom',
+          name: 'InventoryForm',
           params: {
             option: 3, // option 3 to edit
             invesData: item,

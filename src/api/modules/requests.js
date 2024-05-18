@@ -1,11 +1,8 @@
 import axios from 'axios'
 
 async function GetList() {
-    let result
-    result = await axios.get(
-        'https://back-vitalfix.onrender.com/api/v1/requests/'
-    )
-    return result.data
+    const result = await apiHttp('get', '/api/v1/requests');
+    return result;
 }
 
 async function createrequest(request) {
