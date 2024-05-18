@@ -51,7 +51,7 @@
                 <v-row>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.names"
+                      v-model="usersData.name"
                       :label="$t('users.Name')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
@@ -59,7 +59,7 @@
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.lastNames"
+                      v-model="usersData.lastname"
                       :label="$t('Apellido')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
@@ -70,33 +70,36 @@
                       v-model="usersData.email"
                       :label="$t('users.email')"
                       class="purple-input"
-                      :readonly="option === 2 ? true : false"
+                      :readonly="option === 2 || option === 3"
                     />
                   </v-col>
+
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.phone"
-                      :label="$t('users.phone')"
+                    v-if="option !== 2"
+                      v-model="usersData.password"
+                      :label="$t('users.password')"
                       class="purple-input"
-                      :readonly="option === 2 ? true : false"
+                      :readonly="option === 3 ? true : false"
                     />
                   </v-col>
+                
                   <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.rol"
+                      v-model="usersData.role"
                       :label="$t('users.rol')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
-                  <v-col cols="7">
+                  <!-- <v-col cols="7">
                     <v-text-field
                       v-model="usersData.status"
                       :label="$t('users.status')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
-                  </v-col>
+                  </v-col> -->
                   <v-col
                     cols="12"
                     class="text-right"
@@ -153,10 +156,10 @@
       message: '',
       usersData: {
         name: '',
-        lastNames: '',
+        lastnames: '',
         email: '',
-        phone: '',
-        rol: '',
+        password:'',
+        role: '',
         status: '',
 
       },
