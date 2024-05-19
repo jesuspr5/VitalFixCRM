@@ -1,8 +1,8 @@
 import axios from 'axios'
+import { apiHttp } from '../axiosApi'
 
 async function GetList() {
     const result = await apiHttp('get', '/api/v1/services');
-    console.log('mostrame algo get:', result)
     return result;
 }
 
@@ -13,13 +13,9 @@ async function createservices(services) {
 }
 
 async function updateservices(services) {
-    let result
-    result = await axios.patch(
-        `https://back-vitalfix.onrender.com/api/v1/services/${services.id}`, services
 
-    )
+    const result = await apiHttp('patch', `/api/v1/services/${services.id}`, services)
     console.log("🚀 ~ updateservices ~ result:", result)
-
     return result
 }
 

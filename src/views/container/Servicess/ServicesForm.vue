@@ -66,15 +66,7 @@
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="servicesData.price"
-                      :label="$t('services.price')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-
+                  
                   <v-col cols="7">
                     <v-textarea
                       v-model="servicesData.description"
@@ -235,14 +227,15 @@
               type: this.servicesData.type,
               description: this.servicesData.description,
               price: this.servicesData.price,
+              status:this.servicesData.status
             }
             console.log('servicio que se envia ', services)
             services = await updateservices(services)
-            if (services != null) {
+            if (services.status == 201) {
               this.snackbar = true
               this.message = 'Actualizacion exitosa'
               setTimeout(() => {
-                this.$router.push({ name: 'services' })
+                this.$router.push({ name: 'Services' })
               }, 2000)
             } else {
               this.snackbar = true
