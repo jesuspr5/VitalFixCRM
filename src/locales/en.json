@@ -46,7 +46,6 @@
     "confirm": "Confirm this action",
     "errors": "Errors"
   },
- 
   "users": {
     "head": "Usuarios",
     "title": "Título",
@@ -55,6 +54,7 @@
     "lastName": "Apellidos",
     "nameUser": "Nombre de usuario",
     "description": "Descripción",
+    "password": "Password",
     "quantity": "cantidad",
     "email": "Email",
     "phone": "Teléfono",
@@ -88,7 +88,7 @@
     "country": "País",
     "address": "Dirección",
     "references": "Referencias",
-    "city":"Ciudad",
+    "city": "Ciudad",
     "state": "Estado",
     "zip": "ZIP/Codigo postal",
     "status": "Estatus",

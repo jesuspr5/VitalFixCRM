@@ -138,9 +138,10 @@
       snackbar: '',
       message: '',
       promotionsData: {
-        id: '',
-        titulo: '',
-        description: '',
+        id:'',
+        titulo:'',
+        type:'',
+        description:'',
       },
 
     }),
@@ -168,7 +169,9 @@
 
             let promotion = {
               titulo: this.promotionsData.titulo,
+              type: this.promotionsData.type,
               description: this.promotionsData.description,
+              status: "Activo"
 
             }
 
@@ -202,7 +205,9 @@
             let promotion = {
               id: this.promotionsData.id,
               titulo: this.promotionsData.titulo,
+              type: this.promotionsData.type,
               description: this.promotionsData.description,
+              status:this.promotionsData.status
             }
             
             

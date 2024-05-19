@@ -49,14 +49,7 @@
             >
               <v-container class="py-0">
                 <v-row>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="servicesData.id"
-                      :label="$t('services.id')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
+                 
                   <v-col cols="7">
                     <v-text-field
                       v-model="servicesData.name"
@@ -69,6 +62,14 @@
                     <v-text-field
                       v-model="servicesData.type"
                       :label="$t('services.type')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field
+                      v-model="servicesData.price"
+                      :label="$t('services.price')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
@@ -192,11 +193,11 @@
           if (this.$refs.form.validate()) {
 
             let services = {
-              id: this.servicesData.id,
-              name: this.servicesData.id,
+              name: this.servicesData.name,
               type: this.servicesData.type,
               description: this.servicesData.description,
               price: this.servicesData.price,
+              status:"Activo"
 
             }
             console.log("🚀 ~ submit ~ service:", services)
@@ -206,7 +207,7 @@
               this.snackbar = true
               this.message = 'Registro exitoso'
               setTimeout(() => {
-                this.$router.push({ name: 'services' })
+                this.$router.push({ name: 'Services' })
               }, 2000)
             } else {
               this.snackbar = true

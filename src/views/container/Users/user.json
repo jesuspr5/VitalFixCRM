@@ -9,7 +9,6 @@
       "foreninKey": "false",
       "isTitle": "true"
     },
-
     "user_lastname": {
       "name": "Lastname",
       "type": "text",
@@ -24,14 +23,13 @@
       "foreninKey": "false",
       "isTitle": "true"
     },
-    "user_phone": {
-      "name": "phone",
-      "type": "phone",
+    "user_password": {
+      "name": "password",
+      "type": "password",
       "required": "false",
       "foreninKey": "false",
       "isTitle": "true"
     },
-
     "id_role": {
       "name": "Role",
       "type": "number",

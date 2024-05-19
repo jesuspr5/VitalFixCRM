@@ -178,26 +178,17 @@
           text: i18n.t('users.lastName'),
           value: 'lastname',
         },
-        {
-          text: i18n.t('users.nameUser'),
-          value: 'nameUser',
-        },
+        
         {
           text: i18n.t('users.email'),
           value: 'email',
         },
-        {
-          text: i18n.t('users.phone'),
-          value: 'phone',
-        },
+       
         {
           text: i18n.t('users.rol'),
           value: 'role',
         },
-        {
-          text: i18n.t('users.status'),
-          
-        },
+        
         {
           sortable: false,
           text: 'Acciones',
@@ -217,18 +208,15 @@
       data: async function () {
         let result
         result = await usersGetList()
-        console.log("🚀 ~ result:", result)
         if (result.status==200) {
           this.items = result.data
         } else {
-          console.log("Error api")
+        
         // Muestra un mensaje de error si la autenticación falla
-        // this.dialog = true;
-        // this.message = result.message.text;
+         this.dialog = true;
+         this.message = result.message.text;
         }
 
-        console.log('EL STOREE: ', result)
-      // console.log('array',this.items)
       },
       create () {
         this.$router.push({
