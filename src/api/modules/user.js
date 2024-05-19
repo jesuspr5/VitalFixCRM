@@ -33,15 +33,11 @@ async function createUser(userToCreate) {
 //   return result
 // }
 
-// async function updateUser (userToUpdate) {
-//   let result
-//   result = await axios.post(
-//     'https://as-humedal-api.azurewebsites.net/Users/Create',
-//     userToUpdate
-//   )
-//   console.log('Usuario Actualizado: ', result)
-//   return result
-// }
+async function updateUser(userToUpdate, id) {
+    const result = await apiHttp('patch', '/api/v1/users/updateProfile/' + id, userToUpdate)
+    console.log('Usuario Actualizado: ', result)
+    return result
+}
 
 // async function loginUser(userToLogin) {
 //     let result
@@ -64,7 +60,7 @@ async function createUser(userToCreate) {
 export {
     usersGetList,
     //   loginUser,
-    //   updateUser,
+    updateUser,
     //   deleteUser,
     createUser,
     //   usersGet,

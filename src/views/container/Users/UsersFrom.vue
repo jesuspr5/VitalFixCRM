@@ -158,7 +158,7 @@
 
 <script>
   import i18n from '@/i18n'
-  import {createUser} from '../../../api/modules/user'
+  import {createUser,updateUser} from '../../../api/modules/user'
 
   export default {
 
@@ -259,20 +259,14 @@
         if (this.option === 3) {
           if (this.$refs.form.validate()) {
 
-
+            let id = this.usersData.id
             let user = {
-              id: this.usersData.id,
               name: this.usersData.name,
               lastname: this.usersData.lastname,
-              email: this.usersData.email,
-              password : this.usersData.password,
-              role: this.usersData.role,
-              urlAvatar:""
-
             }
-            console.log('servicio que se envia ', user)
-            user = await updateservices(user)
-            if (user.status == 201) {
+            console.log('servicio que se envia ', user+id)
+            user = await updateUser(user,id)
+            if (user.status == 200) {
               this.snackbar = true
               this.message = 'Actualizacion exitosa'
               setTimeout(() => {
