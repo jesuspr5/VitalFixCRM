@@ -202,8 +202,8 @@
         if (this.option === 3) {
           if (this.$refs.form.validate()) {
 
+            let id = this.promotionsData.id
             let promotion = {
-              id: this.promotionsData.id,
               titulo: this.promotionsData.titulo,
               type: this.promotionsData.type,
               description: this.promotionsData.description,
@@ -211,7 +211,7 @@
             }
             
             
-            promotion = await updatepromotions(promotion)
+            promotion = await updatepromotions(promotion, id)
             console.log('que trae ', promotion)
             if (promotion.status == 200) {
               this.snackbar = true
