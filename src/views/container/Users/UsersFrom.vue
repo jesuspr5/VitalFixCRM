@@ -84,14 +84,26 @@
                     />
                   </v-col>
                 
-                  <v-col cols="7">
+                  <!-- <v-col cols="7">
                     <v-text-field
                       v-model="usersData.role"
                       :label="$t('users.rol')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
-                  </v-col>
+                  </v-col> -->
+                  <v-col cols="7">
+                    <v-select
+                    v-model="usersData.role"
+                    :items="roles"
+                    :label="$t('users.rol')"
+                    item-text="name"
+                    item-value="id"
+                    class="purple-input"
+                    outlined
+                    :readonly="option === 2 ? true : false"
+                  />
+                </v-col>
                   <!-- <v-col cols="7">
                     <v-text-field
                       v-model="usersData.status"
@@ -146,23 +158,38 @@
 
 <script>
   import i18n from '@/i18n'
+  import {createUser} from '../../../api/modules/user'
+
   export default {
 
     data: () => ({
       tabs: 0,
       option: 0,
+      setTimeout:0,
       title: '',
       snackbar: '',
       message: '',
       usersData: {
         name: '',
-        lastnames: '',
+        lastname: '',
         email: '',
         password:'',
         role: '',
-        status: '',
+        urlAvatar:'',
+        
 
       },
+      roles:[
+        {
+          name:"admin"
+        },
+        {
+          name:"tecnico"
+        },
+        {
+          name:"user"
+        }
+      ]
 
     }),
     computed: {
@@ -187,6 +214,84 @@
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
           this.usersData = this.$route.params.usersData
+        }
+      },
+
+      async submit () {
+        if (this.option === 1) {
+          if (this.$refs.form.validate()) {
+
+            let user = {
+              name: this.usersData.name,
+              lastname: this.usersData.lastname,
+              email: this.usersData.email,
+              password : this.usersData.password,
+              role: this.usersData.role,
+              urlAvatar:""
+
+            }
+           
+             user = await createUser(user)
+
+            if (user.status==201) {
+              this.snackbar = true
+              this.message = 'Registro exitoso'
+            
+               setTimeout(() => {
+                 this.$router.push({ name: 'Users' })
+               }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante el registro'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        }  
+        if (this.option === 3) {
+          if (this.$refs.form.validate()) {
+
+
+            let user = {
+              id: this.usersData.id,
+              name: this.usersData.name,
+              lastname: this.usersData.lastname,
+              email: this.usersData.email,
+              password : this.usersData.password,
+              role: this.usersData.role,
+              urlAvatar:""
+
+            }
+            console.log('servicio que se envia ', user)
+            user = await updateservices(user)
+            if (user.status == 201) {
+              this.snackbar = true
+              this.message = 'Actualizacion exitosa'
+              setTimeout(() => {
+                this.$router.push({ name: 'Users' })
+              }, 2000)
+            } else {
+              this.snackbar = true
+              this.message = 'Hubo un error durante la actualizacion'
+              setTimeout(() => {
+                this.snackbar = false
+              }, 1000)
+            }
+          } else {
+            this.snackbar = true
+            this.message = 'Debe llenar todos los campos requeridos'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
         }
       },
     },

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { apiHttp } from '../axiosApi'
 
-async function usersGetList () {
+async function usersGetList() {
     const result = await apiHttp('get', '/api/v1/users');
     return result
 }
@@ -15,15 +15,13 @@ async function usersGetList () {
 //   console.log('GETRESULT: ', result.data.data)
 //   return result.data.data
 // }
-// async function createUser (userToCreate) {
-//   let result
-//   result = await axios.post(
-//     'https://as-humedal-api.azurewebsites.net/Users/Create',
-//     userToCreate
-//   )
-//   console.log('Usuario creado: ', result)
-//   return result
-// }
+
+async function createUser(userToCreate) {
+    const result = await apiHttp('post', '/api/v1/users', userToCreate);
+
+    console.log('Usuario creado: ', result)
+    return result
+}
 
 // async function deleteUser (IdUserLanding) {
 //   let result
@@ -68,7 +66,7 @@ export {
     //   loginUser,
     //   updateUser,
     //   deleteUser,
-    //   createUser,
+    createUser,
     //   usersGet,
 }
 
