@@ -12,10 +12,9 @@ async function createservices(services) {
     return result
 }
 
-async function updateservices(services) {
-
-    const result = await apiHttp('patch', `/api/v1/services/${services.id}`, services)
-    console.log("🚀 ~ updateservices ~ result:", result)
+async function updateservices(serviceToUpdate, id) {
+    const result = await apiHttp('patch', '/api/v1/services/' + id, serviceToUpdate)
+    console.log('Servicio actualizado', result)
     return result
 }
 

@@ -13,10 +13,10 @@ async function createpromotions(promotion) {
     return result
 }
 
-async function updatepromotions(promotion) {
+async function updatepromotions(promotionToUpdate, id) {
     
-    const result = await apiHttp('patch', `/api/v1/promotions/${promotion.id}`, promotion)
-    
+    const result = await apiHttp('patch', '/api/v1/promotions/' + id, promotionToUpdate)
+    console.log('Promocion Actualizada: ', result)
     return result
 }
 
