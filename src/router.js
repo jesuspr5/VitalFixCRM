@@ -63,6 +63,12 @@ export default new Router({
       children: [
         // equips
         {
+          name: 'Register',
+          path: 'register',
+          component: () => import('@/views/pages/Register'),
+        },
+
+        {
           name: 'Inventory',
           path: 'inventory/inventory',
           // beforeEnter: AuthorizationFunction,

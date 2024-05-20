@@ -33,7 +33,7 @@
                 label="Correo electrónico"
                 prepend-icon="mdi-email"
                 required
-               
+                :rules="[rules.required,rules.emailRules]"
               />
 
               <v-text-field
@@ -44,24 +44,39 @@
                 name="input-10-1"
                 label="Contraseña"
                 prepend-icon="mdi-lock-outline"
-                hint="At least 8 characters"
+                hint="minimo 8 caracteres"
                 counter
-              
+              :rules="[rules.required,rules.min]"
                 @click:append="show1 = !show1"
               />
 
               <pages-btn
                 large
                 dark
-                color="white"
+                color="success"
                 depressed
-                class="v-btn--text success--text font-weight-bold"
+                class="v-btn--text white--text font-weight-bold"
                 style="text-transform: capitalize;"
                 @click="submit"
               >
                 Iniciar sesión
               </pages-btn>
+              
+              
+
+              
             </v-form>
+            <pages-btn
+                large
+                dark
+                color="white"
+                depressed
+                class="v-btn--text success--text font-weight-bold"
+                style="text-transform: capitalize;"
+               @click="goToRegister"
+              >
+               Registar 
+              </pages-btn>
           </v-card-text>
         </base-material-card>
       </v-slide-y-transition>
@@ -140,8 +155,6 @@
 
       // Llama a la API para autenticar al usuario
       const result = await apiHttp('post', '/api/v1/auth/login', userToLogin);
-      console.log("🚀 ~ submit ~ result:", result)
-
       if (result.status==201) {
         // Autenticación exitosa, redirige al usuario al dashboard
        localStorage.setItem("token",result.data.token)
@@ -151,13 +164,19 @@
         this.dialog = true;
         this.message = result.message.text;
       }
-       console.log("🚀 ~ submit ~ localStorage:", localStorage)
+     
     } else {
       // Muestra un mensaje si los campos no están completos
       this.dialog = true;
       this.message = 'Debe llenar todos los campos';
     }
   },
+
+  
+    goToRegister() {
+      this.$router.push('Register');
+    
+  }
 },
 
     
