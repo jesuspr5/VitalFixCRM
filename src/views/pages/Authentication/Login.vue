@@ -49,7 +49,7 @@
               :rules="[rules.required,rules.min]"
                 @click:append="show1 = !show1"
               />
-
+              <br>
               <pages-btn
                 large
                 dark
@@ -60,13 +60,10 @@
                 @click="submit"
               >
                 Iniciar sesión
-              </pages-btn>
-              
-              
-
-              
+              </pages-btn> 
             </v-form>
-            <pages-btn
+            <v-col cols="12">
+              <pages-btn
                 large
                 dark
                 color="white"
@@ -77,7 +74,10 @@
               >
                Registar 
               </pages-btn>
+            </v-col>
+            
           </v-card-text>
+         
         </base-material-card>
       </v-slide-y-transition>
     </v-row>
