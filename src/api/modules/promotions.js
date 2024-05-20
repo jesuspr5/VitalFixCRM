@@ -20,12 +20,6 @@ async function updatepromotions(promotionToUpdate, id) {
     return result
 }
 
-async function updateUser(userToUpdate, id) {
-    const result = await apiHttp('patch', '/api/v1/users/updateProfile/' + id, userToUpdate)
-    console.log('Usuario Actualizado: ', result)
-    return result
-}
-
 async function deletepromotions(id) {
     const result = await apiHttp('delete', '/api/v1/promotions/' + id)
     console.log("🚀 ~ deleteservices ~ result:", result)

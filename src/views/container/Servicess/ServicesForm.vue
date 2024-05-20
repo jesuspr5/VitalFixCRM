@@ -220,18 +220,17 @@
         if (this.option === 3) {
           if (this.$refs.form.validate()) {
 
-
+            let id = this.servicesData.id
             let services = {
-              id: this.servicesData.id,
               name: this.servicesData.name,
               type: this.servicesData.type,
+              price: parseFloat(this.servicesData.price),
               description: this.servicesData.description,
-              price: this.servicesData.price,
-              status:this.servicesData.status
+              status: this.servicesData.status,
             }
-            console.log('servicio que se envia ', services)
-            services = await updateservices(services)
-            if (services.status == 201) {
+
+            services = await updateservices(services, id)
+            if (services.status == 200) {
               this.snackbar = true
               this.message = 'Actualizacion exitosa'
               setTimeout(() => {
