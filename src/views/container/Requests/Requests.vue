@@ -171,20 +171,16 @@
       idblog: '',
       headers: [
         {
+          text: i18n.t('requests.id'),
+          value: 'id',
+        },
+        {
           text: i18n.t('requests.detailsEquip'),
           value: 'detailsEquip',
         },
         {
           text: i18n.t('requests.manufacturer'),
           value: 'manufacturer',
-        },
-        {
-          text: i18n.t('requests.model'),
-          value: 'model',
-        },
-        {
-          text: i18n.t('requests.numberSerial'),
-          value: 'numberSerial',
         },
         {
           text: i18n.t('requests.description'),
