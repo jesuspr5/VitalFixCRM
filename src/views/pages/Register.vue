@@ -1,97 +1,103 @@
 <template>
+ 
   <v-container
     id="register"
     class="fill-height"
     tag="section"
   >
-    <v-row justify="center">
-      <v-col cols="9">
-        <v-slide-y-transition appear>
-          <v-card
-            class="pa-3 pa-md-5 mx-auto"
-            light
-          >
-            <pages-heading class="text-center display-3">
-              Register
-            </pages-heading>
+  <v-row justify="center">
+      <v-slide-y-transition appear>
+        <base-material-card
+          color="gray"
+          light
+          max-width="100%"
+          width="400"
+          class="px-5 py-3"
+        >
+          <template v-slot:heading>
+            <div class="text-center">
+              <h1 class="display-3 font-weight-bold mb-1">
+                Registrar
+              </h1>
+            </div>
+          </template>
 
-            <v-row>
-              <v-col
-                cols="12"
-                md="6"
-              >
-                <v-row no-gutters>
-                  <v-col
-                    v-for="(section, i) in sections"
-                    :key="i"
-                    cols="12"
-                  >
-                    <v-list-item three-line>
-                      <v-list-item-icon class="mr-4 mt-5 mt-md-4">
-                        <v-icon
-                          :large="$vuetify.breakpoint.mdAndUp"
-                          :color="section.iconColor"
-                          v-text="section.icon"
-                        />
-                      </v-list-item-icon>
+          <v-card-text class="text-center">
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
+            <v-text-field
+                v-model="user.name"
+                color="secondary"
+                label="Nombre"
+                prepend-icon="mdi-pencil"
+                :rules="[rules.required]"
+               
+              />
+              <v-text-field
+                v-model="user.lastname"
+                color="secondary"
+                label="Apellido"
+                prepend-icon="mdi-pencil"
+               
+                :rules="[rules.required]"
+              />
+             
+              <v-text-field
+                v-model="user.email"
+                color="secondary"
+                label="Correo electrónico"
+                prepend-icon="mdi-email"
+                required
+                :rules="[rules.required,rules.emailRules]"
+               
+              />
 
-                      <v-list-item-content>
-                        <v-list-item-title
-                          class="font-weight-light mb-4 mt-3"
-                          v-text="section.title"
-                        />
+              <v-text-field
+                v-model="user.password"
+                :append-icon="show1 ? 'mdi-eye' : ' mdi-eye-off'"
+                :rules="[rules.required,rules.min]"
+                :type="show1 ? 'text' : 'password'"
+                name="input-10-1"
+                label="Contraseña"
+                prepend-icon="mdi-lock-outline"
+                hint="At least 8 characters"
+                counter
+              
+                @click:append="show1 = !show1"
+              />
+              <!-- <v-text-field
+               v-model="user.confirmPass"
+                :append-icon="show2 ? 'mdi-eye' : ' mdi-eye-off'"
+                :rules="[rules.required,rules.min,rules.passwordMatch]"
+                :type="show2 ? 'text' : 'password'"
+                name="input-10-1"
+                label="Confirmar contraseña"
+                prepend-icon="mdi-lock-outline"
+                hint="At least 8 characters"
+                counter
+              
+                @click:append="show2 = !show2"
+              /> -->
+              <br>
 
-                        <v-list-item-subtitle v-text="section.text" />
-                      </v-list-item-content>
-                    </v-list-item>
-                  </v-col>
-                </v-row>
-              </v-col>
+              <br>
 
-              <v-col
-                cols="12"
-                md="6"
-              >
-                <div class="text-center">
-                  <v-btn
-                    v-for="(social, i) in socials"
-                    :key="i"
-                    :color="social.iconColor"
-                    class="my-2 mr-1"
-                    dark
-                    depressed
-                    fab
-                    small
-                  >
-                    <v-icon v-text="social.icon" />
-                  </v-btn>
-
-                  <div class="my-2" />
-
-                  <div class="text-center grey--text body-1 font-weight-light">
-                    Or Be Classical
-                  </div>
-
-                  <v-text-field
-                    color="secondary"
-                    label="First Name..."
-                    prepend-icon="mdi-face"
+              <v-select
+                    v-model="user.role"
+                    :items="roles"
+                    label="Rol"
+                    item-text="name"
+                    item-value="id"
+                    class="purple-input"
+                    outlined
+                    :rules="[rules.required]"
                   />
 
-                  <v-text-field
-                    color="secondary"
-                    label="Email..."
-                    prepend-icon="mdi-email"
-                  />
-
-                  <v-text-field
-                    class="mb-8"
-                    color="secondary"
-                    label="Password..."
-                    prepend-icon="mdi-lock-outline"
-                  />
-
-                  <v-checkbox
+              <v-checkbox
+              :rules="[rules.required]"
                     :input-value="true"
                     color="secondary"
                   >
@@ -105,21 +111,50 @@
                         terms and conditions </a>.
                     </template>
                   </v-checkbox>
+              <pages-btn
+                large
+                dark
+                color="blue"
+                depressed
+                class="v-btn--text white--text font-weight-bold"
+                style="text-transform: capitalize;"
+                @click="submit"
+              >
+                REGISTRAR
+              </pages-btn>
 
-                  <pages-btn color="success">
-                    Get Started
-                  </pages-btn>
-                </div>
-              </v-col>
-            </v-row>
-          </v-card>
-        </v-slide-y-transition>
-      </v-col>
+            </v-form>
+          </v-card-text>
+        </base-material-card>
+      </v-slide-y-transition>
     </v-row>
+
+    <div class="text-center">
+                  <v-snackbar
+                    v-model="snackbar"
+                    :timeout="timeout"
+                    color="#75B768"
+                  >
+                    {{ message }}
+
+                    <template v-slot:action="{ attrs }">
+                      <v-btn
+                        color="white"
+                        text
+                        v-bind="attrs"
+                        @click="snackbar = false"
+                      >
+                        Cerrar
+                      </v-btn>
+                    </template>
+                  </v-snackbar>
+                </div>
   </v-container>
 </template>
 
 <script>
+
+import {apiHttp} from '../../api/axiosApi'
   export default {
     name: 'PagesRegister',
 
@@ -129,45 +164,77 @@
     },
 
     data: () => ({
-      sections: [
+      Timeout:0,
+      snackbar: false,
+      message:'',
+      show1: false,
+      show2: true,
+      show3: false,
+      show4: false,
+      valid: true,
+      user:{
+        name:'',
+        lastname:'',
+        role:'',
+        email:'',
+        password:'',
+       
+      },
+      roles: [
         {
-          icon: 'mdi-chart-timeline-variant',
-          iconColor: 'primary',
-          title: 'Marketing',
-          text: `We've created the marketing campaign of the website. It was a very interesting collaboration.`,
+          name:'admin',
         },
         {
-          icon: 'mdi-code-tags',
-          iconColor: 'secondary',
-          title: 'Fully Coded in HTML5',
-          text: `We've developed the website with HTML5 and CSS3. The client has access to the code using GitHub.`,
+          name:"tecnico"
         },
-        {
-          icon: 'mdi-account-multiple',
-          iconColor: 'cyan',
-          title: 'Built Audience',
-          text:
-            'There is also a Fully Customizable CMS Admin Dashboard for this product.',
-        },
+       
       ],
-      socials: [
-        {
-          href: '#',
-          icon: 'mdi-twitter',
-          iconColor: '#1DA1F2',
-        },
-        {
-          href: '#',
-          icon: 'mdi-dribbble',
-          iconColor: '#ea4c89',
-        },
-        {
-          href: '#',
-          icon: 'mdi-facebook',
-          iconColor: '#3B5998',
-        },
-      ],
+
+      rules: {
+        required: value => !!value || 'este dato es obligatorio.',
+        min: v => v.length >= 6 || 'Mínimo 6 caracteres',
+        emailRules: v => /.+@.+\..+/.test(v) || 'el correo deber ser valido. Ejemplo@email.com',
+        // passwordMatch: v => v === this.user.password || 'Las contraseñas deben coincidir'
+      
+        // emailMatch: () => "El correo y la contraseña no coinciden"
+      },
+     
     }),
+
+    methods: {
+    async submit() {
+      if (this.$refs.form.validate()) {
+
+        let user = {
+        name:this.user.name,
+        lastname:this.user.lastname,
+        role: this.user.role,
+        email: this.user.email,
+        password: this.user.password,
+
+      };
+    const   result = await apiHttp('post', '/api/v1/auth/register',user)
+
+        if (result.status==201) {
+       
+        this.snackbar = true;
+        this.message = "Registro exitoso";
+        setTimeout(() => {
+                this.$router.push({ name: 'Login' })
+              }, 2000)
+              
+      
+      } else {
+        // Muestra un mensaje de error si la autenticación falla
+        this.dialog = true;
+        this.message = result.message.text;
+      }
+      }else{
+        this.snackbar = true;
+      this.message = 'Debe llenar todos los campos';
+      }
+    }
+  }
   }
 </script>
 

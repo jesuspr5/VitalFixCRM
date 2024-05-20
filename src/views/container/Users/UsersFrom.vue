@@ -264,7 +264,6 @@
               name: this.usersData.name,
               lastname: this.usersData.lastname,
             }
-            console.log('servicio que se envia ', user+id)
             user = await updateUser(user,id)
             if (user.status == 200) {
               this.snackbar = true
