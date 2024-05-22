@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id="promotions-profile"
+    id="claims-profile"
     fluid
     tag="section"
   >
@@ -49,39 +49,35 @@
             >
               <v-container class="py-0">
                 <v-row>
-                  <v-col cols="7">
+                    <v-col cols="7">
                     <v-text-field
-                      v-model="promotionsData.titulo"
-                      :label="$t('promotions.titulo')"
+                      v-model="suggestionsData.email"
+                      :label="$t('users.email')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="7">
-                    <v-select
-                      v-model="promotionsData.type"
-                      :items="types"
-                      :label="$t('promotions.type')"
-                      item-text="name"
-                      item-value="id"
+                    <v-text-field
+                      v-model="claimsData.title"
+                      :label="$t('claims.title')"
                       class="purple-input"
-                      outlined
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field
+                      v-model="claimsData.date"
+                      :label="$t('claims.date')"
+                      class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
 
                   <v-col cols="7">
                     <v-textarea
-                      v-model="promotionsData.description"
-                      :label="$t('promotions.description')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="promotionsData.status"
-                      :label="$t('promotions.status')"
+                      v-model="claimsData.description"
+                      :label="$t('claims.description')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
@@ -132,7 +128,6 @@
 
 <script>
   import i18n from '@/i18n'
-  import { createpromotions, updatepromotions } from '../../../api/modules/promotions'
   export default {
 
     data: () => ({
@@ -141,126 +136,44 @@
       title: '',
       snackbar: '',
       message: '',
-      promotionsData: {
-        id:'',
-        titulo:'',
-        type:'',
-        description:'',
+      claimsData: {
+        id: '',
+        title: '',
+        date: '',
+        description: '',
       },
-      types:[
-        {
-          name:"Instalacion"
-        },
-        {
-          name:"Mantenimiento"
-        },
-        {
-          name:"Reparación"
-        }
-      ]
-
     }),
     computed: {
       getTitle () {
-        if (this.option === 1) return i18n.t('promotions.create')
-        else if (this.option === 2) return i18n.t('promotions.show')
-        else if (this.option === 3) return i18n.t('promotions.edit')
-        else return i18n.t('promotions.head')
+        if (this.option === 1) return i18n.t('claims.create')
+        else if (this.option === 2) return i18n.t('claims.show')
+        else if (this.option === 3) return i18n.t('claims.edit')
+        else return i18n.t('claims.head')
       },
       getTitleButton () {
         if (this.option === 1) return i18n.t('crud.create')
         else if (this.option === 2) return i18n.t('crud.show')
         else if (this.option === 3) return i18n.t('crud.edit')
-        else return i18n.t('promotions.head')
+        else return i18n.t('claims.head')
       },
     },
     mounted () {
       this.initialize()
     },
     methods: {
-      async submit () {
-        if (this.option === 1) {
-          if (this.$refs.form.validate()) {
-
-            let promotion = {
-              titulo: this.promotionsData.titulo,
-              type: this.promotionsData.type,
-              description: this.promotionsData.description,
-              status: "Activo"
-
-            }
-
-            promotion = await createpromotions(promotion)
-
-            if (promotion.status == 201) {
-              this.snackbar = true
-              this.message = 'Registro exitoso'
-              setTimeout(() => {
-                this.$router.push({ name: 'Promotions' })
-              }, 2000)
-            } else {
-              this.snackbar = true
-              this.message = 'Hubo un error durante el registro'
-              setTimeout(() => {
-                this.snackbar = false
-              }, 1000)
-            }
-
-          } else {
-            this.snackbar = true
-            this.message = 'Debe llenar todos los campos requeridos'
-            setTimeout(() => {
-              this.snackbar = false
-            }, 1000)
-          }
-        }  
-        if (this.option === 3) {
-          if (this.$refs.form.validate()) {
-
-            let id = this.promotionsData.id
-            let promotion = {
-              titulo: this.promotionsData.titulo,
-              type: this.promotionsData.type,
-              description: this.promotionsData.description,
-              status:this.promotionsData.status
-            }
-            
-            
-            promotion = await updatepromotions(promotion, id)
-            console.log('que trae ', promotion)
-            if (promotion.status == 200) {
-              this.snackbar = true
-              this.message = 'Actualizacion exitosa'
-              setTimeout(() => {
-                this.$router.push({ name: 'Promotions' })
-              }, 2000)
-            } else {
-              this.snackbar = true
-              this.message = 'Hubo un error durante la actualizacion'
-              setTimeout(() => {
-                this.snackbar = false
-              }, 1000)
-            }
-          } else {
-            this.snackbar = true
-            this.message = 'Debe llenar todos los campos requeridos'
-            setTimeout(() => {
-              this.snackbar = false
-            }, 1000)
-          }
-        }
-      },
+     
       initialize () {
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
-          this.promotionsData = this.$route.params.promotionsData
+          this.claimsData = this.$route.params.claimsData
         }
       },
     },
   }
+ 
 </script>
 
-<style>
+ <style>
 .lbl {
   padding: 0.5em;
   margin: auto;

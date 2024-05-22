@@ -160,6 +160,32 @@ export default new Router({
           component: () => import('@/views/container/Users/Users'),
         },
         {
+          name: 'Suggestions',
+          path: 'suggestions/suggestions',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Suggestions/Suggestions'),
+        },
+        {
+          name: 'SuggestionsForm',
+          path: 'suggestions/suggestionsForm',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Suggestions/SuggestionsForm'),
+        },
+
+        {
+          name: 'Claims',
+          path: 'claims/claims',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Claims/Claims'),
+        },
+        {
+          name: 'ClaimsForm',
+          path: 'claims/claimsForm',
+          // beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/Claims/ClaimsForm'),
+        },
+
+        {
           name: 'UsersFrom',
           path: 'users/form',
           // beforeEnter: AuthorizationFunction,

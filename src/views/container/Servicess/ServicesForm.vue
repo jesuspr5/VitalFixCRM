@@ -59,10 +59,14 @@
                     />
                   </v-col>
                   <v-col cols="7">
-                    <v-text-field
+                    <v-select
                       v-model="servicesData.type"
+                      :items="types"
                       :label="$t('services.type')"
+                      item-text="name"
+                      item-value="id"
                       class="purple-input"
+                      outlined
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
@@ -154,6 +158,17 @@
         price: '',
         status: '',
       },
+      types: [
+        {
+          name: "Instalacion"
+        },
+        {
+          name: "Mantenimiento"
+        },
+        {
+          name: "Reparación"
+        }
+      ],
 
     }),
     computed: {
@@ -188,7 +203,7 @@
               name: this.servicesData.name,
               type: this.servicesData.type,
               description: this.servicesData.description,
-              price: this.servicesData.price,
+              price: parseFloat(this.servicesData.price),
               status:"Activo"
 
             }

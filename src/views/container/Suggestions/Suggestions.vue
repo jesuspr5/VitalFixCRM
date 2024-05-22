@@ -11,7 +11,7 @@
     >
       <template v-slot:after-heading>
         <div class="display-2 font-weight-light">
-          {{ $t("promotions.head") }}
+          {{ $t("suggestions.head") }}
         </div>
       </template>
   
@@ -153,7 +153,7 @@
   
   <script>
   import i18n from '@/i18n'
-  import { promotionsGetList, deletepromotions } from '../../../api/modules/promotions'
+  import { GetList } from '../../../api/modules/suggestions'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
@@ -164,25 +164,16 @@
       hidden: false,
       headers: [
         {
-          text: i18n.t('promotions.id'),
-          value: 'id',
+          text: i18n.t('users.email'),
+          value: 'email',
         },
         {
-          text: i18n.t('promotions.titulo'),
-          value: 'titulo',
-        },
-
-        {
-          text: i18n.t('promotions.type'),
-          value: 'type',
+          text: i18n.t('suggestions.title'),
+          value: 'title',
         },
         {
-          text: i18n.t('promotions.description'),
+          text: i18n.t('suggestions.description'),
           value: 'description',
-        },
-        {
-          text: i18n.t('promotions.status'),
-          value: 'status',
         },
         {
           sortable: false,
@@ -190,7 +181,12 @@
           value: 'actions',
         },
       ],
-      items: [ ],
+      items: [
+        {
+          title: "Mejorar tal cosa",
+          description: "afsaf"
+        }
+      ],
       search: undefined,
 
     }),
@@ -201,7 +197,7 @@
       {
         data: async function () {
           let result
-          result = await promotionsGetList()
+          result = await GetList()
           console.log("🚀 ~ result:", result)
           if (result.status==200) {
             this.items = result.data
@@ -213,7 +209,7 @@
 
         create () {
           this.$router.push({
-            name: 'PromotionsForm',
+            name: 'SuggestionsForm',
             params: {
               option: 1, // option 1 to create
             },
@@ -222,10 +218,10 @@
         show (item) {
 
           this.$router.push({
-            name: 'PromotionsForm',
+            name: 'SuggestionsForm',
             params: {
               option: 2, // option 2 to show
-              promotionsData: item,
+              suggestionsData: item,
             },
           })
         },
@@ -233,10 +229,10 @@
         edit (item) {
        
           this.$router.push({
-            name: 'PromotionsForm',
+            name: 'SuggestionsForm',
             params: {
               option: 3, // option 3 to edit
-              promotionsData: item,
+              suggestionsData: item,
             },
           })
         },

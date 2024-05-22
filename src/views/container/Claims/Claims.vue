@@ -11,10 +11,10 @@
     >
       <template v-slot:after-heading>
         <div class="display-2 font-weight-light">
-          {{ $t("promotions.head") }}
+          {{ $t("claims.head") }}
         </div>
       </template>
-  
+
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -24,9 +24,9 @@
         single-line
         style="max-width: 250px;"
       />
-  
+
       <v-divider class="mt-3" />
-  
+
       <v-data-table
         :headers="headers"
         :items="items"
@@ -150,10 +150,10 @@
     </base-material-card>
   </v-container>
 </template>
-  
+
   <script>
   import i18n from '@/i18n'
-  import { promotionsGetList, deletepromotions } from '../../../api/modules/promotions'
+  import { GetList } from '../../../api/modules/claims'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
@@ -164,25 +164,16 @@
       hidden: false,
       headers: [
         {
-          text: i18n.t('promotions.id'),
-          value: 'id',
+          text: i18n.t('claims.title'),
+          value: 'title',
         },
         {
-          text: i18n.t('promotions.titulo'),
-          value: 'titulo',
-        },
-
-        {
-          text: i18n.t('promotions.type'),
-          value: 'type',
+          text: i18n.t('claims.date'),
+          value: 'date',
         },
         {
-          text: i18n.t('promotions.description'),
+          text: i18n.t('claims.description'),
           value: 'description',
-        },
-        {
-          text: i18n.t('promotions.status'),
-          value: 'status',
         },
         {
           sortable: false,
@@ -190,7 +181,13 @@
           value: 'actions',
         },
       ],
-      items: [ ],
+      items: [
+        {
+          title: "Reclamo de mal servicio",
+          date: "17/05/2024",
+          description: "muy mal servicio"
+        },
+      ],
       search: undefined,
 
     }),
@@ -201,42 +198,39 @@
       {
         data: async function () {
           let result
-          result = await promotionsGetList()
+          result = await GetList()
           console.log("🚀 ~ result:", result)
-          if (result.status==200) {
+          if (result.status == 200) {
             this.items = result.data
           } else {
             console.log("Error api")
           }
         },
 
-
         create () {
           this.$router.push({
-            name: 'PromotionsForm',
+            name: 'ClaimsForm',
             params: {
               option: 1, // option 1 to create
             },
           })
         },
         show (item) {
-
           this.$router.push({
-            name: 'PromotionsForm',
+            name: 'ClaimsForm',
             params: {
               option: 2, // option 2 to show
-              promotionsData: item,
+              claimsData: item,
             },
           })
         },
-        
+
         edit (item) {
-       
           this.$router.push({
-            name: 'PromotionsForm',
+            name: 'ClaimsForm',
             params: {
               option: 3, // option 3 to edit
-              promotionsData: item,
+              claimsData: item,
             },
           })
         },
@@ -261,7 +255,7 @@
             this.data()
             this.dialogDelete = false
             setTimeout(() => {
-              this.$router.push({ name: 'Promotions' })
+              this.$router.push({ name: 'Claims' })
             }, 1000)
           } else {
             this.snackbar = true

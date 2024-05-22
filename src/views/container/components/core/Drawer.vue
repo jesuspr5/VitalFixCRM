@@ -162,6 +162,28 @@
             },
           ],
         },
+        {
+          group: '/home',
+          icon: 'mdi-lightbulb-on-outline',
+          title: 'SUGERENCIAS',
+          children: [
+            {
+              title: 'Sugerencias',
+              to: 'Suggestions/Suggestions',
+            },
+          ],
+        },
+        {
+          group: '/home',
+          icon: 'mdi-comment-remove-outline',
+          title: 'RECLAMOS',
+          children: [
+            {
+              title: 'Reclamos',
+              to: 'Claims/Claims',
+            },
+          ],
+        },
 
         {
           group: '/home',

@@ -150,6 +150,7 @@
   },
   "promotions": {
     "head": "Promociones",
+    "id": "ID",
     "titulo": "Titulo",
     "description": "Descripción",
     "type": "Tipo",
@@ -182,6 +183,19 @@
     "edit": "Editar Inventario",
     "show": "Mostrar Inventario"
   },
+  "suggestions":{
+    "head": "Sugerencias",
+    "title": "Título",
+    "description": "Descripción"
+  },
+
+  "claims":{
+    "head": "Reclamos",
+    "title": "Título",
+    "date": "Fecha",
+    "description": "Descripción"
+  },
+
   "texts": {
     "createtext": "Blog creado con exito",
     "deletetext": " Blog eliminado ",
