@@ -59,12 +59,17 @@
                     />
                   </v-col>
                   <v-col cols="7">
-                    <v-text-field
-                      v-model="servicesData.type"
-                      :label="$t('services.type')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
+                   
+                    <v-select
+                    v-model="servicesData.type"
+                    :items="typeService"
+                    label="Tipo de servicio"
+                    item-text="name"
+                    item-value="id"
+                    class="purple-input"
+                    outlined
+                    :readonly="option === 2 ? true : false"
+                  />
                   </v-col>
                   
                   <v-col cols="7">
@@ -137,7 +142,7 @@
 
 <script>
   import i18n from '@/i18n'
-  import { createservices, updateservices } from '../../../api/modules/services'
+  import { createservices, updateservices,GetListtype } from '../../../api/modules/services'
   export default {
 
     data: () => ({
@@ -154,6 +159,7 @@
         price: '',
         status: '',
       },
+      typeService:[]
 
     }),
     computed: {
@@ -174,7 +180,15 @@
       this.initialize()
     },
     methods: {
-      initialize () {
+     async  initialize () {
+        let result
+          result = await GetListtype()
+         
+          if (result.status==200) {
+            this.typeService = result.data
+          } else {
+            console.log("Error api")
+          }
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
           this.servicesData = this.$route.params.servicesData

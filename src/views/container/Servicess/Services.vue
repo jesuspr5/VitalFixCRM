@@ -173,7 +173,7 @@
         },
         {
           text: i18n.t('services.type'),
-          value: 'type',
+          value: 'type.name',
         },
         {
           text: i18n.t('services.description'),

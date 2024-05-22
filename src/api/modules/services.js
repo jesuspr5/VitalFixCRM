@@ -6,6 +6,11 @@ async function GetList() {
     return result;
 }
 
+async function GetListtype() {
+    const result = await apiHttp('get', '/api/v1/typeservice');
+    return result;
+}
+
 async function createservices(services) {
     const result = await apiHttp('post', '/api/v1/services', services)
     console.log('services creado: ', result)
@@ -28,4 +33,4 @@ async function deleteservices(id) {
     return result.request.statusText
 }
 
-export { GetList, createservices, updateservices, deleteservices }
+export { GetList, createservices, updateservices, deleteservices, GetListtype }
