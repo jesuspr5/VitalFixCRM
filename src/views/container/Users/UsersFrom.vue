@@ -51,6 +51,14 @@
                 <v-row>
                   <v-col cols="7">
                     <v-text-field
+                      v-model="usersData.id"
+                      :label="$t('users.id')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field
                       v-model="usersData.name"
                       :label="$t('users.Name')"
                       class="purple-input"
@@ -170,12 +178,13 @@
       snackbar: '',
       message: '',
       usersData: {
+        id: '',
         name: '',
         lastname: '',
         email: '',
-        password:'',
+        password: '',
         role: '',
-        urlAvatar:'',
+        urlAvatar: '',
         
 
       },

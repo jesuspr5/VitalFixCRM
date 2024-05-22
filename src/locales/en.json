@@ -50,6 +50,7 @@
     "head": "Usuarios",
     "title": "Título",
     "subtitle": "Subtítulo",
+    "id": "ID",
     "Name": "Nombres",
     "lastName": "Apellidos",
     "nameUser": "Nombre de usuario",
@@ -76,6 +77,7 @@
   },
   "requests": {
     "head": "Solicitudes",
+    "id":"ID",
     "detailsEquip": "Detalles del equipo",
     "manufacturer": "Fabricante",
     "model": "Modelo",
