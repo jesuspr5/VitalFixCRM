@@ -102,7 +102,7 @@
                     color="secondary"
                   >
                     <template v-slot:label>
-                      <span class="text-no-wrap">I agree to the&nbsp;</span>
+                      <span class="text-no-wrap">Yo Acepto los&nbsp;</span>
 
                       <a
                         class="secondary--text ml-6 ml-sm-0"
@@ -168,7 +168,7 @@ import {apiHttp} from '../../api/axiosApi'
       snackbar: false,
       message:'',
       show1: false,
-      show2: true,
+      show2: false,
       show3: false,
       show4: false,
       valid: true,

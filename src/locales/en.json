@@ -148,6 +148,15 @@
     "edit": "Editar Servicio",
     "show": "Mostrar Servicio"
   },
+  "typeservice":{
+    "head": "Tipos de servicios",
+    "id": "id",
+    "name": "Nombre",
+    "status": "Status",
+    "create": "Crear Sugerencia",
+    "edit": "Editar sugerencia",
+    "show": "Mostrar sugerencia"
+  },
   "promotions": {
     "head": "Promociones",
     "id": "ID",
@@ -186,7 +195,10 @@
   "suggestions":{
     "head": "Sugerencias",
     "title": "Título",
-    "description": "Descripción"
+    "description": "Descripción",
+    "create": "Crear Sugerencia",
+    "edit": "Editar sugerencia",
+    "show": "Mostrar sugerencia"
   },
 
   "claims":{

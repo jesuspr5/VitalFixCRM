@@ -1,6 +1,6 @@
 <template>
   <v-container
-    id="inventory-profile"
+    id="TypesServices-profile"
     fluid
     tag="section"
   >
@@ -51,45 +51,16 @@
                 <v-row>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="servicesData.name"
-                      :label="$t('services.name')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-select
-                      v-model="servicesData.type"
-                      :items="typeService"
-                      label="Tipo de servicio"
-                      item-text="name"
-                      item-value="id"
-                      class="purple-input"
-                      outlined
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  
-                  <v-col cols="7">
-                    <v-textarea
-                      v-model="servicesData.description"
-                      :label="$t('services.description')"
+                      v-model="typeData.name"
+                      :label="$t('typeservice.name')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="servicesData.price"
-                      :label="$t('services.price')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="servicesData.status"
-                      :label="$t('services.status')"
+                      v-model="promotionsData.status"
+                      :label="$t('typeservice.status')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
@@ -140,7 +111,7 @@
 
 <script>
   import i18n from '@/i18n'
-  import { createservices, updateservices,GetListtype } from '../../../api/modules/services'
+  import { createTypeServicio, updateTypeService } from '../../../api/modules/typeServices'
   export default {
 
     data: () => ({
@@ -149,69 +120,47 @@
       title: '',
       snackbar: '',
       message: '',
-      servicesData: {
+      typeData: {
         id: '',
         name: '',
-        type: '',
-        description: '',
-        price: '',
-        status: '',
       },
-      typeService:[]
 
     }),
     computed: {
       getTitle () {
-        if (this.option === 1) return i18n.t('services.create')
-        else if (this.option === 2) return i18n.t('services.show')
-        else if (this.option === 3) return i18n.t('services.edit')
-        else return i18n.t('services.head')
+        if (this.option === 1) return i18n.t('typeservice.create')
+        else if (this.option === 2) return i18n.t('typeservice.show')
+        else if (this.option === 3) return i18n.t('typeservice.edit')
+        else return i18n.t('typeservice.head')
       },
       getTitleButton () {
         if (this.option === 1) return i18n.t('crud.create')
         else if (this.option === 2) return i18n.t('crud.show')
         else if (this.option === 3) return i18n.t('crud.edit')
-        else return i18n.t('services.head')
+        else return i18n.t('typeservice.head')
       },
     },
     mounted () {
       this.initialize()
     },
     methods: {
-      async  initialize () {
-        let result
-        result = await GetListtype()
-
-        if (result.status==200) {
-          this.typeService = result.data
-        } else {
-          console.log("Error api")
-        }
-        this.option = this.$route.params.option
-        if (this.option === 3 || this.option === 2) {
-          this.servicesData = this.$route.params.servicesData
-        }
-      },
       async submit () {
         if (this.option === 1) {
           if (this.$refs.form.validate()) {
 
-            let services = {
-              name: this.servicesData.name,
-              type: this.servicesData.type,
-              description: this.servicesData.description,
-              price: parseFloat(this.servicesData.price),
-              status:"Activo"
+            let typeService = {
+              name: this.typeData.name,
+              status: "Activo"
 
             }
-            console.log("🚀 ~ submit ~ service:", services)
-            services = await createservices(services)
 
-            if (services.status == 201) {
+            typeService = await createTypeServicio(typeService)
+
+            if (typeService.status == 201) {
               this.snackbar = true
               this.message = 'Registro exitoso'
               setTimeout(() => {
-                this.$router.push({ name: 'Services' })
+                this.$router.push({ name: 'TypeServices' })
               }, 2000)
             } else {
               this.snackbar = true
@@ -232,21 +181,19 @@
         if (this.option === 3) {
           if (this.$refs.form.validate()) {
 
-            let id = this.servicesData.id
-            let services = {
-              name: this.servicesData.name,
-              type: this.servicesData.type,
-              price: parseFloat(this.servicesData.price),
-              description: this.servicesData.description,
-              status: this.servicesData.status,
+            let id = this.typeData.id
+            let typeService = {
+              name: this.typeData.name,
+              status:this.typeData.status,
             }
 
-            services = await updateservices(services, id)
-            if (services.status == 200) {
+            typeService = await updateTypeService(typeService, id)
+            console.log('que trae ', typeService)
+            if (typeService.status == 200) {
               this.snackbar = true
               this.message = 'Actualizacion exitosa'
               setTimeout(() => {
-                this.$router.push({ name: 'Services' })
+                this.$router.push({ name: 'TypeServices' })
               }, 2000)
             } else {
               this.snackbar = true
@@ -262,6 +209,12 @@
               this.snackbar = false
             }, 1000)
           }
+        }
+      },
+      initialize () {
+        this.option = this.$route.params.option
+        if (this.option === 3 || this.option === 2) {
+          this.typeData = this.$route.params.typeData
         }
       },
     },

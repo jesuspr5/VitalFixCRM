@@ -128,6 +128,10 @@
               title: 'Roles',
               to: 'Roles/Roles',
             },
+            {
+              title: 'Tipos de servicios',
+              to: 'typeServices/typeServices',
+            },
           ],
         },
 

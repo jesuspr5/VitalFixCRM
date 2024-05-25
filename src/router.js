@@ -204,6 +204,19 @@ export default new Router({
           //  beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Roles/RolesForm'),
         },
+          // Tipos de servicios
+        {
+          name: 'TypeServices',
+          path: 'typeServices/typeServices',
+          //  beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/TypeServices/TypeServices'),
+        },
+        {
+          name: 'TypeServicesForm',
+          path: 'typeServices/form',
+          //  beforeEnter: AuthorizationFunction,
+          component: () => import('@/views/container/TypeServices/TypeServicesForm'),
+        },
         // BLogs
         {
           name: 'Blogs',

@@ -11,10 +11,10 @@
     >
       <template v-slot:after-heading>
         <div class="display-2 font-weight-light">
-          {{ $t("services.head") }}
+          {{ $t("typeservice.head") }}
         </div>
       </template>
-
+  
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -24,9 +24,9 @@
         single-line
         style="max-width: 250px;"
       />
-
+  
       <v-divider class="mt-3" />
-
+  
       <v-data-table
         :headers="headers"
         :items="items"
@@ -69,7 +69,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteservice(item)"
+            @click="deleteTypeService(item)"
           >
             <v-icon
               small
@@ -150,41 +150,29 @@
     </base-material-card>
   </v-container>
 </template>
-
+  
   <script>
   import i18n from '@/i18n'
-  import { GetList, deleteservices } from '../../../api/modules/services'
+  import { GetList, deleteTypeService } from '../../../api/modules/typeServices'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
       dialogDelete: false,
       snackbar: false,
       message: '',
+      id: null,
       hidden: false,
-      idser: null,
       headers: [
         {
-          text: i18n.t('services.id'),
+          text: i18n.t('typeservice.id'),
           value: 'id',
         },
         {
-          text: i18n.t('services.name'),
+          text: i18n.t('typeservice.name'),
           value: 'name',
         },
         {
-          text: i18n.t('services.type'),
-          value: 'type.name',
-        },
-        {
-          text: i18n.t('services.description'),
-          value: 'description',
-        },
-        {
-          text: i18n.t('services.price'),
-          value: 'price',
-        },
-        {
-          text: i18n.t('services.status'),
+          text: i18n.t('typeservice.status'),
           value: 'status',
         },
         {
@@ -193,11 +181,16 @@
           value: 'actions',
         },
       ],
-      items: [],
+      items: [
+        {
+          name: "mantenimiento",
+
+        },
+      ],
       search: undefined,
 
     }),
-    async mounted () {
+    mounted () {
       this.data()
     },
     methods:
@@ -212,34 +205,38 @@
             console.log("Error api")
           }
         },
+
+
         create () {
           this.$router.push({
-            name: 'ServicesForm',
+            name: 'TypeServicesForm',
             params: {
               option: 1, // option 1 to create
             },
           })
         },
         show (item) {
+
           this.$router.push({
-            name: 'ServicesForm',
+            name: 'TypeServicesForm',
             params: {
               option: 2, // option 2 to show
-              servicesData: item,
+              typeData: item,
             },
           })
         },
-
+        
         edit (item) {
+       
           this.$router.push({
-            name: 'ServicesForm',
+            name: 'TypeServicesForm',
             params: {
               option: 3, // option 3 to edit
-              servicesData: item,
+              typeData: item,
             },
           })
         },
-        deleteservice (item) {
+        deleteTypeService (item) {
           // hay que pasar un id
           this.dialogDelete = true
         },
@@ -247,20 +244,20 @@
           this.dialogDelete = false
         },
 
-        deleteServiceConfirm () {
+        deleteItemConfirm () {
           this.dialogDelete = false
         },
-        async deleteServiceConfirm () {
+        async deleteItemConfirm () {
           let result
-          result = await deleteservices(this.idser)
-          console.log("🚀 ~ deleteServiceConfirm ~ result:", result)
+          result = await deleteTypeService(this.id)
+          console.log("🚀 ~ deleteItemConfirm ~ result:", result)
           if (result === 'OK') {
             this.snackbar = true
             this.message = 'Eliminación exitosa'
             this.data()
             this.dialogDelete = false
             setTimeout(() => {
-              this.$router.push({ name: 'Promotions' })
+              this.$router.push({ name: 'TypeServices' })
             }, 1000)
           } else {
             this.snackbar = true
