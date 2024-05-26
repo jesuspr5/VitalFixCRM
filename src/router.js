@@ -186,6 +186,12 @@ export default new Router({
         },
 
         {
+          path: '/requests/request',
+          name: 'RequestDetails',
+          component: () => import('@/views/container/Claims/RequestDetails.vue')
+        },
+
+        {
           name: 'UsersFrom',
           path: 'users/form',
           // beforeEnter: AuthorizationFunction,
@@ -204,7 +210,7 @@ export default new Router({
           //  beforeEnter: AuthorizationFunction,
           component: () => import('@/views/container/Roles/RolesForm'),
         },
-          // Tipos de servicios
+        // Tipos de servicios
         {
           name: 'TypeServices',
           path: 'typeServices/typeServices',

@@ -160,7 +160,7 @@
 
   <script>
   import i18n from '@/i18n'
-  import { GetList, deleterequests } from '../../../api/modules/requests'
+  import { getlistRequest, deleterequests } from '../../../api/modules/requests'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
@@ -226,7 +226,7 @@
     methods: {
       data: async function () {
         let result
-        result = await GetList()
+        result = await getlistRequest()
         this.items = result
         console.log('EL STOREE: ', result)
       // console.log('array',this.items)

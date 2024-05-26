@@ -55,14 +55,26 @@
                       :label="$t('typeservice.name')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
+                      :rules="[rules.onlyText]"
                     />
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="promotionsData.status"
+
+                      v-model="typeData.warrantyDays"
+                      :label="$t('typeservice.garantia')"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                      :rules="[rules.onlyNumbers]"
+                    />
+                  </v-col>
+                  <v-col cols="7">
+                    <v-text-field
+                      v-model="typeData.status"
                       :label="$t('typeservice.status')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
+                     
                     />
                   </v-col>
                   <v-col
@@ -123,6 +135,18 @@
       typeData: {
         id: '',
         name: '',
+        warrantyDays:'',
+        status:''
+      },
+      rules: {
+        required: value => !!value || 'este dato es obligatorio.',
+        min: v => v.length >= 1|| 'Mínimo 1 caracteres',
+        emailRules: v => /.+@.+\..+/.test(v) || 'el correo deber ser valido. Ejemplo@email.com',
+        onlyNumbers: v => /^[0-9]+$/.test(v) || 'Solo se permiten números.',
+        onlyText: v => /^[a-zA-ZÁÉÍÓÚáéíóúñÑ\s]+$/.test(v) || 'Solo se permiten letras.'
+        // passwordMatch: v => v === this.user.password || 'Las contraseñas deben coincidir'
+      
+        // emailMatch: () => "El correo y la contraseña no coinciden"
       },
 
     }),
@@ -144,15 +168,23 @@
       this.initialize()
     },
     methods: {
+      initialize () {
+        this.option = this.$route.params.option
+        if (this.option === 3 || this.option === 2) {
+          this.typeData = this.$route.params.typeData
+        }
+      },
       async submit () {
         if (this.option === 1) {
           if (this.$refs.form.validate()) {
 
             let typeService = {
               name: this.typeData.name,
+              warrantyDays: this.typeData.warrantyDays,
               status: "Activo"
 
             }
+            console.log("🚀 ~ submit ~ typeService:", typeService)
 
             typeService = await createTypeServicio(typeService)
 
@@ -182,13 +214,17 @@
           if (this.$refs.form.validate()) {
 
             let id = this.typeData.id
+            console.log("🚀 ~ submit ~ id:", id)
+           
             let typeService = {
               name: this.typeData.name,
+              warrantyDays :this.typeData,
               status:this.typeData.status,
             }
 
             typeService = await updateTypeService(typeService, id)
             console.log('que trae ', typeService)
+            
             if (typeService.status == 200) {
               this.snackbar = true
               this.message = 'Actualizacion exitosa'

@@ -50,7 +50,7 @@
               v-text="'mdi-eye'"
             />
           </v-btn>
-          <v-btn
+          <!-- <v-btn
             :key="2"
             color="four"
             fab
@@ -62,6 +62,16 @@
               small
               v-text="'mdi-pencil'"
             />
+          </v-btn> -->
+          <v-btn
+            :key="4"
+            color="blue"
+            fab
+            class="px-1 ml-1"
+            x-small
+            @click="viewRequest(item)"
+          >
+            <v-icon small v-text="'mdi-file-document'" />
           </v-btn>
           <v-btn
             :key="3"
@@ -76,6 +86,17 @@
               v-text="'mdi-delete'"
             />
           </v-btn>
+          <v-btn
+            :key="5"
+            color="success"
+            fab
+            class="px-1 ml-1"
+            x-small
+            @click="sendEmail"
+          >
+            <v-icon small v-text="'mdi-check'" />
+          </v-btn>
+         
         </template>
       </v-data-table>
 
@@ -131,7 +152,40 @@
         </v-card>
       </v-dialog>
 
-      <v-card-text style="height: 100px; position: relative">
+      <v-dialog
+        v-model="dialogEmail"
+        persistent
+        max-width="500px"
+      >
+        <v-card>
+          <v-card-title
+            class="text-h5"
+          >
+           Enviar correo ?
+          </v-card-title>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="enviarEmail"
+            >
+              OK
+            </v-btn>
+            <v-btn
+              color="blue darken-1"
+              text
+              @click="closeEmail"
+            >
+              Cancelar
+            </v-btn>
+            
+            <v-spacer />
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <!-- <v-card-text style="height: 100px; position: relative">
         <v-fab-transition>
           <v-btn
             fab
@@ -146,7 +200,7 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-fab-transition>
-      </v-card-text>
+      </v-card-text> -->
     </base-material-card>
   </v-container>
 </template>
@@ -158,22 +212,31 @@
     name: 'DashboardDataTables',
     data: () => ({
       dialogDelete: false,
+      dialogEmail:false,
       snackbar: false,
       message: '',
       id: null,
       hidden: false,
       headers: [
         {
+          text: i18n.t('claims.id'),
+          value: 'id',
+        },
+        {
           text: i18n.t('claims.title'),
           value: 'title',
         },
         {
           text: i18n.t('claims.date'),
-          value: 'date',
+          value: 'fecha',
         },
         {
           text: i18n.t('claims.description'),
           value: 'description',
+        },
+        {
+          text: i18n.t('claims.status'),
+          value: 'status',
         },
         {
           sortable: false,
@@ -181,13 +244,7 @@
           value: 'actions',
         },
       ],
-      items: [
-        {
-          title: "Reclamo de mal servicio",
-          date: "17/05/2024",
-          description: "muy mal servicio"
-        },
-      ],
+      items: [],
       search: undefined,
 
     }),
@@ -241,10 +298,21 @@
         closeDelete () {
           this.dialogDelete = false
         },
-
-        deleteItemConfirm () {
-          this.dialogDelete = false
+       
+        sendEmail () {
+          // hay que pasar un id
+          this.dialogEmail = true
         },
+        enviarEmail () {
+          // hay que pasar un id
+          this.dialogEmail = true 
+        },
+       
+        closeEmail () {
+          this.dialogEmail = false
+        },
+
+       
         async deleteItemConfirm () {
           let result
           result = await deletepromotions(this.id)
@@ -265,6 +333,16 @@
             }, 1000)
           }
         },
+        viewRequest(item) {
+        this.$router.push({
+          name: 'RequestDetails',
+          params: {
+            option: 4, 
+            request: item, // Assuming item has a request object with an id
+          },
+          
+        });
+      },
       },
   }
   </script>

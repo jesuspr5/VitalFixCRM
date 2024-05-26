@@ -108,7 +108,7 @@
           <v-card-title
             class="text-h5"
           >
-            Estas seguro que deseas eliminar este servicio?
+            Estas seguro que deseas eliminar este tipo de servicio?
           </v-card-title>
           <v-card-actions>
             <v-spacer />
@@ -172,6 +172,10 @@
           value: 'name',
         },
         {
+          text: i18n.t('typeservice.garantia'),
+          value: 'warrantyDays',
+        },
+        {
           text: i18n.t('typeservice.status'),
           value: 'status',
         },
@@ -181,12 +185,7 @@
           value: 'actions',
         },
       ],
-      items: [
-        {
-          name: "mantenimiento",
-
-        },
-      ],
+      items: [],
       search: undefined,
 
     }),
@@ -198,7 +197,6 @@
         data: async function () {
           let result
           result = await GetList()
-          console.log("🚀 ~ result:", result)
           if (result.status==200) {
             this.items = result.data
           } else {

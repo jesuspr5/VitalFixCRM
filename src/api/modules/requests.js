@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { apiHttp } from '../axiosApi'
 
-async function GetList() {
+async function getlistRequest() {
     const result = await apiHttp('get', '/api/v1/requests');
     return result;
 }
@@ -37,4 +37,4 @@ async function deleterequest(id) {
     return result.request.statusText
 }
 
-export { GetList, createrequest, updaterequest, deleterequest }
+export { getlistRequest, createrequest, updaterequest, deleterequest }

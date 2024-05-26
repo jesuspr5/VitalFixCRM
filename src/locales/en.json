@@ -77,7 +77,7 @@
   },
   "requests": {
     "head": "Solicitudes",
-    "id":"ID",
+    "id": "ID",
     "detailsEquip": "Detalles del equipo",
     "manufacturer": "Fabricante",
     "model": "Modelo",
@@ -148,10 +148,11 @@
     "edit": "Editar Servicio",
     "show": "Mostrar Servicio"
   },
-  "typeservice":{
+  "typeservice": {
     "head": "Tipos de servicios",
     "id": "id",
     "name": "Nombre",
+    "garantia": "Dias de Garantia",
     "status": "Status",
     "create": "Crear Sugerencia",
     "edit": "Editar sugerencia",
@@ -192,7 +193,7 @@
     "edit": "Editar Inventario",
     "show": "Mostrar Inventario"
   },
-  "suggestions":{
+  "suggestions": {
     "head": "Sugerencias",
     "title": "Título",
     "description": "Descripción",
@@ -200,14 +201,14 @@
     "edit": "Editar sugerencia",
     "show": "Mostrar sugerencia"
   },
-
-  "claims":{
+  "claims": {
     "head": "Reclamos",
+    "id": "id",
     "title": "Título",
     "date": "Fecha",
-    "description": "Descripción"
+    "description": "Descripción",
+    "status": "estatus"
   },
-
   "texts": {
     "createtext": "Blog creado con exito",
     "deletetext": " Blog eliminado ",
