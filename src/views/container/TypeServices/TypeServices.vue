@@ -69,7 +69,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteTypeService(item)"
+            @click="modalDelete(item)"
           >
             <v-icon
               small
@@ -158,6 +158,7 @@
     name: 'DashboardDataTables',
     data: () => ({
       dialogDelete: false,
+      iddelete: null,
       snackbar: false,
       message: '',
       id: null,
@@ -235,31 +236,36 @@
             },
           })
         },
-        deleteTypeService (item) {
+        modalDelete (item) {
           // hay que pasar un id
           this.dialogDelete = true
+          this.iddelete = item.id
+          console.log("ID a borrar in modalDelete", this.iddelete)
+
         },
         closeDelete () {
           this.dialogDelete = false
         },
-
-        deleteItemConfirm () {
-          this.dialogDelete = false
-        },
         async deleteItemConfirm () {
           let result
-          result = await deleteTypeService(this.id)
-          console.log("🚀 ~ deleteItemConfirm ~ result:", result)
-          if (result === 'OK') {
+          result = await deleteTypeService(this.iddelete)
+          console.log("🚀 ~ deleteItemConfirm ~ result in file.vue:", result)
+          if (result.status === 200) {
+            console.log("Eliminado exitosamente")
+            this.dialogDelete = false
             this.snackbar = true
             this.message = 'Eliminación exitosa'
-            this.data()
-            this.dialogDelete = false
+           
             setTimeout(() => {
-              this.$router.push({ name: 'TypeServices' })
+              console.log("close message")
+              this.snackbar = false
             }, 1000)
+            this.data()
           } else {
+            console.log("ocurrio un error")
             this.snackbar = true
+            this.data();
+            this.dialogDelete = fals
             this.message = 'ocurrio un error al eliminar la promocion'
             setTimeout(() => {
               this.snackbar = false
