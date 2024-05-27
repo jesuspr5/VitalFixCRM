@@ -131,7 +131,7 @@
         </v-card>
       </v-dialog>
 
-      <v-card-text style="height: 100px; position: relative">
+      <!-- <v-card-text style="height: 100px; position: relative">
         <v-fab-transition>
           <v-btn
             fab
@@ -146,20 +146,21 @@
             <v-icon>mdi-plus</v-icon>
           </v-btn>
         </v-fab-transition>
-      </v-card-text>
+      </v-card-text> -->
     </base-material-card>
   </v-container>
 </template>
   
   <script>
   import i18n from '@/i18n'
-  import { GetList } from '../../../api/modules/suggestions'
+  import { GetList, deleteSuggestions } from '../../../api/modules/suggestions'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
       dialogDelete: false,
       snackbar: false,
       message: '',
+      iddelete: null,
       id: null,
       hidden: false,
       headers: [
@@ -231,33 +232,37 @@
         deletepromotion (item) {
           // hay que pasar un id
           this.dialogDelete = true
+          this.iddelete = item.id
+          console.log("ID a borrar in modalDelete", this.iddelete)
         },
         closeDelete () {
           this.dialogDelete = false
         },
 
-        deleteItemConfirm () {
-          this.dialogDelete = false
-        },
         async deleteItemConfirm () {
           let result
-          result = await deletepromotions(this.id)
+          result = await deleteSuggestions(this.iddelete)
           console.log("🚀 ~ deleteItemConfirm ~ result:", result)
-          if (result === 'OK') {
+          if (result === 200) {
+            console.log("Eliminado exitosamente")
+            this.dialogDelete = false
             this.snackbar = true
             this.message = 'Eliminación exitosa'
-            this.data()
-            this.dialogDelete = false
+            
             setTimeout(() => {
-              this.$router.push({ name: 'Promotions' })
+              console.log("close message")
+              this.snackbar = false
             }, 1000)
+            this.data()
           } else {
             this.snackbar = true
+            this.data()
             this.message = 'ocurrio un error al eliminar la promocion'
             setTimeout(() => {
               this.snackbar = false
             }, 1000)
           }
+          
         },
       },
   }
