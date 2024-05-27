@@ -63,7 +63,7 @@
                 name="input-10-1"
                 label="Contraseña"
                 prepend-icon="mdi-lock-outline"
-                hint="At least 8 characters"
+                hint="At least 6 characters"
                 counter
               
                 @click:append="show1 = !show1"
@@ -244,6 +244,21 @@ import {apiHttp} from '../../api/axiosApi'
       codes:[
         {
           name:'0412'
+        },
+        {
+          name:'0414'
+        },
+        {
+          name:'0424'
+        },
+        {
+          name:'0416'
+        },
+        {
+          name:'0426'
+        },
+        {
+          name:'0251'
         }
       ],
 

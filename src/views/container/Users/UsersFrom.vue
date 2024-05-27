@@ -13,9 +13,7 @@
             slider-color="white"
           >
             <v-tab class="mr-3">
-              <v-icon class="mr-2">
-                mdi-account-key
-              </v-icon>
+              <v-icon class="mr-2">mdi-account-key</v-icon>
               {{ getTitleButton }}
             </v-tab>
           </v-tabs>
@@ -37,135 +35,98 @@
             </v-btn>
           </v-fab-transition>
         </v-card-text>
-        <v-tabs-items
-          v-model="tabs"
-          class="transparent"
-        >
-          <v-tab-item :kei="0">
-            <v-form
-              ref="form"
 
-              lazy-validation
-            >
+        <v-tabs-items v-model="tabs" class="transparent">
+          <v-tab-item :key="0">
+            <v-form ref="form" lazy-validation>
               <v-container class="py-0">
                 <v-row>
-                  <v-col cols="7">
+                  
+                  <v-col cols="12" md="6">
                     <v-text-field
-                      v-model="usersData.id"
-                      :label="$t('users.id')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="usersData.name"
+                      v-model="user.name"
                       :label="$t('users.Name')"
                       class="purple-input"
-                      :readonly="option === 2 ? true : false"
+                      :readonly="option === 2"
+                      :rules="[rules.required]"
                     />
                   </v-col>
-                  <v-col cols="7">
+                  <v-col cols="12" md="6">
                     <v-text-field
-                      v-model="usersData.lastname"
+                      v-model="user.lastname"
                       :label="$t('Apellido')"
                       class="purple-input"
-                      :readonly="option === 2 ? true : false"
+                      :readonly="option === 2"
+                      :rules="[rules.required]"
                     />
                   </v-col>
-                  <v-col cols="7">
+                  <v-col  :hidden="option==3" cols="12" md="6">
                     <v-text-field
-                      v-model="usersData.email"
+                      v-model="user.email"
                       :label="$t('users.email')"
                       class="purple-input"
                       :readonly="option === 2 || option === 3"
+                      :rules="[rules.emailRules]"
                     />
                   </v-col>
-
-                  <v-col cols="7">
+                  <v-col :hidden="option==3 || option==2" cols="12"  md="6">
                     <v-text-field
-                    v-if="option !== 2"
-                      v-model="usersData.password"
+                      v-model="user.password"
+                      :type="show1 ? 'text' : 'password'"
+                      :append-icon="show1 ? 'mdi-eye' : ' mdi-eye-off'"
                       :label="$t('users.password')"
+                      prepend-icon="mdi-lock-outline"
                       class="purple-input"
-                      :readonly="option === 3 ? true : false"
+                      hint="At least 6 characters"
+                      :readonly="option === 3"
+                      counter
+                      @click:append="show1 = !show1"
+                      
                     />
                   </v-col>
-
-                 
-
-                  <v-col cols="7">
+                  <v-col cols="12" md="6">
                     <v-text-field
-                      v-model="usersData.address"
+                      v-model="user.address"
                       label="Direccion"
                       class="purple-input"
-                      :readonly="option === 2 ? true : false"
+                      :readonly="option === 2"
+                      :rules="[rules.required]"
                     />
                   </v-col>
-
-                  <v-col cols="7">
+                  <v-col cols="12" md="6">
                     <v-text-field
-                      v-model="usersData.reference"
-                      label="Refencia"
+                      v-model="user.reference"
+                      label="Referencia"
                       class="purple-input"
-                      :readonly="option === 2 ? true : false"
+                      :readonly="option === 2"
+                      :rules="[rules.required]"
                     />
                   </v-col>
-
-                  
-           
-                <!-- Código de Área Select -->
-                <v-col cols="4">
-                  <v-select
-                    v-model="code"
-                    :items="codes"
-                    label="Código de Área"
-                    item-text="name"
-                    item-value="id"
-                    class="purple-phone"
-                    prepend-icon="mdi-cellphone"
-                    outlined
-                    :rules="[rules.required]"
-                  />
-                </v-col>
-
-                <!-- Número de Teléfono Input -->
-                <v-col cols="7">
-                  <v-text-field
-                    v-model="usersData.phone"
-                    color="secondary"
-                    label="Teléfono"
-                  
-                    :rules="[rules.required]"
-                  />
-                </v-col>
-            
-                
-                
-                  <v-col cols="7">
+                  <v-col cols="12" md="6">
+                   
+                        <v-text-field
+                          v-model="user.phone"
+                          color="secondary"
+                          label="Teléfono"
+                          :rules="[rules.required]"
+                          :readonly="option === 2"
+                        />
+                      
+                  </v-col>
+                  <v-col cols="12" md="6">
                     <v-select
-                    v-model="usersData.role"
-                    :items="roles"
-                    :label="$t('users.rol')"
-                    item-text="name"
-                    item-value="id"
-                    class="purple-input"
-                    outlined
-                    :readonly="option === 2 ? true : false"
-                  />
-                </v-col>
-                  <!-- <v-col cols="7">
-                    <v-text-field
-                      v-model="usersData.status"
-                      :label="$t('users.status')"
+                      v-model="user.role"
+                      :items="roles"
+                      :label="$t('users.rol')"
+                      item-text="name"
+                      item-value="id"
                       class="purple-input"
-                      :readonly="option === 2 ? true : false"
+                      outlined
+                      :readonly="option === 2"
+                    
                     />
-                  </v-col> -->
-                  <v-col
-                    cols="12"
-                    class="text-right"
-                  >
+                  </v-col>
+                  <v-col cols="12" class="text-right">
                     <v-btn
                       v-if="option !== 2"
                       color="success"
@@ -206,6 +167,7 @@
   </v-container>
 </template>
 
+
 <script>
   import i18n from '@/i18n'
   import {createUser,updateUser} from '../../../api/modules/user'
@@ -216,10 +178,12 @@
       tabs: 0,
       option: 0,
       setTimeout:0,
+      show1: false,
       title: '',
       snackbar: '',
       message: '',
-      usersData: {
+     
+      user: {
         id: '',
         name: '',
         lastname: '',
@@ -230,9 +194,9 @@
         reference:'',
         address:'',
         phone:'',
-        code:''
-        
-
+        code:'',
+        createdAt:'', 
+        updatedAt:''
       },
       roles:[
         {
@@ -253,8 +217,7 @@
       
         // emailMatch: () => "El correo y la contraseña no coinciden"
       },
-     
-
+      
 
     }),
     computed: {
@@ -274,24 +237,30 @@
     mounted () {
       this.initialize()
     },
+
     methods: {
       initialize () {
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
-          this.usersData = this.$route.params.usersData
+          this.user = this.$route.params.usersData;
         }
+       
+         
       },
 
-      async submit () {
+     async  submit () {
         if (this.option === 1) {
           if (this.$refs.form.validate()) {
 
             let user = {
-              name: this.usersData.name,
-              lastname: this.usersData.lastname,
-              email: this.usersData.email,
-              password : this.usersData.password,
-              role: this.usersData.role,
+              name: this.user.name,
+              lastname: this.user.lastname,
+              email: this.user.email,
+              password : this.user.password,
+              role: this.user.role,
+              reference:this.user.reference,
+              address: this.user.address,
+              phone:this.user.phone,
               urlAvatar:""
 
             }
@@ -324,12 +293,17 @@
         if (this.option === 3) {
           if (this.$refs.form.validate()) {
 
-            let id = this.usersData.id
+            let id = this.user.id
+           
             let user = {
-              name: this.usersData.name,
-              lastname: this.usersData.lastname,
+              name: this.user.name,
+              lastname: this.user.lastname,
+              reference:this.user.reference,
+              address: this.user.address,
+              phone: this.user.phone,
             }
-            user = await updateUser(user,id)
+           
+            user = await updateUser(id,user)
             if (user.status == 200) {
               this.snackbar = true
               this.message = 'Actualizacion exitosa'
