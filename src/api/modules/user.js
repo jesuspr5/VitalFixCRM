@@ -39,6 +39,8 @@ async function updateUser(userToUpdate, id) {
     return result
 }
 
+
+
 // async function loginUser(userToLogin) {
 //     let result
 //     console.log('USUARIO: ', userToLogin)
