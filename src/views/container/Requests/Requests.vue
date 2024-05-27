@@ -115,7 +115,7 @@
           <v-card-title
             class="text-h5"
           >
-            Estas seguro que deseas eliminar este Blog?
+            Estas seguro que deseas eliminar esta solicitud?
           </v-card-title>
           <v-card-actions>
             <v-spacer />

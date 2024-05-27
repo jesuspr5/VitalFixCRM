@@ -108,7 +108,7 @@
           <v-card-title
             class="text-h5"
           >
-            Estas seguro que deseas eliminar este servicio?
+            Estas seguro que deseas eliminar esta promoción?
           </v-card-title>
           <v-card-actions>
             <v-spacer />
