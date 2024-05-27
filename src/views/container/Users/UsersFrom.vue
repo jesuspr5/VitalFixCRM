@@ -91,15 +91,57 @@
                       :readonly="option === 3 ? true : false"
                     />
                   </v-col>
-                
-                  <!-- <v-col cols="7">
+
+                 
+
+                  <v-col cols="7">
                     <v-text-field
-                      v-model="usersData.role"
-                      :label="$t('users.rol')"
+                      v-model="usersData.address"
+                      label="Direccion"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
-                  </v-col> -->
+                  </v-col>
+
+                  <v-col cols="7">
+                    <v-text-field
+                      v-model="usersData.reference"
+                      label="Refencia"
+                      class="purple-input"
+                      :readonly="option === 2 ? true : false"
+                    />
+                  </v-col>
+
+                  
+           
+                <!-- Código de Área Select -->
+                <v-col cols="4">
+                  <v-select
+                    v-model="code"
+                    :items="codes"
+                    label="Código de Área"
+                    item-text="name"
+                    item-value="id"
+                    class="purple-phone"
+                    prepend-icon="mdi-cellphone"
+                    outlined
+                    :rules="[rules.required]"
+                  />
+                </v-col>
+
+                <!-- Número de Teléfono Input -->
+                <v-col cols="7">
+                  <v-text-field
+                    v-model="usersData.phone"
+                    color="secondary"
+                    label="Teléfono"
+                  
+                    :rules="[rules.required]"
+                  />
+                </v-col>
+            
+                
+                
                   <v-col cols="7">
                     <v-select
                     v-model="usersData.role"
@@ -185,6 +227,10 @@
         password: '',
         role: '',
         urlAvatar: '',
+        reference:'',
+        address:'',
+        phone:'',
+        code:''
         
 
       },
@@ -198,7 +244,17 @@
         {
           name:"user"
         }
-      ]
+      ],
+      rules: {
+        required: value => !!value || 'este dato es obligatorio.',
+        min: v => v.length >= 6 || 'Mínimo 6 caracteres',
+        emailRules: v => /.+@.+\..+/.test(v) || 'el correo deber ser valido. Ejemplo@email.com',
+        // passwordMatch: v => v === this.user.password || 'Las contraseñas deben coincidir'
+      
+        // emailMatch: () => "El correo y la contraseña no coinciden"
+      },
+     
+
 
     }),
     computed: {

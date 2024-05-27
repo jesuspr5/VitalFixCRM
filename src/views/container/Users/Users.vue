@@ -170,10 +170,7 @@
       hidden: false,
       idblog: '',
       headers: [
-        {
-          text: i18n.t('users.id'),
-          value: 'id',
-        },
+       
         {
           text: i18n.t('users.Name'),
           value: 'name',

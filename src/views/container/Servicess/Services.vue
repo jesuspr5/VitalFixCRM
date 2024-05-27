@@ -159,6 +159,7 @@
     data: () => ({
       dialogDelete: false,
       snackbar: false,
+      timeout:0,
       message: '',
       hidden: false,
       idser: null,

@@ -50,7 +50,7 @@
               v-text="'mdi-eye'"
             />
           </v-btn>
-          <v-btn
+          <!-- <v-btn
             :key="2"
             color="four"
             fab
@@ -62,7 +62,7 @@
               small
               v-text="'mdi-pencil'"
             />
-          </v-btn>
+          </v-btn> -->
           <v-btn
             :key="3"
             color="primary"
@@ -167,10 +167,7 @@
           text: i18n.t('users.email'),
           value: 'email',
         },
-        {
-          text: i18n.t('suggestions.title'),
-          value: 'title',
-        },
+
         {
           text: i18n.t('suggestions.description'),
           value: 'description',
@@ -181,12 +178,7 @@
           value: 'actions',
         },
       ],
-      items: [
-        {
-          title: "Mejorar tal cosa",
-          description: "afsaf"
-        }
-      ],
+      items: [],
       search: undefined,
 
     }),

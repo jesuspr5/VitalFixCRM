@@ -57,15 +57,7 @@
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="suggestionsData.title"
-                      :label="$t('suggestions.title')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-
+                
                   <v-col cols="7">
                     <v-textarea
                       v-model="suggestionsData.description"
@@ -131,7 +123,6 @@
       suggestionsData: {
         id: '',
         email: '',
-        title: '',
         description: '',
       },
     }),
