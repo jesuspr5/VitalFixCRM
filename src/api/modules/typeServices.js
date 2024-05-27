@@ -20,10 +20,11 @@ async function updateTypeService(typeServiceToUpdate, id) {
 }
 
 async function deleteTypeService(id) {
-    const result = await apiHttp('delete', '/api/v1/typeservice/' + id)
+    let result
+    result = await apiHttp('delete', '/api/v1/typeservice/' + id)
     console.log("🚀 ~ delete typeservice ~ result:", result)
+    return result.status
 
-    return result.request.statusText
 }
 
 export { GetList, createTypeServicio, updateTypeService, deleteTypeService }
