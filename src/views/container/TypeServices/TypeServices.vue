@@ -265,8 +265,8 @@
             console.log("ocurrio un error")
             this.snackbar = true
             this.data();
-            this.dialogDelete = fals
-            this.message = 'ocurrio un error al eliminar la promocion'
+            this.dialogDelete = false
+            this.message = 'ocurrio un error al eliminar el tipo de servicio'
             setTimeout(() => {
               this.snackbar = false
             }, 1000)
