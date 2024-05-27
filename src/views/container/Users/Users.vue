@@ -76,7 +76,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteusers(item)"
+            @click="deleteuser(item)"
           >
             <v-icon
               small
@@ -160,15 +160,16 @@
 
   <script>
   import i18n from '@/i18n'
-  import { usersGetList } from '../../../api/modules/user'
+  import { usersGetList ,deleteUser} from '../../../api/modules/user'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
       dialogDelete: false,
+      timeout:0,
       snackbar: false,
       message: '',
       hidden: false,
-      idblog: '',
+      iduser: null,
       headers: [
        
         {
@@ -214,7 +215,6 @@
           this.items = result.data
         } else {
         
-        // Muestra un mensaje de error si la autenticación falla
          this.dialog = true;
          this.message = result.message.text;
         }
@@ -248,17 +248,41 @@
           },
         })
       },
-      deleteusers (item) {
-        // hay que pasar un id
+      deleteuser (item) {
+        this.iduser = item.id
         this.dialogDelete = true
       },
       closeDelete () {
         this.dialogDelete = false
       },
 
-      deleteItemConfirm () {
-        this.dialogDelete = false
-      },
+    
+        async deleteItemConfirm () {
+          let result
+          result = await deleteUser(this.iduser)
+          
+          if (result.status === 200) {
+         
+            this.dialogDelete = false
+            this.snackbar = true
+            this.message = 'Eliminación exitosa'
+           
+            setTimeout(() => {
+             
+              this.snackbar = false
+            }, 1000)
+            this.data()
+          } else {
+            console.log("ocurrio un error")
+            this.snackbar = true
+            this.data();
+            this.dialogDelete = false
+            this.message = 'ocurrio un error al eliminar al usuario'
+            setTimeout(() => {
+              this.snackbar = false
+            }, 1000)
+          }
+        },
     },
 
   }
