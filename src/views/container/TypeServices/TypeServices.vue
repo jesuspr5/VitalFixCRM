@@ -250,15 +250,19 @@
           let result
           result = await deleteTypeService(this.iddelete)
           console.log("🚀 ~ deleteItemConfirm ~ result in file.vue:", result)
-          if (result === '200') {
+          if (result.status === 200) {
+            console.log("Eliminado exitosamente")
+            this.dialogDelete = false
             this.snackbar = true
             this.message = 'Eliminación exitosa'
-            this.data()
-            this.dialogDelete = false
+           
             setTimeout(() => {
-              this.$router.push({ name: 'TypeServices' })
+              console.log("close message")
+              this.snackbar = false
             }, 1000)
+            this.data()
           } else {
+            console.log("ocurrio un error")
             this.snackbar = true
             this.data();
             this.dialogDelete = fals

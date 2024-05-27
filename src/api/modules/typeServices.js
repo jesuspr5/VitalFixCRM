@@ -23,7 +23,7 @@ async function deleteTypeService(id) {
     let result
     result = await apiHttp('delete', '/api/v1/typeservice/' + id)
     console.log("🚀 ~ delete typeservice ~ result:", result)
-    return result.status
+    return result
 
 }
 
