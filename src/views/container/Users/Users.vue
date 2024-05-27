@@ -214,7 +214,6 @@
           this.items = result.data
         } else {
         
-        // Muestra un mensaje de error si la autenticación falla
          this.dialog = true;
          this.message = result.message.text;
         }

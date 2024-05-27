@@ -60,13 +60,13 @@
                       :rules="[rules.required]"
                     />
                   </v-col>
-                  <v-col cols="12" md="6">
+                  <v-col  :hidden="option==3" cols="12" md="6">
                     <v-text-field
                       v-model="user.email"
                       :label="$t('users.email')"
                       class="purple-input"
                       :readonly="option === 2 || option === 3"
-                      :rules="[rules.required,rules.emailRules]"
+                      :rules="[rules.emailRules]"
                     />
                   </v-col>
                   <v-col :hidden="option==3 || option==2" cols="12"  md="6">
@@ -81,7 +81,7 @@
                       :readonly="option === 3"
                       counter
                       @click:append="show1 = !show1"
-                      :rules="[rules.required,rules.min]"
+                      
                     />
                   </v-col>
                   <v-col cols="12" md="6">
@@ -103,22 +103,7 @@
                     />
                   </v-col>
                   <v-col cols="12" md="6">
-                    <v-row>
-                      <v-col
-                      :hidden="option==2" cols="4">
-                        <v-select
-                          v-model="code"
-                          :items="codes"
-                          label="Código de Área"
-                          item-text="name"
-                          item-value="name"
-                          class="purple-phone"
-                          prepend-icon="mdi-cellphone"
-                          outlined
-                          :rules="[rules.required]"
-                        />
-                      </v-col>
-                      <v-col cols="8">
+                   
                         <v-text-field
                           v-model="user.phone"
                           color="secondary"
@@ -126,8 +111,7 @@
                           :rules="[rules.required]"
                           :readonly="option === 2"
                         />
-                      </v-col>
-                    </v-row>
+                      
                   </v-col>
                   <v-col cols="12" md="6">
                     <v-select
@@ -139,7 +123,7 @@
                       class="purple-input"
                       outlined
                       :readonly="option === 2"
-                      :rules="[rules.required]"
+                    
                     />
                   </v-col>
                   <v-col cols="12" class="text-right">
@@ -198,7 +182,7 @@
       title: '',
       snackbar: '',
       message: '',
-      code:'',
+     
       user: {
         id: '',
         name: '',
@@ -209,7 +193,10 @@
         urlAvatar: '',
         reference:'',
         address:'',
-        phone:''
+        phone:'',
+        code:'',
+        createdAt:'', 
+        updatedAt:''
       },
       roles:[
         {
@@ -230,29 +217,7 @@
       
         // emailMatch: () => "El correo y la contraseña no coinciden"
       },
-      codes:[
-        {
-          name:'0412'
-        },
-        {
-          name:'0414'
-        },
-        {
-          name:'0424'
-        },
-        {
-          name:'0416'
-        },
-        {
-          name:'0426'
-        },
-        {
-          name:'0251'
-        }
-      ],
-
-     
-
+      
 
     }),
     computed: {
@@ -273,13 +238,6 @@
       this.initialize()
     },
 
-    watch: {
-  option(newVal) {
-    if (newVal === 3 && this.user.phone.length > 11) {
-      this.user.phone = this.user.phone.substring(4);
-    }
-  }
-},
     methods: {
       initialize () {
         this.option = this.$route.params.option
@@ -302,7 +260,7 @@
               role: this.user.role,
               reference:this.user.reference,
               address: this.user.address,
-              phone: this.code+this.user.phone,
+              phone:this.user.phone,
               urlAvatar:""
 
             }
@@ -336,16 +294,16 @@
           if (this.$refs.form.validate()) {
 
             let id = this.user.id
-            console.log("🚀 ~ submit ~ id:", id)
+           
             let user = {
               name: this.user.name,
               lastname: this.user.lastname,
               reference:this.user.reference,
               address: this.user.address,
-              phone: this.code+this.user.phone,
+              phone: this.user.phone,
             }
-            console.log("🚀 ~ submit ~ user:", user)
-            user = await updateUser(user,id)
+           
+            user = await updateUser(id,user)
             if (user.status == 200) {
               this.snackbar = true
               this.message = 'Actualizacion exitosa'

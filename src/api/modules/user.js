@@ -33,11 +33,12 @@ async function createUser(userToCreate) {
 //   return result
 // }
 
-async function updateUser(userToUpdate, id) {
+async function updateUser(id, userToUpdate) {
     const result = await apiHttp('patch', '/api/v1/users/updateProfile/' + id, userToUpdate)
     console.log('Usuario Actualizado: ', result)
     return result
 }
+
 
 
 
