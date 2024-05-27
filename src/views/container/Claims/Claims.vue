@@ -218,10 +218,10 @@
       id: null,
       hidden: false,
       headers: [
-        {
-          text: i18n.t('claims.id'),
-          value: 'id',
-        },
+        // {
+        //   text: i18n.t('claims.id'),
+        //   value: 'id',
+        // },
         {
           text: i18n.t('claims.title'),
           value: 'title',

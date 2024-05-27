@@ -14,17 +14,16 @@ async function createpromotions(promotion) {
 }
 
 async function updatepromotions(promotionToUpdate, id) {
-    
     const result = await apiHttp('patch', '/api/v1/promotions/' + id, promotionToUpdate)
     console.log('Promocion Actualizada: ', result)
     return result
 }
 
 async function deletepromotions(id) {
-    const result = await apiHttp('delete', '/api/v1/promotions/' + id)
+    let result
+    result = await apiHttp('delete', '/api/v1/promotions/' + id)
     console.log("🚀 ~ deleteservices ~ result:", result)
-
-    return result.request.statusText
+    return result.status
 }
 
 export { promotionsGetList, createpromotions, updatepromotions, deletepromotions }
