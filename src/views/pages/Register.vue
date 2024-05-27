@@ -68,6 +68,54 @@
               
                 @click:append="show1 = !show1"
               />
+
+              <v-text-field
+                v-model="user.address"
+                color="secondary"
+                label="Direcciom"
+                prepend-icon="mdi-map-marker"
+                :rules="[rules.required]"
+               
+              />
+
+              <v-text-field
+                v-model="user.reference"
+                color="secondary"
+                label="Reference"
+                prepend-icon="mdi-feather"
+                :rules="[rules.required]"
+               
+              />
+             
+
+              <v-row>
+    <!-- Código de Área Select -->
+    <v-col cols="5">
+      <v-select
+        v-model="code"
+        :items="codes"
+        label="Código de Área"
+        item-text="name"
+        item-value="id"
+        class="purple-phone"
+        prepend-icon="mdi-cellphone"
+        outlined
+        :rules="[rules.required]"
+      />
+    </v-col>
+
+    <!-- Número de Teléfono Input -->
+    <v-col cols="7">
+      <v-text-field
+        v-model="user.phone"
+        color="secondary"
+        label="Teléfono"
+      
+        :rules="[rules.required]"
+      />
+    </v-col>
+  </v-row>
+             
               <!-- <v-text-field
                v-model="user.confirmPass"
                 :append-icon="show2 ? 'mdi-eye' : ' mdi-eye-off'"
@@ -178,6 +226,10 @@ import {apiHttp} from '../../api/axiosApi'
         role:'',
         email:'',
         password:'',
+        reference:'',
+        address:'',
+        phone:'',
+        code:''
        
       },
       roles: [
@@ -188,6 +240,11 @@ import {apiHttp} from '../../api/axiosApi'
           name:"tecnico"
         },
        
+      ],
+      codes:[
+        {
+          name:'0412'
+        }
       ],
 
       rules: {
@@ -211,6 +268,9 @@ import {apiHttp} from '../../api/axiosApi'
         role: this.user.role,
         email: this.user.email,
         password: this.user.password,
+        address: this.user.address,
+        reference : this.user.reference,
+        phone : this.code+this.user.phone
 
       };
     const   result = await apiHttp('post', '/api/v1/auth/register',user)

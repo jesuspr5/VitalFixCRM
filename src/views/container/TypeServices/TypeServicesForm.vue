@@ -51,7 +51,7 @@
                 <v-row>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="typeData.name"
+                      v-model="dataType.name"
                       :label="$t('typeservice.name')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
@@ -61,7 +61,7 @@
                   <v-col cols="7">
                     <v-text-field
 
-                      v-model="typeData.warrantyDays"
+                      v-model="dataType.warrantyDays"
                       :label="$t('typeservice.garantia')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
@@ -70,7 +70,7 @@
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="typeData.status"
+                      v-model="dataType.status"
                       :label="$t('typeservice.status')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
@@ -131,11 +131,12 @@
       option: 0,
       title: '',
       snackbar: '',
+      timeout:'',
       message: '',
-      typeData: {
+      dataType: {
         id: '',
         name: '',
-        warrantyDays:'',
+        warrantyDays:0,
         status:''
       },
       rules: {
@@ -171,7 +172,8 @@
       initialize () {
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
-          this.typeData = this.$route.params.typeData
+          this.dataType = this.$route.params.typeData
+          
         }
       },
       async submit () {
@@ -179,8 +181,8 @@
           if (this.$refs.form.validate()) {
 
             let typeService = {
-              name: this.typeData.name,
-              warrantyDays: this.typeData.warrantyDays,
+              name: this.dataType.name,
+              warrantyDays: parseInt(this.dataType.warrantyDays),
               status: "Activo"
 
             }
@@ -213,13 +215,13 @@
         if (this.option === 3) {
           if (this.$refs.form.validate()) {
 
-            let id = this.typeData.id
+            let id = this.dataType.id
             console.log("🚀 ~ submit ~ id:", id)
            
             let typeService = {
-              name: this.typeData.name,
-              warrantyDays :this.typeData,
-              status:this.typeData.status,
+              name: this.dataType.name,
+              warrantyDays :parseInt(this.dataType.warrantyDays),
+              status:this.dataType.status,
             }
 
             typeService = await updateTypeService(typeService, id)
@@ -247,12 +249,7 @@
           }
         }
       },
-      initialize () {
-        this.option = this.$route.params.option
-        if (this.option === 3 || this.option === 2) {
-          this.typeData = this.$route.params.typeData
-        }
-      },
+     
     },
   }
 </script>

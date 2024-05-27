@@ -199,6 +199,7 @@
           let result
           result = await GetList()
           if (result.status==200) {
+            console.log("🚀 ~ result:", result)
             this.items = result.data
           } else {
             console.log("Error api")

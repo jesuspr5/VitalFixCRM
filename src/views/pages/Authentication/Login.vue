@@ -75,12 +75,17 @@
                Registar 
               </pages-btn>
             </v-col>
+
+            
             
           </v-card-text>
          
         </base-material-card>
       </v-slide-y-transition>
     </v-row>
+
+  
+      
 
     <v-dialog
       v-model="dialog"
@@ -106,6 +111,7 @@
       </v-card>
     </v-dialog>
   </v-container>
+  
 </template>
 
 <script>
@@ -124,6 +130,9 @@
     },
 
     data: () => ({
+      snackbar:'false',
+      message2:'',
+      timeout:0,
       dialog: false,
       show1: false,
       show2: true,
@@ -157,8 +166,21 @@
       const result = await apiHttp('post', '/api/v1/auth/login', userToLogin);
       if (result.status==201) {
         // Autenticación exitosa, redirige al usuario al dashboard
-       localStorage.setItem("token",result.data.token)
-        this.$router.push('/home/Dashboard');
+        localStorage.setItem("rol",result.data.role)
+       let role= localStorage.getItem("rol")
+       
+       if(role !== 'user'){
+        localStorage.setItem("token",result.data.token)
+        localStorage.setItem("rol",result.data.role)
+      this.$router.push('/home/Dashboard'); 
+        
+          
+        }else{
+          this.dialog = true
+        this.message= 'usuario no registrado'
+        localStorage.removeItem('rol')
+        }
+      
       } else {
         // Muestra un mensaje de error si la autenticación falla
         this.dialog = true;

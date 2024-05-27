@@ -222,7 +222,7 @@
       }),
       cerrarSesion () {
         console.log('cerrar sessio')
-        localStorage.removeItem('token')
+        localStorage.clear();
         this.$router.push('/')
       },
     },

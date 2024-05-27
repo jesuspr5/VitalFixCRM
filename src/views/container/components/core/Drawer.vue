@@ -94,7 +94,68 @@
 
     data: () => ({
       logo,
-      items: [
+      items: [],
+
+    }),
+
+    computed: {
+      ...mapState(['barColor', '']),
+      drawer: {
+        get () {
+          return this.$store.state.drawer
+        },
+        set (val) {
+          this.$store.commit('SET_DRAWER', val)
+        },
+      },
+      computedItems () {
+        return this.items.map(this.mapItem)
+      },
+      profile () {
+        return {
+          avatar: true,
+          group: '',
+          title: this.$t('avatar'),
+          children: [
+            {
+              href: '',
+              title: this.$t('my-profile'),
+            },
+            {
+              to: '',
+              title: this.$t('edit-profile'),
+            },
+            {
+              to: '',
+              title: this.$t('settings'),
+            },
+          ],
+        }
+      },
+    },
+
+    watch: {
+      '$vuetify.breakpoint.smAndDown' (val) {
+        this.$emit('update:expandOnHover', !val)
+      },
+    },
+    mounted(){
+      this.setMenuItems() 
+    },
+
+    methods: {
+     
+      mapItem (item) {
+        return {
+          ...item,
+          children: item.children ? item.children.map(this.mapItem) : undefined,
+          title: this.$t(item.title),
+        }
+      },
+      setMenuItems() {
+      const role = localStorage.getItem('rol');
+      if (role === 'admin') {
+        this.items = [
         {
           group: '/home',
           icon: 'mdi-view-dashboard',
@@ -115,18 +176,10 @@
               title: 'Usuarios',
               to: 'users/users',
             },
-            {
-              title: 'Inventario',
-              to: 'inventory/inventory',
-            },
 
             {
               title: 'Servicios',
               to: 'Services/Services',
-            },
-            {
-              title: 'Roles',
-              to: 'Roles/Roles',
             },
             {
               title: 'Tipos de servicios',
@@ -188,113 +241,32 @@
             },
           ],
         },
-
+      ]
+      } else {
+        this.items = [
         {
           group: '/home',
-          icon: 'mdi-message-badge-outline',
-          title: 'contactos',
+          icon: 'mdi-format-page-break',
+          title: 'REPORTES',
           children: [
             {
-              title: 'contact.head',
-              to: 'contact/contact',
+              title: 'Solicitudes pendientes',
+              to: 'Requests/Requests',
             },
+            {
+              title: 'Ordenes completadas',
+              to: 'Orders/Orders',
+            },
+            {
+              title: 'Revisiones',
+              to: 'Reviews/Reviews',
+            },
+
           ],
         },
-        // item-solos
-
-        // item-con-grupo,se-le-coloca-children
-        // {
-        //   group: '/pages',
-        //   icon: 'mdi-image',
-        //   title: 'pages',
-        //   children: [
-        //     {
-        //       title: 'login',
-        //       to: 'login',
-        //     },
-        //     {
-        //       title: 'register',
-        //       to: 'pricing',
-        //     },
-        //     {
-        //       title: 'lock',
-        //       to: 'lock',
-        //     },
-        //     {
-        //       title: 'user',
-        //       to: 'user',
-        //     },
-        //     {
-        //       title: 'error',
-        //       to: '404',
-        //     },
-        //   ],
-        // },
-        // {
-        //   group: '/home/roles',
-        //   icon: 'mdi-account-key',
-        //   title: 'roles.title',
-        //   children: [
-        //     {
-        //       title: 'roles.title',
-        //       to: 'roles',
-        //     },
-        //   ],
-        // },
-      ],
-
-    }),
-
-    computed: {
-      ...mapState(['barColor', '']),
-      drawer: {
-        get () {
-          return this.$store.state.drawer
-        },
-        set (val) {
-          this.$store.commit('SET_DRAWER', val)
-        },
-      },
-      computedItems () {
-        return this.items.map(this.mapItem)
-      },
-      profile () {
-        return {
-          avatar: true,
-          group: '',
-          title: this.$t('avatar'),
-          children: [
-            {
-              href: '',
-              title: this.$t('my-profile'),
-            },
-            {
-              to: '',
-              title: this.$t('edit-profile'),
-            },
-            {
-              to: '',
-              title: this.$t('settings'),
-            },
-          ],
-        }
-      },
+        ];
+      }
     },
-
-    watch: {
-      '$vuetify.breakpoint.smAndDown' (val) {
-        this.$emit('update:expandOnHover', !val)
-      },
-    },
-
-    methods: {
-      mapItem (item) {
-        return {
-          ...item,
-          children: item.children ? item.children.map(this.mapItem) : undefined,
-          title: this.$t(item.title),
-        }
-      },
     },
   }
 </script>
