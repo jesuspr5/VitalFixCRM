@@ -1,8 +1,5 @@
 <template>
-  <v-container
-    id="data-tables"
-    tag="section"
-  >
+  <v-container id="data-tables" tag="section">
     <base-material-card
       color="greenligth"
       icon="mdi-truck-fast"
@@ -22,7 +19,7 @@
         label="Buscar"
         hide-details
         single-line
-        style="max-width: 250px;"
+        style="max-width: 250px"
       />
 
       <v-divider class="mt-3" />
@@ -45,10 +42,7 @@
             x-small
             @click="show(item)"
           >
-            <v-icon
-              small
-              v-text="'mdi-eye'"
-            />
+            <v-icon small v-text="'mdi-eye'" />
           </v-btn>
           <!-- <v-btn
             :key="2"
@@ -81,10 +75,7 @@
             x-small
             @click="deletepromotion(item)"
           >
-            <v-icon
-              small
-              v-text="'mdi-delete'"
-            />
+            <v-icon small v-text="'mdi-delete'" />
           </v-btn>
           <v-btn
             :key="5"
@@ -92,59 +83,35 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="sendEmail"
+            @click="sendEmail(item)"
           >
             <v-icon small v-text="'mdi-check'" />
           </v-btn>
-         
         </template>
       </v-data-table>
 
       <div class="text-center">
-        <v-snackbar
-          v-model="snackbar"
-          :timeout="timeout"
-          color="#75B768"
-        >
+        <v-snackbar v-model="snackbar" :timeout="timeout" color="#75B768">
           {{ message }}
 
           <template v-slot:action="{ attrs }">
-            <v-btn
-              color="white"
-              text
-              v-bind="attrs"
-              @click="snackbar = false"
-            >
+            <v-btn color="white" text v-bind="attrs" @click="snackbar = false">
               Close
             </v-btn>
           </template>
         </v-snackbar>
       </div>
-      <v-dialog
-        v-model="dialogDelete"
-        persistent
-        max-width="500px"
-      >
+      <v-dialog v-model="dialogDelete" persistent max-width="500px">
         <v-card>
-          <v-card-title
-            class="text-h5"
-          >
+          <v-card-title class="text-h5">
             Estas seguro que deseas eliminar este reclamo?
           </v-card-title>
           <v-card-actions>
             <v-spacer />
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="closeDelete"
-            >
+            <v-btn color="blue darken-1" text @click="closeDelete">
               Cancelar
             </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="deleteItemConfirm"
-            >
+            <v-btn color="blue darken-1" text @click="deleteItemConfirm">
               OK
             </v-btn>
             <v-spacer />
@@ -152,34 +119,17 @@
         </v-card>
       </v-dialog>
 
-      <v-dialog
-        v-model="dialogEmail"
-        persistent
-        max-width="500px"
-      >
+      <v-dialog v-model="dialogEmail" persistent max-width="500px">
         <v-card>
-          <v-card-title
-            class="text-h5"
-          >
-           Enviar correo ?
-          </v-card-title>
+          <v-card-title class="text-h5"> Enviar correo ? </v-card-title>
           <v-card-actions>
             <v-spacer />
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="enviarEmail"
-            >
-              OK
-            </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="closeEmail"
-            >
+
+            <v-btn color="blue darken-1" text @click="closeEmail">
               Cancelar
             </v-btn>
-            
+            <v-btn color="blue darken-1" text @click="enviarEmail"> OK </v-btn>
+
             <v-spacer />
           </v-card-actions>
         </v-card>
@@ -206,147 +156,166 @@
 </template>
 
   <script>
-  import i18n from '@/i18n'
-  import { GetList } from '../../../api/modules/claims'
-  export default {
-    name: 'DashboardDataTables',
-    data: () => ({
-      dialogDelete: false,
-      dialogEmail:false,
-      snackbar: false,
-      message: '',
-      id: null,
-      hidden: false,
-      headers: [
-        // {
-        //   text: i18n.t('claims.id'),
-        //   value: 'id',
-        // },
-        {
-          text: i18n.t('claims.title'),
-          value: 'title',
-        },
-        {
-          text: i18n.t('claims.date'),
-          value: 'fecha',
-        },
-        {
-          text: i18n.t('claims.description'),
-          value: 'description',
-        },
-        {
-          text: i18n.t('claims.status'),
-          value: 'status',
-        },
-        {
-          sortable: false,
-          text: 'Acciones',
-          value: 'actions',
-        },
-      ],
-      items: [],
-      search: undefined,
-
-    }),
-    mounted () {
-      this.data()
-    },
-    methods:
+import i18n from "@/i18n";
+import { GetList, sendEmail } from "../../../api/modules/claims";
+export default {
+  name: "DashboardDataTables",
+  data: () => ({
+    dialogDelete: false,
+    dialogEmail: false,
+    snackbar: false,
+    message: "",
+    id: null,
+    email: "",
+    hidden: false,
+    headers: [
+      // {
+      //   text: i18n.t('claims.id'),
+      //   value: 'id',
+      // },
       {
-        data: async function () {
-          let result
-          result = await GetList()
-          console.log("🚀 ~ result:", result)
-          if (result.status == 200) {
-            this.items = result.data
-          } else {
-            console.log("Error api")
-          }
-        },
-
-        create () {
-          this.$router.push({
-            name: 'ClaimsForm',
-            params: {
-              option: 1, // option 1 to create
-            },
-          })
-        },
-        show (item) {
-          this.$router.push({
-            name: 'ClaimsForm',
-            params: {
-              option: 2, // option 2 to show
-              claimsData: item,
-            },
-          })
-        },
-
-        edit (item) {
-          this.$router.push({
-            name: 'ClaimsForm',
-            params: {
-              option: 3, // option 3 to edit
-              claimsData: item,
-            },
-          })
-        },
-        deletepromotion (item) {
-          // hay que pasar un id
-          this.dialogDelete = true
-        },
-        closeDelete () {
-          this.dialogDelete = false
-        },
-       
-        sendEmail () {
-          // hay que pasar un id
-          this.dialogEmail = true
-        },
-        enviarEmail () {
-          // hay que pasar un id
-          this.dialogEmail = true 
-        },
-       
-        closeEmail () {
-          this.dialogEmail = false
-        },
-
-       
-        async deleteItemConfirm () {
-          let result
-          result = await deletepromotions(this.id)
-          console.log("🚀 ~ deleteItemConfirm ~ result:", result)
-          if (result === 'OK') {
-            this.snackbar = true
-            this.message = 'Eliminación exitosa'
-            this.data()
-            this.dialogDelete = false
-            setTimeout(() => {
-              this.$router.push({ name: 'Claims' })
-            }, 1000)
-          } else {
-            this.snackbar = true
-            this.message = 'ocurrio un error al eliminar el reclamo'
-            setTimeout(() => {
-              this.snackbar = false
-            }, 1000)
-          }
-        },
-        viewRequest(item) {
-        this.$router.push({
-          name: 'RequestDetails',
-          params: {
-            option: 4, 
-            request: item, // Assuming item has a request object with an id
-          },
-          
-        });
+        text: i18n.t("claims.title"),
+        value: "title",
       },
+      {
+        text: i18n.t("claims.date"),
+        value: "fecha",
       },
-  }
-  </script>
+      {
+        text: i18n.t("claims.description"),
+        value: "description",
+      },
+
+      {
+        sortable: false,
+        text: "Acciones",
+        value: "actions",
+      },
+    ],
+    items: [],
+    search: undefined,
+  }),
+  mounted() {
+    this.data();
+  },
+  methods: {
+    data: async function () {
+      let result;
+      result = await GetList();
+      console.log("🚀 ~ result:", result);
+      if (result.status == 200) {
+        this.items = result.data;
+      } else {
+        console.log("Error api");
+      }
+    },
+
+    create() {
+      this.$router.push({
+        name: "ClaimsForm",
+        params: {
+          option: 1, // option 1 to create
+        },
+      });
+    },
+    show(item) {
+      this.$router.push({
+        name: "ClaimsForm",
+        params: {
+          option: 2, // option 2 to show
+          claimsData: item,
+        },
+      });
+    },
+
+    edit(item) {
+      this.$router.push({
+        name: "ClaimsForm",
+        params: {
+          option: 3, // option 3 to edit
+          claimsData: item,
+        },
+      });
+    },
+    deletepromotion(item) {
+      // hay que pasar un id
+      this.dialogDelete = true;
+    },
+    closeDelete() {
+      this.dialogDelete = false;
+    },
+
+    sendEmail(item) {
+      this.dialogEmail = true;
+    },
+
+    closeEmail() {
+      this.dialogEmail = false;
+    },
+    async enviarEmail() {
+      const emailData = {
+        email: "juniorsanchez170597@gmail.com",
+        claimDetails: {
+          title: item.title,
+          description: item.description,
+        },
+      };
+      console.log("🚀 ~ enviarEmail ~ emailData:", emailData);
+
+      const result = await sendEmail(emailData.email, emailData.claimDetails);
+      if (result.status === 200) {
+        this.dialogEmail = false;
+        this.snackbar = true;
+        this.message = "Eliminación exitosa";
+
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 1000);
+        this.data();
+      } else {
+        console.log("ocurrio un error");
+        this.snackbar = true;
+        this.data();
+        this.dialogEmail = false;
+        this.message = "ocurrio un error al eliminar al usuario";
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 1000);
+      }
+    },
+
+    async deleteItemConfirm() {
+      let result;
+      result = await deletepromotions(this.id);
+      console.log("🚀 ~ deleteItemConfirm ~ result:", result);
+      if (result === "OK") {
+        this.snackbar = true;
+        this.message = "Eliminación exitosa";
+        this.data();
+        this.dialogDelete = false;
+        setTimeout(() => {
+          this.$router.push({ name: "Claims" });
+        }, 1000);
+      } else {
+        this.snackbar = true;
+        this.message = "ocurrio un error al eliminar el reclamo";
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 1000);
+      }
+    },
+    viewRequest(item) {
+      this.$router.push({
+        name: "RequestDetails",
+        params: {
+          option: 4,
+          request: item, // Assuming item has a request object with an id
+        },
+      });
+    },
+  },
+};
+</script>
 
   <style>
-
-  </style>
+</style>

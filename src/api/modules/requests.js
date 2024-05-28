@@ -6,6 +6,14 @@ async function getlistRequest() {
     return result;
 }
 
+
+async function asignarTecnico(idreq, idtec) {
+    const result = await apiHttp('patch', `/api/v1/requests/setTecnico/${idreq}`, idtec);
+    return result;
+
+}
+
+
 async function createrequest(request) {
     let result
     result = await axios.post(
@@ -27,14 +35,14 @@ async function updaterequest(request) {
     return result
 }
 
-async function deleterequest(id) {
-    let result
-    result = await axios.delete(
-        'https://back-vitalfix.onrender.com/api/v1/requests/' + id
-    )
-    console.log("🚀 ~ deleterequest ~ result:", result)
+async function cancelRequest(id) {
 
-    return result.request.statusText
+    const result = await apiHttp('patch', `/api/v1/requests/cancelarRequest/${id}`);
+    console.log("🚀 ~ cancelRequest ~ result:", result)
+    return result;
+
 }
 
-export { getlistRequest, createrequest, updaterequest, deleterequest }
+
+
+export { getlistRequest, createrequest, updaterequest, cancelRequest, asignarTecnico }

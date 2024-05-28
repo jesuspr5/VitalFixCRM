@@ -1,9 +1,5 @@
 <template>
-  <v-container
-    id="Servicios-profile"
-    fluid
-    tag="section"
-  >
+  <v-container id="Servicios-profile" fluid tag="section">
     <v-row justify="center">
       <base-material-card icon="mdi-account-outline">
         <template v-slot:heading>
@@ -13,10 +9,8 @@
             slider-color="white"
           >
             <v-tab class="mr-3">
-              <v-icon class="mr-2">
-                mdi-account-key
-              </v-icon>
-              {{ getTitleButton }}
+              <v-icon class="mr-2"> mdi-account-key </v-icon>
+              Tecnicos
             </v-tab>
           </v-tabs>
         </template>
@@ -37,124 +31,25 @@
             </v-btn>
           </v-fab-transition>
         </v-card-text>
-        <v-tabs-items
-          v-model="tabs"
-          class="transparent"
-        >
+        <v-tabs-items v-model="tabs" class="transparent">
           <v-tab-item :kei="0">
-            <v-form
-              ref="form"
-
-              lazy-validation
-            >
+            <v-form ref="form" lazy-validation>
               <v-container class="py-0">
                 <v-row>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.details"
-                      :label="$t('requests.details')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.maker"
-                      :label="$t('requests.maker')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.model"
-                      :label="$t('requests.model')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.serial"
-                      :label="$t('requests.serial')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.description"
-                      :label="$t('requests.description')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.name"
-                      :label="$t('requests.name')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.lastname"
-                      :label="$t('requests.lastname')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.email"
-                      :label="$t('requests.email')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.phone"
-                      :label="$t('requests.phone')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.address"
-                      :label="$t('requests.address')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.reference"
-                      :label="$t('requests.reference')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                 
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.status"
-                      :label="$t('requests.status')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
+                  <v-col cols="5">
+                    <v-select
+                      v-model="idtecnico"
+                      :items="tecnicos"
+                      label="Tecnicos"
+                      item-text="name"
+                      item-value="id"
+                      class="purple-phone"
+                      prepend-icon="mdi-account"
+                      outlined
                     />
                   </v-col>
 
-                  <v-col cols="6">
-                <v-img :src="requestsData.urlAvatar" max-height="300"  max-width="350" contain />
-               
-              </v-col>
-                  <v-col
-                    cols="12"
-                    class="text-right"
-                  >
+                  <v-col cols="12" class="text-right">
                     <v-btn
                       v-if="option !== 2"
                       color="success"
@@ -198,58 +93,94 @@
 
 
 <script>
-  import i18n from '@/i18n'
-  import { createrequest, updaterequest } from '../../../api/modules/requests'
-  export default {
+import i18n from "@/i18n";
+import {
+  createrequest,
+  getlistRequest,
+  updaterequest,
+  asignarTecnico,
+} from "../../../api/modules/requests";
+import { usersGetList } from "../../../api/modules/user";
+export default {
+  data: () => ({
+    tabs: 0,
+    option: 0,
+    timeout: 0,
+    title: "",
+    snackbar: "",
+    message: "",
+    tecnicos: [],
+    idtecnico: "",
+    id: "",
+  }),
+  computed: {
+    getTitle() {
+      if (this.option === 1) return i18n.t("requests.create");
+      else if (this.option === 2) return "Asignar";
+      else if (this.option === 3) return "Asignar";
+      else return i18n.t("requests.head");
+    },
+    getTitleButton() {
+      if (this.option === 1) return i18n.t("crud.create");
+      else if (this.option === 2) return "Asignar";
+      else if (this.option === 3) return "Asignar";
+      else return i18n.t("requests.head");
+    },
+  },
+  mounted() {
+    this.initialize();
+  },
+  methods: {
+    async initialize() {
+      let response;
+      response = await usersGetList();
 
-    data: () => ({
-      tabs: 0,
-      option: 0,
-      title: '',
-      snackbar: '',
-      message: '',
-      requestsData: {
-            details: '',
-            maker: '',
-            model: '',
-            serial: '',
-            description: '',
-            urlAvatar: '',
-            name: '',
-            lastname: '',
-            email: '',
-            phone: '',
-            address: '',
-            reference: ''
+      if (response.status == 200) {
+        this.tecnicos = response.data.filter((user) => user.role === "tecnico");
+      } else {
+        console.log("Error api");
+      }
+      this.option = this.$route.params.option;
+      if (this.option === 3 || this.option === 2) {
+        this.id = this.$route.params.requestsData.id;
+      }
+    },
+
+    async submit() {
+      if (this.option === 3) {
+        if (this.$refs.form.validate()) {
+          let response;
+          let idreq = this.id;
+          let tecnico = {
+            tecnicoId: this.idtecnico,
+          };
+
+          response = await asignarTecnico(idreq, tecnico);
+
+          if (response.status == 200) {
+            this.snackbar = true;
+            this.message = "el Tecnico se registro con exitoso";
+            setTimeout(() => {
+              this.$router.push({ name: "Requests" });
+            }, 2000);
+          } else {
+            this.snackbar = true;
+            this.message = "Hubo un error durante el registro";
+            setTimeout(() => {
+              this.snackbar = false;
+            }, 1000);
           }
-    }),
-    computed: {
-      getTitle () {
-        if (this.option === 1) return i18n.t('requests.create')
-        else if (this.option === 2) return i18n.t('requests.show')
-        else if (this.option === 3) return i18n.t('requests.edit')
-        else return i18n.t('requests.head')
-      },
-      getTitleButton () {
-        if (this.option === 1) return i18n.t('crud.create')
-        else if (this.option === 2) return i18n.t('crud.show')
-        else if (this.option === 3) return i18n.t('crud.edit')
-        else return i18n.t('requests.head')
-      },
-    },
-    mounted () {
-      this.initialize()
-    },
-    methods: {
-      initialize () {
-        this.option = this.$route.params.option
-        if (this.option === 3 || this.option === 2) {
-          this.requestsData = this.$route.params.requestsData
+        } else {
+          this.snackbar = true;
+          this.message = "Debe llenar todos los campos requeridos";
+          setTimeout(() => {
+            this.snackbar = false;
+          }, 1000);
         }
-      },
-     
+      }
     },
-  }
+  },
+};
 </script>
 
 <style>
