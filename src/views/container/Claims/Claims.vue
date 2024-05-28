@@ -79,7 +79,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deletepromotion(item)"
+            @click="deleteclaim(item)"
           >
             <v-icon
               small
@@ -92,7 +92,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="sendEmail"
+            @click="sendEmail()"
           >
             <v-icon small v-text="'mdi-check'" />
           </v-btn>
@@ -168,7 +168,7 @@
             <v-btn
               color="blue darken-1"
               text
-              @click="enviarEmail"
+              @click="sendEmail(item)"
             >
               OK
             </v-btn>
@@ -207,7 +207,7 @@
 
   <script>
   import i18n from '@/i18n'
-  import { GetList } from '../../../api/modules/claims'
+  import { GetList, deleteClaims, sendEmail } from '../../../api/modules/claims'
   export default {
     name: 'DashboardDataTables',
     data: () => ({
@@ -215,7 +215,7 @@
       dialogEmail:false,
       snackbar: false,
       message: '',
-      id: null,
+      idcla: null,
       hidden: false,
       headers: [
         // {
@@ -291,42 +291,79 @@
             },
           })
         },
-        deletepromotion (item) {
-          // hay que pasar un id
+        deleteclaim (item) {
+          this.idcla = item.id
           this.dialogDelete = true
         },
         closeDelete () {
           this.dialogDelete = false
         },
-       
-        sendEmail () {
-          // hay que pasar un id
+
+        enviarEmail (item) {
+          this.emailItem = item.request.email
+          console.log(emailItem)
           this.dialogEmail = true
         },
-        enviarEmail () {
-          // hay que pasar un id
-          this.dialogEmail = true 
-        },
-       
-        closeEmail () {
-          this.dialogEmail = false
+
+        sendEmail(item) {
+          this.dialogEmail = true;
         },
 
-       
+        closeEmail() {
+          this.dialogEmail = false;
+        },
+        async enviarEmail() {
+      const emailData = {
+        email: "juniorsanchez170597@gmail.com",
+        claimDetails: {
+          title: item.title,
+          description: item.description,
+        },
+      };
+      console.log("🚀 ~ enviarEmail ~ emailData:", emailData);
+
+      const result = await sendEmail(emailData.email, emailData.claimDetails);
+      if (result.status === 200) {
+        this.dialogEmail = false;
+        this.snackbar = true;
+        this.message = "Eliminación exitosa";
+
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 1000);
+        this.data();
+      } else {
+        console.log("ocurrio un error");
+        this.snackbar = true;
+        this.data();
+        this.dialogEmail = false;
+        this.message = "ocurrio un error al eliminar al usuario";
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 1000);
+      }
+    },
+
         async deleteItemConfirm () {
           let result
-          result = await deletepromotions(this.id)
-          console.log("🚀 ~ deleteItemConfirm ~ result:", result)
-          if (result === 'OK') {
+          result = await deleteClaims(this.idcla)
+
+          if (result.status === 200) {
+
+            this.dialogDelete = false
             this.snackbar = true
             this.message = 'Eliminación exitosa'
+
+            setTimeout(() => {
+
+              this.snackbar = false
+            }, 1000)
+            this.data()
+          } else {
+            console.log("ocurrio un error")
+            this.snackbar = true
             this.data()
             this.dialogDelete = false
-            setTimeout(() => {
-              this.$router.push({ name: 'Claims' })
-            }, 1000)
-          } else {
-            this.snackbar = true
             this.message = 'ocurrio un error al eliminar el reclamo'
             setTimeout(() => {
               this.snackbar = false
@@ -334,15 +371,15 @@
           }
         },
         viewRequest(item) {
-        this.$router.push({
-          name: 'RequestDetails',
-          params: {
-            option: 4, 
-            request: item, // Assuming item has a request object with an id
-          },
-          
-        });
-      },
+          this.$router.push({
+            name: 'RequestDetails',
+            params: {
+              option: 4,
+              request: item, // Assuming item has a request object with an id
+            },
+
+          });
+        },
       },
   }
   </script>

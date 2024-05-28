@@ -61,40 +61,37 @@
   </template>
   
   <script>
-    export default {
-      name: 'RequestDetails',
-      data: () => ({
-       
-          request: {
-            details: '',
-            maker: '',
-            model: '',
-            serial: '',
-            description: '',
-            urlAvatar: '',
-            name: '',
-            lastname: '',
-            email: '',
-            phone: '',
-            address: '',
-            reference: ''
-          },
+  export default {
+    name: 'RequestDetails',
+    data: () => ({
 
-         
-      }),
-      mounted() {
-        this.getRequestDetails();
-      },
-      methods: {
-        getRequestDetails() {   
-         this.option = this.$route.params.option
+      request: {
+        details: '',
+        maker: '',
+        model: '',
+        serial: '',
+        description: '',
+        urlAvatar: '',
+        name: '',
+        lastname: '',
+        email: '',
+        phone: '',
+        address: '',
+        reference: ''
+      }
+        
+    }),
+    mounted() {
+      this.getRequestDetails();
+    },
+    methods: {
+      getRequestDetails() {   
+        this.option = this.$route.params.option
         if (this.option === 4 ) {
           this.request = this.$route.params.request.request
-          
-          
         } 
-          },
-          goBack() {
+      },
+      goBack() {
         this.$router.go(-1);
       }
         },
