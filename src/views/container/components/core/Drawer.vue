@@ -14,19 +14,13 @@
     <!-- img dentro del v-navigation-drawer
      :src="barImage" -->
     <template v-slot:img="props">
-      <v-img
-        :gradient="`to bottom, ${barColor}`"
-        v-bind="props"
-      />
+      <v-img :gradient="`to bottom, ${barColor}`" v-bind="props" />
     </template>
 
     <v-list-item two-line>
       <v-list-item-content>
         <v-list-item-title class="text-uppercase font-weight-regular display-2">
-          <v-img
-            :src="logo"
-            class="img-Logo"
-          />
+          <v-img :src="logo" class="img-Logo" />
           <!-- <span class="logo-mini">{{ $t("ct") }}</span>
           <span class="logo-normal">{{ $t("tim") }}</span>
           -->
@@ -45,29 +39,18 @@
 
     <v-divider class="mb-2" /> -->
 
-    <v-list
-      expand
-      nav
-    >
+    <v-list expand nav>
       <!-- Style cascading bug  -->
       <!-- https://github.com/vuetifyjs/vuetify/pull/8574 -->
       <div />
       <!--  -->
       <template v-for="(item, i) in computedItems">
         <!-- grupo de item, ejemplo: users, pages, roles -->
-        <base-item-group
-          v-if="item.children"
-          :key="`group-${i}`"
-          :item="item"
-        >
+        <base-item-group v-if="item.children" :key="`group-${i}`" :item="item">
           <!--  -->
         </base-item-group>
         <!-- item solos, ejemplo blog -->
-        <base-item
-          v-else
-          :key="`item-${i}`"
-          :item="item"
-        />
+        <base-item v-else :key="`item-${i}`" :item="item" />
       </template>
 
       <!-- Style cascading bug  -->
@@ -79,200 +62,192 @@
 
 <script>
 // Utilities
-  import { mapState } from 'vuex'
-  import logo from '../../../../assets/LogoVitalFix.png'
+import { mapState } from "vuex";
+import logo from "../../../../assets/LogoVitalFix.png";
 
-  export default {
-    name: 'DashboardCoreDrawer',
+export default {
+  name: "DashboardCoreDrawer",
 
-    props: {
-      expandOnHover: {
-        type: Boolean,
-        default: false,
+  props: {
+    expandOnHover: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  data: () => ({
+    logo,
+    items: [],
+  }),
+
+  computed: {
+    ...mapState(["barColor", ""]),
+    drawer: {
+      get() {
+        return this.$store.state.drawer;
+      },
+      set(val) {
+        this.$store.commit("SET_DRAWER", val);
       },
     },
-
-    data: () => ({
-      logo,
-      items: [],
-
-    }),
-
-    computed: {
-      ...mapState(['barColor', '']),
-      drawer: {
-        get () {
-          return this.$store.state.drawer
-        },
-        set (val) {
-          this.$store.commit('SET_DRAWER', val)
-        },
-      },
-      computedItems () {
-        return this.items.map(this.mapItem)
-      },
-      profile () {
-        return {
-          avatar: true,
-          group: '',
-          title: this.$t('avatar'),
-          children: [
-            {
-              href: '',
-              title: this.$t('my-profile'),
-            },
-            {
-              to: '',
-              title: this.$t('edit-profile'),
-            },
-            {
-              to: '',
-              title: this.$t('settings'),
-            },
-          ],
-        }
-      },
+    computedItems() {
+      return this.items.map(this.mapItem);
     },
-
-    watch: {
-      '$vuetify.breakpoint.smAndDown' (val) {
-        this.$emit('update:expandOnHover', !val)
-      },
+    profile() {
+      return {
+        avatar: true,
+        group: "",
+        title: this.$t("avatar"),
+        children: [
+          {
+            href: "",
+            title: this.$t("my-profile"),
+          },
+          {
+            to: "",
+            title: this.$t("edit-profile"),
+          },
+          {
+            to: "",
+            title: this.$t("settings"),
+          },
+        ],
+      };
     },
-    mounted(){
-      this.setMenuItems() 
-    },
+  },
 
-    methods: {
-     
-      mapItem (item) {
-        return {
-          ...item,
-          children: item.children ? item.children.map(this.mapItem) : undefined,
-          title: this.$t(item.title),
-        }
-      },
-      setMenuItems() {
-      const role = localStorage.getItem('rol');
-      if (role === 'admin') {
+  watch: {
+    "$vuetify.breakpoint.smAndDown"(val) {
+      this.$emit("update:expandOnHover", !val);
+    },
+  },
+  mounted() {
+    this.setMenuItems();
+  },
+
+  methods: {
+    mapItem(item) {
+      return {
+        ...item,
+        children: item.children ? item.children.map(this.mapItem) : undefined,
+        title: this.$t(item.title),
+      };
+    },
+    setMenuItems() {
+      const role = localStorage.getItem("rol");
+      if (role === "admin") {
         this.items = [
-        {
-          group: '/home',
-          icon: 'mdi-view-dashboard',
-          title: 'DASHBOARD',
-          children: [
-            {
-              title: 'Dashboard',
-              to: 'Dashboard',
-            }, 
-          ],
-        },
-        {
-          group: '/home',
-          icon: 'mdi-plus-network', // se cambia este icono en los iconos del material de vue
-          title: 'GESTIONES',
-          children: [
-            {
-              title: 'Usuarios',
-              to: 'users/users',
-            },
+          {
+            group: "/home",
+            icon: "mdi-view-dashboard",
+            title: "DASHBOARD",
+            children: [
+              {
+                title: "Dashboard",
+                to: "Dashboard",
+              },
+            ],
+          },
+          {
+            group: "/home",
+            icon: "mdi-plus-network", // se cambia este icono en los iconos del material de vue
+            title: "GESTIONES",
+            children: [
+              {
+                title: "Usuarios",
+                to: "users/users",
+              },
 
-            {
-              title: 'Servicios',
-              to: 'Services/Services',
-            },
-            {
-              title: 'Equipos',
-              to: 'Equips/Equips',
-            },
-            {
-              title: 'Tipos de servicios',
-              to: 'typeServices/typeServices',
-            },
-          ],
-        },
+              {
+                title: "Servicios",
+                to: "Services/Services",
+              },
+              {
+                title: "Equipos",
+                to: "Equips/Equips",
+              },
+              {
+                title: "Tipos de servicios",
+                to: "typeServices/typeServices",
+              },
+            ],
+          },
 
-        {
-          group: '/home',
-          icon: 'mdi-format-page-break',
-          title: 'REPORTES',
-          children: [
-            {
-              title: 'Solicitudes pendientes',
-              to: 'Requests/Requests',
-            },
-            {
-              title: 'Ordenes completadas',
-              to: 'Orders/Orders',
-            },
-            {
-              title: 'Revisiones',
-              to: 'Reviews/Reviews',
-            },
-
-          ],
-        },
-        {
-          group: '/home',
-          icon: 'mdi-account-group',
-          title: 'PROMOCIONES',
-          children: [
-            {
-              title: 'Promociones',
-              to: 'Promotions/Promotions',
-            },
-          ],
-        },
-        {
-          group: '/home',
-          icon: 'mdi-lightbulb-on-outline',
-          title: 'SUGERENCIAS',
-          children: [
-            {
-              title: 'Sugerencias',
-              to: 'Suggestions/Suggestions',
-            },
-          ],
-        },
-        {
-          group: '/home',
-          icon: 'mdi-comment-remove-outline',
-          title: 'RECLAMOS',
-          children: [
-            {
-              title: 'Reclamos',
-              to: 'Claims/Claims',
-            },
-          ],
-        },
-      ]
+          {
+            group: "/home",
+            icon: "mdi-format-page-break",
+            title: "REPORTES",
+            children: [
+              {
+                title: "Solicitudes pendientes",
+                to: "Requests/Requests",
+              },
+              {
+                title: "Ordenes completadas",
+                to: "Orders/Orders",
+              },
+            ],
+          },
+          {
+            group: "/home",
+            icon: "mdi-account-group",
+            title: "PROMOCIONES",
+            children: [
+              {
+                title: "Promociones",
+                to: "Promotions/Promotions",
+              },
+            ],
+          },
+          {
+            group: "/home",
+            icon: "mdi-lightbulb-on-outline",
+            title: "SUGERENCIAS",
+            children: [
+              {
+                title: "Sugerencias",
+                to: "Suggestions/Suggestions",
+              },
+            ],
+          },
+          {
+            group: "/home",
+            icon: "mdi-comment-remove-outline",
+            title: "RECLAMOS",
+            children: [
+              {
+                title: "Reclamos",
+                to: "Claims/Claims",
+              },
+            ],
+          },
+        ];
       } else {
         this.items = [
-        {
-          group: '/home',
-          icon: 'mdi-format-page-break',
-          title: 'REPORTES',
-          children: [
-            {
-              title: 'Solicitudes pendientes',
-              to: 'Requests/Requests',
-            },
-            {
-              title: 'Ordenes completadas',
-              to: 'Orders/Orders',
-            },
-            {
-              title: 'Revisiones',
-              to: 'Reviews/Reviews',
-            },
-
-          ],
-        },
+          {
+            group: "/home",
+            icon: "mdi-format-page-break",
+            title: "REPORTES",
+            children: [
+              {
+                title: "Solicitudes pendientes",
+                to: "Requests/Requests",
+              },
+              {
+                title: "Ordenes completadas",
+                to: "Orders/Orders",
+              },
+              {
+                title: "Revisiones",
+                to: "Reviews/Reviews",
+              },
+            ],
+          },
         ];
       }
     },
-    },
-  }
+  },
+};
 </script>
 
 <style lang="sass">

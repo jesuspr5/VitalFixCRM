@@ -21,24 +21,18 @@ async function updateClaim(claim, id) {
     return result
 }
 
-async function deleteClaim(id) {
-    const result = await apiHttp('delete', '/api/v1/claims/' + id)
-    console.log("🚀 ~ delete claim ~ result:", result)
-
-    return result.request.statusText
-}
-
-
-async function sendEmail(email, claimDetails) {
-    const result = await apiHttp('post', '/api/v1/mail', {
-        email: email,
-        claimDetails: {
-            title: claimDetails.title,
-            description: claimDetails.description,
-        },
-    })
+async function sendEmail(data) {
+    const result = await apiHttp('post', '/api/v1/mail', data)
     console.log("🚀 ~ sendEmail ~ result:", result)
     return result
 
 }
-export { GetList, sendEmail }
+
+async function deleteClaims(id) {
+    const result = await apiHttp('delete', '/api/v1/claims/' + id)
+    console.log("🚀 ~ delete claim ~ result:", result)
+
+    return result
+}
+
+export { GetList, deleteClaims, sendEmail, updateClaim }

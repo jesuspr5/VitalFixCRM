@@ -94,12 +94,7 @@
 
 <script>
 import i18n from "@/i18n";
-import {
-  createrequest,
-  getlistRequest,
-  updaterequest,
-  asignarTecnico,
-} from "../../../api/modules/requests";
+import { asignarTecnico, sendEmail } from "../../../api/modules/requests";
 import { usersGetList } from "../../../api/modules/user";
 export default {
   data: () => ({
@@ -112,6 +107,9 @@ export default {
     tecnicos: [],
     idtecnico: "",
     id: "",
+    request: {
+      email: "",
+    },
   }),
   computed: {
     getTitle() {
@@ -143,6 +141,7 @@ export default {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
         this.id = this.$route.params.requestsData.id;
+        this.request = this.$rouete.params.requestsData;
       }
     },
 
@@ -155,9 +154,20 @@ export default {
             tecnicoId: this.idtecnico,
           };
 
+          const data = {
+            email: this.request.email,
+            claimDetails: {
+              title: "¡Tu solicitud ha sido asignada a un técnico!",
+              createdAt: new Date().toISOString(),
+              description:
+                "Nos complace informarte que hemos asignado un técnico especialmente capacitado para atender tu solicitud. Estamos comprometidos en brindarte el mejor servicio posible y estamos seguros de que nuestro equipo resolverá tu problema de manera rápida y eficiente. Estaremos monitoreando de cerca el progreso de tu solicitud y nos mantendremos en contacto contigo para cualquier actualización adicional. ¡Gracias por confiar en nosotros para resolver tus necesidades!",
+            },
+          };
+
           response = await asignarTecnico(idreq, tecnico);
 
           if (response.status == 200) {
+            await sendEmail(data);
             this.snackbar = true;
             this.message = "el Tecnico se registro con exitoso";
             setTimeout(() => {

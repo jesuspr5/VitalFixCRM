@@ -272,13 +272,13 @@ export default {
       result = await cancelRequest(this.idReq);
 
       if (result.status === 200) {
+        this.dialogDelete = false;
         this.snackbar = true;
         this.message = "Solicitud cancelada ";
-        this.data();
-        this.dialogDelete = false;
         setTimeout(() => {
-          this.$router.push({ name: "Requests" });
+          this.snackbar = false;
         }, 1000);
+        this.data();
       } else {
         this.snackbar = true;
         this.message = "ocurrio un error al eliminar la solicitud";

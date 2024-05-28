@@ -43,6 +43,12 @@ async function cancelRequest(id) {
 
 }
 
+async function sendEmail(data) {
+    const result = await apiHttp('post', '/api/v1/mail', data)
+    console.log("🚀 ~ sendEmail ~ result:", result)
+    return result
+
+}
 
 
-export { getlistRequest, createrequest, updaterequest, cancelRequest, asignarTecnico }
+export { getlistRequest, createrequest, updaterequest, cancelRequest, asignarTecnico, sendEmail }

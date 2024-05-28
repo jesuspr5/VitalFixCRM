@@ -44,7 +44,7 @@
           >
             <v-icon small v-text="'mdi-eye'" />
           </v-btn>
-          <v-btn
+          <!-- <v-btn
             :key="2"
             color="four"
             fab
@@ -53,8 +53,8 @@
             @click="edit(item)"
           >
             <v-icon small v-text="'mdi-check'" />
-          </v-btn>
-          <!--<v-btn
+          </v-btn> -->
+          <v-btn
             :key="3"
             color="primary"
             fab
@@ -62,11 +62,8 @@
             x-small
             @click="deleteorders(item)"
           >
-            <v-icon
-              small
-              v-text="'mdi-delete'"
-            />
-          </v-btn>-->
+            <v-icon small v-text="'mdi-delete'" />
+          </v-btn>
         </template>
       </v-data-table>
 
@@ -116,7 +113,7 @@ export default {
     snackbar: false,
     message: "",
     hidden: false,
-    idord: null,
+    idord: "",
     headers: [
       {
         text: i18n.t("requests.email"),

@@ -73,7 +73,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deletepromotion(item)"
+            @click="deleteclaim(item)"
           >
             <v-icon small v-text="'mdi-delete'" />
           </v-btn>
@@ -121,7 +121,9 @@
 
       <v-dialog v-model="dialogEmail" persistent max-width="500px">
         <v-card>
-          <v-card-title class="text-h5"> Enviar correo ? </v-card-title>
+          <v-card-title class="text-h5">
+            Enviar correo para el reclamo ?
+          </v-card-title>
           <v-card-actions>
             <v-spacer />
 
@@ -157,17 +159,20 @@
 
   <script>
 import i18n from "@/i18n";
-import { GetList, sendEmail } from "../../../api/modules/claims";
+import { deleteClaims, GetList, sendEmail } from "../../../api/modules/claims";
 export default {
   name: "DashboardDataTables",
   data: () => ({
     dialogDelete: false,
     dialogEmail: false,
     snackbar: false,
+    setTimeout: 0,
     message: "",
-    id: null,
-    email: "",
+    idClaim: "",
     hidden: false,
+    email: "",
+    title: "",
+    description: "",
     headers: [
       // {
       //   text: i18n.t('claims.id'),
@@ -185,7 +190,10 @@ export default {
         text: i18n.t("claims.description"),
         value: "description",
       },
-
+      {
+        text: i18n.t("claims.status"),
+        value: "status",
+      },
       {
         sortable: false,
         text: "Acciones",
@@ -237,73 +245,7 @@ export default {
         },
       });
     },
-    deletepromotion(item) {
-      // hay que pasar un id
-      this.dialogDelete = true;
-    },
-    closeDelete() {
-      this.dialogDelete = false;
-    },
 
-    sendEmail(item) {
-      this.dialogEmail = true;
-    },
-
-    closeEmail() {
-      this.dialogEmail = false;
-    },
-    async enviarEmail() {
-      const emailData = {
-        email: "juniorsanchez170597@gmail.com",
-        claimDetails: {
-          title: item.title,
-          description: item.description,
-        },
-      };
-      console.log("🚀 ~ enviarEmail ~ emailData:", emailData);
-
-      const result = await sendEmail(emailData.email, emailData.claimDetails);
-      if (result.status === 200) {
-        this.dialogEmail = false;
-        this.snackbar = true;
-        this.message = "Eliminación exitosa";
-
-        setTimeout(() => {
-          this.snackbar = false;
-        }, 1000);
-        this.data();
-      } else {
-        console.log("ocurrio un error");
-        this.snackbar = true;
-        this.data();
-        this.dialogEmail = false;
-        this.message = "ocurrio un error al eliminar al usuario";
-        setTimeout(() => {
-          this.snackbar = false;
-        }, 1000);
-      }
-    },
-
-    async deleteItemConfirm() {
-      let result;
-      result = await deletepromotions(this.id);
-      console.log("🚀 ~ deleteItemConfirm ~ result:", result);
-      if (result === "OK") {
-        this.snackbar = true;
-        this.message = "Eliminación exitosa";
-        this.data();
-        this.dialogDelete = false;
-        setTimeout(() => {
-          this.$router.push({ name: "Claims" });
-        }, 1000);
-      } else {
-        this.snackbar = true;
-        this.message = "ocurrio un error al eliminar el reclamo";
-        setTimeout(() => {
-          this.snackbar = false;
-        }, 1000);
-      }
-    },
     viewRequest(item) {
       this.$router.push({
         name: "RequestDetails",
@@ -312,6 +254,80 @@ export default {
           request: item, // Assuming item has a request object with an id
         },
       });
+    },
+
+    deleteclaim(item) {
+      this.idClaim = item.id;
+      this.dialogDelete = true;
+    },
+    closeDelete() {
+      this.dialogDelete = false;
+    },
+    async deleteItemConfirm() {
+      let result;
+      result = await deleteClaims(this.idClaim);
+      console.log("🚀 ~ deleteItemConfirm ~ result:", result);
+      if (result.status === 200) {
+        this.dialogDelete = false;
+        this.snackbar = true;
+        this.message = "Eliminación exitosa";
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 1000);
+        this.data();
+      } else {
+        this.dialogDelete = false;
+        this.snackbar = true;
+        this.message = "ocurrio un error al eliminar el reclamo";
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 1000);
+      }
+      this.dialogDelete = false;
+    },
+    sendEmail(item) {
+      this.email = item.request.email;
+      this.title = item.title;
+      this.description =
+        "queremos informarte que tu reclamo esta siendo revisado por nuestros operadores ,";
+      this.dialogEmail = true;
+    },
+    closeEmail() {
+      this.dialogEmail = false;
+    },
+
+    async enviarEmail() {
+      // const email = this.email;
+      let response;
+      const data = {
+        email: this.email,
+        claimDetails: {
+          title: this.title,
+          createdAt: new Date().toISOString(),
+          description:
+            "Gracias por ponerte en contacto con nosotros y por informarnos sobre tu reclamo. Queremos asegurarte que hemos recibido tu solicitud y que nuestro equipo de operadores está actualmente revisando los detalles de tu caso con la mayor diligencia posible.",
+        },
+      };
+
+      response = await sendEmail(data);
+      console.log("🚀 ~ deleteItemConfirm ~ result:", response);
+      if (response.status === 201) {
+        this.dialogEmail = false;
+        this.snackbar = true;
+        this.message = "Correo enviado....";
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 1000);
+        this.data();
+      } else {
+        this.dialogEmail = false;
+        this.snackbar = true;
+        this.message = "ocurrio un error al eliminar el reclamo";
+        setTimeout(() => {
+          this.snackbar = false;
+        }, 1000);
+      }
+      this.dialogEmail = false;
     },
   },
 };
