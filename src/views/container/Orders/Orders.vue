@@ -60,7 +60,7 @@
             fab
             class="px-1 ml-1"
             x-small
-            @click="deleteorders(item)"
+            @click="deleteorder(item)"
           >
             <v-icon small v-text="'mdi-delete'" />
           </v-btn>
@@ -88,7 +88,7 @@
             <v-btn color="blue darken-1" text @click="closeDelete">
               Cancelar
             </v-btn>
-            <v-btn color="blue darken-1" text @click="deleteItemConfirm">
+            <v-btn color="blue darken-1" text @click="deleteOrderConfirm">
               OK
             </v-btn>
             <v-spacer />
@@ -100,11 +100,9 @@
 </template>
 
     <script>
-import {
-  getlistRequest,
-  deleterequests,
-  asignarTecnico,
-} from "../../../api/modules/requests";
+import { deleteorder } from "../../../api/modules/orders";
+
+import { getlistRequest } from "../../../api/modules/requests";
 import i18n from "@/i18n";
 export default {
   name: "DashboardDataTables",
@@ -198,21 +196,18 @@ export default {
       this.dialogDelete = false;
     },
 
-    deleteOrderConfirm() {
-      this.dialogDelete = false;
-    },
     async deleteOrderConfirm() {
       let result;
       result = await deleteorder(this.idord);
       console.log("🚀 ~ deleteItemConfirm ~ result:", result);
-      if (result === "OK") {
+      if (result.status === 200) {
+        this.dialogDelete = false;
         this.snackbar = true;
         this.message = "Eliminación exitosa";
-        this.data();
-        this.dialogDelete = false;
         setTimeout(() => {
-          this.$router.push({ name: "Order" });
+          this.snackbar = false;
         }, 1000);
+        this.data();
       } else {
         this.snackbar = true;
         this.message = "ocurrio un error al eliminar la orden";
@@ -220,6 +215,7 @@ export default {
           this.snackbar = false;
         }, 1000);
       }
+      this.dialogDelete = false;
     },
   },
 };

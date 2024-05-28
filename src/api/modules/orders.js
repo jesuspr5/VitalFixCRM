@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { apiHttp } from '../axiosApi'
 
 async function GetList() {
     const result = await apiHttp('get', '/api/v1/orders');
@@ -17,10 +18,10 @@ async function updateorder(orders) {
 }
 
 async function deleteorder(id) {
-    const result = await apiHttp('delete', '/api/v1/orders/' + id)
+    const result = await apiHttp('delete', '/api/v1/requests/' + id)
     console.log("🚀 ~ deleteorder ~ result:", result)
 
-    return result.request.statusText
+    return result
 }
 
 export { GetList, createorder, updateorder, deleteorder }

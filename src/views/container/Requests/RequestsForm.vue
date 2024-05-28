@@ -107,9 +107,7 @@ export default {
     tecnicos: [],
     idtecnico: "",
     id: "",
-    request: {
-      email: "",
-    },
+    email: "",
   }),
   computed: {
     getTitle() {
@@ -127,6 +125,11 @@ export default {
   },
   mounted() {
     this.initialize();
+    const params = this.$route.params;
+    if (params.option === 3 || params.option === 2) {
+      this.id = params.requestsData.id;
+      this.email = params.requestsData.email; // Assuming email is nested in requestsData
+    }
   },
   methods: {
     async initialize() {
@@ -141,7 +144,6 @@ export default {
       this.option = this.$route.params.option;
       if (this.option === 3 || this.option === 2) {
         this.id = this.$route.params.requestsData.id;
-        this.request = this.$rouete.params.requestsData;
       }
     },
 
@@ -155,7 +157,7 @@ export default {
           };
 
           const data = {
-            email: this.request.email,
+            email: this.email,
             claimDetails: {
               title: "¡Tu solicitud ha sido asignada a un técnico!",
               createdAt: new Date().toISOString(),
@@ -163,6 +165,7 @@ export default {
                 "Nos complace informarte que hemos asignado un técnico especialmente capacitado para atender tu solicitud. Estamos comprometidos en brindarte el mejor servicio posible y estamos seguros de que nuestro equipo resolverá tu problema de manera rápida y eficiente. Estaremos monitoreando de cerca el progreso de tu solicitud y nos mantendremos en contacto contigo para cualquier actualización adicional. ¡Gracias por confiar en nosotros para resolver tus necesidades!",
             },
           };
+          console.log("🚀 ~ submit ~ data:", data);
 
           response = await asignarTecnico(idreq, tecnico);
 
