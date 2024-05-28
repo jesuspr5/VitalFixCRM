@@ -129,7 +129,7 @@
           <v-card-title
             class="text-h5"
           >
-            Estas seguro que deseas eliminar este servicio?
+            Estas seguro que deseas eliminar este reclamo?
           </v-card-title>
           <v-card-actions>
             <v-spacer />
@@ -218,10 +218,10 @@
       id: null,
       hidden: false,
       headers: [
-        {
-          text: i18n.t('claims.id'),
-          value: 'id',
-        },
+        // {
+        //   text: i18n.t('claims.id'),
+        //   value: 'id',
+        // },
         {
           text: i18n.t('claims.title'),
           value: 'title',
@@ -327,7 +327,7 @@
             }, 1000)
           } else {
             this.snackbar = true
-            this.message = 'ocurrio un error al eliminar la promocion'
+            this.message = 'ocurrio un error al eliminar el reclamo'
             setTimeout(() => {
               this.snackbar = false
             }, 1000)

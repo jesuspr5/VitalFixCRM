@@ -164,10 +164,10 @@
       id: null,
       hidden: false,
       headers: [
-        {
-          text: i18n.t('typeservice.id'),
-          value: 'id',
-        },
+        // {
+        //   text: i18n.t('typeservice.id'),
+        //   value: 'id',
+        // },
         {
           text: i18n.t('typeservice.name'),
           value: 'name',
@@ -266,7 +266,7 @@
             this.snackbar = true
             this.data();
             this.dialogDelete = false
-            this.message = 'ocurrio un error al eliminar el tipo de servicio'
+            this.message = 'ocurrio un error al eliminar la promocion'
             setTimeout(() => {
               this.snackbar = false
             }, 1000)

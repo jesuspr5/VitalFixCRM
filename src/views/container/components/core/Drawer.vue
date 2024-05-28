@@ -182,6 +182,10 @@
               to: 'Services/Services',
             },
             {
+              title: 'Equipos',
+              to: 'Equips/Equips',
+            },
+            {
               title: 'Tipos de servicios',
               to: 'typeServices/typeServices',
             },

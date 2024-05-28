@@ -108,7 +108,7 @@
           <v-card-title
             class="text-h5"
           >
-            Estas seguro que deseas eliminar este servicio?
+            Estas seguro que deseas eliminar esta promoción?
           </v-card-title>
           <v-card-actions>
             <v-spacer />
@@ -163,10 +163,10 @@
       id: null,
       hidden: false,
       headers: [
-        {
-          text: i18n.t('promotions.id'),
-          value: 'id',
-        },
+        // {
+        //   text: i18n.t('promotions.id'),
+        //   value: 'id',
+        // },
         {
           text: i18n.t('promotions.titulo'),
           value: 'titulo',
@@ -209,8 +209,6 @@
             console.log("Error api")
           }
         },
-
-
         create () {
           this.$router.push({
             name: 'PromotionsForm',
@@ -243,28 +241,32 @@
         deletepromotion (item) {
           // hay que pasar un id
           this.dialogDelete = true
+          this.dialogDelete = true
+          this.iddelete = item.id
+          console.log("ID a borrar in modalDelete", this.iddelete)
         },
         closeDelete () {
           this.dialogDelete = false
         },
 
-        deleteItemConfirm () {
-          this.dialogDelete = false
-        },
         async deleteItemConfirm () {
           let result
-          result = await deletepromotions(this.id)
+          result = await deletepromotions(this.iddelete)
           console.log("🚀 ~ deleteItemConfirm ~ result:", result)
-          if (result === 'OK') {
+          if (result === 200) {
+            this.dialogDelete = false
             this.snackbar = true
             this.message = 'Eliminación exitosa'
-            this.data()
-            this.dialogDelete = false
+            
             setTimeout(() => {
-              this.$router.push({ name: 'Promotions' })
+              console.log("close message")
+              this.snackbar = false
             }, 1000)
+            this.data()
           } else {
             this.snackbar = true
+            this.data()
+            this.dialogDelete = false
             this.message = 'ocurrio un error al eliminar la promocion'
             setTimeout(() => {
               this.snackbar = false

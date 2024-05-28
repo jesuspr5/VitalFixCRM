@@ -24,7 +24,6 @@ async function deleteTypeService(id) {
     result = await apiHttp('delete', '/api/v1/typeservice/' + id)
     console.log("🚀 ~ delete typeservice ~ result:", result)
     return result
-
 }
 
 export { GetList, createTypeServicio, updateTypeService, deleteTypeService }
