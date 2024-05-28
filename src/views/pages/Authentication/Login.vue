@@ -72,7 +72,7 @@
                 style="text-transform: capitalize;"
                @click="goToRegister"
               >
-               Registar 
+               Registrar
               </pages-btn>
             </v-col>
 

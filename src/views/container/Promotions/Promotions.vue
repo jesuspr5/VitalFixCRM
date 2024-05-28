@@ -209,8 +209,6 @@
             console.log("Error api")
           }
         },
-
-
         create () {
           this.$router.push({
             name: 'PromotionsForm',

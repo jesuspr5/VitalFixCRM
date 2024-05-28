@@ -193,6 +193,15 @@
     "edit": "Editar Inventario",
     "show": "Mostrar Inventario"
   },
+  "equips":{
+    "head": "Equipos",
+    "name": "Nombre",
+    "description": "Descripción",
+    "status":"Status",
+    "create": "Crear equipo",
+    "edit": "Editar equipo",
+    "show": "Mostrar equipo"
+  },
   "suggestions": {
     "head": "Sugerencias",
     "title": "Título",
