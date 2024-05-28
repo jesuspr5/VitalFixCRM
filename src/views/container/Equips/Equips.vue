@@ -158,7 +158,7 @@
     name: 'Equips.vue',
     data: () => ({
       hidden: false,
-      idequi: null,
+      id: null,
       dialogDelete: false,
       snackbar: false,
       message: '',
@@ -172,10 +172,7 @@
           text: i18n.t('equips.description'),
           value: 'description',
         },
-        {
-          text: i18n.t('equips.status'),
-          value: 'status',
-        },
+     
         {
           sortable: false,
           text: 'Acciones',
@@ -230,10 +227,10 @@
         },
         deleteEquip (item) {
           // hay que pasar un id
+         
           this.dialogDelete = true
-          this.dialogDelete = true
-          this.iddelete = item.id
-          console.log("ID a borrar in modalDelete", this.iddelete)
+          this.id = item.id
+         
         },
         closeDelete () {
           this.dialogDelete = false
@@ -241,7 +238,7 @@
 
         async deleteEquipConfirm () {
           let result
-          result = await deleteEquips(this.iddelete)
+          result = await deleteEquips(this.id)
           if (result.status === 200) {
             this.dialogDelete = false
             this.snackbar = true

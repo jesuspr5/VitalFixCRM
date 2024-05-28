@@ -41,15 +41,14 @@
           v-model="tabs"
           class="transparent"
         >
-          <v-tab-item :kei="0">
+          <v-tab-item :key="0">
             <v-form
               ref="form"
-
               lazy-validation
             >
               <v-container class="py-0">
-                <v-row>
-                  <v-col cols="7">
+                <v-row justify="center">
+                  <v-col cols="12" md="8">
                     <v-text-field
                       v-model="equip.name"
                       :label="$t('equips.name')"
@@ -58,7 +57,7 @@
                     />
                   </v-col>
 
-                  <v-col cols="7">
+                  <v-col cols="12" md="8">
                     <v-textarea
                       v-model="equip.description"
                       :label="$t('equips.description')"
@@ -66,16 +65,21 @@
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="equip.status"
-                      :label="$t('equips.status')"
+
+                  <v-col :hidden="option === 2" cols="12" md="8">
+                    <v-file-input
+                      v-model="file"
+                      label="Subir Imagen"
+                      accept="image/*"
+                      prepend-icon="mdi-camera"
                       class="purple-input"
-                      :readonly="option === 2 ? true : false"
+                      @change="onFileChange"
                     />
                   </v-col>
+
                   <v-col
                     cols="12"
+                    md="8"
                     class="text-right"
                   >
                     <v-btn
@@ -87,10 +91,10 @@
                       {{ getTitleButton }}
                     </v-btn>
                   </v-col>
-                  <v-col cols="6">
-                <v-img :src="equip.urlImagen" max-height="300"  max-width="350" contain />
-               
-              </v-col>
+
+                  <v-col :hidden="option === 1 || option === 3" cols="12" md="8">
+                    <v-img :src="imagePreview" max-height="300" max-width="350" contain />
+                  </v-col>
                 </v-row>
 
                 <div class="text-center">
@@ -137,9 +141,11 @@
         id: '',
         name: '',
         description: '',
-        urlImagen:'',
-        status: '',
+        urlImagen:null,
+       
       },
+      file: null,
+      imagePreview:'',
 
     }),
     computed: {
@@ -163,79 +169,59 @@
       initialize () {
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
-          this.equip = this.$route.params.equipsData
+          this.equip = this.$route.params.equipsData;
+        this.imagePreview = this.equip.urlImagen;
         }
       },
-      async submit () {
+      onFileChange(event) {
+      const file = event.target.files[0];
+      if (file) {
+        this.file = file;
+      } else {
+        this.file = null;
+      }
+    },
+    async submit() {
+      if (this.$refs.form.validate()) {
+        const formData = new FormData();
+        formData.append('name', this.equip.name);
+        formData.append('description', this.equip.description);
+        if (this.file) {
+          formData.append('image', this.file);
+        }
+
+        let response;
         if (this.option === 1) {
-          if (this.$refs.form.validate()) {
-
-            let equips = {
-              name: this.equip.name,
-              description: this.equip.description,
-              urlImagen: "",
-              status:"Activo"
-
-            }
-            console.log("🚀 ~ submit ~ equips:", equips)
-            equips = await createEquips(equips)
-
-            if (equips.status == 201) {
-              this.snackbar = true
-              this.message = 'Registro exitoso'
-              setTimeout(() => {
-                this.$router.push({ name: 'Equips' })
-              }, 2000)
-            } else {
-              this.snackbar = true
-              this.message = 'Hubo un error durante el registro'
-              setTimeout(() => {
-                this.snackbar = false
-              }, 1000)
-            }
-
-          } else {
-            this.snackbar = true
-            this.message = 'Debe llenar todos los campos requeridos'
-            setTimeout(() => {
-              this.snackbar = false
-            }, 1000)
-          }
-        }  
-        if (this.option === 3) {
-          if (this.$refs.form.validate()) {
-
-            let id = this.equip.id
-            let equips = {
-              name: this.equip.name,
-              description: this.equip.description,
-              urlImagen:"",
-              status: this.equip.status,
-            }
-
-            equips = await updateEquips(equips, id)
-            if (equips.status == 200) {
-              this.snackbar = true
-              this.message = 'Actualizacion exitosa'
-              setTimeout(() => {
-                this.$router.push({ name: 'Equips' })
-              }, 2000)
-            } else {
-              this.snackbar = true
-              this.message = 'Hubo un error durante la actualizacion'
-              setTimeout(() => {
-                this.snackbar = false
-              }, 1000)
-            }
-          } else {
-            this.snackbar = true
-            this.message = 'Debe llenar todos los campos requeridos'
-            setTimeout(() => {
-              this.snackbar = false
-            }, 1000)
-          }
+          response = await createEquips(formData);
+        } else if (this.option === 3) {
+          let id = this.equip.id
+          console.log("🚀 ~ submit ~ id:", id)
+          response = await updateEquips(id,formData);
+          
         }
-      },
+
+        if ((this.option === 1 && response.status === 201) || (this.option === 3 && response.status === 200)) {
+          this.snackbar = true
+          this.message = 'Operación exitosa'
+          setTimeout(() => {
+            this.$router.push({ name: 'Equips' })
+          }, 2000)
+        } else {
+          this.snackbar = true
+          this.message = 'Hubo un error durante la operación'
+          setTimeout(() => {
+            this.snackbar = false
+          }, 1000)
+        }
+      } else {
+        this.snackbar = true
+        this.message = 'Debe llenar todos los campos requeridos'
+        setTimeout(() => {
+          this.snackbar = false
+        }, 1000)
+      }
+    },
+  
     },
   }
 </script>
@@ -244,5 +230,28 @@
 .lbl {
   padding: 0.5em;
   margin: auto;
+}
+</style>
+<style scoped>
+#equips-profile .v-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#equips-profile .v-file-input,
+#equips-profile .v-text-field,
+#equips-profile .v-textarea {
+  width: 100%;
+}
+
+#equips-profile .text-right {
+  text-align: right;
+}
+
+#equips-profile .v-img {
+  display: flex;
+  justify-content: center;
 }
 </style>
