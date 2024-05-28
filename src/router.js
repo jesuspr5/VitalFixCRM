@@ -186,9 +186,15 @@ export default new Router({
         },
 
         {
-          path: '/requests/request',
+          path: '/claim/request',
           name: 'RequestDetails',
           component: () => import('@/views/container/Claims/RequestDetails.vue')
+        },
+
+        {
+          path: '/request/service',
+          name: 'DetailsService',
+          component: () => import('@/views/container/Requests/DetailsService')
         },
 
         {

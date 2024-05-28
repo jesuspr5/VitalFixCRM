@@ -58,6 +58,16 @@
             />
           </v-btn>
           <v-btn
+            :key="4"
+            color="blue"
+            fab
+            class="px-1 ml-1"
+            x-small
+            @click="viewRequest(item)"
+          >
+            <v-icon small v-text="'mdi-file-document'" />
+          </v-btn>
+          <v-btn
             :key="2"
             color="four"
             fab
@@ -67,7 +77,7 @@
           >
             <v-icon
               small
-              v-text="'mdi-pencil'"
+              v-text="'mdi-check'"
             />
           </v-btn>
           <v-btn
@@ -140,7 +150,7 @@
 
       <v-card-text style="height: 100px; position: relative">
         <v-fab-transition>
-          <v-btn
+          <!-- <v-btn
             fab
             dark
             large
@@ -151,7 +161,7 @@
             @click="create"
           >
             <v-icon>mdi-plus</v-icon>
-          </v-btn>
+          </v-btn> -->
         </v-fab-transition>
       </v-card-text>
     </base-material-card>
@@ -170,46 +180,29 @@
       hidden: false,
       idblog: '',
       headers: [
-        {
-          text: i18n.t('requests.id'),
-          value: 'id',
-        },
-        {
-          text: i18n.t('requests.detailsEquip'),
-          value: 'detailsEquip',
-        },
-        {
-          text: i18n.t('requests.manufacturer'),
-          value: 'manufacturer',
-        },
-        {
-          text: i18n.t('requests.description'),
-          value: 'description',
-        },
-        {
-          text: i18n.t('requests.Name'),
-          value: 'names',
-        },
-        {
-          text: i18n.t('requests.lastName'),
-          value: 'lastNames',
-        },
+       
         {
           text: i18n.t('requests.email'),
           value: 'email',
         },
+        
         {
           text: i18n.t('requests.phone'),
           value: 'phone',
         },
         {
-          text: i18n.t('requests.address'),
-          value: 'address',
+          text: i18n.t('requests.details'),
+          value: 'details',
         },
         {
-          text: i18n.t('requests.references'),
-          value: 'references',
+          text: i18n.t('requests.service.name'),
+          value: 'service.name',
         },
+        {
+          text: i18n.t('requests.service.price'),
+          value: 'service.price',
+        },
+      
         {
           sortable: false,
           text: 'Acciones',
@@ -219,6 +212,9 @@
       items: [],
       search: undefined,
 
+      "model": "string",
+    "serial": "string",
+
     }),
     async mounted () {
       this.data()
@@ -227,7 +223,7 @@
       data: async function () {
         let result
         result = await getlistRequest()
-        this.items = result
+        this.items = result.data
         console.log('EL STOREE: ', result)
       // console.log('array',this.items)
       },
@@ -259,6 +255,15 @@
           },
         })
       },
+      viewRequest(item) {
+        this.$router.push({
+          name: 'DetailsService',
+          params: {
+            option: 4, 
+            requestsData: item, // Assuming item has a request object with an id
+          }
+            })
+        },
       deleterequests (item) {
         // hay que pasar un id
         this.dialogDelete = true

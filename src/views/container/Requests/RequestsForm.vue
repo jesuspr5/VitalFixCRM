@@ -51,16 +51,16 @@
                 <v-row>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="requestsData.detailsEquip"
-                      :label="$t('requests.detailsEquip')"
+                      v-model="requestsData.details"
+                      :label="$t('requests.details')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="requestsData.manufacturer"
-                      :label="$t('requests.manufacturer')"
+                      v-model="requestsData.maker"
+                      :label="$t('requests.maker')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
@@ -75,8 +75,8 @@
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="requestsData.numberSerial"
-                      :label="$t('requests.numberSerial')"
+                      v-model="requestsData.serial"
+                      :label="$t('requests.serial')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
@@ -91,16 +91,16 @@
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="requestsData.names"
-                      :label="$t('requests.Name')"
+                      v-model="requestsData.name"
+                      :label="$t('requests.name')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="requestsData.lastNames"
-                      :label="$t('requests.lastName')"
+                      v-model="requestsData.lastname"
+                      :label="$t('requests.lastname')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
@@ -123,14 +123,6 @@
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="requestsData.country"
-                      :label="$t('requests.country')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
                       v-model="requestsData.address"
                       :label="$t('requests.address')"
                       class="purple-input"
@@ -139,36 +131,13 @@
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="requestsData.references"
-                      :label="$t('requests.references')"
+                      v-model="requestsData.reference"
+                      :label="$t('requests.reference')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.city"
-                      :label="$t('requests.city')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.state"
-                      :label="$t('requests.state')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
-                  <v-col cols="7">
-                    <v-text-field
-                      v-model="requestsData.zip"
-                      :label="$t('requests.zip')"
-                      class="purple-input"
-                      :readonly="option === 2 ? true : false"
-                    />
-                  </v-col>
+                 
                   <v-col cols="7">
                     <v-text-field
                       v-model="requestsData.status"
@@ -177,6 +146,11 @@
                       :readonly="option === 2 ? true : false"
                     />
                   </v-col>
+
+                  <v-col cols="6">
+                <v-img :src="requestsData.urlAvatar" max-height="300"  max-width="350" contain />
+               
+              </v-col>
                   <v-col
                     cols="12"
                     class="text-right"
@@ -221,6 +195,8 @@
   </v-container>
 </template>
 
+
+
 <script>
   import i18n from '@/i18n'
   import { createrequest, updaterequest } from '../../../api/modules/requests'
@@ -233,25 +209,19 @@
       snackbar: '',
       message: '',
       requestsData: {
-        detailsEquip: '',
-        manufacturer: '',
-        model: '',
-        numberSerial: '',
-        description: '',
-        name: '',
-        lastNames: '',
-        email: '',
-        phone: '',
-        country: '',
-        address: '',
-        references: '',
-        city: '',
-        state: '',
-        zip: '',
-        status: '',
-
-      },
-
+            details: '',
+            maker: '',
+            model: '',
+            serial: '',
+            description: '',
+            urlAvatar: '',
+            name: '',
+            lastname: '',
+            email: '',
+            phone: '',
+            address: '',
+            reference: ''
+          }
     }),
     computed: {
       getTitle () {
@@ -277,97 +247,7 @@
           this.requestsData = this.$route.params.requestsData
         }
       },
-      async submit () {
-        if (this.option === 1) {
-          if (this.$refs.form.validate()) {
-
-            let requests = {
-              detailsEquip: this.requestsData.detailsEquip,
-              manufacturer: this.requestsData.manufacturer,
-              model: this.requestsData.model,
-              numberSerial: this.requestsData.numberSerial,
-              description: this.requestsData.description,
-              name: this.requestsData.name,
-              lastNames: this.requestsData.lastNames,
-              email: this.requestsData.email,
-              phone: this.requestsData.phone,
-              country: this.requestsData.country,
-              address: this.requestsData.address,
-              references: this.requestsData.references,
-              city: this.requestsData.city,
-              state: this.requestsData.state,
-              zip: this.requestsData.zip,
-
-            }
-            console.log("🚀 ~ submit ~ requests:", requests)
-            requests = await createresquest(requests)
-
-            if (requests != null) {
-              this.snackbar = true
-              this.message = 'Registro exitoso'
-              setTimeout(() => {
-                this.$router.push({ name: 'requests' })
-              }, 2000)
-            } else {
-              this.snackbar = true
-              this.message = 'Hubo un error durante el registro'
-              setTimeout(() => {
-                this.snackbar = false
-              }, 1000)
-            }
-
-          } else {
-            this.snackbar = true
-            this.message = 'Debe llenar todos los campos requeridos'
-            setTimeout(() => {
-              this.snackbar = false
-            }, 1000)
-          }
-        }  
-        if (this.option === 3) {
-          if (this.$refs.form.validate()) {
-
-            let requests = {
-              detailsEquip: this.requestsData.detailsEquip,
-              manufacturer: this.requestsData.manufacturer,
-              model: this.requestsData.model,
-              numberSerial: this.requestsData.numberSerial,
-              description: this.requestsData.description,
-              name: this.requestsData.name,
-              lastNames: this.requestsData.lastNames,
-              email: this.requestsData.email,
-              phone: this.requestsData.phone,
-              country: this.requestsData.country,
-              address: this.requestsData.address,
-              references: this.requestsData.references,
-              city: this.requestsData.city,
-              state: this.requestsData.state,
-              zip: this.requestsData.zip,
-            }
-            console.log('request que se envia ', requests)
-            requests = await updaterequest(requests)
-            if (requests != null) {
-              this.snackbar = true
-              this.message = 'Actualizacion exitosa'
-              setTimeout(() => {
-                this.$router.push({ name: 'requests' })
-              }, 2000)
-            } else {
-              this.snackbar = true
-              this.message = 'Hubo un error durante la actualizacion'
-              setTimeout(() => {
-                this.snackbar = false
-              }, 1000)
-            }
-          } else {
-            this.snackbar = true
-            this.message = 'Debe llenar todos los campos requeridos'
-            setTimeout(() => {
-              this.snackbar = false
-            }, 1000)
-          }
-        }
-      },
+     
     },
   }
 </script>

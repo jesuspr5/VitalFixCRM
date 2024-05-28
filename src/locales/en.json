@@ -77,26 +77,38 @@
   },
   "requests": {
     "head": "Solicitudes",
-    "id": "ID",
-    "detailsEquip": "Detalles del equipo",
-    "manufacturer": "Fabricante",
+    "id": "id",
+    "details": "Detalles",
+    "maker": "Marca",
     "model": "Modelo",
-    "numberSerial": "Número del serial",
-    "description": "Descripción del equipo",
-    "Name": "Nombres",
-    "lastName": "Apellidos",
-    "email": "Email",
-    "phone": "Teléfono",
-    "country": "País",
-    "address": "Dirección",
-    "references": "Referencias",
-    "city": "Ciudad",
-    "state": "Estado",
-    "zip": "ZIP/Codigo postal",
-    "status": "Estatus",
-    "create": "Crear Inventario",
-    "edit": "Editar Inventario",
-    "show": "Mostrar Inventario"
+    "serial": "Serial",
+    "description": "Descripción",
+    "urlAvatar": "Imagen",
+    "name": "Nombre",
+    "lastname": "Apellido",
+    "email": "Correo",
+    "phone": "Telefono",
+    "address": "Direccion",
+    "reference": "Referencia",
+    "status": "activo",
+    "service": {
+      "id": "service id",
+      "name": "Nombre del servicio",
+      "price": "Precio ",
+      "description": "Descripción del Servicio",
+      "type": {
+        "id": "id tipo",
+        "name": "tipo del servicio",
+        "warrantyDays": "Dias de Garantia"
+      }
+    },
+    "claims": [
+      {
+        "title": "Titulo del reclamo",
+        "fecha": "Fecha",
+        "description": "Descripción del reclamo"
+      }
+    ]
   },
   "blogs": {
     "head": "Blogs",
