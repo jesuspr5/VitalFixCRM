@@ -13,16 +13,16 @@ async function createEquips(equips) {
 }
 
 async function updateEquips(id, equipsToUpdate,) {
-    const result = await apiHttp('patch', '/api/v1/equips' + id, equipsToUpdate)
+    const result = await apiHttp('patch', '/api/v1/equips/' + id, equipsToUpdate)
     console.log('equipo actualizado', result)
     return result
 }
 
 async function deleteEquips(id) {
     let result
-    result = await apiHttp('delete', '/api/v1/equips' + id)
+    result = await apiHttp('delete', '/api/v1/equips/' + id)
     console.log("🚀 ~ deleteEquips ~ result:", result)
-    return result.status
+    return result
 }
 
 export { GetList, createEquips, updateEquips, deleteEquips }
