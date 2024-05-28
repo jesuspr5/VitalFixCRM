@@ -241,31 +241,35 @@
           })
         },
         deleteservice (item) {
-          // hay que pasar un id
+         this.idser = item.id
           this.dialogDelete = true
         },
         closeDelete () {
           this.dialogDelete = false
         },
 
-        deleteServiceConfirm () {
-          this.dialogDelete = false
-        },
-        async deleteServiceConfirm () {
+       
+        async deleteItemConfirm () {
           let result
           result = await deleteservices(this.idser)
-          console.log("🚀 ~ deleteServiceConfirm ~ result:", result)
-          if (result === 'OK') {
+          
+          if (result.status === 200) {
+         
+            this.dialogDelete = false
             this.snackbar = true
             this.message = 'Eliminación exitosa'
-            this.data()
-            this.dialogDelete = false
+           
             setTimeout(() => {
-              this.$router.push({ name: 'Promotions' })
+             
+              this.snackbar = false
             }, 1000)
+            this.data()
           } else {
+            console.log("ocurrio un error")
             this.snackbar = true
-            this.message = 'ocurrio un error al eliminar la promocion'
+            this.data();
+            this.dialogDelete = false
+            this.message = 'ocurrio un error al eliminar al usuario'
             setTimeout(() => {
               this.snackbar = false
             }, 1000)

@@ -12,7 +12,7 @@ async function createEquips(equips) {
     return result
 }
 
-async function updateEquips(equipsToUpdate, id) {
+async function updateEquips(id, equipsToUpdate,) {
     const result = await apiHttp('patch', '/api/v1/equips' + id, equipsToUpdate)
     console.log('equipo actualizado', result)
     return result

@@ -24,13 +24,9 @@ async function updateservices(serviceToUpdate, id) {
 }
 
 async function deleteservices(id) {
-    let result
-    result = await axios.delete(
-        'https://back-vitalfix.onrender.com/api/v1/services/' + id
-    )
-    console.log("🚀 ~ deleteservices ~ result:", result)
-
-    return result.request.statusText
+    const result = await apiHttp('delete', '/api/v1/services/' + id)
+    console.log('Servicio eliminado', result)
+    return result
 }
 
 export { GetList, createservices, updateservices, deleteservices, GetListtype }

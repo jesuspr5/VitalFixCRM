@@ -51,7 +51,7 @@
                 <v-row>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="equipsData.name"
+                      v-model="equip.name"
                       :label="$t('equips.name')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
@@ -60,7 +60,7 @@
 
                   <v-col cols="7">
                     <v-textarea
-                      v-model="equipsData.description"
+                      v-model="equip.description"
                       :label="$t('equips.description')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
@@ -68,7 +68,7 @@
                   </v-col>
                   <v-col cols="7">
                     <v-text-field
-                      v-model="equipsData.status"
+                      v-model="equip.status"
                       :label="$t('equips.status')"
                       class="purple-input"
                       :readonly="option === 2 ? true : false"
@@ -87,6 +87,10 @@
                       {{ getTitleButton }}
                     </v-btn>
                   </v-col>
+                  <v-col cols="6">
+                <v-img :src="equip.urlImagen" max-height="300"  max-width="350" contain />
+               
+              </v-col>
                 </v-row>
 
                 <div class="text-center">
@@ -129,10 +133,11 @@
       title: '',
       snackbar: '',
       message: '',
-      equipsData: {
+      equip: {
         id: '',
         name: '',
         description: '',
+        urlImagen:'',
         status: '',
       },
 
@@ -158,7 +163,7 @@
       initialize () {
         this.option = this.$route.params.option
         if (this.option === 3 || this.option === 2) {
-          this.equipsData = this.$route.params.equipsData
+          this.equip = this.$route.params.equipsData
         }
       },
       async submit () {
@@ -166,8 +171,9 @@
           if (this.$refs.form.validate()) {
 
             let equips = {
-              name: this.equipsData.name,
-              description: this.equipsData.description,
+              name: this.equip.name,
+              description: this.equip.description,
+              urlImagen: "",
               status:"Activo"
 
             }
@@ -199,11 +205,12 @@
         if (this.option === 3) {
           if (this.$refs.form.validate()) {
 
-            let id = this.equipsData.id
+            let id = this.equip.id
             let equips = {
-              name: this.equipsData.name,
-              description: this.equipsData.description,
-              status: this.equipsData.status,
+              name: this.equip.name,
+              description: this.equip.description,
+              urlImagen:"",
+              status: this.equip.status,
             }
 
             equips = await updateEquips(equips, id)
